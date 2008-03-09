@@ -4,7 +4,7 @@
 ====Customizable charts can be generated using the [http://code.google.com/apis/chart/ Google Chart API]. The GChart Wrapper allows python access to the parameters of constructing the charts and displaying the URLs generated.====
 
 ===Constructing==
-{{
+{{{
 
 class GChart(UserDict)
     """Main chart class
@@ -14,4 +14,4 @@ class GChart(UserDict)
     kwargs will be put into chart params if valid"""
     def __init__(self, ctype, dataset, **kwargs):
 
-}}
+}}}
