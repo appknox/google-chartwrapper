@@ -1,16 +1,10 @@
 #labels Featured
 #extensive examples of API usage and output
 
-== Wrapper Examples ==
+== Chart Examples ==
 
-
-
-
-
-
-
+=== Line ===
 {{{
-    # line
     G = GChart('lc',['helloWorld'])
     G.axes.type('xy')
     G.axes.label(0,'Mar','Apr','May','June','July')
@@ -19,8 +13,8 @@
 }}}
 http://chart.apis.google.com/chart?chd=s:helloWorld&chs=300x150&cht=lc&chxl=0:|Mar|Apr|May|June|July|1:||50+Kb&chxt=x,y&.png
 
+=== Bar ===
 {{{    
-    # bar
     G = GChart('bhg',['hell','orld'])
     G.color('cc0000','00aa00') 
     G.bar(10,5,10)   
@@ -28,8 +22,8 @@ http://chart.apis.google.com/chart?chd=s:helloWorld&chs=300x150&cht=lc&chxl=0:|M
 }}}
 http://chart.apis.google.com/chart?chco=cc0000,00aa00&chd=s:hell,orld&chs=300x150&cht=bhg&chbh=10,5,10&.png
 
+=== Pie ===
 {{{
-    # pie
     G = GChart('p3',['helloWorld'])
     G.label(*'helloWorld')
     G.color('ff0000') 
@@ -37,16 +31,16 @@ http://chart.apis.google.com/chart?chco=cc0000,00aa00&chd=s:hell,orld&chs=300x15
 }}}
 http://chart.apis.google.com/chart?chco=ff0000&chd=s:helloWorld&chs=300x150&cht=p3&chl=h|e|l|l|o|W|o|r|l|d&.png
 
+=== Venn ===
 {{{
-    # venn
     G = GChart('v',['foooobaaaar'])
     G.color('ff0000','00ff00') 
     print G
 }}}
 http://chart.apis.google.com/chart?chco=ff0000,00ff00&chd=s:foooobaaaar&chs=300x150&cht=v&.png
 
+=== Axes ===
 {{{ 
-    # axes
     G = GChart('lc',['foobarbaz'])
     G.color('76A4FB') 
     G.axes.type('xyrx')
@@ -59,8 +53,8 @@ http://chart.apis.google.com/chart?chco=ff0000,00ff00&chd=s:foooobaaaar&chs=300x
 }}}
 http://chart.apis.google.com/chart?chxt=x,y,r,x&chd=s:foobarbaz&chxs=0,0000dd,14&chco=76A4FB&chs=300x150&cht=lc&chxl=0:|Foo|Bar|Baz|1:|0|100|2:|A|B|C&chls=2.0&.png
 
+=== Line styles and grid ===
 {{{
-    # line styles and grid
     G = GChart('lc',['foobarbaz'])
     G.color('76A4FB') 
     G.axes.type('xy')
@@ -72,8 +66,8 @@ http://chart.apis.google.com/chart?chxt=x,y,r,x&chd=s:foobarbaz&chxs=0,0000dd,14
 }}}
 http://chart.apis.google.com/chart?chxt=x,y&chd=s:foobarbaz&chg=20.0,50.0&chco=76A4FB&chs=300x150&cht=lc&chxl=0:|0|1|2|3|4|5|1:|0|50|100&chls=3.0,6.0,3.0&.png
 
+=== Markers ===
 {{{    
-    # markers
     G = GChart('lc',['helloWorld'])
     # shape
     G.marker('c','ff0000',0,1,20)
@@ -86,8 +80,8 @@ http://chart.apis.google.com/chart?chxt=x,y&chd=s:foobarbaz&chg=20.0,50.0&chco=7
 }}}
 http://chart.apis.google.com/chart?chd=s:helloWorld&chs=300x150&cht=lc&chm=c,ff0000,0,1,20|d,00ff00,0,2,15|a,000099,0,3,10|R,A0BAE9,0,0.1,0.6|r,E5ECF9,0,0.75,0.25&.png
 
+=== Fill ===
 {{{    
-    # fill
     G = GChart('lc',['99','cefhjkqwrlgYcfgc','QSSVXXdkfZUMRTUQ','HJJMOOUbVPKDHKLH','AA'])
     G.marker('b','76A4FB',0,1,0)
     G.marker('b','224499',1,2,0)
@@ -97,8 +91,8 @@ http://chart.apis.google.com/chart?chd=s:helloWorld&chs=300x150&cht=lc&chm=c,ff0
 }}}
 http://chart.apis.google.com/chart?chd=s:99,cefhjkqwrlgYcfgc,QSSVXXdkfZUMRTUQ,HJJMOOUbVPKDHKLH,AA&chs=300x150&cht=lc&chm=b,76A4FB,0,1,0|b,224499,1,2,0|b,FF0000,2,3,0|B,80C65A,3,4,0&.png
 
+===  Axes, title and legend ===
 {{{    
-    # axes, title and legend
     G = GChart('lc',['FOETHECat','lkjtf3asv','KATYPSNXJ'])
     G.color('ff0000','00ff00','0000ff')
     G.legend('animals','vegetables','minerals')
