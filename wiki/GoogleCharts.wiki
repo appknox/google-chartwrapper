@@ -59,7 +59,7 @@ class GChart(UserDict)
 'May.png'
 }}}
 
-*Open URL directly in default web browser*
+*Show URL directly in default web browser*
 {{{
->>> G.open()
+>>> G.show()
 }}}
