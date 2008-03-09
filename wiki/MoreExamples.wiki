@@ -13,7 +13,6 @@
 
 }}}
 http://chart.apis.google.com/chart?chxt=x,y&chs=300x150&chd=s:helloWorld&chxl=0:|Mar|Apr|May|June|July|1:||50+Kb&cht=lc&chls=2.0,10.0,2.0&.png
-----
 
 === Bar ===
 {{{
@@ -25,7 +24,6 @@ http://chart.apis.google.com/chart?chxt=x,y&chs=300x150&chd=s:helloWorld&chxl=0:
 
 }}}
 http://chart.apis.google.com/chart?chco=cc0000,00aa00&chd=s:hell,orld&chs=300x150&cht=bhg&chbh=10,5,10&.png
-----
 
 === Pie ===
 {{{
@@ -37,7 +35,7 @@ http://chart.apis.google.com/chart?chco=cc0000,00aa00&chd=s:hell,orld&chs=300x15
 
 }}}
 http://chart.apis.google.com/chart?chco=ff0000&chd=s:helloWorld&chs=300x150&cht=p3&chl=h|e|l|l|o|W|o|r|l|d&.png
-----
+
 
 === Venn ===
 {{{
@@ -48,7 +46,7 @@ http://chart.apis.google.com/chart?chco=ff0000&chd=s:helloWorld&chs=300x150&cht=
 
 }}}
 http://chart.apis.google.com/chart?chco=ff0000,00ff00&chd=s:foooobaaaar&chs=300x150&cht=v&.png
-----
+
 
 === Axes ===
 {{{
@@ -65,7 +63,7 @@ http://chart.apis.google.com/chart?chco=ff0000,00ff00&chd=s:foooobaaaar&chs=300x
 
 }}}
 http://chart.apis.google.com/chart?chxt=x,y,r,x&chd=s:foobarbaz&chxs=0,0000dd,14&chco=76A4FB&chs=300x150&cht=lc&chxl=0:|Foo|Bar|Baz|1:|0|100|2:|A|B|C&chls=2.0&.png
-----
+
 
 === Grid ===
 {{{
@@ -81,7 +79,7 @@ http://chart.apis.google.com/chart?chxt=x,y,r,x&chd=s:foobarbaz&chxs=0,0000dd,14
 
 }}}
 http://chart.apis.google.com/chart?chxt=x,y&chd=s:foobarbaz&chg=20.0,25.0&chco=76A4FB&chs=300x150&cht=lc&chxl=0:|0|1|2|3|4|5|1:|0|50|100&chls=3.0,6.0,3.0&.png
-----
+
 
 === Markers ===
 {{{
@@ -96,7 +94,7 @@ http://chart.apis.google.com/chart?chxt=x,y&chd=s:foobarbaz&chg=20.0,25.0&chco=7
 
 }}}
 http://chart.apis.google.com/chart?chd=s:helloWorld&chs=300x150&cht=lc&chm=c,ff0000,0,1,20|d,00ff00,0,2,15|a,000099,0,3,10|R,A0BAE9,0,0.1,0.6|r,E5ECF9,0,0.75,0.25&.png
-----
+
 
 === Fill ===
 {{{
@@ -110,7 +108,7 @@ http://chart.apis.google.com/chart?chd=s:helloWorld&chs=300x150&cht=lc&chm=c,ff0
 
 }}}
 http://chart.apis.google.com/chart?chd=s:99,cefhjkqwrlgYcfgc,QSSVXXdkfZUMRTUQ,HJJMOOUbVPKDHKLH,AA&chs=300x150&cht=lc&chm=b,76A4FB,0,1,0|b,224499,1,2,0|b,FF0000,2,3,0|B,80C65A,3,4,0&.png
-----
+
 
 === Legend ===
 {{{
@@ -126,4 +124,3 @@ http://chart.apis.google.com/chart?chd=s:99,cefhjkqwrlgYcfgc,QSSVXXdkfZUMRTUQ,HJ
 
 }}}
 http://chart.apis.google.com/chart?chxt=x,y&chd=s:FOETHECat,lkjtf3asv,KATYPSNXJ&chco=ff0000,00ff00,0000ff&chs=300x150&cht=lc&chtt=My%2020%20questions&chxl=0:|Oct|Nov|Dec|1:||20K|60K|100K&chdl=animals|vegetables|minerals&.png
-----
