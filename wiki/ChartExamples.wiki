@@ -1,5 +1,13 @@
 #labels Featured,Phase-Implementation,Phase-Deploy
 == Chart examples adapted from the Google examples taken from the wrapper module unit tests ==
+=== Title ===
+{{{
+G = GChart('lc',['beautifulisbetterthanuglyexplicitisbetterthanimplicitsimpleisbetterthancomplexcomplexisbetterthancomplicated'])
+G.title('The Zen of Python','009900',36)
+G.color('009900')
+}}}
+http://chart.apis.google.com/chart?chd=s:beautifulisbetterthanuglyexplicitisbetterthanimplicitsimpleisbetterthancomplexcomplexisbetterthancomplicated&chco=009900&chts=009900,36&chs=300x150&cht=lc&chtt=The%20Zen%20of%20Python&.png
+
 === Line ===
 {{{
 G = GChart('lc',['helloWorld'])
