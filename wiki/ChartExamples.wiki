@@ -1,6 +1,5 @@
 #labels Featured,Phase-Implementation,Phase-Deploy
-== Chart Examples ==
-==== Taken from the module unit tests ====
+==== Taken from the module unit tests ====== Chart examples adapted from the Google examples taken from the wrapper module unit tests ==
 === Line ===
 {{{
 G = GChart('lc',['helloWorld'])
