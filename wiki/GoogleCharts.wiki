@@ -1,0 +1,15 @@
+#labels Featured,Phase-Design
+==GoogleCharts and the GChart Wrapper==
+
+====Customizable charts can be generated using the [http://code.google.com/apis/chart/ Google Chart API]. The GChart Wrapper allows python access to the parameters of constructing the charts and displaying the URLs generated.====
+
+===Constructing==
+{{
+class GChart(UserDict)
+    """Main chart class
+    
+    chart type must be valid for cht parameter
+    dataset can be any python iterable
+    kwargs will be put into chart params if valid"""
+    def __init__(self, ctype, dataset, **kwargs):
+}}
