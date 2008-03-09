@@ -3,10 +3,10 @@
 === Title ===
 {{{
 G = GChart('lc',['beautifulisbetterthanuglyexplicitisbetterthanimplicitsimpleisbetterthancomplexcomplexisbetterthancomplicated'])
-G.title('The Zen of Python','009900',36)
-G.color('009900')
+G.title('The Zen of Python','00cc00',36)
+G.color('00cc00')
 }}}
-http://chart.apis.google.com/chart?chd=s:beautifulisbetterthanuglyexplicitisbetterthanimplicitsimpleisbetterthancomplexcomplexisbetterthancomplicated&chco=009900&chts=009900,36&chs=300x150&cht=lc&chtt=The%20Zen%20of%20Python&.png
+http://chart.apis.google.com/chart?chd=s:beautifulisbetterthanuglyexplicitisbetterthanimplicitsimpleisbetterthancomplexcomplexisbetterthancomplicated&chco=00cc00&chts=00cc00,36&chs=300x150&cht=lc&chtt=The+Zen+of+Python&.png
 
 === Line ===
 {{{
@@ -30,16 +30,16 @@ http://chart.apis.google.com/chart?chco=cc0000,00aa00&chd=s:hell,orld&chs=300x15
 {{{
 G = GChart('p3',[10,20,30,40])
 G.label(*'ABCD')
-G.color('00ff00')
+G.color('00dd00')
 }}}
-http://chart.apis.google.com/chart?chco=00ff00&chd=s:Pfu9&chs=300x150&cht=p3&chl=A|B|C|D&.png
+http://chart.apis.google.com/chart?chco=00dd00&chd=s:Pfu9&chs=300x150&cht=p3&chl=A|B|C|D&.png
 
 === Venn ===
 {{{
-G = GChart('v',['fooobaaar'])
-G.color('ff0000','0000ff')
+G = GChart('v',[100,80,60,30,30,30,10])
+G.color('aa0000','00aa00','0000aa')
 }}}
-http://chart.apis.google.com/chart?chco=ff0000,0000ff&chd=s:fooobaaar&chs=300x150&cht=v&.png
+http://chart.apis.google.com/chart?chco=aa0000,00aa00,0000aa&chd=s:9xlSSSG&chs=300x150&cht=v&.png
 
 === Axes ===
 {{{
@@ -50,9 +50,8 @@ G.axes.label(0,'Foo','Bar','Baz')
 G.axes.label(1,'0','100')
 G.axes.label(2,'A','B','C')
 G.axes.style(0,'0000dd',14)
-G.line(2)
 }}}
-http://chart.apis.google.com/chart?chxt=x,y,r,x&chd=s:foobarbaz&chxs=0,0000dd,14&chco=76A4FB&chs=300x150&cht=lc&chxl=0:|Foo|Bar|Baz|1:|0|100|2:|A|B|C&chls=2.0&.png
+http://chart.apis.google.com/chart?chxt=x,y,r,x&chs=300x150&chd=s:foobarbaz&chxs=0,0000dd,14&chxl=0:|Foo|Bar|Baz|1:|0|100|2:|A|B|C&cht=lc&chco=76A4FB&.png
 
 === Grid ===
 {{{
