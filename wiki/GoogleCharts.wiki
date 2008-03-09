@@ -5,7 +5,6 @@
 
 ===Constructing==
 {{{
-
 class GChart(UserDict)
     """Main chart class
     
@@ -13,5 +12,30 @@ class GChart(UserDict)
     dataset can be any python iterable
     kwargs will be put into chart params if valid"""
     def __init__(self, ctype, dataset, **kwargs):
-
 }}}
+*The chart takes any iterable python data type and does the encoding for you*
+{{{
+# Datasets 
+dataset = (1, 2, 3)
+# Also 2 dimensional
+dataset = [[3,4], [5,6], [7,8]]
+}}}
+*Initialize the chart with a valid type (see API reference) and dataset*
+{{{
+# 3D Piechart
+G = GChart('p3', dataset)
+
+# Encoding (simple/text/extended)
+G = GChart('p3', dataset, encoding='text')
+
+# maxValue (for encoding values)
+G = GChart('p3', dataset, maxValue=100)
+
+# Size
+G = GChart('p3', dataset, size=(300,150))
+
+# OR directly pass in API parameters
+G = GChart('p3', dataset, chtt='My Cool Chart', chl='A|B|C')
+}}}
+
+===Rendering===
