@@ -56,3 +56,10 @@ class GChart(UserDict)
 *Save chart to file as PNG image, returns filename*
 {{{
 >>> G.save('May')
+'May.png'
+}}}
+
+*Open URL directly in default web browser*
+{{{
+>>> G.open()
+}}}
