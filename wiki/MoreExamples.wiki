@@ -17,7 +17,7 @@
     G.axes.label(1,None,'50+Kb')
     print G
 }}}
-http://chart.apis.google.com/chart?chd=s:helloWorld&chs=300x150&cht=lc&chxl=0:|Mar|Apr|May|June|July|1:||50+Kb&chxt=x,y
+http://chart.apis.google.com/chart?chd=s:helloWorld&chs=300x150&cht=lc&chxl=0:|Mar|Apr|May|June|July|1:||50+Kb&chxt=x,y&.png
 
 {{{    
     # bar
@@ -26,7 +26,7 @@ http://chart.apis.google.com/chart?chd=s:helloWorld&chs=300x150&cht=lc&chxl=0:|M
     G.bar(10,5,10)   
     print G 
 }}}
-http://chart.apis.google.com/chart?chco=cc0000,00aa00&chd=s:hell,orld&chs=300x150&cht=bhg&chbh=10,5,10
+http://chart.apis.google.com/chart?chco=cc0000,00aa00&chd=s:hell,orld&chs=300x150&cht=bhg&chbh=10,5,10&.png
 
 {{{
     # pie
@@ -35,7 +35,7 @@ http://chart.apis.google.com/chart?chco=cc0000,00aa00&chd=s:hell,orld&chs=300x15
     G.color('ff0000') 
     print G
 }}}
-http://chart.apis.google.com/chart?chco=ff0000&chd=s:helloWorld&chs=300x150&cht=p3&chl=h|e|l|l|o|W|o|r|l|d
+http://chart.apis.google.com/chart?chco=ff0000&chd=s:helloWorld&chs=300x150&cht=p3&chl=h|e|l|l|o|W|o|r|l|d&.png
 
 {{{
     # venn
@@ -43,7 +43,7 @@ http://chart.apis.google.com/chart?chco=ff0000&chd=s:helloWorld&chs=300x150&cht=
     G.color('ff0000','00ff00') 
     print G
 }}}
-http://chart.apis.google.com/chart?chco=ff0000,00ff00&chd=s:foooobaaaar&chs=300x150&cht=v
+http://chart.apis.google.com/chart?chco=ff0000,00ff00&chd=s:foooobaaaar&chs=300x150&cht=v&.png
 
 {{{ 
     # axes
@@ -57,7 +57,7 @@ http://chart.apis.google.com/chart?chco=ff0000,00ff00&chd=s:foooobaaaar&chs=300x
     G.line(2)
     print G  
 }}}
-http://chart.apis.google.com/chart?chxt=x,y,r,x&chd=s:foobarbaz&chxs=0,0000dd,14&chco=76A4FB&chs=300x150&cht=lc&chxl=0:|Foo|Bar|Baz|1:|0|100|2:|A|B|C&chls=2.0
+http://chart.apis.google.com/chart?chxt=x,y,r,x&chd=s:foobarbaz&chxs=0,0000dd,14&chco=76A4FB&chs=300x150&cht=lc&chxl=0:|Foo|Bar|Baz|1:|0|100|2:|A|B|C&chls=2.0&.png
 
 {{{
     # line styles and grid
@@ -70,7 +70,7 @@ http://chart.apis.google.com/chart?chxt=x,y,r,x&chd=s:foobarbaz&chxs=0,0000dd,14
     G.grid(20,50)
     print G
 }}}
-http://chart.apis.google.com/chart?chxt=x,y&chd=s:foobarbaz&chg=20.0,50.0&chco=76A4FB&chs=300x150&cht=lc&chxl=0:|0|1|2|3|4|5|1:|0|50|100&chls=3.0,6.0,3.0
+http://chart.apis.google.com/chart?chxt=x,y&chd=s:foobarbaz&chg=20.0,50.0&chco=76A4FB&chs=300x150&cht=lc&chxl=0:|0|1|2|3|4|5|1:|0|50|100&chls=3.0,6.0,3.0&.png
 
 {{{    
     # markers
@@ -84,7 +84,7 @@ http://chart.apis.google.com/chart?chxt=x,y&chd=s:foobarbaz&chg=20.0,50.0&chco=7
     G.marker('r','E5ECF9',0,0.75,0.25)
     print G
 }}}
-http://chart.apis.google.com/chart?chd=s:helloWorld&chs=300x150&cht=lc&chm=c,ff0000,0,1,20|d,00ff00,0,2,15|a,000099,0,3,10|R,A0BAE9,0,0.1,0.6|r,E5ECF9,0,0.75,0.25
+http://chart.apis.google.com/chart?chd=s:helloWorld&chs=300x150&cht=lc&chm=c,ff0000,0,1,20|d,00ff00,0,2,15|a,000099,0,3,10|R,A0BAE9,0,0.1,0.6|r,E5ECF9,0,0.75,0.25&.png
 
 {{{    
     # fill
@@ -95,7 +95,7 @@ http://chart.apis.google.com/chart?chd=s:helloWorld&chs=300x150&cht=lc&chm=c,ff0
     G.marker('B','80C65A',3,4,0)
     print G    
 }}}
-http://chart.apis.google.com/chart?chd=s:99,cefhjkqwrlgYcfgc,QSSVXXdkfZUMRTUQ,HJJMOOUbVPKDHKLH,AA&chs=300x150&cht=lc&chm=b,76A4FB,0,1,0|b,224499,1,2,0|b,FF0000,2,3,0|B,80C65A,3,4,0
+http://chart.apis.google.com/chart?chd=s:99,cefhjkqwrlgYcfgc,QSSVXXdkfZUMRTUQ,HJJMOOUbVPKDHKLH,AA&chs=300x150&cht=lc&chm=b,76A4FB,0,1,0|b,224499,1,2,0|b,FF0000,2,3,0|B,80C65A,3,4,0&.png
 
 {{{    
     # axes, title and legend
@@ -108,4 +108,4 @@ http://chart.apis.google.com/chart?chd=s:99,cefhjkqwrlgYcfgc,QSSVXXdkfZUMRTUQ,HJ
     G.axes.label(1,None,'20K','60K','100K')    
     print G
 }}}
-http://chart.apis.google.com/chart?chxt=x,y&chd=s:FOETHECat,lkjtf3asv,KATYPSNXJ&chco=ff0000,00ff00,0000ff&chs=300x150&cht=lc&chtt=My%2020%20questions&chxl=0:|Oct|Nov|Dec|1:||20K|60K|100K&chdl=animals|vegetables|minerals
+http://chart.apis.google.com/chart?chxt=x,y&chd=s:FOETHECat,lkjtf3asv,KATYPSNXJ&chco=ff0000,00ff00,0000ff&chs=300x150&cht=lc&chtt=My%2020%20questions&chxl=0:|Oct|Nov|Dec|1:||20K|60K|100K&chdl=animals|vegetables|minerals&.png
