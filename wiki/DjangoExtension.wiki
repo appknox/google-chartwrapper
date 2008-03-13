@@ -1,0 +1,13 @@
+#labels Featured,Phase-Implementation
+==Extending the wrapper to Django==
+
+===Templatetage Usage===
+*The module contains a template tags extension that functions like this*
+{{{
+{% load charts %}
+
+{% chart lc GurMrabsClgubaolGvzCrgrefOrnhgvshyvforggregunahtyl  %}
+    {% title 'The Zen of Python' 00cc00 36 %}
+    {% color 00cc00 %}
+{% endchart %} 
+}}}
