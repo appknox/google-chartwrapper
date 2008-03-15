@@ -11,3 +11,6 @@
     {% color 00cc00 %}
 {% endchart %} 
 }}}
+*Which creates and img tag to handle this chart*
+
+http://chart.apis.google.com/chart?chd=s:GurMrabsClgubaolGvzCrgrefOrnhgvshyvforggregunahtyl&chco=00cc00&chts=00cc00,36&chs=300x150&cht=lc&chtt=The+Zen+of+Python&.png
