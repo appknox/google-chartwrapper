@@ -2,11 +2,11 @@ from GChartWrapper.testing import TestClass
 import os,sys
 from inspect import getsource
         
-if __name__=='__main__':
+def test():        
     arg = sys.argv[-1].lower()
-    if not arg in ('save','wiki','img','url','show'):
+    if not arg in ('save','wiki','img','url','show','tags'):
         arg = 'url'
-        
+       
     Test = TestClass()
 
     if arg == 'save':  
@@ -27,6 +27,26 @@ if __name__=='__main__':
             print '%s&.png'%G
             print
 
+    elif arg == 'tags':
+        for test in Test.all:
+            print '<p>',test
+            for l in map(lambda x: x.strip(), getsource(getattr(Test,test)).splitlines()[1:-1]):
+                if l.startswith('#'):
+                    continue
+                elif l.startswith('G = GChart('):
+                    l = 'chart '+l[12:-1]
+
+                rmlst = ['G.',']','[',"'"]
+                splst = ["','",'(',')',',']
+                for s in splst:
+                    l = l.replace(s,' ')
+                for r in rmlst:
+                    l = l.replace(r,'')
+                l = l.replace('axes.','axes ')
+                print '{% ',l,' %}'
+            print '{% endchart %} </p>'          
+            print
+
     elif arg == 'img':
         for test in Test.all:
             print test,'\t',getattr(Test,test)().img()
@@ -39,5 +59,8 @@ if __name__=='__main__':
 
     elif arg == 'show':
         for test in Test.all:
-            getattr(Test,test)().show()                
+            getattr(Test,test)().show()          
+        
+if __name__=='__main__':
+    test()              
         

@@ -58,7 +58,7 @@
 <!-- ==================== CLASS DESCRIPTION ==================== -->
 <h1 class="epydoc">Class Encoder</h1><span class="codelink"><a href="GChartWrapper.encoding-pysrc.html#Encoder">source&nbsp;code</a></span><br /><br />
 <p>Data encoder that handles simple,text, and extended encodings</p>
-  Based on javascript encoding algorithm<br /><br />
+  Based on javascript encoding algorithm and pygooglecharts<br /><br />
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -84,8 +84,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">encoding</span>,
-        <span class="summary-sig-arg">maxValue</span>=<span class="summary-sig-default">None</span>)</span></td>
+        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default">None</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="GChartWrapper.encoding-pysrc.html#Encoder.__init__">source&nbsp;code</a></span>
             
@@ -101,9 +100,26 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
+          <td><span class="summary-sig"><a name="scalevalue"></a><span class="summary-sig-name">scalevalue</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GChartWrapper.encoding-pysrc.html#Encoder.scalevalue">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
           <td><span class="summary-sig"><a href="GChartWrapper.encoding.Encoder-class.html#encode" class="summary-sig-name">encode</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">dataset</span>,
-        <span class="summary-sig-arg">maxValue</span>=<span class="summary-sig-default">None</span>)</span><br />
+        <span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span><br />
       Encode wrapper for a dataset with maximum value</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="GChartWrapper.encoding-pysrc.html#Encoder.encode">source&nbsp;code</a></span>
@@ -120,11 +136,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="simple"></a><span class="summary-sig-name">simple</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">valueArray</span>,
-        <span class="summary-sig-arg">maxValue</span>)</span></td>
+          <td><span class="summary-sig"><a name="encodedata"></a><span class="summary-sig-name">encodedata</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">data</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="GChartWrapper.encoding-pysrc.html#Encoder.simple">source&nbsp;code</a></span>
+            <span class="codelink"><a href="GChartWrapper.encoding-pysrc.html#Encoder.encodedata">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -138,29 +153,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="extended"></a><span class="summary-sig-name">extended</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">valueArray</span>,
-        <span class="summary-sig-arg">maxValue</span>)</span></td>
+          <td><span class="summary-sig"><a name="decode"></a><span class="summary-sig-name">decode</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">astr</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="GChartWrapper.encoding-pysrc.html#Encoder.extended">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="text"></a><span class="summary-sig-name">text</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">valueArray</span>,
-        <span class="summary-sig-arg">junk</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="GChartWrapper.encoding-pysrc.html#Encoder.text">source&nbsp;code</a></span>
+            <span class="codelink"><a href="GChartWrapper.encoding-pysrc.html#Encoder.decode">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -195,8 +191,8 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">encode</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">dataset</span>,
-        <span class="sig-arg">maxValue</span>=<span class="sig-default">None</span>)</span>
+        <span class="sig-arg">*args</span>,
+        <span class="sig-arg">**kwargs</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="GChartWrapper.encoding-pysrc.html#Encoder.encode">source&nbsp;code</a></span>&nbsp;
@@ -204,7 +200,7 @@
   </table>
   
   <p>Encode wrapper for a dataset with maximum value</p>
-  Datasets can be two dimensional Strings are ignored as ordinal 
+  Datasets can be one or two dimensional Strings are ignored as ordinal 
   encoding
   <dl class="fields">
   </dl>
@@ -237,7 +233,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Sun Mar  9 08:09:34 2008
+    Generated by Epydoc 3.0beta1 on Sat Mar 15 14:12:23 2008
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>

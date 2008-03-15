@@ -91,11 +91,62 @@ UserDict.UserDict --+
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="GChartWrapper.GChart-class.html#__init__" class="summary-sig-name">__init__</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">ctype</span>,
-        <span class="summary-sig-arg">dataset</span>,
+        <span class="summary-sig-arg">ctype</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">dataset</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="summary-sig-arg">**kwargs</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="GChartWrapper-pysrc.html#GChart.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="encoding"></a><span class="summary-sig-name">encoding</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">encoding</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GChartWrapper-pysrc.html#GChart.encoding">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="scale"></a><span class="summary-sig-name">scale</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">scale</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GChartWrapper-pysrc.html#GChart.scale">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="dataset"></a><span class="summary-sig-name">dataset</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">data</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GChartWrapper-pysrc.html#GChart.dataset">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -130,6 +181,23 @@ UserDict.UserDict --+
         <span class="summary-sig-arg">*args</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="GChartWrapper-pysrc.html#GChart.line">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="fill"></a><span class="summary-sig-name">fill</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*args</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GChartWrapper-pysrc.html#GChart.fill">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -280,10 +348,12 @@ UserDict.UserDict --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="getData"></a><span class="summary-sig-name">getData</span>(<span class="summary-sig-arg">self</span>)</span><br />
-      Returns encoded dataset</td>
+          <td><span class="summary-sig"><a name="check_size"></a><span class="summary-sig-name">check_size</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">x</span>,
+        <span class="summary-sig-arg">y</span>)</span><br />
+      Make sure the chart size fits the standards</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="GChartWrapper-pysrc.html#GChart.getData">source&nbsp;code</a></span>
+            <span class="codelink"><a href="GChartWrapper-pysrc.html#GChart.check_size">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -297,12 +367,11 @@ UserDict.UserDict --+
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="checkSize"></a><span class="summary-sig-name">checkSize</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">x</span>,
-        <span class="summary-sig-arg">y</span>)</span><br />
-      Make sure the chart size fits the standards</td>
+          <td><span class="summary-sig"><a href="GChartWrapper.GChart-class.html#check_type" class="summary-sig-name">check_type</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">type</span>)</span><br />
+      Check to see if the type is either in TYPES or fits type name</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="GChartWrapper-pysrc.html#GChart.checkSize">source&nbsp;code</a></span>
+            <span class="codelink"><a href="GChartWrapper-pysrc.html#GChart.check_type">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -322,6 +391,39 @@ UserDict.UserDict --+
       tuple</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="GChartWrapper-pysrc.html#GChart.size">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getname"></a><span class="summary-sig-name">getname</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Gets the name of the chart, if it exists</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GChartWrapper-pysrc.html#GChart.getname">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="getdata"></a><span class="summary-sig-name">getdata</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="GChartWrapper-pysrc.html#GChart.getdata">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -493,8 +595,8 @@ UserDict.UserDict --+
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">ctype</span>,
-        <span class="sig-arg">dataset</span>,
+        <span class="sig-arg">ctype</span>=<span class="sig-default">None</span>,
+        <span class="sig-arg">dataset</span>=<span class="sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>,
         <span class="sig-arg">**kwargs</span>)</span>
     <br /><em class="fname">(Constructor)</em>
   </h3>
@@ -508,6 +610,27 @@ UserDict.UserDict --+
     <dt>Overrides:
       UserDict.UserDict.__init__
     </dt>
+  </dl>
+</td></tr></table>
+</div>
+<a name="check_type"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">check_type</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">type</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="GChartWrapper-pysrc.html#GChart.check_type">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Check to see if the type is either in TYPES or fits type name</p>
+  Returns proper type
+  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -550,7 +673,7 @@ UserDict.UserDict --+
   </table>
   
   <p>Download the chart from the URL into a filename as a PNG</p>
-  The filename defaults to the chart title if any
+  The filename defaults to the chart title (chtt) if any
   <dl class="fields">
   </dl>
 </td></tr></table>
@@ -604,7 +727,7 @@ UserDict.UserDict --+
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Sun Mar  9 08:09:34 2008
+    Generated by Epydoc 3.0beta1 on Sat Mar 15 14:12:23 2008
     </td>
     <td align="right" class="footer">
       <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
