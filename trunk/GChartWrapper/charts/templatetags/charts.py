@@ -1,92 +1,75 @@
-from djangogchart.charts.models import Chart
 from django.template import Library,Node
-from GChartWrapper.constants import APIPARAMS
+from GChartWrapper import GChart
+from django.template import resolve_variable
 register = Library()
 
-class Image(Node):
-    def __init__(self, obj):
-        self.obj = obj
+class AttrNode(Node):
+    def __init__(self, args):
+        self.args = map(str,args)
+    def render(self,context):
+        return self.args
+def attribute(parser, token):
+    return AttrNode(token.split_contents())
+register.tag('label', attribute)
+register.tag('title', attribute)
+register.tag('color', attribute)
+register.tag('line', attribute)
+register.tag('grid', attribute)
+register.tag('bar', attribute)
+register.tag('marker', attribute)
+register.tag('fill', attribute)
+register.tag('legend', attribute)
+register.tag('axes', attribute)
+register.tag('encoding', attribute)
+register.tag('scale', attribute)
+register.tag('size', attribute)
+register.tag('type', attribute)
+register.tag('dataset', attribute)
+register.tag('alt', attribute)
+
+
+class ChartNode(Node):
+    def __init__(self, tokens, nodelist):
+        self.type = None
+        self.tokens = []
+        if tokens and len(tokens)>1:
+            self.type = tokens[1]   
+            self.tokens = tokens[2:]
+        self.nodelist = nodelist
     def render(self, context): 
-        cobj = context[self.obj] 
-        if hasattr(cobj,'img'):
-            return cobj.img()
-        return Chart.objects.get(pk = cobj.id).img(align='center')
+        args = []
+        for t in self.tokens:
+            try:
+                args.append(resolve_variable(t,context))
+            except:        
+                try:
+                    args.append(float(t))
+                except:
+                    args.append(str(t))   
+        if len(args) == 1 and type(args[0]) in map(type,[[],()]):
+            args = args[0]                 
+        chart = GChart(self.type,args)
+        altxt = ''
+        for n in self.nodelist:
+            rend = n.render(context)
+            if type(rend) == type([]):
+                if rend[0] == 'axes':
+                    func = eval('chart.axes.%s'%rend[1])
+                    func(*rend[2:])  
+                if rend[0] == 'alt':
+                    altxt = rend[1]                                      
+                elif rend[0] == 'axes':
+                    func = getattr(getattr(chart, rend[0]), rend[1])
+                    func(*rend[2:])
+                else:
+                    func = getattr(chart, rend[0])
+                    func(*rend[1:])
+        return chart.img(alt=altxt)
 
-def img(parser, token):
-    """
-    {% img <chart_id> %}
-    """    
-    return Image(token.contents.split()[1])
+def make_chart(parser, token):
+    nodelist = parser.parse(('endchart',))
+    parser.delete_first_token()
+    tokens = token.contents.split()
+    return ChartNode(tokens,nodelist)
 
-register.tag('img', img)
-
-
-TITLE = {
-    'chbh':'Bar width and spacing',
-    'chco':'Colors',
-    'chd':'Datasets',
-    'chdl':'Legend labels',
-    'chf':'Fill',
-    'chg':'Gridlines',
-    'chl':'Labels',
-    'chls':'Lines and thickness',
-    'chm':'Markers',
-    'chs':'Size',
-    'cht':'Type',
-    'chts':'Title style',
-    'chtt':'Title',
-    'chxl':'Axes labels',
-    'chxp':'Axes position',
-    'chxr':'Axes range',
-    'chxs':'Axes style',
-    'chxt':'Axes type',
-}
-HELP = {
-    'chbh':'&lt;bar width in pixels&gt;,<br />&lt;optional space between bars in a group&gt;,<br />&lt;optional space between groups&gt;',
-    'chco':'&lt;color1&gt;,...,&lt;colorn&gt;',
-    'chd':'&lt;encoding&gt;:&lt;chart data string&gt;',
-    'chdl':'&lt;first data set label&gt;|&lt;n data set label&gt;',
-    'chf':'&lt;bg or c&gt;&lt;type of fill&gt;',
-    'chg':'&lt;x axis step size&gt;,<br />  &lt;y axis step size&gt;,<br />  &lt;length of line segment&gt;,<br />  &lt;length of blank segment&gt;',
-    'chl':'&lt;label 1 value&gt;|<br>  ...<br>  &lt;label n value&gt;',
-    'chls':' &lt;data set 1 line thickness&gt;,&lt;length of line segment&gt;,&lt;length of blank segment&gt;|<br />...</br>   &lt;data set n line thickness&gt;,&lt;length of line segment&gt;,&lt;length of blank segment&gt;<br />',
-    'chm':'&lt;r or R&gt;,&lt;color&gt;,&lt;any value&gt;,&lt;start point&gt;,&lt;end point&gt;|<br />  ...<br />  &lt;r or R&gt;,&lt;color&gt;,&lt;any value&gt;,&lt;start point&gt;,&lt;end point&gt;',
-    'chs':'&lt;width in pixels&gt;x&lt;height in pixels&gt',
-    'cht':'&lt;chart type&gt;',
-    'chts':'&lt;color&gt;,&lt;fontsize&gt;',
-    'chtt':'&lt;chart title&gt;',
-    'chxl':' &lt;axis index&gt;:|&lt;label 1&gt;|&lt;label n&gt;|<br />  ...<br />  &lt;axis index&gt;:|&lt;label 1&gt;|&lt;label n&gt;',
-    'chxp':' &lt;axis index&gt;,&lt;label 1 position&gt;,&lt;label n position&gt;|<br>...<br>  &lt;axis index&gt;,&lt;label 1 position&gt;,&lt;label n position&gt;',
-    'chxr':'  &lt;axis index&gt;,&lt;start of range&gt;,&lt;end of range&gt;|<br>  ...<br>  &lt;axis index&gt;,&lt;start of range&gt;,&lt;end of range&gt;',
-    'chxs':'&lt;axis index&gt;,&lt;color&gt;,&lt;font size&gt;,&lt;alignment&gt;|<br>  ...<br>  &lt;axis index&gt;,&lt;color&gt;,&lt;font size&gt;,&lt;alignment&gt;',
-    'chxt':' &lt;axis 1&gt;,... &lt;axis n&gt;',
-}
-class Form(Node):
-    def __init__(self, obj, action=''):
-        self.obj = obj
-        self.action = action
-    def render(self, context):        
-        cid = context[self.obj].id
-        out = """<form action="%s" method="POST">
-     <input type="submit" name="save_chart" value="Save"><table><tr><td valign="top">
-     <b>Python dataset</b><br><textarea name="data" cols="30" rows="15"></textarea>
-     <br><b>Scale</b><br><input type="text" name="scale" value="%s">
-     </td><td valign="top">\n"""%(self.action,'\n'.join(context['cmds']))
-        data = Chart.objects.get(pk = cid).G().data
-        params = list(APIPARAMS)
-        for param in params:
-            value = data.get(param,'')
-            if param in ('chf','chxr'):
-                out += '</td><td valign="top">'
-            out += '<b><a href="javascript:setVisible(\'%s\');">%s</a></b><br><input type="text" name="%s" value="%s"><div id="%s" style="visibility: hidden; position: absolute;"><code>%s</code></div><br><br>\n'%\
-                (param,TITLE[param],param,value,param,HELP[param])                
-        return out + '</td></tr></table></form>'
-def form(parser, token):
-    """
-    {% form <chart_id> %}
-    """    
-    return Form(*token.contents.split()[1:])
-
-register.tag('form', form)
-
-
+register.tag('chart', make_chart)

@@ -2,6 +2,21 @@ from django.http import *
 from django.shortcuts import render_to_response
 from djangogchart.charts.models import *
 
+
+
+def chart(request):
+    return render_to_response('charts/chart.html',{'myval':10,'mydata':[
+            [0,30,60,70,90,95,100], # x values
+            [20,30,40,50,60,70,80], # y values, etc.
+            [10,30,40,45,52],
+            [100,90,40,20,10],
+            [-1], # domain not found, interpolated
+            [5,33,50,55,7],
+        ]})
+
+
+
+
 def edit(request, cid):
     chart = Chart.objects.get(pk=cid)  
     G = chart.G()     
