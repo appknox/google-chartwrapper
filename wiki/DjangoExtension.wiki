@@ -20,6 +20,7 @@ http://chart.apis.google.com/chart?chd=s:GurMrabsClgubaolGvzCrgrefOrnhgvshyvforg
 *Just put the charts app in your `INSTALLED_APPS` and add the templates directory in the `TEMPLATE_DIRS` in `settings.py`*
 
 {{{
+...
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.admin',
@@ -30,5 +31,14 @@ INSTALLED_APPS = (
 TEMPLATE_DIRS = (
     '/usr/lib/python2.5/site-packages/GChartWrapper/charts/templates',
 )
+...
 }}}
-*Replace /usr/lib/python2.5/site-packages with your site package directory as appropriate* 
+`Replace /usr/lib/python2.5/site-packages with your site package directory as appropriate*`
+
+*Then just place an include in your `urls.py` like so*
+
+{{{
+...
+    (r'^charts/', include('GChartWrapper.charts.urls')),
+...
+}}}
