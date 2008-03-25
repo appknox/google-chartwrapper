@@ -1,107 +1,158 @@
 #labels Featured,Phase-Implementation,Phase-Deploy
 == Chart examples adapted from the Google examples taken from the wrapper module unit tests ==
+=== Simple ===
+{{{
+# Instantiate the GChart instance, this is all you will need for making charts
+# GChart(type=None, dataset=None), see the doc for more
+G = GChart()
+# Set the chart type, either Google API type or regular name
+G.type('pie')
+# Update the chart's dataset, can be two dimensional and contain string data
+G.dataset( 'helloworld' )
+# Set the size of the chart, default is 300x150
+G.size(250,100)
+}}}
+http://chart.apis.google.com/chart?chd=e:helloworld&chs=250x100&cht=p&.png
+
 === Title ===
 {{{
 # Title using name with optional color and size
-G = GChart('lc',['beautifulisbetterthanuglyexplicitisbetterthanimplicitsimpleisbetterthancomplexcomplexisbetterthancomplicated'])
+G = Line( ['GurMrabsClgubaolGvzCrgrefOrnhgvshyvforggregunahtyl'] )
 G.title('The Zen of Python','00cc00',36)
 G.color('00cc00')
 }}}
-http://chart.apis.google.com/chart?chd=s:beautifulisbetterthanuglyexplicitisbetterthanimplicitsimpleisbetterthancomplexcomplexisbetterthancomplicated&chco=00cc00&chts=00cc00,36&chs=300x150&cht=lc&chtt=The+Zen+of+Python&.png
+http://chart.apis.google.com/chart?chd=e:GurMrabsClgubaolGvzCrgrefOrnhgvshyvforggregunahtyl&chco=00cc00&chts=00cc00,36&chs=300x150&cht=lc&chtt=The+Zen+of+Python&.png
 
 === Line ===
 {{{
 # Add red line 6 thick
 # with 5 line segments with 2 blank segments
-G = GChart('lc',['helloWorld'])
+G = Line( ['hX1xPj'] )
 G.axes.type('xy')
-G.axes.label(0,'Mar','Apr','May','June','July')
-G.axes.label(1,None,'50+Kb')
+G.axes.label('Mar', 'Apr', 'May', 'June', 'July')
+G.axes.label(None, '50+Kb')
 G.color('ff0000')
 G.line(6,5,2)
 }}}
-http://chart.apis.google.com/chart?chxt=x,y&chs=300x150&chd=s:helloWorld&chxl=0:|Mar|Apr|May|June|July|1:||50+Kb&cht=lc&chls=6.0,5.0,2.0&chco=ff0000&.png
+http://chart.apis.google.com/chart?chxt=x,y&chd=e:hX1xPj&chco=ff0000&chs=300x150&cht=lc&chxl=0:|Mar|Apr|May|June|July|1:||50+Kb&chls=6.0,5.0,2.0&.png
+
+=== Multiline ===
+{{{
+# Draw multiple lines with markers on an lxy chart
+G = LineXY( [
+[0,30,60,70,90,95,100], # x values
+[20,30,40,50,60,70,80], # y values, etc.
+[10,30,40,45,52],
+[100,90,40,20,10],
+[-1], # domain not found, interpolated
+[5,33,50,55,7],
+], scale=100) # scale the data to the maximum
+G.color('3072F3','ff0000','00aaaa')
+G.marker('s','FF0000',0,-1,5)
+G.marker('s','0000ff',1,-1,5)
+G.marker('s','00aa00',2,-1,5)
+G.line(2,4,1)
+}}}
+http://chart.apis.google.com/chart?chd=e:AATNmZsz5m8y..,MzTNZmgAmZszzM,GaTNZmczhR,..5mZmMzGa,,DNVHgAjMEf&chco=3072F3,ff0000,00aaaa&chm=s,FF0000,0,-1,5|s,0000ff,1,-1,5|s,00aa00,2,-1,5&chs=300x150&cht=lxy&chls=2.0,4.0,1.0&.png
 
 === Bar ===
 {{{
 # 2 color horizontal bars 10 wide
 # with 5 spacing between bars in group and 10 between groups
-G = GChart('bhg', ['hell','orld'])
+G = HorizontalBarGroup( ['hell','orld'] )
 G.color('cc0000', '00aa00')
 G.bar(10,5,10)
 }}}
-http://chart.apis.google.com/chart?chco=cc0000,00aa00&chd=s:hell,orld&chs=300x150&cht=bhg&chbh=10,5,10&.png
+http://chart.apis.google.com/chart?chs=300x150&chd=e:hell,orld&chco=cc0000,00aa00&cht=bhg&chbh=10.0,5.0,10.0&.png
 
 === Pie ===
 {{{
 # Simple pie chart based on range
-G = GChart('p3', range(1,5))
+G = Pie3D( [1,2,3,4] )
 G.label('A','B','C','D')
 G.color('00dd00')
 }}}
-http://chart.apis.google.com/chart?chco=00dd00&chd=s:Pfu9&chs=300x150&cht=p3&chl=A|B|C|D&.png
+http://chart.apis.google.com/chart?chl=A|B|C|D&chs=300x150&chco=00dd00&cht=p3&chd=e:ABACADAE&.png
 
 === Venn ===
 {{{
-# Simple venn diagram based on int list
-G = GChart('v', [100,80,60,30,30,30,10])
+# Extended venn diagram based on int list, scale the data to the max value
+G = Venn( [100,80,60,30,30,30,10] )
 }}}
-http://chart.apis.google.com/chart?chd=s:9xlSSSG&chs=300x150&cht=v&.png
+http://chart.apis.google.com/chart?chd=e:BkBQA8AeAeAeAK&chs=300x150&cht=v&.png
 
 === Axes ===
 {{{
-# Labels reference axes type (chxt=x,y,r,x) as do styles
-G = GChart('lc',['foobarbaz'])
+# Call type first with the chxt
+# then call label and style in order,
+# label can contain None(s)
+G = Line( ['foobarbaz'] )
 G.color('76A4FB')
 G.axes.type('xyrx')
-G.axes.label(0,'Foo','Bar','Baz')
-G.axes.label(1,'0','100')
-G.axes.label(2,'A','B','C')
-G.axes.style(0,'0000dd',14)
+G.axes.label('Foo', 'Bar', 'Baz')
+G.axes.label(None, '20K', '60K', '100K')
+G.axes.label('A', 'B', 'C')
+G.axes.label(None,'20','40','60','80')
+G.axes.style('0000dd', 14)
 }}}
-http://chart.apis.google.com/chart?chxt=x,y,r,x&chs=300x150&chd=s:foobarbaz&chxs=0,0000dd,14&chxl=0:|Foo|Bar|Baz|1:|0|100|2:|A|B|C&cht=lc&chco=76A4FB&.png
+http://chart.apis.google.com/chart?chxt=x,y,r,x&chd=e:foobarbaz&chxs=0,0000dd,14&chco=76A4FB&chs=300x150&cht=lc&chxl=0:|Foo|Bar|Baz|1:||20K|60K|100K|2:|A|B|C|3:||20|40|60|80&.png
 
 === Grid ===
 {{{
 # Create dashed line with grid x,y as floats
 # then, just like line, the line and blank segments
-G = GChart('lc',['foobarbaz'])
+G = Line( ['foobarbaz'] )
 G.color('76A4FB')
 G.line(3,6,3)
 G.grid(20.0,25.0,1,0)
 }}}
-http://chart.apis.google.com/chart?chd=s:foobarbaz&chg=20.0,25.0,1.0,0.0&chco=76A4FB&chs=300x150&cht=lc&chls=3.0,6.0,3.0&.png
+http://chart.apis.google.com/chart?chd=e:foobarbaz&chg=20.0,25.0,1.0,0.0&chco=76A4FB&chs=300x150&cht=lc&chls=3.0,6.0,3.0&.png
 
 === Markers ===
 {{{
 # Mark up some of the data randomly
-G = GChart('lc',['helloWorld'])
+G = Line( ['helloWorld'] )
 G.marker('c','ff0000',0,3,20)
 G.marker('d','00ff00',0,6,15)
 G.marker('a','000099',0,4,10)
 G.marker('R','A0BAE9',0,8,0.6)
 G.marker('r','E5ECF9',0,1,0.25)
 }}}
-http://chart.apis.google.com/chart?chd=s:helloWorld&chs=300x150&cht=lc&chm=c,ff0000,0,3,20|d,00ff00,0,6,15|a,000099,0,4,10|R,A0BAE9,0,8,0.6|r,E5ECF9,0,1,0.25&.png
+http://chart.apis.google.com/chart?chd=e:helloWorld&chs=300x150&cht=lc&chm=c,ff0000,0,3,20|d,00ff00,0,6,15|a,000099,0,4,10|R,A0BAE9,0,8,0.6|r,E5ECF9,0,1,0.25&.png
 
 === Fill ===
 {{{
-# Fill the chart areas
-G = GChart('lc',['99','cefhjkqwrlgYcfgc','QSSVXXdkfZUMRTUQ','HJJMOOUbVPKDHKLH','AA'])
-G.marker('b','76A4FB',0,1,0)
-G.marker('b','224499',1,2,0)
-G.marker('b','FF0000',2,3,0)
-G.marker('B','80C65A',3,4,0)
+# Fill the chart/background using chf, add axes to show bg
+G = Line( ['pqokeYONOMEBAKPOQVTXZdecaZcglprqxuux393ztpoonkeggjp'] )
+G.color('ff0000')
+G.line(4,3,0)
+G.axes.type('xy')
+G.axes.label(1,2,3,4,5)
+G.axes.label(None,50,100)
+G.fill('c','lg',45,'ffffff',0,'76A4FB',0.75)
+G.fill('bg','s','EFEFEF')
 }}}
-http://chart.apis.google.com/chart?chd=s:99,cefhjkqwrlgYcfgc,QSSVXXdkfZUMRTUQ,HJJMOOUbVPKDHKLH,AA&chs=300x150&cht=lc&chm=b,76A4FB,0,1,0|b,224499,1,2,0|b,FF0000,2,3,0|B,80C65A,3,4,0&.png
+http://chart.apis.google.com/chart?chxt=x,y&chd=e:pqokeYONOMEBAKPOQVTXZdecaZcglprqxuux393ztpoonkeggjp&chf=c,lg,45,ffffff,0,76A4FB,0.75|bg,s,EFEFEF&chco=ff0000&chs=300x150&cht=lc&chxl=0:|1|2|3|4|5|1:||50|100&chls=4.0,3.0,0.0&.png
 
 === Legend ===
 {{{
 # Add legend to the data set which follows collors
-G = GChart('lc',['FOETHECat','leafgreen','IRON4YOUs'])
+G = Line( ['FOETHECat','leafgreen','IRON4YOUs'] )
 G.color('ff0000','00ff00','0000ff')
 G.legend('Animals','Vegetables','Minerals')
-G.axes.type('xy')
-G.axes.label(1,None,'20K','60K','100K')
+G.axes.type('y')
 }}}
-http://chart.apis.google.com/chart?chxt=x,y&chs=300x150&chd=s:FOETHECat,leafgreen,IRON4YOUs&chxl=1:||20K|60K|100K&cht=lc&chco=ff0000,00ff00,0000ff&chdl=Animals|Vegetables|Minerals&.png
+http://chart.apis.google.com/chart?chxt=y&chd=e:FOETHECat,leafgreen,IRON4YOUs&chco=ff0000,00ff00,0000ff&chs=300x150&cht=lc&chdl=Animals|Vegetables|Minerals&.png
+
+=== Hvz ===
+{{{
+# Make a vertical bar group and scale it to the max
+G = VerticalBarGroup( [[31],[59],[4]] )
+G.scale(59)
+G.color('00ff00','ff0000','0000ff')
+G.legend('Goucher(31)','Truman(59)','Kansas(4)')
+G.fill('c','lg',45,'cccccc',0,'000000',1)
+G.fill('bg','s','cccccc')
+G.size(200,100)
+}}}
+http://chart.apis.google.com/chart?chd=e:ho,..,EW&chf=c,lg,45,cccccc,0,000000,1|bg,s,cccccc&chco=00ff00,ff0000,0000ff&chs=200x100&cht=bvg&chdl=Goucher(31)|Truman(59)|Kansas(4)&.png
