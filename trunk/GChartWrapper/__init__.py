@@ -1,18 +1,13 @@
 ################################################################################
+#  GChartWrapper - v0.2
 #  Copyright (C) 2008  Justin Quick <justquick@gmail.com>
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License version 3 as published 
 #  by the Free Software Foundation.
 #
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  You should have received a copy of the GNU General Public License
-#  along with this program; if not, write to the Free Software
-#  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#  Thanks to anyone who does anything for this project. 
+#  If you have even the smallest revision, please email me at above address.
 ################################################################################
 """
 GChartWrapper - Google Chart API Wrapper
@@ -35,7 +30,7 @@ Example
         &cht=lc
         &chtt=The+Zen+of+Python'''
 
-See testing for unit test and other examples
+See testing.py for unit test and other examples
 """
 
 
@@ -118,14 +113,14 @@ class GChart(UserDict):
        
     def marker(self, *args):
         assert(args[0] in MARKERS), 'Invalid marker type: %s'%args[0]
-        assert(len(args) == 5), 'Incorrect arguments %s'%str(args)
+        assert(len(args) <= 6), 'Incorrect arguments %s'%str(args)
         self.markers.append(','.join(map(str,args)) )
         
     def line(self, *args):
         self.lines.append(','.join(['%.1f'%x for x in map(float,args)]))
         
     def fill(self, *args):
-        assert(args[0] in ('c','bg')), 'Fill must be bg/c not %s'%args[0]
+        assert(args[0] in ('c','bg','a')), 'Fill must be bg/c/a not %s'%args[0]
         assert(args[1] in ('s','lg','ls')), 'Fill type must be s/lg/ls not %s'%args[1]
         self.fills.append(','.join(map(str,args)))
         
@@ -155,7 +150,9 @@ class GChart(UserDict):
             self.data['chts'] = ','.join(map(str,args))
             
     def render(self):
-        """Renders the chart context and axes into the dict data"""
+        """
+        Renders the chart context and axes into the dict data
+        """
         self.data.update(**self.axes.render())     
         encoder = Encoder(self._encoding)  
         if not 'chs' in self.data:
@@ -179,7 +176,9 @@ class GChart(UserDict):
        
                           
     def check_size(self,x,y):
-        """Make sure the chart size fits the standards"""
+        """
+        Make sure the chart size fits the standards
+        """
         assert(x <= 10**3), 'Width larger than 1000'         
         assert(y <= 10**3), 'Height larger than 1000'        
         assert(x*y <= 3*(10**5)), 'Resolution larger than 300000' 
@@ -187,7 +186,8 @@ class GChart(UserDict):
     def check_type(self, type):
         """Check to see if the type is either in TYPES or fits type name
         
-        Returns proper type"""
+        Returns proper type
+        """
         tdict = dict(zip(TYPES,TYPES))
         tdict['line'] = 'lc'
         tdict['bar'] = 'bvs'
@@ -198,7 +198,9 @@ class GChart(UserDict):
         return tdict[type]
              
     def size(self,*args):
-        """Set the size of the chart, args are width,height and can be tuple"""
+        """
+        Set the size of the chart, args are width,height and can be tuple
+        """
         if len(args) == 2:
             x,y = map(int,args)
         else:
@@ -207,7 +209,9 @@ class GChart(UserDict):
         self.data['chs'] = '%dx%d'%(x,y)  
 
     def getname(self):
-        """Gets the name of the chart, if it exists"""
+        """
+        Gets the name of the chart, if it exists
+        """
         if 'chtt' in self.data:
             return self.data['chtt']
     
@@ -216,19 +220,25 @@ class GChart(UserDict):
         
     def __repr__(self):  self.__str__()
     def __str__(self):
-        """Returns the rendered URL of the chart"""
+        """
+        Returns the rendered URL of the chart
+        """
         self.render()
         params = '&'.join(['%s=%s'%x for x in self.data.items() if x[1]])
         return self.apiurl + params.replace(' ','+')
            
     def show(self):
-        """Shows the chart URL in a webbrowser"""
+        """
+        Shows the chart URL in a webbrowser
+        """
         webopen(str(self))
     
     def save(self, fname=None):
-        """Download the chart from the URL into a filename as a PNG
+        """
+        Download the chart from the URL into a filename as a PNG
         
-        The filename defaults to the chart title (chtt) if any"""
+        The filename defaults to the chart title (chtt) if any
+        """
         if not fname:
             fname = self.getname()               
         assert(fname != None), 'You must specify a filename to save to'
@@ -241,9 +251,11 @@ class GChart(UserDict):
         return fname                     
 
     def img(self, **kwargs): 
-        """Returns an HTML <img> tag of the chart
+        """
+        Returns an HTML <img> tag of the chart
         
-        kwargs can be other img tag attributes, which are strictly enforced"""
+        kwargs can be other img tag attributes, which are strictly enforced
+        """
         attrs = ''
         href = str(self)
         title = self.getname()
@@ -252,7 +264,44 @@ class GChart(UserDict):
                 raise AttributeError, 'Invalid img tag attribute: %s'%item[0]
             attrs += '%s="%s" '%item
         return '<img alt="%s" title="%s" src="%s" %s>'%(title,title,href,attrs)
+
+
+# A whole mess of convenience classes
+# *for those of us who dont speak API*
+class Line(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'lc', dataset, **kwargs) 
+class LineXY(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'lxy', dataset, **kwargs)
         
+class HorizontalBarStack(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'bhs', dataset, **kwargs)
+class VerticalBarStack(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'bvs', dataset, **kwargs)
+class HorizontalBarGroup(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'bhg', dataset, **kwargs)
+class VerticalBarGroup(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'bvg', dataset, **kwargs)
+        
+class Pie(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'p', dataset, **kwargs)
+class Pie3D(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'p3', dataset, **kwargs)
+        
+class Venn(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'v', dataset, **kwargs)
+class Scatter(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 's', dataset, **kwargs)
+    
 if __name__=='__main__':
     from GChartWrapper.tests import test
     test()
