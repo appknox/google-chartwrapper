@@ -45,6 +45,7 @@ class Axes(UserDict):
     """Axes attr storage"""
     def __init__(self):
         self.labels = []
+        self.positions = []
         self.styles = []    
         UserDict.__init__(self)
     def render(self):
@@ -52,13 +53,17 @@ class Axes(UserDict):
             self.data['chxl'] = '|'.join(self.labels)   
         if self.styles:
             self.data['chxs'] = '|'.join(self.styles)              
+        if self.positions:
+            self.data['chxp'] = '|'.join(self.positions)
         return self.data
     def label(self, *args):
         label = '|'.join(map(str,args))
         id = len(self.labels)
         self.labels.append( str('%d:|%s'%(id,label)).replace('None','') )
     def position(self, *args):
-        self.data['chxp'] = ','.join(map(str,args))
+        position = ','.join(map(str,args))
+        id = len(self.positions)
+        self.positions.append( str('%d,%s'%(id,position)).replace('None','') )
     def range(self, *args):
         self.data['chxr'] = '%d,%d,%d'%args
     def type(self, atype):
@@ -301,6 +306,10 @@ class Venn(GChart):
 class Scatter(GChart):
     def __init__(self, dataset, **kwargs):
         GChart.__init__(self, 's', dataset, **kwargs)
+
+class Sparkline(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'ls', dataset, **kwargs)
     
 if __name__=='__main__':
     from GChartWrapper.tests import test
