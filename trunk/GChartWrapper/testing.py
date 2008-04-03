@@ -202,11 +202,17 @@ class TestClass:
         G.line(1,0,0);
         return G
 
-    # this test case isn't working correctly - need to investigate a bit more
+    # multiple axis with label positions specified
     def axes_position(self):
-        data = [ [10, 13, 16, 25, 26, 39, 54, 60, 66, 74, 94, 104, 139, 156, 160, 164, 166, 185, 187, 202, 208, 213], 
-                 [2914, 3617, 3454, 3390, 3484, 3319, 2372, 2388, 2749, 2381, 2333, 2320, 2261, 1346, 1278, 1174, 1275, 1392, 1373, 2525, 1376, 2334] ]
 
+        # values between 0 and 100 - use text encoding
+        data = [[4.6, 6.0, 7.4, 11.6, 12.0, 14.8, 18.1, 25.1, 
+                 27.9, 28.3, 30.6, 34.4, 43.7, 48.3, 57.6, 64.6, 
+                 72.5, 74.4, 76.2, 77.2, 86.0, 86.9, 93.9, 96.7, 99.0], 
+                [80.5, 100.0, 95.4, 93.7, 96.3, 91.7, 71.5, 63.0, 
+                 65.2, 65.5, 66.0, 75.9, 65.8, 64.4, 64.2, 62.5, 37.2, 
+                 35.3, 32.4, 35.2, 38.4, 37.9, 69.8, 38.0, 64.5]]
+        
         # positions between 0 and 100
         axis = [ [0, 13, 28, 42, 56, 71, 84, 100],
                  ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] ]
@@ -216,7 +222,7 @@ class TestClass:
         max_value = float(max(data[1]))
         last_value = float(data[1][-1])
         
-        G = LineXY(data)
+        G = LineXY(data, encoding='text')
         G.color('76A4FB')
         G.marker('o', '0077CC',0,-1,5)
         G.marker('r', 'E6F2FA',0,(min_value/max_value),1.0) # 0 to 1.0
