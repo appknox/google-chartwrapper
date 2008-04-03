@@ -2,7 +2,10 @@ from GChartWrapper import *
 
 class TestClass:
     """Extensive unit tests, more are welcome"""
-    all = ('simple','title','line','multiline','bar','pie','venn','axes','grid','markers','fill','legend','hvz')
+    all = ('simple','title','line','multiline','bar','pie','venn','axes','grid','markers','fill','legend','hvz',
+           'guide_intro', 'guide_granularity_20', 'guide_granularity_40', 'guide_granularity_80',
+           'guide_line_lc', 'guide_line_lxy', 'guide_sparkline',
+           'axes_position')
     
     def simple(self):
         # Instantiate the GChart instance, this is all you will need for making charts
@@ -145,3 +148,86 @@ class TestClass:
         G.marker('s','00aa00',2,-1,5)   
         G.line(2,4,1)   
         return G
+
+    # Examples from the Google Chart API Developer's Guide
+    # http://code.google.com/apis/chart/
+
+    def guide_intro(self):
+        G = Pie3D([60,40], encoding='text')
+        G.size(250,100)
+        G.label('Hello', 'World')
+        return G
+
+    def guide_granularity_20(self):
+        G = Line('fohmnytenefohmnytene', encoding='simple')
+        G.size(200,100)
+        G.axes.type('xy')
+        G.axes.label('April','May','June')
+        G.axes.label(None, '50+Kb')
+        return G        
+
+    def guide_granularity_40(self):
+        G = Line('frothsmzndyoteepngenfrothsmzndyoteepngen', encoding='simple')
+        G.size(200,100)
+        G.axes.type('xy')
+        G.axes.label('April','May','June')
+        G.axes.label(None, '50+Kb')
+        return G
+
+    def guide_granularity_80(self):
+        G = Line('formostthisamazingdayfortheleapinggreenlformostthisamazingdayfortheleapinggreenl', encoding='simple')
+        G.size(200,100)
+        G.axes.type('xy')
+        G.axes.label('April','May','June')
+        G.axes.label(None, '50+Kb')
+        return G
+    
+    # http://code.google.com/apis/chart/#line_charts
+    def guide_line_lc(self):
+        G = Line('fooZaroo', encoding='simple')
+        G.size(200,100)
+        return G
+
+    # http://code.google.com/apis/chart/#line_charts
+    def guide_line_lxy(self):
+        # same as the multiline test
+        return self.multiline()
+        
+    # http://code.google.com/apis/chart/#sparkline
+    def guide_sparkline(self):
+        G = Sparkline([27,25,25,25,25,27,100,31,25,36,25,25,39,25,31,25,25,25,26,26,25,25,28,25,25,100,28,27,31,25,27,27,29,25,27,26,26,25,26,26,35,33,34,25,26,25,36,25,26,37,33,33,37,37,39,25,25,25,25], encoding='text')
+        G.color('0077CC')
+        G.size(100,20)
+        G.marker('B', 'E6F2FA',0,0,0)
+        G.line(1,0,0);
+        return G
+
+    # this test case isn't working correctly - need to investigate a bit more
+    def axes_position(self):
+        data = [ [10, 13, 16, 25, 26, 39, 54, 60, 66, 74, 94, 104, 139, 156, 160, 164, 166, 185, 187, 202, 208, 213], 
+                 [2914, 3617, 3454, 3390, 3484, 3319, 2372, 2388, 2749, 2381, 2333, 2320, 2261, 1346, 1278, 1174, 1275, 1392, 1373, 2525, 1376, 2334] ]
+
+        # positions between 0 and 100
+        axis = [ [0, 13, 28, 42, 56, 71, 84, 100],
+                 ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] ]
+        
+        # don't do integer arithmetic
+        min_value = float(min(data[1]))
+        max_value = float(max(data[1]))
+        last_value = float(data[1][-1])
+        
+        G = LineXY(data)
+        G.color('76A4FB')
+        G.marker('o', '0077CC',0,-1,5)
+        G.marker('r', 'E6F2FA',0,(min_value/max_value),1.0) # 0 to 1.0
+        G.axes.type("xyr")    
+        G.axes.label(*axis[1])
+        G.axes.position(*axis[0])
+        G.axes.label('%d'%min_value, '%d'%max_value)    
+        G.axes.position(int(100*min_value/max_value),100) # 0 to 100
+        G.axes.label('%d'%last_value)
+        G.axes.position(int(100*last_value/max_value)) # 0 to 100
+        return G
+        
+
+    
