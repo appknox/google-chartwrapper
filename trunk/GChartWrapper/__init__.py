@@ -30,7 +30,7 @@ Example
         &cht=lc
         &chtt=The+Zen+of+Python'''
 
-See testing.py for unit test and other examples
+See tests.py for unit test and other examples
 """
 
 
@@ -46,6 +46,7 @@ class Axes(UserDict):
     def __init__(self):
         self.labels = []
         self.positions = []
+        self.ranges = []
         self.styles = []    
         UserDict.__init__(self)
     def render(self):
@@ -55,6 +56,8 @@ class Axes(UserDict):
             self.data['chxs'] = '|'.join(self.styles)              
         if self.positions:
             self.data['chxp'] = '|'.join(self.positions)
+        if self.ranges:
+            self.data['chxr'] = '|'.join(self.ranges)
         return self.data
     def label(self, *args):
         label = '|'.join(map(str,args))
@@ -65,7 +68,7 @@ class Axes(UserDict):
         id = len(self.positions)
         self.positions.append( str('%d,%s'%(id,position)).replace('None','') )
     def range(self, *args):
-        self.data['chxr'] = '%d,%d,%d'%args
+        self.ranges.append('%d,%d,%d'%tuple([len(self.ranges)]+list(args)))
     def type(self, atype):
         if not ',' in atype:
             atype = ','.join(atype)
@@ -310,6 +313,20 @@ class Scatter(GChart):
 class Sparkline(GChart):
     def __init__(self, dataset, **kwargs):
         GChart.__init__(self, 'ls', dataset, **kwargs)
+
+class Radar(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'r', dataset, **kwargs)
+          
+class Map(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 't', dataset, **kwargs)
+
+class Meter(GChart):
+    def __init__(self, dataset, **kwargs):
+        # we can do this to other charts with preferred encodings
+        kwargs['encoding'] = 'text'
+        GChart.__init__(self, 'gom', dataset, **kwargs)    
     
 if __name__=='__main__':
     from GChartWrapper.tests import test

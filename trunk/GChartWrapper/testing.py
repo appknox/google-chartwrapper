@@ -1,11 +1,22 @@
-from GChartWrapper import *
+"""
+GChartWrapper - Google Chart API Wrapper
 
+Unit tests, see tests.py for actually running these
+"""
+from GChartWrapper import *
 class TestClass:
-    """Extensive unit tests, more are welcome"""
-    all = ('simple','title','line','multiline','bar','pie','venn','axes','grid','markers','fill','legend','hvz',
+    """
+    Extensive unit tests, more are welcome
+    
+    All methods must be commented and return a GChart instance as the last line.
+    """
+    all = ('simple','title','line','multiline','bar','pie','venn','axes','grid',
+           'markers','fill','legend','hvz',
            'guide_intro', 'guide_granularity_20', 'guide_granularity_40', 'guide_granularity_80',
-           'guide_line_lc', 'guide_line_lxy', 'guide_sparkline',
-           'axes_position')
+           'guide_line_lc',  'guide_sparkline','axes_position',
+           
+           'guide_radar','guide_map','guide_meter',
+           )
     
     def simple(self):
         # Instantiate the GChart instance, this is all you will need for making charts
@@ -58,7 +69,7 @@ class TestClass:
         return G 
     
     def pie(self):
-        # Simple pie chart based on range
+        # Simple pie chart based on list
         G = Pie3D( [1,2,3,4] )
         G.label('A','B','C','D')
         G.color('00dd00') 
@@ -188,16 +199,12 @@ class TestClass:
         G.size(200,100)
         return G
 
-    # http://code.google.com/apis/chart/#line_charts
-    def guide_line_lxy(self):
-        # same as the multiline test
-        return self.multiline()
         
     # http://code.google.com/apis/chart/#sparkline
     def guide_sparkline(self):
         G = Sparkline([27,25,25,25,25,27,100,31,25,36,25,25,39,25,31,25,25,25,26,26,25,25,28,25,25,100,28,27,31,25,27,27,29,25,27,26,26,25,26,26,35,33,34,25,26,25,36,25,26,37,33,33,37,37,39,25,25,25,25], encoding='text')
         G.color('0077CC')
-        G.size(100,20)
+        G.size(200,40)
         G.marker('B', 'E6F2FA',0,0,0)
         G.line(1,0,0);
         return G
@@ -235,5 +242,36 @@ class TestClass:
         G.axes.position(int(100*last_value/max_value)) # 0 to 100
         return G
         
+        
+    # Now for some of the newer api features....        
+    def guide_radar(self):
+        # Create a radar chart w/ multiple lines
+        G = Radar([ [77,66,15,0,31,48,100,77],[20,36,100,2,0,100] ], encoding='text')  
+        G.size(200,200)
+        G.color('FF0000','FF9900')
+        G.line(2,4,0)
+        G.line(2,4,0)        
+        G.axes.type('x')
+        G.axes.label(0,45,90,135,180,225,270,315)
+        G.axes.range(0,360)
+        return G
 
-    
+ 
+    def guide_map(self):
+        # Make a map of the US as in the API guide
+        G = Map('fSGBDQBQBBAGABCBDAKLCDGFCLBBEBBEPASDKJBDD9BHHEAACAC', encoding='simple')
+        G.color('f5f5f5','edf0d4','6c9642','365e24','13390a')
+        G.fill('bg','s','eaf7fe')
+        G.size(440,220)
+        # XXX: no way to do this programatically yet
+        # instead directly use the API params
+        G['chtm'] = 'usa'
+        G['chld'] = 'NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILAKTXCOMDMAALMOMNCAOKMIGAAZMTMSSCRIAR'
+        return G
+
+    def guide_meter(self):
+        # Create a simple Google-O-Meter with a label
+        G = Meter(70)
+        G.label('Hello')
+        G.size(225,125)
+        return G
