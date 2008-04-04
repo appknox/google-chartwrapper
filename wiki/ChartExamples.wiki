@@ -16,7 +16,7 @@ http://chart.apis.google.com/chart?chd=e:helloworld&chs=250x100&cht=p&.png
 
 === Attention! ===
 *The rest of the examples use the convenience classes for each kind of bar chart which are one of either 
-`HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, or VerticalBarStack`*
+`HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, Radar, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, or VerticalBarStack`*
                 
 === Title ===
 {{{
@@ -255,3 +255,36 @@ G.axes.label('%d'%last_value)
 G.axes.position(int(100*last_value/max_value)) # 0 to 100
 }}}
 http://chart.apis.google.com/chart?chxt=x,y,r&chd=t:5.0,6.0,7.0,12.0,12.0,15.0,18.0,25.0,28.0,28.0,31.0,34.0,44.0,48.0,58.0,65.0,73.0,74.0,76.0,77.0,86.0,87.0,94.0,97.0,99.0|81.0,100.0,95.0,94.0,96.0,92.0,72.0,63.0,65.0,66.0,66.0,76.0,66.0,64.0,64.0,63.0,37.0,35.0,32.0,35.0,38.0,38.0,70.0,38.0,65.0&chxp=0,0,13,28,42,56,71,84,100|1,32,100|2,64&chco=76A4FB&chm=o,0077CC,0,-1,5|r,E6F2FA,0,0.324,1.0&chs=300x150&cht=lxy&chxl=0:|A|B|C|D|E|F|G|H|1:|32|100|2:|64&.png
+
+=== Guide_Radar ===
+{{{
+# Create a radar chart w/ multiple lines
+G = Radar([ [77,66,15,0,31,48,100,77],[20,36,100,2,0,100] ], encoding='text')
+G.size(200,200)
+G.color('FF0000','FF9900')
+G.line(2,4,0)
+G.line(2,4,0)
+G.axes.type('x')
+G.axes.label(0,45,90,135,180,225,270,315)
+G.axes.range(0,360)
+}}}
+http://chart.apis.google.com/chart?chxt=x&chs=200x200&cht=r&chxr=0,0,360&chxl=0:|0|45|90|135|180|225|270|315&chd=t:77.0,66.0,15.0,0.0,31.0,48.0,100.0,77.0|20.0,36.0,100.0,2.0,0.0,100.0&chco=FF0000,FF9900&chls=2.0,4.0,0.0|2.0,4.0,0.0&.png
+
+=== Guide_Map ===
+{{{
+G = Map('fSGBDQBQBBAGABCBDAKLCDGFCLBBEBBEPASDKJBDD9BHHEAACAC', encoding='simple')
+G.color('f5f5f5','edf0d4','6c9642','365e24','13390a')
+G.fill('bg','s','eaf7fe')
+G.size(440,220)
+G['chtm'] = 'usa'
+G['chld'] = 'NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILAKTXCOMDMAALMOMNCAOKMIGAAZMTMSSCRIAR'
+}}}
+http://chart.apis.google.com/chart?chd=s:fSGBDQBQBBAGABCBDAKLCDGFCLBBEBBEPASDKJBDD9BHHEAACAC&chf=bg,s,eaf7fe&chco=f5f5f5,edf0d4,6c9642,365e24,13390a&chtm=usa&chld=NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILAKTXCOMDMAALMOMNCAOKMIGAAZMTMSSCRIAR&chs=440x220&cht=t&.png
+
+=== Guide_Meter ===
+{{{
+G = Meter(70, encoding="text")
+G.label('Hello')
+G.size(225,125)
+}}}
+http://chart.apis.google.com/chart?chl=Hello&chs=225x125&cht=gom&chd=t:70.0&.png
