@@ -281,7 +281,7 @@ http://chart.apis.google.com/chart?chd=s:fSGBDQBQBBAGABCBDAKLCDGFCLBBEBBEPASDKJB
 === Guide_Meter ===
 {{{
 # Create a simple Google-O-Meter with a label
-G = Meter(70, encoding="text")
+G = Meter(70)
 G.label('Hello')
 G.size(225,125)
 }}}
