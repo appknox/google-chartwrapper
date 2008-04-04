@@ -11,10 +11,12 @@ class TestClass:
     All methods must be commented and return a GChart instance as the last line.
     """
     all = ('simple','title','line','multiline','bar','pie','venn','axes','grid',
-           'markers','fill','legend','hvz',
-           'guide_intro', 'guide_granularity_20', 'guide_granularity_40', 'guide_granularity_80',
-           'guide_line_lc',  'guide_sparkline','axes_position',
-           
+           'markers','fill','legend','hvz', 'axes_position',
+           'guide_intro', 
+           'guide_granularity_20', 'guide_granularity_40', 'guide_granularity_80',
+           'guide_line_lc',  'guide_sparkline', 
+           'guide_bhs', 'guide_bvs', 'guide_bvs_scale', 
+           'guide_bhg', 'guide_bvg', 'guide_chbh_clipped', 'guide_chbh_size',
            'guide_radar','guide_map','guide_meter',
            )
     
@@ -160,6 +162,39 @@ class TestClass:
         G.line(2,4,1)   
         return G
 
+    # multiple axis with label positions specified
+    def axes_position(self):
+
+        # values between 0 and 100 - use text encoding
+        data = [[4.6, 6.0, 7.4, 11.6, 12.0, 14.8, 18.1, 25.1, 
+                 27.9, 28.3, 30.6, 34.4, 43.7, 48.3, 57.6, 64.6, 
+                 72.5, 74.4, 76.2, 77.2, 86.0, 86.9, 93.9, 96.7, 99.0], 
+                [80.5, 100.0, 95.4, 93.7, 96.3, 91.7, 71.5, 63.0, 
+                 65.2, 65.5, 66.0, 75.9, 65.8, 64.4, 64.2, 62.5, 37.2, 
+                 35.3, 32.4, 35.2, 38.4, 37.9, 69.8, 38.0, 64.5]]
+        
+        # positions between 0 and 100
+        axis = [ [0, 13, 28, 42, 56, 71, 84, 100],
+                 ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] ]
+        
+        # don't do integer arithmetic
+        min_value = float(min(data[1]))
+        max_value = float(max(data[1]))
+        last_value = float(data[1][-1])
+        
+        G = LineXY(data, encoding='text')
+        G.color('76A4FB')
+        G.marker('o', '0077CC',0,-1,5)
+        G.marker('r', 'E6F2FA',0,(min_value/max_value),1.0) # 0 to 1.0
+        G.axes.type("xyr")    
+        G.axes.label(*axis[1])
+        G.axes.position(*axis[0])
+        G.axes.label('%d'%min_value, '%d'%max_value)    
+        G.axes.position(int(100*min_value/max_value),100) # 0 to 100
+        G.axes.label('%d'%last_value)
+        G.axes.position(int(100*last_value/max_value)) # 0 to 100
+        return G        
+
     # Examples from the Google Chart API Developer's Guide
     # http://code.google.com/apis/chart/
 
@@ -202,47 +237,61 @@ class TestClass:
         
     # http://code.google.com/apis/chart/#sparkline
     def guide_sparkline(self):
-        G = Sparkline([27,25,25,25,25,27,100,31,25,36,25,25,39,25,31,25,25,25,26,26,25,25,28,25,25,100,28,27,31,25,27,27,29,25,27,26,26,25,26,26,35,33,34,25,26,25,36,25,26,37,33,33,37,37,39,25,25,25,25], encoding='text')
+        G = Sparkline([27,25,25,25,25,27,100,31,25,36,25,25,39,25,31,25,25,25,26,26,25,25,28,25,25,100,28,27,31,25,27,27,29,25,27,26,26,25,26,26,35,33,34,25,26,25,36,25,26,37,33,33,37,37,39,25,25,25,25], 
+                      encoding='text')
         G.color('0077CC')
         G.size(200,40)
         G.marker('B', 'E6F2FA',0,0,0)
         G.line(1,0,0);
         return G
 
-    # multiple axis with label positions specified
-    def axes_position(self):
+    # http://code.google.com/apis/chart/#bar_charts
+    def guide_bhs(self):
+        G = HorizontalBarStack('ello', encoding='simple')
+        G.color('4d89f9')
+        G.size(200,125)        
+        return G
 
-        # values between 0 and 100 - use text encoding
-        data = [[4.6, 6.0, 7.4, 11.6, 12.0, 14.8, 18.1, 25.1, 
-                 27.9, 28.3, 30.6, 34.4, 43.7, 48.3, 57.6, 64.6, 
-                 72.5, 74.4, 76.2, 77.2, 86.0, 86.9, 93.9, 96.7, 99.0], 
-                [80.5, 100.0, 95.4, 93.7, 96.3, 91.7, 71.5, 63.0, 
-                 65.2, 65.5, 66.0, 75.9, 65.8, 64.4, 64.2, 62.5, 37.2, 
-                 35.3, 32.4, 35.2, 38.4, 37.9, 69.8, 38.0, 64.5]]
-        
-        # positions between 0 and 100
-        axis = [ [0, 13, 28, 42, 56, 71, 84, 100],
-                 ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] ]
-        
-        # don't do integer arithmetic
-        min_value = float(min(data[1]))
-        max_value = float(max(data[1]))
-        last_value = float(data[1][-1])
-        
-        G = LineXY(data, encoding='text')
-        G.color('76A4FB')
-        G.marker('o', '0077CC',0,-1,5)
-        G.marker('r', 'E6F2FA',0,(min_value/max_value),1.0) # 0 to 1.0
-        G.axes.type("xyr")    
-        G.axes.label(*axis[1])
-        G.axes.position(*axis[0])
-        G.axes.label('%d'%min_value, '%d'%max_value)    
-        G.axes.position(int(100*min_value/max_value),100) # 0 to 100
-        G.axes.label('%d'%last_value)
-        G.axes.position(int(100*last_value/max_value)) # 0 to 100
+    def guide_bvs(self):
+        G = VerticalBarStack([ [10,50,60,80,40],[50,60,100,40,20] ], encoding='text')
+        G.color('4d89f9', 'c6d9fd')
+        G.size(200,125)
+        return G
+
+    def guide_bvs_scale(self):
+        G = VerticalBarStack([ [10,50,60,80,40],[50,60,100,40,20] ], encoding='text')
+        G.color('4d89f9', 'c6d9fd')
+        G.size(200,125)
+        G.scale((0,160))
         return G
         
-        
+    def guide_bhg(self):
+        G = HorizontalBarGroup(['el','or'], encoding='simple')
+        G.color('4d89f9','c6d9fd')
+        G.size(200,125)
+        return G
+
+    def guide_bvg(self):
+        G = VerticalBarGroup(['hello','world'], encoding='simple')
+        G.color('4d89f9','c6d9fd')
+        G.size(200,125)
+        return G
+
+    def guide_chbh_clipped(self):
+        G = HorizontalBarStack('hello', encoding='simple')
+        G.color('4d89f9')
+        G.size(200,125)
+        return G
+
+    def guide_chbh_size(self):
+        G = HorizontalBarStack('hello', encoding='simple')
+        G.color('4d89f9')
+        G.size(200,125)
+        # XXX: no way to do this programatically yet
+        # instead directly use the API params
+        G['chbh'] = 10
+        return G
+
     # Now for some of the newer api features....        
     def guide_radar(self):
         # Create a radar chart w/ multiple lines
@@ -255,7 +304,6 @@ class TestClass:
         G.axes.label(0,45,90,135,180,225,270,315)
         G.axes.range(0,360)
         return G
-
  
     def guide_map(self):
         # Make a map of the US as in the API guide
