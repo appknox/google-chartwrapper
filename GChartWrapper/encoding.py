@@ -51,6 +51,8 @@ class Encoder:
         Strings are ignored as ordinal encoding"""
         if type(args[0]) == type(''):
             return self.encode([args[0]],**kwargs)
+        elif type(args[0]) in (type(0), type(0.0), type(0L)):
+            return self.encode([[args[0]]],**kwargs)
         if len(args)>1:
             dataset = args
         else:
