@@ -95,7 +95,7 @@ class GChart(UserDict):
             self.data['cht'] = ctype
         self._scale = None
         if 'scale' in kwargs:
-            self._scale = float(kwargs['scale'])
+            self._scale = kwargs['scale']
             del kwargs['scale']            
         self._encoding = None
         if 'encoding' in kwargs:
@@ -114,7 +114,7 @@ class GChart(UserDict):
         self._encoding = encoding
 
     def scale(self, scale):
-        self._scale = float(scale)
+        self._scale = scale
 
     def dataset(self, data):
         self._dataset = data                   
