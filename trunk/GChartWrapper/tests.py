@@ -41,7 +41,7 @@ def test():
         for n,test in enumerate(Test.all):
             testobj = getattr(Test,test)
             G = testobj()
-            print '=== %s ==='%test.title()
+            print '=== !%s ==='%test.title()
             print '{{{'
             print '\n'.join(map(lambda x: x.strip(), getsource(testobj).splitlines()[1:-1]))
             print '}}}'
