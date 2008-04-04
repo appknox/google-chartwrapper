@@ -206,12 +206,6 @@ G.size(200,100)
 }}}
 http://chart.apis.google.com/chart?chd=s:fooZaroo&chs=200x100&cht=lc&.png
 
-=== Guide_Line_Lxy ===
-{{{
-# same as the multiline test
-}}}
-http://chart.apis.google.com/chart?chd=e:AATNmZsz5m8y..,MzTNZmgAmZszzM,GaTNZmczhR,..5mZmMzGa,,DNVHgAjMEf&chco=3072F3,ff0000,00aaaa&chm=s,FF0000,0,-1,5|s,0000ff,1,-1,5|s,00aa00,2,-1,5&chs=300x150&cht=lxy&chls=2.0,4.0,1.0&.png
-
 === Guide_Sparkline ===
 {{{
 G = Sparkline([27,25,25,25,25,27,100,31,25,36,25,25,39,25,31,25,25,25,26,26,25,25,28,25,25,100,28,27,31,25,27,27,29,25,27,26,26,25,26,26,35,33,34,25,26,25,36,25,26,37,33,33,37,37,39,25,25,25,25], encoding='text')
@@ -272,10 +266,13 @@ http://chart.apis.google.com/chart?chxt=x&chs=200x200&cht=r&chxr=0,0,360&chxl=0:
 
 === Guide_Map ===
 {{{
+# Make a map of the US as in the API guide
 G = Map('fSGBDQBQBBAGABCBDAKLCDGFCLBBEBBEPASDKJBDD9BHHEAACAC', encoding='simple')
 G.color('f5f5f5','edf0d4','6c9642','365e24','13390a')
 G.fill('bg','s','eaf7fe')
 G.size(440,220)
+# XXX: no way to do this programatically yet
+# instead directly use the API params
 G['chtm'] = 'usa'
 G['chld'] = 'NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILAKTXCOMDMAALMOMNCAOKMIGAAZMTMSSCRIAR'
 }}}
@@ -283,6 +280,7 @@ http://chart.apis.google.com/chart?chd=s:fSGBDQBQBBAGABCBDAKLCDGFCLBBEBBEPASDKJB
 
 === Guide_Meter ===
 {{{
+# Create a simple Google-O-Meter with a label
 G = Meter(70, encoding="text")
 G.label('Hello')
 G.size(225,125)
