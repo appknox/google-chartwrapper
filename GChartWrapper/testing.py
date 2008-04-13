@@ -287,7 +287,7 @@ class TestClass:
         G = HorizontalBarStack('hello', encoding='simple')
         G.color('4d89f9')
         G.size(200,125)
-        # XXX: no way to do this programatically yet
+        # XXX: no purdy way to do this w/ method calls yet
         # instead directly use the API params
         G['chbh'] = 10
         return G
@@ -311,7 +311,7 @@ class TestClass:
         G.color('f5f5f5','edf0d4','6c9642','365e24','13390a')
         G.fill('bg','s','eaf7fe')
         G.size(440,220)
-        # XXX: no way to do this programatically yet
+        # XXX: no purdy way to do this w/ method calls yet
         # instead directly use the API params
         G['chtm'] = 'usa'
         G['chld'] = 'NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILAKTXCOMDMAALMOMNCAOKMIGAAZMTMSSCRIAR'

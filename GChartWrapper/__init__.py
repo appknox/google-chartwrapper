@@ -42,7 +42,11 @@ from GChartWrapper.constants import *
 from GChartWrapper.encoding import Encoder
 
 class Axes(UserDict):
-    """Axes attr storage"""
+    """
+    Axes attribute dictionary storage
+    
+    Use this class via GChart(...).axes
+    """
     def __init__(self):
         self.labels = []
         self.positions = []

@@ -7,6 +7,9 @@ class AttrNode(Node):
     def __init__(self, args):
         self.args = map(str,args)
     def render(self,context):
+        for n,arg in enumerate(self.args):
+            if arg in context:
+                self.args[n] = resolve_variable(arg, context)
         return self.args
 def attribute(parser, token):
     return AttrNode(token.split_contents())

@@ -5,7 +5,10 @@ from djangogchart.charts.models import *
 
 
 def chart(request):
-    return render_to_response('charts/chart.html',{'myval':10,'mydata':[
+    return render_to_response('charts/chart.html',{
+        'mycolor': '0000ff',
+        'myval':10,
+        'mydata':[
             [0,30,60,70,90,95,100], # x values
             [20,30,40,50,60,70,80], # y values, etc.
             [10,30,40,45,52],
