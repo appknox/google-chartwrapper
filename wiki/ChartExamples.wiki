@@ -346,3 +346,4 @@ G = Meter(70)
 G.label('Hello')
 G.size(225,125)
 }}}
+http://chart.apis.google.com/chart?chl=Hello&chs=225x125&cht=gom&chd=t:70.0&.png
