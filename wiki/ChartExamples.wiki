@@ -1,5 +1,6 @@
 #labels Featured,Phase-Implementation,Phase-Deploy
 == Chart examples adapted from the Google examples taken from the wrapper module unit tests ==
+----
 === Simple ===
 {{{
 # Instantiate the GChart instance, this is all you will need for making charts
@@ -18,6 +19,7 @@ http://chart.apis.google.com/chart?chd=e:helloworld&chs=250x100&cht=p&.png
 *The rest of the examples use the convenience classes for each kind of bar chart which are one of either 
 `HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, Radar, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, or VerticalBarStack`*
                 
+----
 === Title ===
 {{{
 # Title using name with optional color and size
@@ -27,6 +29,7 @@ G.color('00cc00')
 }}}
 http://chart.apis.google.com/chart?chd=e:GurMrabsClgubaolGvzCrgrefOrnhgvshyvforggregunahtyl&chco=00cc00&chts=00cc00,36&chs=300x150&cht=lc&chtt=The+Zen+of+Python&.png
 
+----
 === Line ===
 {{{
 # Add red line 6 thick
@@ -40,6 +43,7 @@ G.line(6,5,2)
 }}}
 http://chart.apis.google.com/chart?chxt=x,y&chd=e:hX1xPj&chco=ff0000&chs=300x150&cht=lc&chxl=0:|Mar|Apr|May|June|July|1:||50+Kb&chls=6.0,5.0,2.0&.png
 
+----
 === Multiline ===
 {{{
 # Draw multiple lines with markers on an lxy chart
@@ -59,6 +63,7 @@ G.line(2,4,1)
 }}}
 http://chart.apis.google.com/chart?chd=e:AATNmZsz5m8y..,MzTNZmgAmZszzM,GaTNZmczhR,..5mZmMzGa,,DNVHgAjMEf&chco=3072F3,ff0000,00aaaa&chm=s,FF0000,0,-1,5|s,0000ff,1,-1,5|s,00aa00,2,-1,5&chs=300x150&cht=lxy&chls=2.0,4.0,1.0&.png
 
+----
 === Bar ===
 {{{
 # 2 color horizontal bars 10 wide
@@ -69,6 +74,7 @@ G.bar(10,5,10)
 }}}
 http://chart.apis.google.com/chart?chs=300x150&chd=e:hell,orld&chco=cc0000,00aa00&cht=bhg&chbh=10.0,5.0,10.0&.png
 
+----
 === Pie ===
 {{{
 # Simple pie chart based on list
@@ -78,6 +84,7 @@ G.color('00dd00')
 }}}
 http://chart.apis.google.com/chart?chl=A|B|C|D&chs=300x150&chco=00dd00&cht=p3&chd=e:ABACADAE&.png
 
+----
 === Venn ===
 {{{
 # Extended venn diagram based on int list, scale the data to the max value
@@ -85,6 +92,7 @@ G = Venn( [100,80,60,30,30,30,10] )
 }}}
 http://chart.apis.google.com/chart?chd=e:BkBQA8AeAeAeAK&chs=300x150&cht=v&.png
 
+----
 === Axes ===
 {{{
 # Call type first with the chxt
@@ -101,6 +109,7 @@ G.axes.style('0000dd', 14)
 }}}
 http://chart.apis.google.com/chart?chxt=x,y,r,x&chd=e:foobarbaz&chxs=0,0000dd,14&chco=76A4FB&chs=300x150&cht=lc&chxl=0:|Foo|Bar|Baz|1:||20K|60K|100K|2:|A|B|C|3:||20|40|60|80&.png
 
+----
 === Grid ===
 {{{
 # Create dashed line with grid x,y as floats
@@ -112,6 +121,7 @@ G.grid(20.0,25.0,1,0)
 }}}
 http://chart.apis.google.com/chart?chd=e:foobarbaz&chg=20.0,25.0,1.0,0.0&chco=76A4FB&chs=300x150&cht=lc&chls=3.0,6.0,3.0&.png
 
+----
 === Markers ===
 {{{
 # Mark up some of the data randomly
@@ -124,6 +134,7 @@ G.marker('r','E5ECF9',0,1,0.25)
 }}}
 http://chart.apis.google.com/chart?chd=e:helloWorld&chs=300x150&cht=lc&chm=c,ff0000,0,3,20|d,00ff00,0,6,15|a,000099,0,4,10|R,A0BAE9,0,8,0.6|r,E5ECF9,0,1,0.25&.png
 
+----
 === Fill ===
 {{{
 # Fill the chart/background using chf, add axes to show bg
@@ -138,6 +149,7 @@ G.fill('bg','s','EFEFEF')
 }}}
 http://chart.apis.google.com/chart?chxt=x,y&chd=e:pqokeYONOMEBAKPOQVTXZdecaZcglprqxuux393ztpoonkeggjp&chf=c,lg,45,ffffff,0,76A4FB,0.75|bg,s,EFEFEF&chco=ff0000&chs=300x150&cht=lc&chxl=0:|1|2|3|4|5|1:||50|100&chls=4.0,3.0,0.0&.png
 
+----
 === Legend ===
 {{{
 # Add legend to the data set which follows collors
@@ -148,6 +160,7 @@ G.axes.type('y')
 }}}
 http://chart.apis.google.com/chart?chxt=y&chd=e:FOETHECat,leafgreen,IRON4YOUs&chco=ff0000,00ff00,0000ff&chs=300x150&cht=lc&chdl=Animals|Vegetables|Minerals&.png
 
+----
 === Hvz ===
 {{{
 # Make a vertical bar group and scale it to the max
@@ -161,6 +174,7 @@ G.size(200,100)
 }}}
 http://chart.apis.google.com/chart?chd=e:ho,..,EW&chf=c,lg,45,cccccc,0,000000,1|bg,s,cccccc&chco=00ff00,ff0000,0000ff&chs=200x100&cht=bvg&chdl=Goucher(31)|Truman(59)|Kansas(4)&.png
 
+----
 === Axes-Position ===
 {{{
 
@@ -195,6 +209,7 @@ G.axes.position(int(100*last_value/max_value)) # 0 to 100
 }}}
 http://chart.apis.google.com/chart?chxt=x,y,r&chd=t:5.0,6.0,7.0,12.0,12.0,15.0,18.0,25.0,28.0,28.0,31.0,34.0,44.0,48.0,58.0,65.0,73.0,74.0,76.0,77.0,86.0,87.0,94.0,97.0,99.0|81.0,100.0,95.0,94.0,96.0,92.0,72.0,63.0,65.0,66.0,66.0,76.0,66.0,64.0,64.0,63.0,37.0,35.0,32.0,35.0,38.0,38.0,70.0,38.0,65.0&chxp=0,0,13,28,42,56,71,84,100|1,32,100|2,64&chco=76A4FB&chm=o,0077CC,0,-1,5|r,E6F2FA,0,0.324,1.0&chs=300x150&cht=lxy&chxl=0:|A|B|C|D|E|F|G|H|1:|32|100|2:|64&.png
 
+----
 === Guide-Intro ===
 {{{
 G = Pie3D([60,40], encoding='text')
@@ -203,6 +218,7 @@ G.label('Hello', 'World')
 }}}
 http://chart.apis.google.com/chart?chl=Hello|World&chs=250x100&cht=p3&chd=t:60.0,40.0&.png
 
+----
 === Guide-Granularity-20 ===
 {{{
 G = Line('fohmnytenefohmnytene', encoding='simple')
@@ -213,6 +229,7 @@ G.axes.label(None, '50+Kb')
 }}}
 http://chart.apis.google.com/chart?chxt=x,y&chd=s:fohmnytenefohmnytene&chs=200x100&cht=lc&chxl=0:|April|May|June|1:||50+Kb&.png
 
+----
 === Guide-Granularity-40 ===
 {{{
 G = Line('frothsmzndyoteepngenfrothsmzndyoteepngen', encoding='simple')
@@ -223,6 +240,7 @@ G.axes.label(None, '50+Kb')
 }}}
 http://chart.apis.google.com/chart?chxt=x,y&chd=s:frothsmzndyoteepngenfrothsmzndyoteepngen&chs=200x100&cht=lc&chxl=0:|April|May|June|1:||50+Kb&.png
 
+----
 === Guide-Granularity-80 ===
 {{{
 G = Line('formostthisamazingdayfortheleapinggreenlformostthisamazingdayfortheleapinggreenl', encoding='simple')
@@ -233,6 +251,7 @@ G.axes.label(None, '50+Kb')
 }}}
 http://chart.apis.google.com/chart?chxt=x,y&chd=s:formostthisamazingdayfortheleapinggreenlformostthisamazingdayfortheleapinggreenl&chs=200x100&cht=lc&chxl=0:|April|May|June|1:||50+Kb&.png
 
+----
 === Guide-Line-Lc ===
 {{{
 G = Line('fooZaroo', encoding='simple')
@@ -240,6 +259,7 @@ G.size(200,100)
 }}}
 http://chart.apis.google.com/chart?chd=s:fooZaroo&chs=200x100&cht=lc&.png
 
+----
 === Guide-Sparkline ===
 {{{
 G = Sparkline([27,25,25,25,25,27,100,31,25,36,25,25,39,25,31,25,25,25,26,26,25,25,28,25,25,100,28,27,31,25,27,27,29,25,27,26,26,25,26,26,35,33,34,25,26,25,36,25,26,37,33,33,37,37,39,25,25,25,25],
@@ -251,6 +271,7 @@ G.line(1,0,0);
 }}}
 http://chart.apis.google.com/chart?chd=t:27.0,25.0,25.0,25.0,25.0,27.0,100.0,31.0,25.0,36.0,25.0,25.0,39.0,25.0,31.0,25.0,25.0,25.0,26.0,26.0,25.0,25.0,28.0,25.0,25.0,100.0,28.0,27.0,31.0,25.0,27.0,27.0,29.0,25.0,27.0,26.0,26.0,25.0,26.0,26.0,35.0,33.0,34.0,25.0,26.0,25.0,36.0,25.0,26.0,37.0,33.0,33.0,37.0,37.0,39.0,25.0,25.0,25.0,25.0&chco=0077CC&chm=B,E6F2FA,0,0,0&chs=200x40&cht=ls&chls=1.0,0.0,0.0&.png
 
+----
 === Guide-Bhs ===
 {{{
 G = HorizontalBarStack('ello', encoding='simple')
@@ -259,6 +280,7 @@ G.size(200,125)
 }}}
 http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9&cht=bhs&chd=s:ello&.png
 
+----
 === Guide-Bvs ===
 {{{
 G = VerticalBarStack([ [10,50,60,80,40],[50,60,100,40,20] ], encoding='text')
@@ -267,6 +289,7 @@ G.size(200,125)
 }}}
 http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9,c6d9fd&cht=bvs&chd=t:10.0,50.0,60.0,80.0,40.0|50.0,60.0,100.0,40.0,20.0&.png
 
+----
 === Guide-Bvs-Scale ===
 {{{
 G = VerticalBarStack([ [10,50,60,80,40],[50,60,100,40,20] ], encoding='text')
@@ -276,6 +299,7 @@ G.scale((0,160))
 }}}
 http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9,c6d9fd&cht=bvs&chd=t:6.0,31.0,38.0,50.0,25.0|31.0,38.0,63.0,25.0,13.0&.png
 
+----
 === Guide-Bhg ===
 {{{
 G = HorizontalBarGroup(['el','or'], encoding='simple')
@@ -284,6 +308,7 @@ G.size(200,125)
 }}}
 http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9,c6d9fd&cht=bhg&chd=s:el,or&.png
 
+----
 === Guide-Bvg ===
 {{{
 G = VerticalBarGroup(['hello','world'], encoding='simple')
@@ -292,6 +317,7 @@ G.size(200,125)
 }}}
 http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9,c6d9fd&cht=bvg&chd=s:hello,world&.png
 
+----
 === Guide-Chbh-Clipped ===
 {{{
 G = HorizontalBarStack('hello', encoding='simple')
@@ -300,6 +326,7 @@ G.size(200,125)
 }}}
 http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9&cht=bhs&chd=s:hello&.png
 
+----
 === Guide-Chbh-Size ===
 {{{
 G = HorizontalBarStack('hello', encoding='simple')
@@ -311,6 +338,7 @@ G['chbh'] = 10
 }}}
 http://chart.apis.google.com/chart?chs=200x125&chd=s:hello&chco=4d89f9&cht=bhs&chbh=10&.png
 
+----
 === Guide-Radar ===
 {{{
 # Create a radar chart w/ multiple lines
@@ -325,6 +353,7 @@ G.axes.range(0,360)
 }}}
 http://chart.apis.google.com/chart?chxt=x&chs=200x200&cht=r&chxr=0,0,360&chxl=0:|0|45|90|135|180|225|270|315&chd=t:77.0,66.0,15.0,0.0,31.0,48.0,100.0,77.0|20.0,36.0,100.0,2.0,0.0,100.0&chco=FF0000,FF9900&chls=2.0,4.0,0.0|2.0,4.0,0.0&.png
 
+----
 === Guide-Map ===
 {{{
 # Make a map of the US as in the API guide
@@ -339,6 +368,7 @@ G['chld'] = 'NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILA
 }}}
 http://chart.apis.google.com/chart?chd=s:fSGBDQBQBBAGABCBDAKLCDGFCLBBEBBEPASDKJBDD9BHHEAACAC&chf=bg,s,eaf7fe&chco=f5f5f5,edf0d4,6c9642,365e24,13390a&chtm=usa&chld=NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILAKTXCOMDMAALMOMNCAOKMIGAAZMTMSSCRIAR&chs=440x220&cht=t&.png
 
+----
 === Guide-Meter ===
 {{{
 # Create a simple Google-O-Meter with a label
