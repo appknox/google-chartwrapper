@@ -34,8 +34,8 @@ class TestClass:
         
     def hvz(self):
         # Make a vertical bar group and scale it to the max
-        G = VerticalBarGroup( [[31],[59],[4]] )
-        G.scale(59)
+        G = VerticalBarGroup( [[31],[59],[4]], encoding='text' )
+        G.scale(0,59)
         G.color('00ff00','ff0000','0000ff')
         G.legend('Goucher(31)','Truman(59)','Kansas(4)')
         G.fill('c','lg',45,'cccccc',0,'000000',1)
@@ -79,7 +79,8 @@ class TestClass:
 
     def venn(self):
         # Extended venn diagram based on int list, scale the data to the max value
-        G = Venn( [100,80,60,30,30,30,10] )
+        G = Venn( [100,80,60,30,30,30,10], encoding='text')
+        G.scale(0,100)
         return G
  
     def axes(self):
@@ -154,7 +155,7 @@ class TestClass:
             [100,90,40,20,10],
             [-1], # domain not found, interpolated
             [5,33,50,55,7],
-        ], scale=100) # scale the data to the maximum
+        ], scale=(0,100))
         G.color('3072F3','ff0000','00aaaa')
         G.marker('s','FF0000',0,-1,5)
         G.marker('s','0000ff',1,-1,5)
@@ -262,7 +263,7 @@ class TestClass:
         G = VerticalBarStack([ [10,50,60,80,40],[50,60,100,40,20] ], encoding='text')
         G.color('4d89f9', 'c6d9fd')
         G.size(200,125)
-        G.scale((0,160))
+        G.scale(0,160)
         return G
         
     def guide_bhg(self):
@@ -287,9 +288,7 @@ class TestClass:
         G = HorizontalBarStack('hello', encoding='simple')
         G.color('4d89f9')
         G.size(200,125)
-        # XXX: no purdy way to do this w/ method calls yet
-        # instead directly use the API params
-        G['chbh'] = 10
+        G.bar_height(10)
         return G
 
     # Now for some of the newer api features....        
@@ -311,10 +310,7 @@ class TestClass:
         G.color('f5f5f5','edf0d4','6c9642','365e24','13390a')
         G.fill('bg','s','eaf7fe')
         G.size(440,220)
-        # XXX: no purdy way to do this w/ method calls yet
-        # instead directly use the API params
-        G['chtm'] = 'usa'
-        G['chld'] = 'NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILAKTXCOMDMAALMOMNCAOKMIGAAZMTMSSCRIAR'
+        G.map('usa', 'NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILAKTXCOMDMAALMOMNCAOKMIGAAZMTMSSCRIAR')
         return G
 
     def guide_meter(self):

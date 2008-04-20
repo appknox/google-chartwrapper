@@ -37,21 +37,20 @@ def test():
             getattr(Test,test)().save(os.path.join(os.getcwd(),'tests',test))
 
     elif arg == 'wiki':
+        print '#labels Featured,Phase-Implementation,Phase-Deploy'
         print '== Chart examples adapted from the Google examples taken from the wrapper module unit tests =='
         for n,test in enumerate(Test.all):
             testobj = getattr(Test,test)
             G = testobj()
-            print '=== !%s ==='%test.title().replace('_','-')
+            print '----'
+            print '=== %s ==='%test.title().replace('_','-')
             print '{{{'
             print '\n'.join(map(lambda x: x.strip(), getsource(testobj).splitlines()[1:-1]))
             print '}}}'
             print '%s&.png'%G
             print
             if n == 0:
-                print """=== Attention! ===
-*The rest of the examples use the convenience classes for each kind of bar chart which are one of either 
-`HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, Radar, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, or VerticalBarStack`*
-                """
+                print "*The rest of the examples use the convenience classes for each kind of chart which are one of either `HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, Radar, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, or VerticalBarStack`*"
     elif arg == 'tags':
         for test in Test.all:
             print '<p>',test
@@ -61,8 +60,8 @@ def test():
                 elif l.startswith('G = GChart('):
                     l = 'chart '+l[12:-1]
 
-                rmlst = ['G.',']','[',"'"]
-                splst = ["','",'(',')',',']
+                rmlst = ['G.',']','[',"'"] # __setattr__
+                splst = ["','",'(',')',','] # __call__
                 for s in splst:
                     l = l.replace(s,' ')
                 for r in rmlst:

@@ -1,5 +1,5 @@
 ################################################################################
-#  GChartWrapper - v0.2
+#  GChartWrapper - v0.3
 #  Copyright (C) 2008  Justin Quick <justquick@gmail.com>
 #
 #  This program is free software; you can redistribute it and/or modify
@@ -33,10 +33,8 @@ Example
 See tests.py for unit test and other examples
 """
 
-
-import sys
 from UserDict import UserDict
-from urllib import urlretrieve,quote
+from urllib import urlretrieve
 from webbrowser import open as webopen
 from GChartWrapper.constants import *
 from GChartWrapper.encoding import Encoder
@@ -90,22 +88,25 @@ class GChart(UserDict):
     def __init__(self, ctype=None, dataset=[], **kwargs):
         self.lines = []
         self.fills = []
+        self.bar_heights = ''
+        self._geo = ''
+        self._cc = ''
         self.markers = []
         self._dataset = dataset
+        self.scales = []
         self.axes = Axes()        
         UserDict.__init__(self)
         if ctype:
             self.check_type(ctype)
-            self.data['cht'] = ctype
-        self._scale = None
-        if 'scale' in kwargs:
-            self._scale = kwargs['scale']
-            del kwargs['scale']            
+            self.data['cht'] = ctype          
         self._encoding = None
+        self._scale = None
         if 'encoding' in kwargs:
             self._encoding = kwargs['encoding']
             del kwargs['encoding']            
-
+        if 'scale' in kwargs:
+            self._scale = kwargs['scale']
+            del kwargs['scale']          
         self.apiurl = 'http://chart.apis.google.com/chart?'                
         if 'apiurl' in kwargs:
             self.apiurl = kwargs['apiurl']
@@ -113,12 +114,20 @@ class GChart(UserDict):
         for k,v in kwargs.items():
             assert(k in APIPARAMS), 'Invalid chart parameter: %s'%k                
             self.data[k] = v
+
+    def map(self, geo, country_codes):
+        assert(geo in GEO), 'Geograpic area %s not recognized'%geo
+        self._geo = geo
+        self._cc = country_codes
+
+    def bar_height(self, *heights):
+        self.bar_heights = ','.join(map(str,heights))
        
     def encoding(self, encoding): 
         self._encoding = encoding
 
-    def scale(self, scale):
-        self._scale = scale
+    def scale(self, *scale):
+        self.scales.append('%s,%s'%scale)
 
     def dataset(self, data):
         self._dataset = data                   
@@ -176,9 +185,18 @@ class GChart(UserDict):
         assert('cht' in self.data), 'No chart type defined, use type method'
         self.data['cht'] = self.check_type(self.data['cht'])   
         if self._dataset:
-            self.data['chd'] = encoder.encode(self._dataset,scale=self._scale)             
-        else: pass
-            #assert('chd' in self.data), 'You must have a dataset, or use chd'            
+            try: self.data['chd'] = encoder.encode(self._dataset,scale=self._scale)             
+            except: raise IndexError, 'Data encoding went screwy'
+        else:
+            assert('chd' in self.data), 'You must have a dataset, or use chd'            
+        if self.scales:
+            assert(self.data['chd'].startswith('t:')), 'You must use text encoding with chds'
+            self.data['chds'] = ','.join(self.scales)
+        if self.bar_heights:
+            self.data['chbh'] = self.bar_heights
+        if self._geo and self._cc:
+            self.data['chtm'] = self._geo
+            self.data['chld'] = self._cc
         if self.lines:
             self.data['chls'] = '|'.join(self.lines)            
         if self.markers:
