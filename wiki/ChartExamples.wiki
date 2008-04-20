@@ -15,10 +15,7 @@ G.size(250,100)
 }}}
 http://chart.apis.google.com/chart?chd=e:helloworld&chs=250x100&cht=p&.png
 
-=== Attention! ===
-*The rest of the examples use the convenience classes for each kind of chart which are one of either 
-`HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, Radar, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, or VerticalBarStack`*
-                
+*The rest of the examples use the convenience classes for each kind of chart which are one of either `HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, Radar, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, or VerticalBarStack`*
 ----
 === Title ===
 {{{
