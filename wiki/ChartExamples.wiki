@@ -16,7 +16,7 @@ G.size(250,100)
 http://chart.apis.google.com/chart?chd=e:helloworld&chs=250x100&cht=p&.png
 
 === Attention! ===
-*The rest of the examples use the convenience classes for each kind of bar chart which are one of either 
+*The rest of the examples use the convenience classes for each kind of chart which are one of either 
 `HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, Radar, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, or VerticalBarStack`*
                 
 ----
@@ -54,7 +54,7 @@ G = LineXY( [
 [100,90,40,20,10],
 [-1], # domain not found, interpolated
 [5,33,50,55,7],
-], scale=100) # scale the data to the maximum
+], scale=(0,100))
 G.color('3072F3','ff0000','00aaaa')
 G.marker('s','FF0000',0,-1,5)
 G.marker('s','0000ff',1,-1,5)
@@ -88,9 +88,10 @@ http://chart.apis.google.com/chart?chl=A|B|C|D&chs=300x150&chco=00dd00&cht=p3&ch
 === Venn ===
 {{{
 # Extended venn diagram based on int list, scale the data to the max value
-G = Venn( [100,80,60,30,30,30,10] )
+G = Venn( [100,80,60,30,30,30,10], encoding='text')
+G.scale(0,100)
 }}}
-http://chart.apis.google.com/chart?chd=e:BkBQA8AeAeAeAK&chs=300x150&cht=v&.png
+http://chart.apis.google.com/chart?chd=t:100.0,80.0,60.0,30.0,30.0,30.0,10.0&chds=0,100&chs=300x150&cht=v&.png
 
 ----
 === Axes ===
@@ -164,15 +165,15 @@ http://chart.apis.google.com/chart?chxt=y&chd=e:FOETHECat,leafgreen,IRON4YOUs&ch
 === Hvz ===
 {{{
 # Make a vertical bar group and scale it to the max
-G = VerticalBarGroup( [[31],[59],[4]] )
-G.scale(59)
+G = VerticalBarGroup( [[31],[59],[4]], encoding='text' )
+G.scale(0,59)
 G.color('00ff00','ff0000','0000ff')
 G.legend('Goucher(31)','Truman(59)','Kansas(4)')
 G.fill('c','lg',45,'cccccc',0,'000000',1)
 G.fill('bg','s','cccccc')
 G.size(200,100)
 }}}
-http://chart.apis.google.com/chart?chd=e:ho,..,EW&chf=c,lg,45,cccccc,0,000000,1|bg,s,cccccc&chco=00ff00,ff0000,0000ff&chs=200x100&cht=bvg&chdl=Goucher(31)|Truman(59)|Kansas(4)&.png
+http://chart.apis.google.com/chart?chds=0,59&chd=t:31.0|59.0|4.0&chf=c,lg,45,cccccc,0,000000,1|bg,s,cccccc&chco=00ff00,ff0000,0000ff&chs=200x100&cht=bvg&chdl=Goucher(31)|Truman(59)|Kansas(4)&.png
 
 ----
 === Axes-Position ===
@@ -295,9 +296,9 @@ http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9,c6d9fd&cht=bvs&chd=t:
 G = VerticalBarStack([ [10,50,60,80,40],[50,60,100,40,20] ], encoding='text')
 G.color('4d89f9', 'c6d9fd')
 G.size(200,125)
-G.scale((0,160))
+G.scale(0,160)
 }}}
-http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9,c6d9fd&cht=bvs&chd=t:6.0,31.0,38.0,50.0,25.0|31.0,38.0,63.0,25.0,13.0&.png
+http://chart.apis.google.com/chart?chs=200x125&chds=0,160&chco=4d89f9,c6d9fd&cht=bvs&chd=t:10.0,50.0,60.0,80.0,40.0|50.0,60.0,100.0,40.0,20.0&.png
 
 ----
 === Guide-Bhg ===
@@ -332,11 +333,9 @@ http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9&cht=bhs&chd=s:hello&.
 G = HorizontalBarStack('hello', encoding='simple')
 G.color('4d89f9')
 G.size(200,125)
-# XXX: no purdy way to do this w/ method calls yet
-# instead directly use the API params
-G['chbh'] = 10
+G.bar_height(10)
 }}}
-http://chart.apis.google.com/chart?chs=200x125&chd=s:hello&chco=4d89f9&cht=bhs&chbh=10&.png
+http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9&cht=bhs&chbh=10&chd=s:hello&.png
 
 ----
 === Guide-Radar ===
@@ -361,10 +360,7 @@ G = Map('fSGBDQBQBBAGABCBDAKLCDGFCLBBEBBEPASDKJBDD9BHHEAACAC', encoding='simple'
 G.color('f5f5f5','edf0d4','6c9642','365e24','13390a')
 G.fill('bg','s','eaf7fe')
 G.size(440,220)
-# XXX: no purdy way to do this w/ method calls yet
-# instead directly use the API params
-G['chtm'] = 'usa'
-G['chld'] = 'NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILAKTXCOMDMAALMOMNCAOKMIGAAZMTMSSCRIAR'
+G.map('usa', 'NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILAKTXCOMDMAALMOMNCAOKMIGAAZMTMSSCRIAR')
 }}}
 http://chart.apis.google.com/chart?chd=s:fSGBDQBQBBAGABCBDAKLCDGFCLBBEBBEPASDKJBDD9BHHEAACAC&chf=bg,s,eaf7fe&chco=f5f5f5,edf0d4,6c9642,365e24,13390a&chtm=usa&chld=NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILAKTXCOMDMAALMOMNCAOKMIGAAZMTMSSCRIAR&chs=440x220&cht=t&.png
 
@@ -377,3 +373,4 @@ G.label('Hello')
 G.size(225,125)
 }}}
 http://chart.apis.google.com/chart?chl=Hello&chs=225x125&cht=gom&chd=t:70.0&.png
+
