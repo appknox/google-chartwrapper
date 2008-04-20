@@ -1,4 +1,3 @@
-
 class Encoder:
     """Data encoder that handles simple,text, and extended encodings
     
@@ -125,3 +124,4 @@ def test():
    
 if __name__=='__main__': test()    
     
+
