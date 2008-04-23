@@ -174,7 +174,7 @@ class GChart(UserDict):
         """
         Renders the chart context and axes into the dict data
         """
-        self.data.update(**self.axes.render())     
+        self.data.update(self.axes.render())     
         encoder = Encoder(self._encoding)  
         if not 'chs' in self.data:
             self.data['chs'] = '300x150'
