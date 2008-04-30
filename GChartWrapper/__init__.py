@@ -32,7 +32,6 @@ Example
 
 See tests.py for unit test and other examples
 """
-
 from UserDict import UserDict
 from urllib import urlretrieve
 from webbrowser import open as webopen
@@ -70,7 +69,7 @@ class Axes(UserDict):
         id = len(self.positions)
         self.positions.append( str('%d,%s'%(id,position)).replace('None','') )
     def range(self, *args):
-        self.ranges.append('%d,%d,%d'%tuple([len(self.ranges)]+list(args)))
+        self.ranges.append('%d,%s,%s'%(len(self.ranges), args[0], args[1]))
     def type(self, atype):
         if not ',' in atype:
             atype = ','.join(atype)
@@ -82,9 +81,9 @@ class Axes(UserDict):
 class GChart(UserDict):
     """Main chart class
     
-    chart type must be valid for cht parameter
-    dataset can be any python iterable
-    kwargs will be put into chart params if valid"""
+    Chart type must be valid for cht parameter
+    Dataset can be any python iterable and be multi dimensional
+    Kwargs will be put into chart API params if valid"""
     def __init__(self, ctype=None, dataset=[], **kwargs):
         self.lines = []
         self.fills = []
@@ -185,8 +184,8 @@ class GChart(UserDict):
         assert('cht' in self.data), 'No chart type defined, use type method'
         self.data['cht'] = self.check_type(self.data['cht'])   
         if self._dataset:
-            try: self.data['chd'] = encoder.encode(self._dataset,scale=self._scale)             
-            except: raise IndexError, 'Data encoding went screwy'
+            self.data['chd'] = encoder.encode(self._dataset)             
+          # except: raise IndexError, 'Data encoding went screwy'                
         else:
             assert('chd' in self.data), 'You must have a dataset, or use chd'            
         if self.scales:
@@ -256,7 +255,7 @@ class GChart(UserDict):
         self.render()
         params = '&'.join(['%s=%s'%x for x in self.data.items() if x[1]])
         return self.apiurl + params.replace(' ','+')
-           
+    def url(self): return str(self)           
     def show(self):
         """
         Shows the chart URL in a webbrowser
@@ -287,13 +286,11 @@ class GChart(UserDict):
         kwargs can be other img tag attributes, which are strictly enforced
         """
         attrs = ''
-        href = str(self)
-        title = self.getname()
         for item in kwargs.items():
             if not item[0] in IMGATTRS:
                 raise AttributeError, 'Invalid img tag attribute: %s'%item[0]
             attrs += '%s="%s" '%item
-        return '<img alt="%s" title="%s" src="%s" %s>'%(title,title,href,attrs)
+        return '<img src="%s" %s>'%(str(self),attrs)
 
 
 # A whole mess of convenience classes
