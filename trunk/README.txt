@@ -1,5 +1,5 @@
 ################################################################################
-#  GChartWrapper - v0.2
+#  GChartWrapper - v0.3
 #  Copyright (C) 2008  Justin Quick <justquick@gmail.com>
 #
 #  This program is free software; you can redistribute it and/or modify

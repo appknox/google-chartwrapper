@@ -3,7 +3,9 @@ GChartWrapper - Google Chart API Wrapper
 
 Unit tests, see tests.py for actually running these
 """
-from GChartWrapper import *
+from GChartWrapper import GChart
+from GChartWrapper import HorizontalBarGroup, HorizontalBarStack, Line, LineXY, \
+    Sparkline, Meter, Map, Radar, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, VerticalBarStack
 class TestClass:
     """
     Extensive unit tests, more are welcome
@@ -153,9 +155,10 @@ class TestClass:
             [20,30,40,50,60,70,80], # y values, etc.
             [10,30,40,45,52],
             [100,90,40,20,10],
-            [-1], # domain not found, interpolated
+            ['-1'], # domain not found, interpolated
             [5,33,50,55,7],
-        ], scale=(0,100))
+        ])
+        G.scale(0,100)
         G.color('3072F3','ff0000','00aaaa')
         G.marker('s','FF0000',0,-1,5)
         G.marker('s','0000ff',1,-1,5)
@@ -243,7 +246,7 @@ class TestClass:
         G.color('0077CC')
         G.size(200,40)
         G.marker('B', 'E6F2FA',0,0,0)
-        G.line(1,0,0);
+        G.line(1,0,0)
         return G
 
     # http://code.google.com/apis/chart/#bar_charts

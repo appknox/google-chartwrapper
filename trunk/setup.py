@@ -1,8 +1,28 @@
 from distutils.core import setup
+from distutils.core import setup
+import os
 
+packages, data_files = [], []
+root_dir = os.path.dirname(__file__)
+if root_dir:
+    os.chdir(root_dir)
+
+for dirpath, dirnames, filenames in os.walk('GChartWrapper'):
+    for i, dirname in enumerate(dirnames):
+        if dirname.startswith('.'): del dirnames[i]
+    if '__init__.py' in filenames:
+        pkg = dirpath.replace(os.path.sep, '.')
+        if os.path.altsep:
+            pkg = pkg.replace(os.path.altsep, '.')
+        packages.append(pkg)
+    elif filenames:
+        prefix = dirpath[len('GChartWrapper')+1:]
+        for f in filenames:
+            data_files.append(os.path.join(prefix, f))
+         
 setup(
     name='GChartWrapper',
-    version='0.1',
+    version='0.3',
     description='Python Google Chart Wrapper',
     long_description="""Python wrapper for the Google Chart API. 
 The wrapper can render the URL of the Google chart, based on your parameters, 
@@ -13,5 +33,7 @@ The wrapper SHOULD also work with Eastwood the Google Chart API workalike.""",
     author="Justin Quick",
     author_email='justquick@gmail.com',
     url='http://code.google.com/p/google-chartwrapper/',
-    packages=['GChartWrapper'],
+      package_dir={'GChartWrapper': 'GChartWrapper'},
+      packages=packages,
+      package_data={'GChartWrapper': data_files},
 )

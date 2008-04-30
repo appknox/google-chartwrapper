@@ -1,19 +1,6 @@
-import os,sys
-# charts arent workin like a module unil i set the path straight
-os.chdir('..')
-sys.path.insert(0,os.getcwd())
-# this except statement should be all we need
-try:
-    from GChartWrapper import __file__ as initfile
-    chartdir = os.path.dirname(initfile)
-    templatedir = os.path.join(chartdir, 'charts', 'templates')
-except ImportError:
-    pass
-#    raise ImportError, 'You must install the module before running the project'
-
-
-
-# Default django settings for chartproject
+# Please set this static
+import os
+CHART_TEMPLATES = os.path.join(os.getcwd(),'charts','templates')
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -82,7 +69,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'chartproject.urls'
 
 TEMPLATE_DIRS = (
-    templatedir,
+    CHART_TEMPLATES.replace('\\','/'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -91,7 +78,8 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.admin',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'GChartWrapper.charts',
+    'chartproject.charts',
 )

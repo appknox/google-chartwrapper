@@ -1,6 +1,7 @@
 from django.template import Library,Node
-from GChartWrapper import GChart
+import GChartWrapper
 from django.template import resolve_variable
+
 register = Library()
 
 class AttrNode(Node):
@@ -13,22 +14,8 @@ class AttrNode(Node):
         return self.args
 def attribute(parser, token):
     return AttrNode(token.split_contents())
-register.tag('label', attribute)
-register.tag('title', attribute)
-register.tag('color', attribute)
-register.tag('line', attribute)
-register.tag('grid', attribute)
-register.tag('bar', attribute)
-register.tag('marker', attribute)
-register.tag('fill', attribute)
-register.tag('legend', attribute)
-register.tag('axes', attribute)
-register.tag('encoding', attribute)
-register.tag('scale', attribute)
-register.tag('size', attribute)
-register.tag('type', attribute)
-register.tag('dataset', attribute)
-register.tag('alt', attribute)
+for tag in GChartWrapper.constants.TTAGSATTRS:
+    register.tag(tag, attribute)
 
 
 class ChartNode(Node):
@@ -41,6 +28,7 @@ class ChartNode(Node):
         self.nodelist = nodelist
     def render(self, context): 
         args = []
+        kwargs = {}
         for t in self.tokens:
             try:
                 args.append(resolve_variable(t,context))
@@ -48,31 +36,35 @@ class ChartNode(Node):
                 try:
                     args.append(float(t))
                 except:
-                    args.append(str(t))   
+                    arg = str(t)
+                    if arg.find('=')>-1:
+                        k,v = arg.split('=')[:2]
+                        kwargs[k] = v
+                    else:
+                        args.append(arg)   
         if len(args) == 1 and type(args[0]) in map(type,[[],()]):
-            args = args[0]                 
-        chart = GChart(self.type,args)
-        altxt = ''
+            args = args[0]   
+        if self.type in GChartWrapper.constants.CLASSES:
+            chart = getattr(GChartWrapper,self.type)(args,**kwargs)
+        elif self.type in GChartWrapper.constants.TYPES:
+            chart = GChartWrapper.GChart(self.type,args,**kwargs)
+        imgkwargs = {}
         for n in self.nodelist:
-            rend = n.render(context)
+            rend = n.render(context)           
             if type(rend) == type([]):
+                if rend[0] == 'img':
+                    for k,v in map(lambda x: x.split('='), rend[1:]):
+                        imgkwargs[k] = v
+                    continue
                 if rend[0] == 'axes':
-                    func = eval('chart.axes.%s'%rend[1])
-                    func(*rend[2:])  
-                if rend[0] == 'alt':
-                    altxt = rend[1]                                      
-                elif rend[0] == 'axes':
-                    func = getattr(getattr(chart, rend[0]), rend[1])
-                    func(*rend[2:])
+                    getattr(getattr(chart, rend[0]), rend[1])(*rend[2:])
                 else:
-                    func = getattr(chart, rend[0])
-                    func(*rend[1:])
-        return chart.img(alt=altxt)
+                    getattr(chart, rend[0])(*rend[1:])
+        return chart.img(**imgkwargs)
 
 def make_chart(parser, token):
     nodelist = parser.parse(('endchart',))
     parser.delete_first_token()
     tokens = token.contents.split()
     return ChartNode(tokens,nodelist)
-
 register.tag('chart', make_chart)

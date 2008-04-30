@@ -3,7 +3,7 @@ class Encoder:
     
     Based on javascript encoding algorithm and pygooglecharts"""
     def __init__(self, encoding=None): 
-        self.encoding = 'extended'
+        self.encoding = 'text'
         if encoding:
             assert(encoding in ('simple','text','extended')),\
             'Unknown encoding: %s'%encoding        
@@ -23,7 +23,7 @@ class Encoder:
            self.none = '-1'
            self.char = '|'
            self.dchar = ','
-           self.value = lambda x: '%.1f'%x                          
+           self.value = lambda x: '%.1f'%float(x)
         elif self.encoding == 'extended':
            self.coding =  ecoding
            self.max_value =  4095
@@ -57,19 +57,19 @@ class Encoder:
         else:
             dataset = args[0]  
         typemap = map(type,dataset)
-        code = self.encoding[0]+':'
-        if type('') in typemap:  
-            return code + ','.join(map(str,dataset))
+        code = self.encoding[0]
         self.scale = None      
-        if 'scale' in kwargs:
-            self.scale = kwargs['scale']                 
-        if type([]) in typemap:  
+        if type('') in typemap:  
+            data = ','.join(map(str,dataset))          
+        elif type([]) in typemap:  
             data = self.char.join([self.encodedata(data) for data in dataset]) 
-        elif len(dataset) == 1:
+        elif len(dataset) == 1 and hasattr(dataset[0], '__iter__'):
             data = self.encodedata(dataset[0])                                  
         else:            
-            data = self.encodedata(dataset)        
-        return code + data            
+            data = self.encodedata(dataset) 
+        if not '.' in data and code == 't':
+            code = 'e'      
+        return code +':'+ data            
 
     def encodedata(self, data):
         sub_data = []
@@ -79,7 +79,7 @@ class Encoder:
                 sub_data.append(self.none)
             elif value >= 0:
                 try:
-                    sub_data.append(self.value(self.scalevalue(value)))
+                    sub_data.append(self.value(value))
                 except ValueError:
                     raise ValueError, 'cannot encode value: %s' % value                         
         return self.dchar.join(sub_data)
