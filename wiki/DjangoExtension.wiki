@@ -21,4 +21,7 @@
 http://chart.apis.google.com/chart?chd=s:GurMrabsClgubaolGvzCrgrefOrnhgvshyvforggregunahtyl&chco=00cc00&chts=00cc00,36&chs=300x150&cht=lc&chtt=The+Zen+of+Python&.png
 
 
-*For more information head over to the [http://groups.google.com/group/gchartwrapper GChartWrapperGroup] and view the `django.templatetags.html` for extensive examples*
+*For more information go to [http://gchartwrapper.googlegroups.com/web/django.templatetags.html Templatetags Usage] file on our group. These examples have the actual charts created and the templatetag syntax needed to work*
+
+===Chart editing and storing===
+*Newest versions of the module come with an AJAX (jquery) chart editor which renders datasets and template tag instructions into IMG tag output. They run on models so storing,manipulating and referencing them is a breeze. Here is a [http://gchartwrapper.googlegroups.com/web/django.chart.editor.jpg Screenshot] of the editor at work.* 
