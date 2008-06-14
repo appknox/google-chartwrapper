@@ -1,3 +1,6 @@
+
+    
+
 from django.template import Context,Template
 def interp(dataset,insts):
     ds,out = {},['{% load charts %}']
