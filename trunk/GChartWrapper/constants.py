@@ -1,6 +1,6 @@
 APIPARAMS = ('cht','chbh','chtt','chdl','chco','chd','chs','chf','chts','chl',
 'chxt','chxl','chg','chxr','chxs','chls','chm','chxp','chp','chds','chtm','chld')
-MARKERS = ('a','c','d','o','s','v','V','h','x','r','R','b','B','D')
+MARKERS = ('a','c','d','o','s','t','v','V','h','x','r','R','b','B','D')
 TYPES = ('lc','ls','lxy','bhs','bvs','bhg','bvg','p','p3','v','s','r','t','gom','ls')
 IMGATTRS = ('title','alt','align','border','height','width','ismap','longdesc',
 'usemap','id','class','style','lang','xml:lang','onclick','ondblclick','onmousedown',

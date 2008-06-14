@@ -247,7 +247,7 @@ class GChart(UserDict):
     def getdata(self):
         return Encoder().decode(self.data['chd'])        
         
-    def __repr__(self):  self.__str__()
+    def __repr__(self):  return self.__str__()
     def __str__(self):
         """
         Returns the rendered URL of the chart
