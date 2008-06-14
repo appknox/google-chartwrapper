@@ -6,13 +6,14 @@ Unit tests, see tests.py for actually running these
 from GChartWrapper import GChart
 from GChartWrapper import HorizontalBarGroup, HorizontalBarStack, Line, LineXY, \
     Sparkline, Meter, Map, Radar, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, VerticalBarStack
+from math import sin,radians,pi
 class TestClass:
     """
     Extensive unit tests, more are welcome
     
     All methods must be commented and return a GChart instance as the last line.
     """
-    all = ('simple','title','line','multiline','bar','pie','venn','axes','grid',
+    all = ('sin','simple','title','line','multiline','bar','pie','venn','axes','grid',
            'markers','fill','legend','hvz', 'axes_position',
            'guide_intro', 
            'guide_granularity_20', 'guide_granularity_40', 'guide_granularity_80',
@@ -21,7 +22,24 @@ class TestClass:
            'guide_bhg', 'guide_bvg', 'guide_chbh_clipped', 'guide_chbh_size',
            'guide_radar','guide_map','guide_meter',
            )
+    def sin(self):
     
+        def arange(start, stop, stride=1):
+            result = []
+            current = float(start)
+            while current < stop:
+                result.append(current)
+                current += stride
+            return result
+        ds = arange(0,8,pi/4)
+        ds2 = map(sin,ds)
+#        print ds,map(sin,ds)
+        G = LineXY([ds,ds2])
+ #       G.axes.type('x')
+#        G.axes.range(0,8)
+        G.size(400,400)
+        G.scale(min(ds2),max(ds2))
+        return G
     def simple(self):
         # Instantiate the GChart instance, this is all you will need for making charts
         # GChart(type=None, dataset=None), see the doc for more

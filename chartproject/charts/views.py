@@ -10,6 +10,7 @@ def chart(request):
         'ds2':[ [77,66,15,0,31,48,100,77],[20,36,100,2,0,100] ],
         'mycolor': '0000ff',
         'myval':10,
+        'val': 'print "HelloWorld"',
         'mydata':[
             [0,30,60,70,90,95,100], # x values
             [20,30,40,50,60,70,80], # y values, etc.
