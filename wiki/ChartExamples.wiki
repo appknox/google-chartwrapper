@@ -49,16 +49,17 @@ G = LineXY( [
 [20,30,40,50,60,70,80], # y values, etc.
 [10,30,40,45,52],
 [100,90,40,20,10],
-[-1], # domain not found, interpolated
+['-1'], # domain not found, interpolated
 [5,33,50,55,7],
-], scale=(0,100))
+])
+G.scale(0,100)
 G.color('3072F3','ff0000','00aaaa')
 G.marker('s','FF0000',0,-1,5)
 G.marker('s','0000ff',1,-1,5)
 G.marker('s','00aa00',2,-1,5)
 G.line(2,4,1)
 }}}
-http://chart.apis.google.com/chart?chd=e:AATNmZsz5m8y..,MzTNZmgAmZszzM,GaTNZmczhR,..5mZmMzGa,,DNVHgAjMEf&chco=3072F3,ff0000,00aaaa&chm=s,FF0000,0,-1,5|s,0000ff,1,-1,5|s,00aa00,2,-1,5&chs=300x150&cht=lxy&chls=2.0,4.0,1.0&.png
+http://chart.apis.google.com/chart?chds=0,100&chd=t:0.0,30.0,60.0,70.0,90.0,95.0,100.0|20.0,30.0,40.0,50.0,60.0,70.0,80.0|10.0,30.0,40.0,45.0,52.0|100.0,90.0,40.0,20.0,10.0|-1.0|5.0,33.0,50.0,55.0,7.0&chco=3072F3,ff0000,00aaaa&chm=s,FF0000,0,-1,5|s,0000ff,1,-1,5|s,00aa00,2,-1,5&chs=300x150&cht=lxy&chls=2.0,4.0,1.0&.png
 
 ----
 === Bar ===
@@ -79,7 +80,7 @@ G = Pie3D( [1,2,3,4] )
 G.label('A','B','C','D')
 G.color('00dd00')
 }}}
-http://chart.apis.google.com/chart?chl=A|B|C|D&chs=300x150&chco=00dd00&cht=p3&chd=e:ABACADAE&.png
+http://chart.apis.google.com/chart?chl=A|B|C|D&chs=300x150&chco=00dd00&cht=p3&chd=t:1.0,2.0,3.0,4.0&.png
 
 ----
 === Venn ===
@@ -123,14 +124,20 @@ http://chart.apis.google.com/chart?chd=e:foobarbaz&chg=20.0,25.0,1.0,0.0&chco=76
 === Markers ===
 {{{
 # Mark up some of the data randomly
-G = Line( ['helloWorld'] )
-G.marker('c','ff0000',0,3,20)
-G.marker('d','00ff00',0,6,15)
+G = Line( ['helloWorldZZZZ098236561'] )
+G.marker('c','ff0000',0,1,20)
+G.marker('d','80C65A',0,6,15)
+G.marker('o','FF9900',0,4.0,20.0)
+G.marker('s','3399CC',0,5.0,10.0)
+G.marker('v','BBCCED',0,6.0,1.0)
+G.marker('V','3399CC',0,7.0,1.0)
+G.marker('x','FFCC33',0,8.0,20.0)
+G.marker('h','000000',0,0.30,0.5 )
 G.marker('a','000099',0,4,10)
 G.marker('R','A0BAE9',0,8,0.6)
 G.marker('r','E5ECF9',0,1,0.25)
 }}}
-http://chart.apis.google.com/chart?chd=e:helloWorld&chs=300x150&cht=lc&chm=c,ff0000,0,3,20|d,00ff00,0,6,15|a,000099,0,4,10|R,A0BAE9,0,8,0.6|r,E5ECF9,0,1,0.25&.png
+http://chart.apis.google.com/chart?chd=e:helloWorldZZZZ098236561&chs=300x150&cht=lc&chm=c,ff0000,0,1,20|d,80C65A,0,6,15|o,FF9900,0,4.0,20.0|s,3399CC,0,5.0,10.0|v,BBCCED,0,6.0,1.0|V,3399CC,0,7.0,1.0|x,FFCC33,0,8.0,20.0|h,000000,0,0.3,0.5|a,000099,0,4,10|R,A0BAE9,0,8,0.6|r,E5ECF9,0,1,0.25&.png
 
 ----
 === Fill ===
@@ -157,6 +164,18 @@ G.legend('Animals','Vegetables','Minerals')
 G.axes.type('y')
 }}}
 http://chart.apis.google.com/chart?chxt=y&chd=e:FOETHECat,leafgreen,IRON4YOUs&chco=ff0000,00ff00,0000ff&chs=300x150&cht=lc&chdl=Animals|Vegetables|Minerals&.png
+
+----
+=== Legend2 ===
+{{{
+# Add legend to the data set which follows collors
+G = Line( ['abcde','FGHIJ','09876'] )
+G.color('ff0000','00ff00','0000ff')
+G.legend('Animals','Vegetables','Minerals')
+G.legend_pos('l')
+G.axes.type('y')
+}}}
+http://chart.apis.google.com/chart?chxt=y&chd=e:abcde,FGHIJ,09876&chco=ff0000,00ff00,0000ff&chs=300x150&cht=lc&chdl=Animals|Vegetables|Minerals&chdlp=l&.png
 
 ----
 === Hvz ===
@@ -205,7 +224,7 @@ G.axes.position(int(100*min_value/max_value),100) # 0 to 100
 G.axes.label('%d'%last_value)
 G.axes.position(int(100*last_value/max_value)) # 0 to 100
 }}}
-http://chart.apis.google.com/chart?chxt=x,y,r&chd=t:5.0,6.0,7.0,12.0,12.0,15.0,18.0,25.0,28.0,28.0,31.0,34.0,44.0,48.0,58.0,65.0,73.0,74.0,76.0,77.0,86.0,87.0,94.0,97.0,99.0|81.0,100.0,95.0,94.0,96.0,92.0,72.0,63.0,65.0,66.0,66.0,76.0,66.0,64.0,64.0,63.0,37.0,35.0,32.0,35.0,38.0,38.0,70.0,38.0,65.0&chxp=0,0,13,28,42,56,71,84,100|1,32,100|2,64&chco=76A4FB&chm=o,0077CC,0,-1,5|r,E6F2FA,0,0.324,1.0&chs=300x150&cht=lxy&chxl=0:|A|B|C|D|E|F|G|H|1:|32|100|2:|64&.png
+http://chart.apis.google.com/chart?chxt=x,y,r&chd=t:4.6,6.0,7.4,11.6,12.0,14.8,18.1,25.1,27.9,28.3,30.6,34.4,43.7,48.3,57.6,64.6,72.5,74.4,76.2,77.2,86.0,86.9,93.9,96.7,99.0|80.5,100.0,95.4,93.7,96.3,91.7,71.5,63.0,65.2,65.5,66.0,75.9,65.8,64.4,64.2,62.5,37.2,35.3,32.4,35.2,38.4,37.9,69.8,38.0,64.5&chxp=0,0,13,28,42,56,71,84,100|1,32,100|2,64&chco=76A4FB&chm=o,0077CC,0,-1,5|r,E6F2FA,0,0.324,1.0&chs=300x150&cht=lxy&chxl=0:|A|B|C|D|E|F|G|H|1:|32|100|2:|64&.png
 
 ----
 === Guide-Intro ===
@@ -215,6 +234,18 @@ G.size(250,100)
 G.label('Hello', 'World')
 }}}
 http://chart.apis.google.com/chart?chl=Hello|World&chs=250x100&cht=p3&chd=t:60.0,40.0&.png
+
+----
+=== Jacobian ===
+{{{
+# from http://toys.jacobian.org/hg/googlecharts/raw-file/tip/docs/examples.html
+G = Line(['ALAtBmC1EcGYIsLWOXRuVdZhd9ivn4tYzO5b..'],encoding='extended')
+G.size(300,200)
+G.color('cc0000')
+G.fill('c','s','eeeeee')
+G.legend('Sweet')
+}}}
+http://chart.apis.google.com/chart?chd=e:ALAtBmC1EcGYIsLWOXRuVdZhd9ivn4tYzO5b..&chf=c,s,eeeeee&chco=cc0000&chs=300x200&cht=lc&chdl=Sweet&.png
 
 ----
 === Guide-Granularity-20 ===
@@ -265,7 +296,7 @@ encoding='text')
 G.color('0077CC')
 G.size(200,40)
 G.marker('B', 'E6F2FA',0,0,0)
-G.line(1,0,0);
+G.line(1,0,0)
 }}}
 http://chart.apis.google.com/chart?chd=t:27.0,25.0,25.0,25.0,25.0,27.0,100.0,31.0,25.0,36.0,25.0,25.0,39.0,25.0,31.0,25.0,25.0,25.0,26.0,26.0,25.0,25.0,28.0,25.0,25.0,100.0,28.0,27.0,31.0,25.0,27.0,27.0,29.0,25.0,27.0,26.0,26.0,25.0,26.0,26.0,35.0,33.0,34.0,25.0,26.0,25.0,36.0,25.0,26.0,37.0,33.0,33.0,37.0,37.0,39.0,25.0,25.0,25.0,25.0&chco=0077CC&chm=B,E6F2FA,0,0,0&chs=200x40&cht=ls&chls=1.0,0.0,0.0&.png
 
@@ -370,4 +401,3 @@ G.label('Hello')
 G.size(225,125)
 }}}
 http://chart.apis.google.com/chart?chl=Hello&chs=225x125&cht=gom&chd=t:70.0&.png
-
