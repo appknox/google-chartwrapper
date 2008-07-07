@@ -83,7 +83,7 @@ class GChart(UserDict):
     def map(self, geo, country_codes):
         assert(geo in GEO), 'Geograpic area %s not recognized'%geo
         self._geo = geo
-        self._cc = country_codes
+        self._ld = country_codes
     
     def level_data(self, *args):
         assert(args[0].lower() in 'lmqh'), 'Unknown EC level %s'%level
