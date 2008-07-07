@@ -1,0 +1,28 @@
+<script language="javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+<script language="javascript">
+$(document).ready(function(){ 
+    $("#save").click(function(){
+        var dat = document.getElementById('data').value;
+        var inn = document.getElementById('inst').value;
+        $("#chart").load("/edit/{{ chart.id }}/",{data:dat,inst:inn,save_chart:"save"});
+    });
+});
+</script>
+
+<center>
+<div id="chart">{{ chartimg }}</div>
+<br> 
+<br> 
+<table>
+<tr><td>
+     <b>Dataset(s)</b><br><textarea id="data" name="data" cols="50" rows="15">{{ data }}</textarea><br>
+</td><td>
+    <b>Chart Instructions</b><br><textarea id="inst" name="inst" cols="50" rows="15">{{ inst }}</textarea>
+</td><td>
+     
+</tr></table>     
+
+<input id="save" type="button" name="save_chart" value="Save">
+<input id="save" type="button" onclick="window.location='/view/{{ chart.id }}/';" value="View">
+</center>
+
