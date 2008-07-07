@@ -22,7 +22,7 @@ for dirpath, dirnames, filenames in os.walk('GChartWrapper'):
          
 setup(
     name='GChartWrapper',
-    version='0.3',
+    version='0.4',
     description='Python Google Chart Wrapper',
     long_description="""Python wrapper for the Google Chart API. 
 The wrapper can render the URL of the Google chart, based on your parameters, 

@@ -4,6 +4,8 @@ from GChartWrapper.charts.models import Chart
 from chartproject.charts import interp
 
 
+
+
 def chart(request):
     return render_to_response('charts/chart.html',{
         'ds1':[[10, 50, 60, 80, 40],[50, 60, 100, 40, 20]],
