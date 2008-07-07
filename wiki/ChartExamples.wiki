@@ -15,7 +15,7 @@ G.size(250,100)
 }}}
 http://chart.apis.google.com/chart?chd=e:helloworld&chs=250x100&cht=p&.png
 
-*The rest of the examples use the convenience classes for each kind of chart which are one of either `HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, QR Code, Radar, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, or VerticalBarStack`*
+*The rest of the examples use the convenience classes for each kind of chart which are one of either `HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, Radar, QRCode, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, or VerticalBarStack`*
 ----
 === Title ===
 {{{
@@ -194,7 +194,7 @@ http://chart.apis.google.com/chart?chds=0,59&chd=t:31.0|59.0|4.0&chf=c,lg,45,ccc
 ----
 === Axes-Position ===
 {{{
-
+# multiple axis with label positions specified
 # values between 0 and 100 - use text encoding
 data = [[4.6, 6.0, 7.4, 11.6, 12.0, 14.8, 18.1, 25.1, 
          27.9, 28.3, 30.6, 34.4, 43.7, 48.3, 57.6, 64.6, 
@@ -248,10 +248,10 @@ G.legend('Sweet')
 http://chart.apis.google.com/chart?chd=e:ALAtBmC1EcGYIsLWOXRuVdZhd9ivn4tYzO5b..&chf=c,s,eeeeee&chco=cc0000&chs=300x200&cht=lc&chdl=Sweet&.png
 
 ----
-=== Qrcode ===
+=== Qr-Code ===
 {{{
 # Output a QR code graph for UTF-8
-G = QRCode(None)
+G = QRCode()
 G.label('''To the human eye QR Codes look like hieroglyphics, 
     but they can be read by any device that has 
     the appropriate software installed.''')
@@ -284,17 +284,20 @@ http://chart.apis.google.com/chart?chxt=x,y&chd=s:frothsmzndyoteepngenfrothsmznd
 ----
 === Guide-Granularity-80 ===
 {{{
-G = Line('formostthisamazingdayfortheleapinggreenlformostthisamazingdayfortheleapinggreenl', encoding='simple')
+G = Line('''formostthisamazingdayfortheleapinggreenlformostthis
+    amazingdayfortheleapinggreenl''', encoding='simple')
 G.size(200,100)
 G.axes.type('xy')
 G.axes.label('April','May','June')
 G.axes.label(None, '50+Kb')
 }}}
-http://chart.apis.google.com/chart?chxt=x,y&chd=s:formostthisamazingdayfortheleapinggreenlformostthisamazingdayfortheleapinggreenl&chs=200x100&cht=lc&chxl=0:|April|May|June|1:||50+Kb&.png
+http://chart.apis.google.com/chart?chxt=x,y&chd=s:formostthisamazingdayfortheleapinggreenlformostthis
+++++++++++++amazingdayfortheleapinggreenl&chs=200x100&cht=lc&chxl=0:|April|May|June|1:||50+Kb&.png
 
 ----
 === Guide-Line-Lc ===
 {{{
+# http://code.google.com/apis/chart/#line_charts
 G = Line('fooZaroo', encoding='simple')
 G.size(200,100)
 }}}
@@ -303,8 +306,11 @@ http://chart.apis.google.com/chart?chd=s:fooZaroo&chs=200x100&cht=lc&.png
 ----
 === Guide-Sparkline ===
 {{{
-G = Sparkline([27,25,25,25,25,27,100,31,25,36,25,25,39,25,31,25,25,25,26,26,25,25,28,25,25,100,28,27,31,25,27,27,29,25,27,26,26,25,26,26,35,33,34,25,26,25,36,25,26,37,33,33,37,37,39,25,25,25,25], 
-              encoding='text')
+# http://code.google.com/apis/chart/#sparkline  
+G = Sparkline([27,25,25,25,25,27,100,31,25,36,25,25,39,
+    25,31,25,25,25,26,26,25,25,28,25,25,100,28,27,31,25,
+    27,27,29,25,27,26,26,25,26,26,35,33,34,25,26,25,36,25,
+    26,37,33,33,37,37,39,25,25,25,25], encoding='text')
 G.color('0077CC')
 G.size(200,40)
 G.marker('B', 'E6F2FA',0,0,0)
@@ -315,6 +321,7 @@ http://chart.apis.google.com/chart?chd=t:27.0,25.0,25.0,25.0,25.0,27.0,100.0,31.
 ----
 === Guide-Bhs ===
 {{{
+# http://code.google.com/apis/chart/#bar_charts
 G = HorizontalBarStack('ello', encoding='simple')
 G.color('4d89f9')
 G.size(200,125)        
