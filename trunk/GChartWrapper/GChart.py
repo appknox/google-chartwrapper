@@ -85,9 +85,9 @@ class GChart(UserDict):
         self._geo = geo
         self._cc = country_codes
     
-    def level_data(self, level, margin):
-        assert(level.lower() in 'lmqh'), 'Unknown EC level %s'%level
-        self.data['chld'] = '%s|%d'%(level,margin)
+    def level_data(self, *args):
+        assert(args[0].lower() in 'lmqh'), 'Unknown EC level %s'%level
+        self.data['chld'] = '%s|%s'%args
 
     def bar_height(self, *heights):
         self.bar_heights = ','.join(map(str,heights))

@@ -1,6 +1,6 @@
 from django.template import Library,Node
-import GChartWrapper
 from django.template import resolve_variable
+import GChartWrapper
 
 register = Library()
 
@@ -44,10 +44,12 @@ class ChartNode(Node):
                         args.append(arg)   
         if len(args) == 1 and type(args[0]) in map(type,[[],()]):
             args = args[0]   
-        if self.type in GChartWrapper.constants.CLASSES:
+        if self.type in dir(GChartWrapper):
             chart = getattr(GChartWrapper,self.type)(args,**kwargs)
         elif self.type in GChartWrapper.constants.TYPES:
             chart = GChartWrapper.GChart(self.type,args,**kwargs)
+        else:
+            raise TypeError, 'Chart type %s not recognized'%self.type
         imgkwargs = {}
         for n in self.nodelist:
             rend = n.render(context)           
