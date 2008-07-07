@@ -3,43 +3,24 @@ GChartWrapper - Google Chart API Wrapper
 
 Unit tests, see tests.py for actually running these
 """
-from GChartWrapper import GChart
-from GChartWrapper import HorizontalBarGroup, HorizontalBarStack, Line, LineXY, \
-    Sparkline, Meter, Map, Radar, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, VerticalBarStack
-from math import sin,radians,pi
+from __init__ import *
+
 class TestClass:
     """
     Extensive unit tests, more are welcome
     
     All methods must be commented and return a GChart instance as the last line.
     """
-    all = ('sin','simple','title','line','multiline','bar','pie','venn','axes','grid',
-           'markers','fill','legend','hvz', 'axes_position',
-           'guide_intro', 
+    all = ('simple','title','line','multiline','bar','pie','venn','axes','grid',
+           'markers','fill','legend','legend2','hvz', 'axes_position',
+           'guide_intro', 'jacobian', 'qr_code',
            'guide_granularity_20', 'guide_granularity_40', 'guide_granularity_80',
            'guide_line_lc',  'guide_sparkline', 
            'guide_bhs', 'guide_bvs', 'guide_bvs_scale', 
            'guide_bhg', 'guide_bvg', 'guide_chbh_clipped', 'guide_chbh_size',
            'guide_radar','guide_map','guide_meter',
            )
-    def sin(self):
-    
-        def arange(start, stop, stride=1):
-            result = []
-            current = float(start)
-            while current < stop:
-                result.append(current)
-                current += stride
-            return result
-        ds = arange(0,8,pi/4)
-        ds2 = map(sin,ds)
-#        print ds,map(sin,ds)
-        G = LineXY([ds,ds2])
- #       G.axes.type('x')
-#        G.axes.range(0,8)
-        G.size(400,400)
-        G.scale(min(ds2),max(ds2))
-        return G
+
     def simple(self):
         # Instantiate the GChart instance, this is all you will need for making charts
         # GChart(type=None, dataset=None), see the doc for more
@@ -61,6 +42,16 @@ class TestClass:
         G.fill('c','lg',45,'cccccc',0,'000000',1)
         G.fill('bg','s','cccccc')        
         G.size(200,100)
+        return G
+
+    def qr_code(self):
+        # Output a QR code graph that allows 15% restore with 8 rows/cols for UTF-8
+        G = QRCode()
+        G.label('''To the human eye QR Codes look like hieroglyphics, 
+            but they can be read by any device that has 
+            the appropriate software installed.''')
+        G.output_encoding('UTF-8')
+        G.level_data('M',8)
         return G
         
     def title(self):
@@ -128,17 +119,33 @@ class TestClass:
     
     def markers(self):
         # Mark up some of the data randomly
-        G = Line( ['helloWorld'] )
-        G.marker('c','ff0000',0,3,20)
-        G.marker('d','00ff00',0,6,15)    
+        G = Line( ['helloWorldZZZZ098236561'] )
+        G.marker('c','ff0000',0,1,20)
+        G.marker('d','80C65A',0,6,15)    
+        G.marker('o','FF9900',0,4.0,20.0)
+        G.marker('s','3399CC',0,5.0,10.0)
+        G.marker('v','BBCCED',0,6.0,1.0)
+        G.marker('V','3399CC',0,7.0,1.0)
+        G.marker('x','FFCC33',0,8.0,20.0)
+        G.marker('h','000000',0,0.30,0.5 )       
         G.marker('a','000099',0,4,10)
         G.marker('R','A0BAE9',0,8,0.6)    
         G.marker('r','E5ECF9',0,1,0.25)
         return G     
+        
+    def jacobian(self):     
+        # from http://toys.jacobian.org/hg/googlecharts/raw-file/tip/docs/examples.html  
+        G = Line(['ALAtBmC1EcGYIsLWOXRuVdZhd9ivn4tYzO5b..'],encoding='extended')
+        G.size(300,200)
+        G.color('cc0000')
+        G.fill('c','s','eeeeee')
+        G.legend('Sweet')
+        return G
     
     def markerfill(self):
         # Fill the chart areas with markers
-        G = Line( ['99','cefhjkqwrlgYcfgc','QSSVXXdkfZUMRTUQ','HJJMOOUbVPKDHKLH','AA'] )
+        G = Line( ['99','cefhjkqwrlgYcfgc',
+            'QSSVXXdkfZUMRTUQ','HJJMOOUbVPKDHKLH','AA'] )
         G.marker('b','76A4FB',0,1,0)
         G.marker('b','224499',1,2,0)
         G.marker('b','FF0000',2,3,0)
@@ -166,6 +173,15 @@ class TestClass:
         G.axes.type('y') 
         return G
 
+    def legend2(self):
+        # Add a left aligned legend to the chart
+        G = Line( ['abcde','FGHIJ','09876'] )  
+        G.color('ff0000','00ff00','0000ff')
+        G.legend('Animals','Vegetables','Minerals')
+        G.legend_pos('l')
+        G.axes.type('y') 
+        return G
+
     def multiline(self):
         # Draw multiple lines with markers on an lxy chart
         G = LineXY( [ 
@@ -184,9 +200,9 @@ class TestClass:
         G.line(2,4,1)   
         return G
 
-    # multiple axis with label positions specified
+    
     def axes_position(self):
-
+        # multiple axis with label positions specified
         # values between 0 and 100 - use text encoding
         data = [[4.6, 6.0, 7.4, 11.6, 12.0, 14.8, 18.1, 25.1, 
                  27.9, 28.3, 30.6, 34.4, 43.7, 48.3, 57.6, 64.6, 
@@ -243,32 +259,38 @@ class TestClass:
         return G
 
     def guide_granularity_80(self):
-        G = Line('formostthisamazingdayfortheleapinggreenlformostthisamazingdayfortheleapinggreenl', encoding='simple')
+        G = Line('formostthisamazingdayfortheleapinggreenlformostthisamazingdayfortheleapinggreenl',
+            encoding='simple')
         G.size(200,100)
         G.axes.type('xy')
         G.axes.label('April','May','June')
         G.axes.label(None, '50+Kb')
         return G
     
-    # http://code.google.com/apis/chart/#line_charts
+    
     def guide_line_lc(self):
+        # http://code.google.com/apis/chart/#line_charts
         G = Line('fooZaroo', encoding='simple')
         G.size(200,100)
         return G
 
         
-    # http://code.google.com/apis/chart/#sparkline
+    
     def guide_sparkline(self):
-        G = Sparkline([27,25,25,25,25,27,100,31,25,36,25,25,39,25,31,25,25,25,26,26,25,25,28,25,25,100,28,27,31,25,27,27,29,25,27,26,26,25,26,26,35,33,34,25,26,25,36,25,26,37,33,33,37,37,39,25,25,25,25], 
-                      encoding='text')
+        # http://code.google.com/apis/chart/#sparkline  
+        G = Sparkline([27,25,25,25,25,27,100,31,25,36,25,25,39,
+            25,31,25,25,25,26,26,25,25,28,25,25,100,28,27,31,25,
+            27,27,29,25,27,26,26,25,26,26,35,33,34,25,26,25,36,25,
+            26,37,33,33,37,37,39,25,25,25,25], encoding='text')
         G.color('0077CC')
         G.size(200,40)
         G.marker('B', 'E6F2FA',0,0,0)
         G.line(1,0,0)
         return G
 
-    # http://code.google.com/apis/chart/#bar_charts
+    
     def guide_bhs(self):
+        # http://code.google.com/apis/chart/#bar_charts
         G = HorizontalBarStack('ello', encoding='simple')
         G.color('4d89f9')
         G.size(200,125)        
@@ -312,7 +334,7 @@ class TestClass:
         G.bar_height(10)
         return G
 
-    # Now for some of the newer api features....        
+   
     def guide_radar(self):
         # Create a radar chart w/ multiple lines
         G = Radar([ [77,66,15,0,31,48,100,77],[20,36,100,2,0,100] ], encoding='text')  
