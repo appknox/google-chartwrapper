@@ -109,15 +109,28 @@ In template, <pre>&#123;% load charts %&#125; </pre> then try out some charts us
 &#123;% line 3 6 3  %&#125;
 &#123;% grid 20.0 25.0 1 0  %&#125;
 &#123;% endchart %&#125; </pre></td></tr>
-<tr><th>Markers</th><td>{% chart  Line  helloWorld   %}
-{% marker c ff0000 0 3 20  %}
-{% marker d 00ff00 0 6 15  %}
+<tr><th>Markers</th><td>
+{% chart  Line  helloWorldZZZZ098236561   %}
+{% marker c ff0000 0 1 20  %}
+{% marker d 80C65A 0 6 15  %}
+{% marker o FF9900 0 4.0 20.0  %}
+{% marker s 3399CC 0 5.0 10.0  %}
+{% marker v BBCCED 0 6.0 1.0  %}
+{% marker V 3399CC 0 7.0 1.0  %}
+{% marker x FFCC33 0 8.0 20.0  %}
+{% marker h 000000 0 0.30 0.5   %}
 {% marker a 000099 0 4 10  %}
 {% marker R A0BAE9 0 8 0.6  %}
 {% marker r E5ECF9 0 1 0.25  %}
-{% endchart %} </td><td><pre> &#123;% chart  Line  helloWorld   %&#125;
-&#123;% marker c ff0000 0 3 20  %&#125;
-&#123;% marker d 00ff00 0 6 15  %&#125;
+{% endchart %} </td><td><pre> &#123;% chart  Line  helloWorldZZZZ098236561   %&#125;
+&#123;% marker c ff0000 0 1 20  %&#125;
+&#123;% marker d 80C65A 0 6 15  %&#125;
+&#123;% marker o FF9900 0 4.0 20.0  %&#125;
+&#123;% marker s 3399CC 0 5.0 10.0  %&#125;
+&#123;% marker v BBCCED 0 6.0 1.0  %&#125;
+&#123;% marker V 3399CC 0 7.0 1.0  %&#125;
+&#123;% marker x FFCC33 0 8.0 20.0  %&#125;
+&#123;% marker h 000000 0 0.30 0.5   %&#125;
 &#123;% marker a 000099 0 4 10  %&#125;
 &#123;% marker R A0BAE9 0 8 0.6  %&#125;
 &#123;% marker r E5ECF9 0 1 0.25  %&#125;
@@ -315,11 +328,26 @@ In template, <pre>&#123;% load charts %&#125; </pre> then try out some charts us
 {% label 'To the human eye QR Codes look like hieroglyphics, but they can be read by any device that has the appropriate software installed.' %}
 {% output_encoding UTF-8 %}
 {% level_data M 8 %}
+{% size 250 250  %}
 {% endchart %} </td><td><pre>&#123; chart  QRCode &#125;
 &#123; label 'To the human eye QR Codes look like hieroglyphics, but they can be read by any device that has the appropriate software installed.' &#125;
 &#123; output_encoding UTF-8 &#125;
 &#123; level_data M 8 &#125;
+&#123; size 250 250  &#125; 
 &#123; endchart &#125; </pre></td></tr>
+            
+<tr><th>Jacobian</th><td>
+{% chart  Line ALAtBmC1EcGYIsLWOXRuVdZhd9ivn4tYzO5b.. encoding=extended  %}
+{% size 300 200  %}
+{% color cc0000  %}
+{% fill c s eeeeee  %}
+{% legend Sweet  %}
+{% endchart %} </td><td><pre> &#123;% chart  Line ALAtBmC1EcGYIsLWOXRuVdZhd9ivn4tYzO5b.. encoding=extended  %&#125;
+&#123;% size 300 200  %&#125;
+&#123;% color cc0000  %&#125;
+&#123;% fill c s eeeeee  %&#125;
+&#123;% legend Sweet  %&#125;
+&#123;% endchart %&#125; </pre></td></tr>
              
 
 </table>
