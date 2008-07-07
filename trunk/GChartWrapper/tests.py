@@ -19,7 +19,7 @@ Unit test platform
         show - Opens all charts in tabs in a web browser
         tags - Prints Django template src of all charts
 """
-from GChartWrapper.testing import TestClass
+from testing import TestClass
 import os,sys
 from inspect import getsource
         
@@ -45,12 +45,12 @@ def test():
             print '----'
             print '=== %s ==='%test.title().replace('_','-')
             print '{{{'
-            print '\n'.join(map(lambda x: x.strip(), getsource(testobj).splitlines()[1:-1]))
+            print '\n'.join(map(lambda x: x[8:], getsource(testobj).splitlines()[1:-1]))
             print '}}}'
             print '%s&.png'%G
             print
             if n == 0:
-                print "*The rest of the examples use the convenience classes for each kind of chart which are one of either `HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, Radar, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, or VerticalBarStack`*"
+                print "*The rest of the examples use the convenience classes for each kind of chart which are one of either `HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, Radar, QRCode, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, or VerticalBarStack`*"
     elif arg == 'tags':
         print """{% load charts %} <table><tr>
         <th> Advanced </th><td>
