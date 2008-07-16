@@ -16,8 +16,6 @@ The wrapper can render the URL of the Google chart based on your parameters.
 With the chart you can render an HTML img tag to insert into webpages on the fly, 
 show it directly in a webbrowser, or save the chart PNG to disk.
 
-See the doc folder for epydoc API information
+See the doc folder for epydoc API information in HTML format
 See GChartWrapper folder for GChart module source code
-    See charts subfolder for Django module contents
 See chartproject for an example django project to get you started
-

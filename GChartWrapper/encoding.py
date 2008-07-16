@@ -77,11 +77,11 @@ class Encoder:
         for value in data: 
             if value in (None,'None'):
                 sub_data.append(self.none)
-            elif value >= 0:
+            elif value >= -1:
                 try:
                     sub_data.append(self.value(value))
                 except ValueError:
-                    raise ValueError, 'cannot encode value: %s' % value                         
+                    raise ValueError, 'cannot encode value: %s' % value                                  
         return self.dchar.join(sub_data)
 
     def decode(self, astr):
@@ -90,8 +90,7 @@ class Encoder:
         for data in astr[2:].split(self.char):
             sub_data = []
             if e == 't':
-                for value in data.split(','):
-                    sub_data.append(float(value))
+                sub_data.extend([float(value) for value in data.split(',')])
             elif e == 'e':
                 flag = 0
                 index = self.coding.index
@@ -102,8 +101,7 @@ class Encoder:
                         sub_data.append((64 * this) + next)  
                     else: flag = 0
             elif e == 's':                        
-                for value in data:
-                    sub_data.append(self.coding.index(value))
+                sub_data.extend([self.coding.index(value) for value in data])
             dec_data.append(sub_data)                    
         return dec_data
 
@@ -111,7 +109,7 @@ def test():
     
     for q,a,d in [
         ('simple','s:Ab9',[0,27,61]),
-        ('text','t:0.0,10.0,100.0',[0,10,100]),
+        ('text','t:0.0,10.0,100.0,-1.0,-1.0',[0,10,100,-1,-1]),
         ('extended','e:AH-HAA..',[7,3975,0,4095])
         ]:
         E = Encoder(q)
