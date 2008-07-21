@@ -61,3 +61,7 @@ def view_chart(request):
     return response
 
 }}}
+
+== Notes ==
+
+These examples are trivial since Google already hosts the Charts API web application that completes the same functionality. The PIL has other image manipulation features like image blending and filtering which can be found in the [http://www.pythonware.com/library/pil/handbook/image.htm PIL Handbook]
