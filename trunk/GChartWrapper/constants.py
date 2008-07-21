@@ -1,6 +1,4 @@
-APIPARAMS = ('cht','chbh','chtt','chdl','chdlp','chco','chd','chs','chf','chts','chl',
-'chxt','chxl','chg','chxr','chxs','chls','chm','chxp','chp','chds','chtm','chld')
-APIPARAMS2 = {
+APIPARAMS = {
     'cht' : "chart-type", 
     'chbh': "horizontal-bar height", 
     'chtt': "title", 
@@ -53,18 +51,22 @@ APIPARAMS2 = {
         ''', 
     'chds': '''data-scaling, for text encoding ''', 
     'chdlp': '''legend position''',     
-    'chdoe': '''output encoding ''',     
+    'choe': '''output encoding ''',     
     'chtm': '''map-type (africa,usa, etc.) ''', 
  'chld': '''level data: countries to be colored, EC level in QR codes ''',
 }
+
 MARKERS = ('a', 'c', 'd', 'o', 's', 'v', 'V', 'h', 'x', 'r', 'R', 'b', 'B', 'D')
-IMGATTRS = ('alt', 'align', 'border', 'height', 'width', 'ismap', 'longdesc', 'usemap', 'id', 'class', 'style', 'lang', 'xml:lang', 'onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmouseover', 'onmousemove', 'onmouseout', 'onkeypress', 'onkeydown', 'onkeyup')
+
 TYPES = {'qr':'QR codes','bvs': 'Horizontal bar group', 'p3': 'Venn', 'lc': 'Line', 'bhg': 'Vertical bar group', 't': 'Meter', 'p': '3D Pie', 's': 'Radar', 'r': 'Map', 'bvg': 'Pie', 'lxy': 'Horizontal bar stack', 'v': 'Scatter', 'bhs': 'Vertical bar stack', 'gom': 'Sparkline', 'ls': 'Line XY'}
-GEO = ('africa','asia','europe','middle_east','south_america','usa','world')
-MARKERS = ('a','c','d','o','s','t','v','V','h','x','r','R','b','B','D')
+
 IMGATTRS = ('title','alt','align','border','height','width','ismap','longdesc',
 'usemap','id','class','style','lang','xml:lang','onclick','ondblclick','onmousedown',
 'onmouseup','onmouseover','onmousemove','onmouseout','onkeypress','onkeydown','onkeyup')
+
 GEO = ('africa','asia','europe','middle_east','south_america','usa','world')
+
 TTAGSATTRS = ('label','title','color','line','grid','bar','marker','fill','legend','axes',
 'encoding','scale','size','type','dataset','img','map','bar_height','legend_pos','output_encoding','level_data')
+
+APIURL = 'http://chart.apis.google.com/chart?' 

@@ -1,13 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
-from GChartWrapper.charts.models import Chart
+from chartproject.charts.models import Chart
 from chartproject.charts import interp
 
 
+def index(request):
+    return HttpResponse('asdf')
 
-
-def chart(request):
-    return render_to_response('charts/chart.html',{
+def templatetags(request):
+    return render_to_response('charts/templatetags.html',{
         'ds1':[[10, 50, 60, 80, 40],[50, 60, 100, 40, 20]],
         'ds2':[ [77,66,15,0,31,48,100,77],[20,36,100,2,0,100] ],
         'mycolor': '0000ff',
@@ -33,8 +34,7 @@ def edit(request, cid=None):
         chart = Chart(
             name = 'blank_chart',
            data = '1,2,3,4,5',
-          chart_instructions = """
-chart Line dataset1 encoding=text
+          chart_instructions = """chart Line dataset1 encoding=text
 size 300 300 
 scale 0 5
 endchart"""
@@ -44,11 +44,15 @@ endchart"""
     scale = ''
     ns = {}
     if 'save_chart' in request.POST:
-        ds,chartimg = interp(request.POST['data'], request.POST['inst']) 
+        try:
+            ds,chartimg = interp(request.POST['data'], request.POST['inst']) 
+        except Exception, e:
+            return HttpResponse(e.message)            
         ns['inst'] = request.POST['inst']
         ns['data'] = '\r\n'.join([','.join(map(str, d)) for d in ds.values()])
         ns['chartimg'] =  chartimg
         chart.data = request.POST['data']
+        chart.name = request.POST['name']        
         chart.chart_instructions = ns['inst']
         chart.save()    
         return HttpResponse('<a href="/view/%d/">%s</a>'%(chart.id,ns['chartimg']))
@@ -58,6 +62,7 @@ endchart"""
         ds,ns['chartimg'] = interp(chart.data, chart.chart_instructions)
     ns['chart'] = chart       
     return render_to_response('charts/edit.html',ns)
+
     
 def view(request, cid):
     chart = get_object_or_404(Chart,pk=cid)

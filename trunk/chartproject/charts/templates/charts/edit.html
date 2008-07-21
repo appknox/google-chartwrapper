@@ -1,10 +1,22 @@
+<style>
+img {
+border: 0px none;
+}
+</style>
 <script language="javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
 <script language="javascript">
+function callback(responseText, textStatus, XMLHttpRequest) {
+    if (XMLHttpRequest.status == 500){
+        document.write(responseText);
+    }    
+}
 $(document).ready(function(){ 
     $("#save").click(function(){
         var dat = document.getElementById('data').value;
         var inn = document.getElementById('inst').value;
-        $("#chart").load("/edit/{{ chart.id }}/",{data:dat,inst:inn,save_chart:"save"});
+        var nam = document.getElementById('name').value;
+        $("#chart").load("/edit/{{ chart.id }}/",{data:dat,inst:inn,save_chart:"save",name:nam},callback);
+     
     });
 });
 </script>
@@ -14,6 +26,7 @@ $(document).ready(function(){
 <br> 
 <br> 
 <table>
+<tr><td colspan="2"><b>Name</b> <input id="name" type="text" name="name" value="{{ chart.name }}"></td></tr>
 <tr><td>
      <b>Dataset(s)</b><br><textarea id="data" name="data" cols="50" rows="15">{{ data }}</textarea><br>
 </td><td>
@@ -25,4 +38,3 @@ $(document).ready(function(){
 <input id="save" type="button" name="save_chart" value="Save">
 <input id="save" type="button" onclick="window.location='/view/{{ chart.id }}/';" value="View">
 </center>
-
