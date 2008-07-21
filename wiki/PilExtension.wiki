@@ -7,6 +7,9 @@ New to version 0.5, support for the [http://www.pythonware.com/products/pil/ Pyt
 
 
 == API ==
+
+The Python API extends the GChart main class, but can be used for any subtype.
+
 {{{
 
 # Create a simple Google-O-Meter with a label
@@ -14,9 +17,47 @@ New to version 0.5, support for the [http://www.pythonware.com/products/pil/ Pyt
 >>> G.label('Hello')
 >>> G.size(225,125)
 >>> G
-http://chart.apis.google.com/chart?chl=Hello&chs=225x125&cht=gom&chd=t:70.0
+'http://chart.apis.google.com/chart?chl=Hello&chs=225x125&cht=gom&chd=t:70.0'
 
 # Now fetch the PngImageFile
 >>> G.image()
 <PngImagePlugin.PngImageFile instance at 0xb795ee4c>
+
+# Now that you have the image instance, the world is your oyster
+# Try saving image as JPEG,GIF,etc.
+>>> G.image().save('google-o-meter.jpg','JPEG')
+}}}
+
+== CGI ==
+
+Run a CGI application to serve (proxy) the chart image created
+
+{{{
+from GChartWrapper import Meter
+G = Meter(70)
+G.label('Hello')
+G.size(225,125)
+
+print 'Content-type: image/png'
+print
+
+print G.image().tostring()
+}}}
+
+== Django ==
+
+Returns an HttpResponse of the given chart image content with the correct mimetype
+
+{{{
+from GChartWrapper import Meter
+from django.http import HttpResponse
+
+def view_chart(request):
+    G = Meter(70)
+    G.label('Hello')
+    G.size(225,125)
+    response = HttpResponse(mimetype="image/png")
+    G.image().save(response, "PNG")
+    return response
+
 }}}
