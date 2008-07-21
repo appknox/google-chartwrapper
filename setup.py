@@ -1,5 +1,4 @@
 from distutils.core import setup
-from distutils.core import setup
 import os
 
 packages, data_files = [], []
@@ -22,7 +21,7 @@ for dirpath, dirnames, filenames in os.walk('GChartWrapper'):
          
 setup(
     name='GChartWrapper',
-    version='0.4',
+    version='0.5',
     description='Python Google Chart Wrapper',
     long_description="""Python wrapper for the Google Chart API. 
 The wrapper can render the URL of the Google chart, based on your parameters, 

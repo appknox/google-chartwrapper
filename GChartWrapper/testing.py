@@ -3,7 +3,7 @@ GChartWrapper - Google Chart API Wrapper
 
 Unit tests, see tests.py for actually running these
 """
-from __init__ import *
+from GChartWrapper import *
 
 class TestClass:
     """
@@ -45,13 +45,15 @@ class TestClass:
         return G
 
     def qr_code(self):
-        # Output a QR code graph that allows 15% restore with 8 rows/cols for UTF-8
-        G = QRCode()
-        G.label('''To the human eye QR Codes look like hieroglyphics, 
+        # Output a QR code graph that allows 15% restore with 0 margin
+        # *Defaults to UTF-8 encoding 
+        G = QRCode('''To the human eye QR Codes look like hieroglyphics, 
             but they can be read by any device that has 
             the appropriate software installed.''')
+        # or use output_encoding method
         G.output_encoding('UTF-8')
-        G.level_data('M',8)
+        # level_data(error_correction,margin_size)
+        G.level_data('M',0)
         return G
         
     def title(self):

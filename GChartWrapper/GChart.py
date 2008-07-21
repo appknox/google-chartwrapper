@@ -1,6 +1,49 @@
+################################################################################
+#  GChartWrapper - v0.5
+#  Copyright (C) 2008  Justin Quick <justquick@gmail.com>
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License version 3 as published
+#  by the Free Software Foundation.
+#
+#  Thanks to anyone who does anything for this project.
+#  If you have even the smallest revision, please email me at above address.
+################################################################################
+"""
+GChartWrapper - Google Chart API Wrapper
+
+The wrapper can render the URL of the Google chart based on your parameters.
+With the chart you can render an HTML img tag to insert into webpages on the fly,
+show it directly in a webbrowser, or save the chart PNG to disk. New versions
+can generate PIL PngImage instances.
+
+Example
+
+    >>> G = GChart('lc',['simpleisbetterthancomplexcomplexisbetterthancomplicated'])
+    >>> G.title('The Zen of Python','00cc00',36)
+    >>> G.color('00cc00')
+    >>> str(G)
+    '''http://chart.apis.google.com/chart?
+        chd=s:simpleisbetterthancomplexcomplexisbetterthancomplicated
+        &chco=00cc00
+        &chts=00cc00,36
+        &chs=300x150
+        &cht=lc
+        &chtt=The+Zen+of+Python'''
+    >>> G.image() # PIL instance
+    <PngImagePlugin.PngImageFile instance at 0xb79fe2ac>
+    >>> G.show() # Webbrowser open
+    True
+    >>> G.save('tmp.png') # Save to disk
+    
+See tests.py for unit test and other examples
+"""
+__all__ = ['Sparkline', 'Map', 'HorizontalBarStack', 'VerticalBarStack', 'QRCode',
+     'Line', 'GChart', 'HorizontalBarGroup', 'Scatter', 'Pie3D', 'Pie', 'Meter', 
+     'Radar', 'VerticalBarGroup', 'LineXY', 'Venn']
+__version__ = 0.5
 from UserDict import UserDict
-from urllib import urlretrieve,quote,unquote
-from webbrowser import open as webopen
+import urllib
 from constants import *
 from encoding import Encoder
 
@@ -51,14 +94,9 @@ class GChart(UserDict):
     Dataset can be any python iterable and be multi dimensional
     Kwargs will be put into chart API params if valid"""
     def __init__(self, ctype=None, dataset=[], **kwargs):
-        self.lines = []
-        self.fills = []
-        self.bar_heights = ''
-        self._geo = ''
-        self._ld = ''
-        self.markers = []
+        self.lines,self.fills,self.markers,self.scales = [],[],[],[]
+        self.bar_heights,self._geo,self._ld = '','',''
         self._dataset = dataset
-        self.scales = []
         self.axes = Axes()        
         UserDict.__init__(self)
         if ctype:
@@ -72,7 +110,7 @@ class GChart(UserDict):
         if 'scale' in kwargs:
             self._scale = kwargs['scale']
             del kwargs['scale']          
-        self.apiurl = 'http://chart.apis.google.com/chart?'                
+        self.apiurl = APIURL               
         if 'apiurl' in kwargs:
             self.apiurl = kwargs['apiurl']
             del kwargs['apiurl']                     
@@ -134,7 +172,10 @@ class GChart(UserDict):
         self.data['cht'] = str(type)
         
     def label(self, *args):
-        self.data['chl'] = '|'.join(args)   
+        if self.data['cht'] == 'qr':
+            self.data['chl'] = ''.join(map(urllib.quote,args))
+        else:            
+            self.data['chl'] = '|'.join(args)   
         
     def legend(self, *args):
         self.data['chdl'] = '|'.join(args)
@@ -162,8 +203,7 @@ class GChart(UserDict):
         assert('cht' in self.data), 'No chart type defined, use type method'
         self.data['cht'] = self.check_type(self.data['cht'])   
         if self._dataset:
-            self.data['chd'] = encoder.encode(self._dataset)             
-          # except: raise IndexError, 'Data encoding went screwy'                
+            self.data['chd'] = encoder.encode(self._dataset)                        
         elif not 'choe' in self.data:
             assert('chd' in self.data), 'You must have a dataset, or use chd'            
         if self.scales:
@@ -180,16 +220,15 @@ class GChart(UserDict):
             self.data['chm'] = '|'.join(self.markers)           
         if self.fills:
             self.data['chf'] = '|'.join(self.fills)
-        if 'choe' in self.data:
-            self.data['chl'] = quote(self.data['chl'])
+ 
                           
     def check_size(self,x,y):
         """
         Make sure the chart size fits the standards
         """
-        assert(x <= 10**3), 'Width larger than 1000'         
-        assert(y <= 10**3), 'Height larger than 1000'        
-        assert(x*y <= 3*(10**5)), 'Resolution larger than 300000' 
+        assert(x <= 10**3), 'Width larger than 1,000'         
+        assert(y <= 10**3), 'Height larger than 1,000'        
+        assert(x*y <= 3*(10**5)), 'Resolution larger than 300,000' 
           
     def check_type(self, type):
         """Check to see if the type is either in TYPES or fits type name
@@ -222,11 +261,16 @@ class GChart(UserDict):
         """
         if 'chtt' in self.data:
             return self.data['chtt']
-    
-    def getdata(self):
-        return Encoder().decode(self.data['chd'])        
+        return ''
         
-    def __repr__(self):  return self.__str__()
+    def getdata(self):
+        """
+        Returns the decoded dataset from chd param
+        """
+        #XXX: Why again? not even sure decode works well
+        return Encoder(self._encoding).decode(self.data['chd'])        
+        
+    
     def __str__(self):
         """
         Returns the rendered URL of the chart
@@ -234,12 +278,17 @@ class GChart(UserDict):
         self.render()
         params = '&'.join(['%s=%s'%x for x in self.data.items() if x[1]])
         return self.apiurl + params.replace(' ','+')
-    def url(self): return str(self)           
-    def show(self):
+    def url(self): return self.__str__()          
+    def __repr__(self):  return self.__str__()
+    
+    def show(self, *args, **kwargs):
         """
         Shows the chart URL in a webbrowser
+        
+        Other arguments passed to webbrowser.open
         """
-        webopen(str(self))
+        import webbrowser
+        return webbrowser.open(self.__str__(), *args, **kwargs)
     
     def save(self, fname=None):
         """
@@ -253,7 +302,7 @@ class GChart(UserDict):
         if not fname.endswith('.png'):
             fname += '.png'
         try:
-            urlretrieve(str(self), fname)           
+            urllib.urlretrieve(self.__str__(), fname)           
         except IOError, e:
             raise IOError, 'Problem saving chart to file: %s'%e   
         return fname                     
@@ -269,10 +318,92 @@ class GChart(UserDict):
             if not item[0] in IMGATTRS:
                 raise AttributeError, 'Invalid img tag attribute: %s'%item[0]
             attrs += '%s="%s" '%item
-        return '<img src="%s" %s>'%(str(self),attrs)
+        return '<img src="%s" %s>'%(self.__str__(),attrs)
 
+    def image(self):
+        """
+        Returns a PngImageFile instance of the chart
+        
+        You must have PIL installed for this to work
+        """
+        try:
+            import Image
+        except ImportError:
+            raise ImportError, 'You must install PIL to fetch image objects'
+        try:
+            from cStringIO import StringIO             
+        except:
+            from StringIO import StringIO                                     
+        return Image.open(StringIO(urllib.urlopen(self.__str__()).read()))         
 
+# Now a whole mess of convenience classes
+# *for those of us who dont speak API*
+class Meter(GChart):
+    def __init__(self, dataset, **kwargs):
+        # we can do this to other charts with preferred settings
+        kwargs['encoding'] = 'text'
+        GChart.__init__(self, 'gom', dataset, **kwargs)
 
+# like these guys...
+class QRCode(GChart):
+    def __init__(self, content='', **kwargs):
+        from urllib import quote
+        kwargs['choe'] = 'UTF-8'
+        kwargs['chl'] = quote(content)
+        GChart.__init__(self, 'qr', None, **kwargs)    
+        
+class Line(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'lc', dataset, **kwargs)
+        
+class LineXY(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'lxy', dataset, **kwargs)
+
+class HorizontalBarStack(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'bhs', dataset, **kwargs)
+        
+class VerticalBarStack(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'bvs', dataset, **kwargs)
+        
+class HorizontalBarGroup(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'bhg', dataset, **kwargs)
+        
+class VerticalBarGroup(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'bvg', dataset, **kwargs)
+
+class Pie(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'p', dataset, **kwargs)
+        
+class Pie3D(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'p3', dataset, **kwargs)
+
+class Venn(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'v', dataset, **kwargs)
+        
+class Scatter(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 's', dataset, **kwargs)
+
+class Sparkline(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'ls', dataset, **kwargs)
+
+class Radar(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'r', dataset, **kwargs)
+
+class Map(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 't', dataset, **kwargs)
+        
 if __name__=='__main__':
     from tests import test
-    test()
+    test()    
