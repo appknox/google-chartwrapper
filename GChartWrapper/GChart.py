@@ -22,7 +22,7 @@ Example
     >>> G = GChart('lc',['simpleisbetterthancomplexcomplexisbetterthancomplicated'])
     >>> G.title('The Zen of Python','00cc00',36)
     >>> G.color('00cc00')
-    >>> str(G)
+    >>> G
     '''http://chart.apis.google.com/chart?
         chd=s:simpleisbetterthancomplexcomplexisbetterthancomplicated
         &chco=00cc00
@@ -35,6 +35,7 @@ Example
     >>> G.show() # Webbrowser open
     True
     >>> G.save('tmp.png') # Save to disk
+    'tmp.png'
     
 See tests.py for unit test and other examples
 """
@@ -42,6 +43,7 @@ __all__ = ['Sparkline', 'Map', 'HorizontalBarStack', 'VerticalBarStack', 'QRCode
      'Line', 'GChart', 'HorizontalBarGroup', 'Scatter', 'Pie3D', 'Pie', 'Meter', 
      'Radar', 'VerticalBarGroup', 'LineXY', 'Venn']
 __version__ = 0.5
+
 from UserDict import UserDict
 import urllib
 from constants import *
