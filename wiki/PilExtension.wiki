@@ -42,21 +42,3 @@ print
 
 print G.image().tostring()
 }}}
-
-== Django ==
-
-Returns an HttpResponse of the given chart image content with the correct mimetype
-
-{{{
-from GChartWrapper import Meter
-from django.http import HttpResponse
-
-def view_chart(request):
-    G = Meter(70)
-    G.label('Hello')
-    G.size(225,125)
-    response = HttpResponse(mimetype="image/png")
-    G.image().save(response, "PNG")
-    return response
-
-}}}
