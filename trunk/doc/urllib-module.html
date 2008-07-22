@@ -1,0 +1,1292 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>urllib</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="GChartWrapper-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;urllib
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="urllib-module.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== MODULE DESCRIPTION ==================== -->
+<h1 class="epydoc">Module urllib</h1><span class="codelink"><a href="urllib-pysrc.html">source&nbsp;code</a></span><br /><br />
+<pre class="literalblock">
+Open an arbitrary URL.
+
+See the following document for more info on URLs:
+&quot;Names and Addresses, URIs, URLs, URNs, URCs&quot;, at
+http://www.w3.org/pub/WWW/Addressing/Overview.html
+
+See also the HTTP spec (from which the error codes are derived):
+&quot;HTTP - Hypertext Transfer Protocol&quot;, at
+http://www.w3.org/pub/WWW/Protocols/
+
+Related standards and specs:
+- RFC1808: the &quot;relative URL&quot; spec. (authoritative status)
+- RFC1738 - the &quot;URL standard&quot;. (authoritative status)
+- RFC1630 - the &quot;URI spec&quot;. (informational status)
+
+The object returned by URLopener().open(file) will differ per
+protocol.  All you know is that is has methods read(), readline(),
+readlines(), fileno(), close() and info().  The read*(), fileno()
+and close() methods work like those of open files.
+The info() method returns a mimetools.Message object which can be
+used to query various info about the object, if available.
+(mimetools.Message objects are queried with the getheader() method.)
+
+</pre><br /><br />
+
+<hr />
+<div class="fields">      <p><strong>Version:</strong>
+        1.17
+      </p>
+</div><!-- ==================== CLASSES ==================== -->
+<a name="section-Classes"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Classes"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib.ContentTooShortError-class.html" class="summary-name">ContentTooShortError</a>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib.FancyURLopener-class.html" class="summary-name">FancyURLopener</a><br />
+      Derived class with handlers for errors we can handle 
+        (perhaps).
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib.URLopener-class.html" class="summary-name">URLopener</a><br />
+      Class to open URLs.
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib.addbase-class.html" class="summary-name">addbase</a><br />
+      Base class for addinfo and addclosehook.
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib.addclosehook-class.html" class="summary-name">addclosehook</a><br />
+      Class to add a close hook to an open file.
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib.addinfo-class.html" class="summary-name">addinfo</a><br />
+      class to add an info() method to an open file.
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib.addinfourl-class.html" class="summary-name">addinfourl</a><br />
+      class to add info() and geturl() methods to an open file.
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib.ftpwrapper-class.html" class="summary-name">ftpwrapper</a><br />
+      Class used by open_ftp() for cache of open FTP connections.
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTIONS ==================== -->
+<a name="section-Functions"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Functions</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Functions"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_is_unicode"></a><span class="summary-sig-name">_is_unicode</span>(<span class="summary-sig-arg">x</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#_is_unicode">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="basejoin"></a><span class="summary-sig-name">basejoin</span>(<span class="summary-sig-arg">base</span>,
+        <span class="summary-sig-arg">url</span>,
+        <span class="summary-sig-arg">allow_fragments</span>=<span class="summary-sig-default">True</span>)</span><br />
+      Join a base URL and a possibly relative URL to form an absolute 
+      interpretation of the latter.</td>
+          <td align="right" valign="top">
+            
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="ftperrors"></a><span class="summary-sig-name">ftperrors</span>()</span><br />
+      Return the set of errors raised by the FTP class.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#ftperrors">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="urllib-module.html#getproxies" class="summary-sig-name">getproxies</a>()</span><br />
+      Return a dictionary of scheme -&gt; proxy server URL mappings.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#getproxies_environment">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="urllib-module.html#getproxies_environment" class="summary-sig-name">getproxies_environment</a>()</span><br />
+      Return a dictionary of scheme -&gt; proxy server URL mappings.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#getproxies_environment">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="localhost"></a><span class="summary-sig-name">localhost</span>()</span><br />
+      Return the IP address of the magic hostname 'localhost'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#localhost">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="main"></a><span class="summary-sig-name">main</span>()</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#main">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="noheaders"></a><span class="summary-sig-name">noheaders</span>()</span><br />
+      Return an empty mimetools.Message object.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#noheaders">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="pathname2url"></a><span class="summary-sig-name">pathname2url</span>(<span class="summary-sig-arg">pathname</span>)</span><br />
+      OS-specific conversion from a file system path to a relative URL 
+      of the 'file' scheme; not recommended for general use.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#pathname2url">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="proxy_bypass"></a><span class="summary-sig-name">proxy_bypass</span>(<span class="summary-sig-arg">host</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#proxy_bypass">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="urllib-module.html#quote" class="summary-sig-name">quote</a>(<span class="summary-sig-arg">s</span>,
+        <span class="summary-sig-arg">safe</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">/</code><code class="variable-quote">'</code></span>)</span><br />
+      quote('abc def') -&gt; 'abc%20def'
+
+Each part of a URL, e.g.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#quote">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="quote_plus"></a><span class="summary-sig-name">quote_plus</span>(<span class="summary-sig-arg">s</span>,
+        <span class="summary-sig-arg">safe</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string"></code><code class="variable-quote">'</code></span>)</span><br />
+      Quote the query fragment of a URL; replacing ' ' with '+'</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#quote_plus">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="reporthook"></a><span class="summary-sig-name">reporthook</span>(<span class="summary-sig-arg">blocknum</span>,
+        <span class="summary-sig-arg">blocksize</span>,
+        <span class="summary-sig-arg">totalsize</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#reporthook">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="splitattr"></a><span class="summary-sig-name">splitattr</span>(<span class="summary-sig-arg">url</span>)</span><br />
+      splitattr('/path;attr1=value1;attr2=value2;...') -&gt; '/path', 
+      ['attr1=value1', 'attr2=value2', ...].</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#splitattr">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="splitgophertype"></a><span class="summary-sig-name">splitgophertype</span>(<span class="summary-sig-arg">selector</span>)</span><br />
+      splitgophertype('/Xselector') --&gt; 'X', 'selector'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#splitgophertype">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="splithost"></a><span class="summary-sig-name">splithost</span>(<span class="summary-sig-arg">url</span>)</span><br />
+      splithost('//host[:port]/path') --&gt; 'host[:port]', '/path'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#splithost">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="urllib-module.html#splitnport" class="summary-sig-name">splitnport</a>(<span class="summary-sig-arg">host</span>,
+        <span class="summary-sig-arg">defport</span>=<span class="summary-sig-default">-1</span>)</span><br />
+      Split host and port, returning numeric port.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#splitnport">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="splitpasswd"></a><span class="summary-sig-name">splitpasswd</span>(<span class="summary-sig-arg">user</span>)</span><br />
+      splitpasswd('user:passwd') -&gt; 'user', 'passwd'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#splitpasswd">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="splitport"></a><span class="summary-sig-name">splitport</span>(<span class="summary-sig-arg">host</span>)</span><br />
+      splitport('host:port') --&gt; 'host', 'port'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#splitport">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="splitquery"></a><span class="summary-sig-name">splitquery</span>(<span class="summary-sig-arg">url</span>)</span><br />
+      splitquery('/path?query') --&gt; '/path', 'query'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#splitquery">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="splittag"></a><span class="summary-sig-name">splittag</span>(<span class="summary-sig-arg">url</span>)</span><br />
+      splittag('/path#tag') --&gt; '/path', 'tag'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#splittag">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="splittype"></a><span class="summary-sig-name">splittype</span>(<span class="summary-sig-arg">url</span>)</span><br />
+      splittype('type:opaquestring') --&gt; 'type', 'opaquestring'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#splittype">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="splituser"></a><span class="summary-sig-name">splituser</span>(<span class="summary-sig-arg">host</span>)</span><br />
+      splituser('user[:passwd]@host[:port]') --&gt; 'user[:passwd]', 
+      'host[:port]'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#splituser">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="splitvalue"></a><span class="summary-sig-name">splitvalue</span>(<span class="summary-sig-arg">attr</span>)</span><br />
+      splitvalue('attr=value') --&gt; 'attr', 'value'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#splitvalue">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="test"></a><span class="summary-sig-name">test</span>(<span class="summary-sig-arg">args</span>=<span class="summary-sig-default"><code class="variable-group">[</code><code class="variable-group">]</code></span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#test">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="test1"></a><span class="summary-sig-name">test1</span>()</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#test1">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="thishost"></a><span class="summary-sig-name">thishost</span>()</span><br />
+      Return the IP address of the current host.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#thishost">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="toBytes"></a><span class="summary-sig-name">toBytes</span>(<span class="summary-sig-arg">url</span>)</span><br />
+      toBytes(u&quot;URL&quot;) --&gt; 'URL'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#toBytes">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="unquote"></a><span class="summary-sig-name">unquote</span>(<span class="summary-sig-arg">s</span>)</span><br />
+      unquote('abc%20def') -&gt; 'abc def'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#unquote">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="unquote_plus"></a><span class="summary-sig-name">unquote_plus</span>(<span class="summary-sig-arg">s</span>)</span><br />
+      unquote('%7e/abc+def') -&gt; '~/abc def'</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#unquote_plus">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="unwrap"></a><span class="summary-sig-name">unwrap</span>(<span class="summary-sig-arg">url</span>)</span><br />
+      unwrap('&lt;URL:type://host/path&gt;') --&gt; 
+      'type://host/path'.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#unwrap">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="url2pathname"></a><span class="summary-sig-name">url2pathname</span>(<span class="summary-sig-arg">pathname</span>)</span><br />
+      OS-specific conversion from a relative URL of the 'file' scheme to
+      a file system path; not recommended for general use.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#url2pathname">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="urlcleanup"></a><span class="summary-sig-name">urlcleanup</span>()</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#urlcleanup">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="urllib-module.html#urlencode" class="summary-sig-name">urlencode</a>(<span class="summary-sig-arg">query</span>,
+        <span class="summary-sig-arg">doseq</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Encode a sequence of two-element tuples or dictionary into a URL 
+      query string.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#urlencode">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="urllib-module.html#urlopen" class="summary-sig-name">urlopen</a>(<span class="summary-sig-arg">url</span>,
+        <span class="summary-sig-arg">data</span>=<span class="summary-sig-default">...</span>)</span><br />
+      Returns:
+open file-like object</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#urlopen">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="urlretrieve"></a><span class="summary-sig-name">urlretrieve</span>(<span class="summary-sig-arg">url</span>,
+        <span class="summary-sig-arg">filename</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">reporthook</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">data</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="urllib-pysrc.html#urlretrieve">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="MAXFTPCACHE"></a><span class="summary-name">MAXFTPCACHE</span> = <code title="10">10</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_ftperrors"></a><span class="summary-name">_ftperrors</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib-module.html#_hextochr" class="summary-name">_hextochr</a> = <code title="{'00': '\x00',
+ '01': '\x01',
+ '02': '\x02',
+ '03': '\x03',
+ '04': '\x04',
+ '05': '\x05',
+ '06': '\x06',
+ '07': '\x07',
+..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">00</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">\x00</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">01</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">\x01</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">02</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">\x02</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">03</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_hostprog"></a><span class="summary-name">_hostprog</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_localhost"></a><span class="summary-name">_localhost</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_noheaders"></a><span class="summary-name">_noheaders</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_nportprog"></a><span class="summary-name">_nportprog</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_passwdprog"></a><span class="summary-name">_passwdprog</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_portprog"></a><span class="summary-name">_portprog</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_queryprog"></a><span class="summary-name">_queryprog</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib-module.html#_safemaps" class="summary-name">_safemaps</a> = <code title="{('/',
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.-')\
+: {'\x00': '%00',
+   '\x01': '%01',
+   '\x02': '%02',
+   '\x03': '%03',
+   '\x04': '%04',
+   '\x05': '%05',
+..."><code class="variable-group">{</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">/</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnop</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_tagprog"></a><span class="summary-name">_tagprog</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_thishost"></a><span class="summary-name">_thishost</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_typeprog"></a><span class="summary-name">_typeprog</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_urlopener"></a><span class="summary-name">_urlopener</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_userprog"></a><span class="summary-name">_userprog</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_valueprog"></a><span class="summary-name">_valueprog</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="urllib-module.html#always_safe" class="summary-name">always_safe</a> = <code title="'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.-'"><code class="variable-quote">'</code><code class="variable-string">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstu</code><code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="ftpcache"></a><span class="summary-name">ftpcache</span> = <code title="{}"><code class="variable-group">{</code><code class="variable-group">}</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== FUNCTION DETAILS ==================== -->
+<a name="section-FunctionDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Function Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-FunctionDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="getproxies"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getproxies</span>()</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="urllib-pysrc.html#getproxies_environment">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Return a dictionary of scheme -&gt; proxy server URL mappings.</p>
+  Scan the environment for variables named &lt;scheme&gt;_proxy; this 
+  seems to be the standard convention.  If you need a different way, you 
+  can pass a proxies dictionary to the [Fancy]URLopener constructor.
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="getproxies_environment"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">getproxies_environment</span>()</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="urllib-pysrc.html#getproxies_environment">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Return a dictionary of scheme -&gt; proxy server URL mappings.</p>
+  Scan the environment for variables named &lt;scheme&gt;_proxy; this 
+  seems to be the standard convention.  If you need a different way, you 
+  can pass a proxies dictionary to the [Fancy]URLopener constructor.
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="quote"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">quote</span>(<span class="sig-arg">s</span>,
+        <span class="sig-arg">safe</span>=<span class="sig-default"><code class="variable-quote">'</code><code class="variable-string">/</code><code class="variable-quote">'</code></span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="urllib-pysrc.html#quote">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <pre class="literalblock">
+quote('abc def') -&gt; 'abc%20def'
+
+Each part of a URL, e.g. the path info, the query, etc., has a
+different set of reserved characters that must be quoted.
+
+RFC 2396 Uniform Resource Identifiers (URI): Generic Syntax lists
+the following reserved characters.
+
+reserved    = &quot;;&quot; | &quot;/&quot; | &quot;?&quot; | &quot;:&quot; | &quot;@&quot; | &quot;&amp;&quot; | &quot;=&quot; | &quot;+&quot; |
+              &quot;$&quot; | &quot;,&quot;
+
+Each of these characters is reserved in some component of a URL,
+but not necessarily in all of them.
+
+By default, the quote function is intended for quoting the path
+section of a URL.  Thus, it will not encode '/'.  This character
+is reserved, but in typical usage the quote function is being
+called on a path where the existing slash characters are used as
+reserved characters.
+
+</pre>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="splitnport"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">splitnport</span>(<span class="sig-arg">host</span>,
+        <span class="sig-arg">defport</span>=<span class="sig-default">-1</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="urllib-pysrc.html#splitnport">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  Split host and port, returning numeric port. Return given default port
+  if no ':' found; defaults to -1. Return numerical port if a valid number 
+  are found after ':'. Return None if ':' but not a valid number.
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="urlencode"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">urlencode</span>(<span class="sig-arg">query</span>,
+        <span class="sig-arg">doseq</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="urllib-pysrc.html#urlencode">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  <p>Encode a sequence of two-element tuples or dictionary into a URL query
+  string.</p>
+  <p>If any values in the query arg are sequences and doseq is true, each 
+  sequence element is converted to a separate parameter.</p>
+  If the query arg is a sequence of two-element tuples, the order of the
+  parameters in the output will match the order of parameters in the 
+  input.
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="urlopen"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">urlopen</span>(<span class="sig-arg">url</span>,
+        <span class="sig-arg">data</span>=<span class="sig-default">...</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="urllib-pysrc.html#urlopen">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </table>
+  
+  
+  <dl class="fields">
+    <dt>Returns:</dt>
+        <dd><pre class="literalblock">
+open file-like object
+
+</pre></dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="_hextochr"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_hextochr</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">00</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">\x00</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">01</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">\x01</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">02</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">\x02</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">03</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">\x03</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">04</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">\x04</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">05</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">\x05</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">06</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">\x06</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">07</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">\x07</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_safemaps"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_safemaps</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-group">{</code><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">/</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+  <code class="variable-quote">'</code><code class="variable-string">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.-</code><code class="variable-quote">'</code><code class="variable-group">)</code><code class="variable-op"></code><span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+<code class="variable-op">: </code><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">\x00</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">%00</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+   <code class="variable-quote">'</code><code class="variable-string">\x01</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">%01</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+   <code class="variable-quote">'</code><code class="variable-string">\x02</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">%02</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+   <code class="variable-quote">'</code><code class="variable-string">\x03</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">%03</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+   <code class="variable-quote">'</code><code class="variable-string">\x04</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">%04</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+   <code class="variable-quote">'</code><code class="variable-string">\x05</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">%05</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="always_safe"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">always_safe</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+<code class="variable-quote">'</code><code class="variable-string">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.-</code><code class="variable-quote">'</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="GChartWrapper-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0beta1 on Mon Jul 21 19:48:08 2008
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>
