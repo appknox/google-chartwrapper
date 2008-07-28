@@ -56,7 +56,7 @@ APIPARAMS = {
  'chld': '''level data: countries to be colored, EC level in QR codes ''',
 }
 
-MARKERS = ('a', 'c', 'd', 'o', 's', 'v', 'V', 'h', 'x', 'r', 'R', 'b', 'B', 'D')
+MARKERS = ('a','c','d','o','s','t','v','V','h','x','r','R','b','B','D')
 
 TYPES = {'qr':'QR codes','bvs': 'Horizontal bar group', 'p3': 'Venn', 'lc': 'Line', 'bhg': 'Vertical bar group', 't': 'Meter', 'p': '3D Pie', 's': 'Radar', 'r': 'Map', 'bvg': 'Pie', 'lxy': 'Horizontal bar stack', 'v': 'Scatter', 'bhs': 'Vertical bar stack', 'gom': 'Sparkline', 'ls': 'Line XY'}
 

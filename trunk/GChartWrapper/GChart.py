@@ -322,6 +322,12 @@ class GChart(UserDict):
             attrs += '%s="%s" '%item
         return '<img src="%s" %s>'%(self.__str__(),attrs)
 
+    def urlopen(self):
+        """
+        Wrapper for urllib.urlopen(GChart.__str__)
+        """
+        return urllib.urlopen(self.__str__())
+
     def image(self):
         """
         Returns a PngImageFile instance of the chart
@@ -336,8 +342,22 @@ class GChart(UserDict):
             from cStringIO import StringIO             
         except:
             from StringIO import StringIO                                     
-        return Image.open(StringIO(urllib.urlopen(self.__str__()).read()))         
+        return Image.open(StringIO(self.urlopen().read()))     
 
+    def write(self, fp):
+        """
+        Writes out PNG image data in chunks to file pointer fp
+        
+        fp must support w or wb
+        """
+        urlfp = self.urlopen().fp
+        while 1:
+            try:
+                fp.write(urlfp.next())
+            except StopIteration: 
+                fp.close() 
+                return        
+        
 # Now a whole mess of convenience classes
 # *for those of us who dont speak API*
 class Meter(GChart):
@@ -349,9 +369,8 @@ class Meter(GChart):
 # like these guys...
 class QRCode(GChart):
     def __init__(self, content='', **kwargs):
-        from urllib import quote
         kwargs['choe'] = 'UTF-8'
-        kwargs['chl'] = quote(content)
+        kwargs['chl'] = urllib.quote(content)         
         GChart.__init__(self, 'qr', None, **kwargs)    
         
 class Line(GChart):
