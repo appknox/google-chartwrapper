@@ -48,7 +48,7 @@ class Encoder:
         
         Datasets can be one or two dimensional
         Strings are ignored as ordinal encoding"""
-        if type(args[0]) == type(''):
+        if type(args[0]) in (type(''), type(unicode())):
             return self.encode([args[0]],**kwargs)
         elif type(args[0]) in (type(0), type(0.0), type(0L)):
             return self.encode([[args[0]]],**kwargs)
@@ -59,7 +59,7 @@ class Encoder:
         typemap = map(type,dataset)
         code = self.encoding[0]
         self.scale = None      
-        if type('') in typemap:  
+        if type('') in typemap or type(unicode()) in typemap:  
             data = ','.join(map(str,dataset))          
         elif type([]) in typemap:  
             data = self.char.join([self.encodedata(data) for data in dataset]) 
