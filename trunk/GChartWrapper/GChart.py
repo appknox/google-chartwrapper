@@ -48,7 +48,7 @@ from UserDict import UserDict
 import urllib
 from constants import *
 from encoding import Encoder
-
+    
 class Axes(UserDict):
     """
     Axes attribute dictionary storage
@@ -341,7 +341,7 @@ class GChart(UserDict):
         try:
             from cStringIO import StringIO             
         except:
-            from StringIO import StringIO                                     
+            from StringIO import StringIO                                    
         return Image.open(StringIO(self.urlopen().read()))     
 
     def write(self, fp):
@@ -355,8 +355,14 @@ class GChart(UserDict):
             try:
                 fp.write(urlfp.next())
             except StopIteration: 
-                fp.close() 
-                return        
+                return
+                
+    def checksum(self):
+        """
+        Returns the SHA1 hexdigest of the chart PNG image content
+        """
+        from sha import new
+        return new(self.urlopen().read()).hexdigest()                        
         
 # Now a whole mess of convenience classes
 # *for those of us who dont speak API*

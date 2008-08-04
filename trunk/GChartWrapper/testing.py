@@ -11,15 +11,42 @@ class TestClass:
     
     All methods must be commented and return a GChart instance as the last line.
     """
-    all = ('simple','title','line','multiline','bar','pie','venn','axes','grid',
-           'markers','fill','legend','legend2','hvz', 'axes_position',
-           'guide_intro', 'jacobian', 'qr_code',
-           'guide_granularity_20', 'guide_granularity_40', 'guide_granularity_80',
-           'guide_line_lc',  'guide_sparkline', 
-           'guide_bhs', 'guide_bvs', 'guide_bvs_scale', 
-           'guide_bhg', 'guide_bvg', 'guide_chbh_clipped', 'guide_chbh_size',
-           'guide_radar','guide_map','guide_meter',
-           )
+    # All is dict of (name : checksum) pairs
+    all = {
+        'axes': '3fcb9723df82a188c047e447e2b199743b00aca2',
+        'axes_position': 'a797886c02e0e0ee1468c062df2ea1580ee2c551',
+        'bar': 'd595c429605b498d16119e1b085d4db7bd2d65a7',
+        'fill': '73116b9306c8fe8f4d9f8c1fa593ceccebac02d0',
+        'grid': '4a490e501ac87c5001facc9ae492960edbf9829b',
+        'guide_bhg': 'a1e0b86b7f1e974c13d8259119b00bced14bcfd1',
+        'guide_bhs': '23267067d1650020971adaa6ef39d3ed2b2f380b',
+        'guide_bvg': '1e22a2d40262d44cc72a86f7c6d154088c672a5b',
+        'guide_bvs': '405a05b4ea61615d8c41b5e6ecee389a446835e1',
+        'guide_bvs_scale': '0a8be59cbe59420a7c0953d83a85be0e2d3a9cd2',
+        'guide_chbh_clipped': 'e8560a4d0887091430e1ebcd833dfe9300f2a7f8',
+        'guide_chbh_size': '788f22cb06efe959da8668a3a444fe3a3271e4a2',
+        'guide_granularity_20': '80009ed49f5d1ca275eb63044c42ff69e3d1713d',
+        'guide_granularity_40': '43c4923a966374da72732c495548c21ab81570f5',
+        'guide_granularity_80': '7e706185fb5942e7034045bcdba8b400f0890c91',
+        'guide_intro': 'f356f143e95842e498b3df6f461a22dbe4d8dd2e',
+        'guide_line_lc': '8d9a940c9721af037275cc4aa75ed1e823e7d80a',
+        'guide_map': '902aba8398fac9d8701fdaee1bb16e4231445ee0',
+        'guide_meter': '8ff5c8c788d7aece26623da767a89fd02d5efe7a',
+        'guide_radar': '2b31c0e13524621a8167317d388f1d47df14f891',
+        'guide_sparkline': 'e62154b7a0df61d2904f4054375e82abaf9a995b',
+        'hvz': 'da5ad186adae230f772df90cbcfcb7aaac9d5080',
+        'jacobian': 'c628637eaae14e9a053994871f3039a259d940b9',
+        'legend': '223979a48997c5000ea037e143b73fb1db2e66af',
+        'legend2': '3ddf9a4efadb4cddd4d6246c03e220b472350a6e',
+        'line': 'c8daca4899c882e690635a5343bd9fe7e4f56598',
+        'markers': 'a6a03714aeefca7191daf4d9f3f2085dcd4e5924',
+        'multiline': '8a2940a0e277907a722a86dd054f1bf6e25b787f',
+        'pie': '50731d183a8b377f10377fcc46b33e5f8ec3c9a2',
+        'qr_code': 'bc5788f3dea82f76e75ec603f5d451369497689f',
+        'simple': '82073d9618e0c17c49f26178d725fae457bc10bc',
+        'title': '61fc52176934281eb5560fff2452ab7dd0e0e638',
+        'venn': 'c6ecda237b1697ac3dc1257d5b88763a940110b5'
+    }
 
     def simple(self):
         # Instantiate the GChart instance, this is all you will need for making charts
@@ -364,3 +391,5 @@ class TestClass:
         G.label('Hello')
         G.size(225,125)
         return G
+
+
