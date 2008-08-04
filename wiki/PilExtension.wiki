@@ -37,8 +37,22 @@ G = Meter(70)
 G.label('Hello')
 G.size(225,125)
 
+# header
 print 'Content-type: image/png'
 print
 
+# content
 print G.image().tostring()
+}}}
+
+Or even better than printing....
+
+{{{
+import sys
+
+# header
+sys.stdout.write('Content-type: image/png'+'\r\n'*2)
+
+# content
+G.write(sys.stdout)
 }}}
