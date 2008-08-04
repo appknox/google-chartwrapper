@@ -1,4 +1,5 @@
 #summary Common Gateway Interface (CGI) for the wrapper
+#labels Featured,Phase-Implementation
 
 = Serve charts using CGI  =
 
@@ -6,31 +7,31 @@ The following is an example of a Python CGI script
 Run a CGI application to serve (proxy) the chart image. First create a GChart
 
 {{{
+import sys
 from GChartWrapper import Meter
 G = Meter(70)
 G.label('Hello')
 G.size(225,125)
 }}}
 
-Then write it in the traditional CGI way
+Now we have the chart, write it in the traditional PNG format
 
 {{{
-# header
-print 'Content-type: image/png'
-print
-
-# content
-print G.image().tostring()
-}}}
-
-Or even better than printing....
-
-{{{
-import sys
-
 # header
 sys.stdout.write('Content-type: image/png'+'\r\n'*2)
 
 # content
 G.write(sys.stdout)
 }}}
+
+Or, using the PilExtension, write the chart in RGB jpeg format
+
+{{{
+# header
+sys.stdout.write('Content-type: image/png'+'\r\n'*2)
+
+# content
+sys.stdout.write(G.image().tostring('jpeg','RGB'))
+}}}
+
+Other formats are possible
