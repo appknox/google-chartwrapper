@@ -29,14 +29,18 @@ The Python API extends the GChart main class, but can be used for any subtype.
 
 == CGI ==
 
-Run a CGI application to serve (proxy) the chart image created
+Run a CGI application to serve (proxy) the chart image. First create a GChart
 
 {{{
 from GChartWrapper import Meter
 G = Meter(70)
 G.label('Hello')
 G.size(225,125)
+}}}
 
+Then write it in the traditional CGI way
+
+{{{
 # header
 print 'Content-type: image/png'
 print
