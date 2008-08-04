@@ -12,6 +12,7 @@ Unit test platform
         
     Where mode is one of the following:
     
+        unit - Runs unit test cases for all charts to see if checksums match
         save - Saves images of all charts in 'tests' folder
         wiki - Creates GoogleCode compatable wiki markup of test src and img
         img - Prints html img tags for all charts
@@ -22,10 +23,11 @@ Unit test platform
 from testing import TestClass
 import os,sys
 from inspect import getsource
+import sha
         
 def test():        
     arg = sys.argv[-1].lower()
-    if not arg in ('save','wiki','img','url','show','tags'):
+    if not arg in ('save','wiki','img','url','show','tags','unit'):
         arg = 'url'
        
     Test = TestClass()
@@ -35,6 +37,13 @@ def test():
             os.mkdir('tests')  
         for test in Test.all:
             getattr(Test,test)().save(os.path.join(os.getcwd(),'tests',test))
+
+    elif arg == 'unit':
+        for test,checksum in Test.all.items():
+            print 'Testing %s ... '%test,
+            G = getattr(Test,test)()
+            assert G.checksum() == checksum, 'Checksum mismatch for %s: %s'%(test,G)
+            print 'OK'    
 
     elif arg == 'wiki':
         print '#labels Featured,Phase-Implementation,Phase-Deploy'
