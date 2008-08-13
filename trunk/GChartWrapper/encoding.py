@@ -29,9 +29,9 @@ class Encoder:
            self.max_value =  4095
            self.none =  '__'
            self.dchar = ''
-           self.char = ','         
+           self.char = ','
            self.value = lambda x: '%s%s'% \
-                (ecoding[int(float(x)/64)], ecoding[x%64])
+                (ecoding[int(float(x)/64)], ecoding[int(x%64)])
     
     def scalevalue(self, value):
         if self.scale and type(self.scale) == type(()):
