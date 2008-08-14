@@ -291,8 +291,7 @@ G.axes.type('xy')
 G.axes.label('April','May','June')
 G.axes.label(None, '50+Kb')
 }}}
-http://chart.apis.google.com/chart?chxt=x,y&chd=s:formostthisamazingdayfortheleapinggreenlformostthis
-++++++++++++amazingdayfortheleapinggreenl&chs=200x100&cht=lc&chxl=0:|April|May|June|1:||50+Kb&.png
+http://chart.apis.google.com/chart?chxt=x,y&chd=s:formostthisamazingdayfortheleapinggreenlformostthisamazingdayfortheleapinggreenl&chs=200x100&cht=lc&chxl=0:|April|May|June|1:||50+Kb&.png
 
 ----
 === Guide-Line-Lc ===
