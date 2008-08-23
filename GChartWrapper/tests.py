@@ -41,7 +41,7 @@ def test():
     elif arg == 'unit':
         for test,checksum in Test.all.items():
             print 'Testing %s ... '%test,
-            G = getattr(Test,test)()
+            G = getattr(Test,test)()            
             assert G.checksum() == checksum, 'Checksum mismatch for %s: %s'%(test,G)
             print 'OK'
 
