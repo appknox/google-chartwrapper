@@ -147,7 +147,8 @@ class GChart(UserDict):
         self._dataset = data
 
     def marker(self, *args):
-        assert(args[0] in MARKERS), 'Invalid marker type: %s'%args[0]
+        if not args[0].startswith('t'):
+            assert(args[0] in MARKERS), 'Invalid marker type: %s'%args[0]
         assert(len(args) <= 6), 'Incorrect arguments %s'%str(args)
         self.markers.append(','.join(map(str,args)) )
 
@@ -271,22 +272,20 @@ class GChart(UserDict):
         return Encoder(self._encoding).decode(self.data['chd'])
 
     def _parts(self):
-        return ('%s=%s'%(k,v.replace(' ','+')) for k,v in self.items() if v)
+        return ('%s=%s'%i for i in self.data.items() if i[1])
 
     def __str__(self):
         """
         Returns the rendered URL of the chart
         """
-        self.render()
-        return self.apiurl + '&'.join(self._parts())
+        self.render()        
+        return (self.apiurl + '&'.join(self._parts())).replace(' ','+')
 
     def url(self):
         """
-        Like str, but enforces urlencoding
-        """
-        return self.apiurl + '&'.join(map(urllib.quoteplus, self._parts()))
-
-    def __repr__(self):  return self.__str__()
+        Uses str, AND enforces replacing spaces w/ pluses
+        """        
+        return str(self)
 
     def show(self, *args, **kwargs):
         """
@@ -295,7 +294,7 @@ class GChart(UserDict):
         Other arguments passed to webbrowser.open
         """
         import webbrowser
-        return webbrowser.open(self.__str__(), *args, **kwargs)
+        return webbrowser.open(str(self), *args, **kwargs)
 
     def save(self, fname=None):
         """
@@ -309,7 +308,7 @@ class GChart(UserDict):
         if not fname.endswith('.png'):
             fname += '.png'
         try:
-            urllib.urlretrieve(self.__str__(), fname)
+            urllib.urlretrieve(str(self), fname)
         except IOError, e:
             raise IOError, 'Problem saving chart to file: %s'%e
         return fname
@@ -319,10 +318,10 @@ class GChart(UserDict):
         Returns an XHTML <img/> tag of the chart
 
         kwargs can be other img tag attributes, which are strictly enforced
-        now returns the html safe img string with `&amp;` instead of `&`
-        """
-        self.render()
-        safe = 'src="%s%s" '%(self.apiurl,'&amp;'.join(map(urllib.quoteplus, self._parts())))
+        uses strict escaping on the url, necessary for proper XHTML
+        """       
+        safe = 'src="%s" ' % self.url().replace('&','&amp').replace('<', '&lt;')\
+            .replace('>', '&gt;').replace('"', '&quot;').replace( "'", '&#39;')
         for item in kwargs.items():
             if not item[0] in IMGATTRS:
                 raise AttributeError, 'Invalid img tag attribute: %s'%item[0]
@@ -331,9 +330,9 @@ class GChart(UserDict):
 
     def urlopen(self):
         """
-        Wrapper for urllib.urlopen(GChart.__str__)
+        Grabs readable PNG file pointer
         """
-        return urllib.urlopen(self.url())
+        return urllib.urlopen(str(self))
 
     def image(self):
         """
@@ -347,7 +346,7 @@ class GChart(UserDict):
             raise ImportError, 'You must install PIL to fetch image objects'
         try:
             from cStringIO import StringIO
-        except:
+        except ImportError:
             from StringIO import StringIO
         return Image.open(StringIO(self.urlopen().read()))
 
@@ -367,6 +366,8 @@ class GChart(UserDict):
     def checksum(self):
         """
         Returns the SHA1 hexdigest of the chart PNG image content
+
+        good for unittesting...
         """
         from sha import new
         return new(self.urlopen().read()).hexdigest()
