@@ -5,13 +5,13 @@ GChartWrapper - Google Chart API Wrapper
 Unit test platform
 
     Run this application from the command line for various testing modes.
-    
+
     Usage
-    
+
         $ python tests.py [<mode>]
-        
+
     Where mode is one of the following:
-    
+
         unit - Runs unit test cases for all charts to see if checksums match
         save - Saves images of all charts in 'tests' folder
         wiki - Creates GoogleCode compatable wiki markup of test src and img
@@ -24,17 +24,17 @@ from testing import TestClass
 import os,sys
 from inspect import getsource
 import sha
-        
-def test():        
+
+def test():
     arg = sys.argv[-1].lower()
     if not arg in ('save','wiki','img','url','show','tags','unit'):
         arg = 'url'
-       
+
     Test = TestClass()
 
-    if arg == 'save':  
+    if arg == 'save':
         if not os.path.isdir('tests'):
-            os.mkdir('tests')  
+            os.mkdir('tests')
         for test in Test.all:
             getattr(Test,test)().save(os.path.join(os.getcwd(),'tests',test))
 
@@ -43,7 +43,7 @@ def test():
             print 'Testing %s ... '%test,
             G = getattr(Test,test)()
             assert G.checksum() == checksum, 'Checksum mismatch for %s: %s'%(test,G)
-            print 'OK'    
+            print 'OK'
 
     elif arg == 'wiki':
         print '#labels Featured,Phase-Implementation,Phase-Deploy'
@@ -95,7 +95,7 @@ def test():
                 src.append('{% '+l+' %}')
             src.append('{% endchart %}')
             src = '\n'.join(src)
-            print src,'</td><td><pre>',src.replace('{','&#123;').replace('}','&#125;'),'</pre></td></tr>' 
+            print src,'</td><td><pre>',src.replace('{','&#123;').replace('}','&#125;'),'</pre></td></tr>'
         print '</table>'
     elif arg == 'img':
         for test in Test.all:
@@ -109,8 +109,8 @@ def test():
 
     elif arg == 'show':
         for test in Test.all:
-            getattr(Test,test)().show()          
-        
+            getattr(Test,test)().show()
+
 if __name__=='__main__':
-    test()              
-        
+    test()
+

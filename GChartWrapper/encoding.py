@@ -1,13 +1,14 @@
 class Encoder:
     """Data encoder that handles simple,text, and extended encodings
-    
+
     Based on javascript encoding algorithm and pygooglecharts"""
-    def __init__(self, encoding=None): 
-        self.encoding = 'text'
-        if encoding:
-            assert(encoding in ('simple','text','extended')),\
-            'Unknown encoding: %s'%encoding        
-            self.encoding = encoding          
+    def __init__(self, encoding=None, scale=None):
+        if not encoding:
+            encoding = 'text'
+        assert(encoding in ('simple','text','extended')),\
+            'Unknown encoding: %s'%encoding
+        self.encoding = encoding
+        self.scale = scale
         coding = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
         ecoding = coding + '-.'
         if self.encoding == 'simple':
@@ -15,8 +16,8 @@ class Encoder:
            self.max_value =  61
            self.char = ','
            self.dchar = ''
-           self.none = '_'                
-           self.value = lambda x: coding[x]            
+           self.none = '_'
+           self.value = lambda x: coding[x]
         elif self.encoding == 'text':
            self.coding = ''
            self.max_value =  100
@@ -32,20 +33,20 @@ class Encoder:
            self.char = ','
            self.value = lambda x: '%s%s'% \
                 (ecoding[int(float(x)/64)], ecoding[int(x%64)])
-    
+
     def scalevalue(self, value):
-        if self.scale and type(self.scale) == type(()):
-            lower,upper = self.scale
-        elif self.scale:
-            lower,upper = 0,float(self.scale)
-        else:
-            lower,upper = 0,self.max_value
-        scaled = int(round(float(value - lower) * self.max_value / upper))
-        return min(scaled, self.max_value)
+        return value # one day...
+        if self.encoding != 'text' and self.scale and type(value) in (type(0), type(.0), type(0L)):
+            if type(self.scale) == type(()):
+                lower,upper = self.scale
+            else:
+                lower,upper = 0,float(self.scale)
+            value = int(round(float(value - lower) * self.max_value / upper))
+        return min(value, self.max_value)
 
     def encode(self,  *args, **kwargs):
         """Encode wrapper for a dataset with maximum value
-        
+
         Datasets can be one or two dimensional
         Strings are ignored as ordinal encoding"""
         if type(args[0]) in (type(''), type(unicode())):
@@ -55,33 +56,32 @@ class Encoder:
         if len(args)>1:
             dataset = args
         else:
-            dataset = args[0]  
+            dataset = args[0]
         typemap = map(type,dataset)
         code = self.encoding[0]
-        self.scale = None      
-        if type('') in typemap or type(unicode()) in typemap:  
-            data = ','.join(map(str,dataset))          
-        elif type([]) in typemap:  
-            data = self.char.join([self.encodedata(data) for data in dataset]) 
+        if type('') in typemap or type(unicode()) in typemap:
+            data = ','.join(map(str,dataset))
+        elif type([]) in typemap:
+            data = self.char.join([self.encodedata(data) for data in dataset])
         elif len(dataset) == 1 and hasattr(dataset[0], '__iter__'):
-            data = self.encodedata(dataset[0])                                  
-        else:            
-            data = self.encodedata(dataset) 
+            data = self.encodedata(dataset[0])
+        else:
+            data = self.encodedata(dataset)
         if not '.' in data and code == 't':
-            code = 'e'      
-        return code +':'+ data            
+            code = 'e'
+        return code +':'+ data
 
     def encodedata(self, data):
         sub_data = []
         enc_size = len(self.coding)
-        for value in data: 
+        for value in data:
             if value in (None,'None'):
                 sub_data.append(self.none)
             elif value >= -1:
                 try:
-                    sub_data.append(self.value(value))
+                    sub_data.append(self.value(self.scalevalue(value)))
                 except ValueError:
-                    raise ValueError, 'cannot encode value: %s' % value                                  
+                    raise ValueError, 'cannot encode value: %s' % value
         return self.dchar.join(sub_data)
 
     def decode(self, astr):
@@ -98,28 +98,26 @@ class Encoder:
                     if not flag:
                         this,next = index(data[i]),index(data[i+1])
                         flag = 1
-                        sub_data.append((64 * this) + next)  
+                        sub_data.append((64 * this) + next)
                     else: flag = 0
-            elif e == 's':                        
+            elif e == 's':
                 sub_data.extend([self.coding.index(value) for value in data])
-            dec_data.append(sub_data)                    
+            dec_data.append(sub_data)
         return dec_data
 
 def test():
-    
-    for q,a,d in [
-        ('simple','s:Ab9',[0,27,61]),
-        ('text','t:0.0,10.0,100.0,-1.0,-1.0',[0,10,100,-1,-1]),
-        ('extended','e:AH-HAA..',[7,3975,0,4095])
+
+    for q,a,d,s in [
+        ('simple','s:Ab9',[0,27,61],61),
+        ('text','t:0.0,10.0,100.0,-1.0,-1.0',[0,10,100,-1,-1],(0,100)),
+        ('extended','e:AH-HAA..',[7,3975,0,4095],4095)
         ]:
-        E = Encoder(q)
+        E = Encoder(q,s)
         data = [d]
         test = E.encode(data)
         print test
-        assert(E.decode(test) == data)    
+        assert(E.decode(test) == data)
         assert(a == test)
-    
-   
-if __name__=='__main__': test()    
-    
 
+
+if __name__=='__main__': test()
