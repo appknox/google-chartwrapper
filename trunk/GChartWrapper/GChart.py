@@ -36,11 +36,11 @@ Example
     True
     >>> G.save('tmp.png') # Save to disk
     'tmp.png'
-    
+
 See tests.py for unit test and other examples
 """
 __all__ = ['Sparkline', 'Map', 'HorizontalBarStack', 'VerticalBarStack', 'QRCode',
-     'Line', 'GChart', 'HorizontalBarGroup', 'Scatter', 'Pie3D', 'Pie', 'Meter', 
+     'Line', 'GChart', 'HorizontalBarGroup', 'Scatter', 'Pie3D', 'Pie', 'Meter',
      'Radar', 'VerticalBarGroup', 'LineXY', 'Venn']
 __version__ = 0.5
 
@@ -48,24 +48,24 @@ from UserDict import UserDict
 import urllib
 from constants import *
 from encoding import Encoder
-    
+
 class Axes(UserDict):
     """
     Axes attribute dictionary storage
-    
+
     Use this class via GChart(...).axes
     """
     def __init__(self):
         self.labels = []
         self.positions = []
         self.ranges = []
-        self.styles = []    
+        self.styles = []
         UserDict.__init__(self)
     def render(self):
-        if self.labels:            
-            self.data['chxl'] = '|'.join(self.labels)   
+        if self.labels:
+            self.data['chxl'] = '|'.join(self.labels)
         if self.styles:
-            self.data['chxs'] = '|'.join(self.styles)              
+            self.data['chxs'] = '|'.join(self.styles)
         if self.positions:
             self.data['chxp'] = '|'.join(self.positions)
         if self.ranges:
@@ -85,13 +85,13 @@ class Axes(UserDict):
         if not ',' in atype:
             atype = ','.join(atype)
         self.data['chxt'] = atype
-    def style(self, *args):  
+    def style(self, *args):
         id = str(len(self.styles))
         self.styles.append(','.join([id]+map(str,args)))
-        
+
 class GChart(UserDict):
     """Main chart class
-    
+
     Chart type must be valid for cht parameter
     Dataset can be any python iterable and be multi dimensional
     Kwargs will be put into chart API params if valid"""
@@ -99,40 +99,40 @@ class GChart(UserDict):
         self.lines,self.fills,self.markers,self.scales = [],[],[],[]
         self.bar_heights,self._geo,self._ld = '','',''
         self._dataset = dataset
-        self.axes = Axes()        
+        self.axes = Axes()
         UserDict.__init__(self)
         if ctype:
             self.check_type(ctype)
-            self.data['cht'] = ctype          
+            self.data['cht'] = ctype
         self._encoding = None
         self._scale = None
         if 'encoding' in kwargs:
             self._encoding = kwargs['encoding']
-            del kwargs['encoding']            
+            del kwargs['encoding']
         if 'scale' in kwargs:
             self._scale = kwargs['scale']
-            del kwargs['scale']          
-        self.apiurl = APIURL               
+            del kwargs['scale']
+        self.apiurl = APIURL
         if 'apiurl' in kwargs:
             self.apiurl = kwargs['apiurl']
-            del kwargs['apiurl']                     
+            del kwargs['apiurl']
         for k,v in kwargs.items():
-            assert(k in APIPARAMS), 'Invalid chart parameter: %s'%k                
+            assert(k in APIPARAMS), 'Invalid chart parameter: %s'%k
             self.data[k] = v
 
     def map(self, geo, country_codes):
         assert(geo in GEO), 'Geograpic area %s not recognized'%geo
         self._geo = geo
         self._ld = country_codes
-    
+
     def level_data(self, *args):
         assert(args[0].lower() in 'lmqh'), 'Unknown EC level %s'%level
         self.data['chld'] = '%s|%s'%args
 
     def bar_height(self, *heights):
         self.bar_heights = ','.join(map(str,heights))
-       
-    def encoding(self, encoding): 
+
+    def encoding(self, encoding):
         self._encoding = encoding
 
     def output_encoding(self, encoding):
@@ -141,100 +141,100 @@ class GChart(UserDict):
         self.data['choe'] = encoding
 
     def scale(self, *scale):
-        self.scales.append('%s,%s'%scale)
+        self._scale =  ['%s,%s'%scale]
 
     def dataset(self, data):
-        self._dataset = data                   
-       
+        self._dataset = data
+
     def marker(self, *args):
         assert(args[0] in MARKERS), 'Invalid marker type: %s'%args[0]
         assert(len(args) <= 6), 'Incorrect arguments %s'%str(args)
         self.markers.append(','.join(map(str,args)) )
-        
+
     def line(self, *args):
         self.lines.append(','.join(['%.1f'%x for x in map(float,args)]))
-        
+
     def fill(self, *args):
         assert(args[0] in ('c','bg','a')), 'Fill must be bg/c/a not %s'%args[0]
         assert(args[1] in ('s','lg','ls')), 'Fill type must be s/lg/ls not %s'%args[1]
         self.fills.append(','.join(map(str,args)))
-        
+
     def grid(self, *args):
         grids =  map(str,map(float,args))
-        self.data['chg'] = ','.join(grids).replace('None','')          
-        
+        self.data['chg'] = ','.join(grids).replace('None','')
+
     def bar(self, *args):
-        bars = ['%.1f'%b for b in map(float,args)]        
+        bars = ['%.1f'%b for b in map(float,args)]
         self.data['chbh'] = ','.join(bars).replace('None','')
 
-    def color(self, *args): 
-        self.data['chco'] = ','.join(args)  
+    def color(self, *args):
+        self.data['chco'] = ','.join(args)
 
-    def type(self, type):        
+    def type(self, type):
         self.data['cht'] = str(type)
-        
+
     def label(self, *args):
         if self.data['cht'] == 'qr':
             self.data['chl'] = ''.join(map(urllib.quote,args))
-        else:            
-            self.data['chl'] = '|'.join(args)   
-        
+        else:
+            self.data['chl'] = '|'.join(args)
+
     def legend(self, *args):
         self.data['chdl'] = '|'.join(args)
-    
+
     def legend_pos(self, arg):
         self.data['chdlp'] = str(arg)
-       
-    def title(self, title, *args): 
-        self.data['chtt'] = title        
+
+    def title(self, title, *args):
+        self.data['chtt'] = title
         if args:
             self.data['chts'] = ','.join(map(str,args))
-            
+
     def render(self):
         """
         Renders the chart context and axes into the dict data
         """
-        self.data.update(self.axes.render())     
-        encoder = Encoder(self._encoding)  
+        self.data.update(self.axes.render())
+        encoder = Encoder(self._encoding)
         if not 'chs' in self.data:
             self.data['chs'] = '300x150'
-        else:            
+        else:
             size = self.data['chs'].split('x')
             assert(len(size) == 2), 'Invalid size, must be in the format WxH'
             self.check_size(*map(int,size))
         assert('cht' in self.data), 'No chart type defined, use type method'
-        self.data['cht'] = self.check_type(self.data['cht'])   
+        self.data['cht'] = self.check_type(self.data['cht'])
         if self._dataset:
-            self.data['chd'] = encoder.encode(self._dataset)                        
+            self.data['chd'] = encoder.encode(self._dataset)
         elif not 'choe' in self.data:
-            assert('chd' in self.data), 'You must have a dataset, or use chd'            
-        if self.scales:
+            assert('chd' in self.data), 'You must have a dataset, or use chd'
+        if self._scale:
             assert(self.data['chd'].startswith('t:')), 'You must use text encoding with chds'
-            self.data['chds'] = ','.join(self.scales)
+            self.data['chds'] = ','.join(self._scale)
         if self.bar_heights:
             self.data['chbh'] = self.bar_heights
         if self._geo and self._ld:
             self.data['chtm'] = self._geo
             self.data['chld'] = self._ld
         if self.lines:
-            self.data['chls'] = '|'.join(self.lines)            
+            self.data['chls'] = '|'.join(self.lines)
         if self.markers:
-            self.data['chm'] = '|'.join(self.markers)           
+            self.data['chm'] = '|'.join(self.markers)
         if self.fills:
             self.data['chf'] = '|'.join(self.fills)
- 
-                          
+
+
     def check_size(self,x,y):
         """
         Make sure the chart size fits the standards
         """
-        assert(x <= 10**3), 'Width larger than 1,000'         
-        assert(y <= 10**3), 'Height larger than 1,000'        
-        assert(x*y <= 3*(10**5)), 'Resolution larger than 300,000' 
-          
+        assert(x <= 10**3), 'Width larger than 1,000'
+        assert(y <= 10**3), 'Height larger than 1,000'
+        assert(x*y <= 3*(10**5)), 'Resolution larger than 300,000'
+
     def check_type(self, type):
         """Check to see if the type is either in TYPES or fits type name
-        
+
         Returns proper type
         """
         tdict = dict(zip(TYPES,TYPES))
@@ -243,9 +243,9 @@ class GChart(UserDict):
         tdict['pie'] = 'p'
         tdict['venn'] = 'v'
         tdict['scater'] = 's'
-        assert(type in tdict), 'Invalid chart type: %s'%type  
+        assert(type in tdict), 'Invalid chart type: %s'%type
         return tdict[type]
-             
+
     def size(self,*args):
         """
         Set the size of the chart, args are width,height and can be tuple
@@ -255,83 +255,90 @@ class GChart(UserDict):
         else:
             x,y = map(int,args[0])
         self.check_size(x,y)
-        self.data['chs'] = '%dx%d'%(x,y)  
+        self.data['chs'] = '%dx%d'%(x,y)
 
     def getname(self):
         """
         Gets the name of the chart, if it exists
         """
-        if 'chtt' in self.data:
-            return self.data['chtt']
-        return ''
-        
+        return self.data.get('chtt','')
+
     def getdata(self):
         """
         Returns the decoded dataset from chd param
         """
         #XXX: Why again? not even sure decode works well
-        return Encoder(self._encoding).decode(self.data['chd'])        
-        
-    
+        return Encoder(self._encoding).decode(self.data['chd'])
+
+    def _parts(self):
+        return ('%s=%s'%(k,v.replace(' ','+')) for k,v in self.items() if v)
+
     def __str__(self):
         """
         Returns the rendered URL of the chart
         """
         self.render()
-        params = '&'.join(['%s=%s'%x for x in self.data.items() if x[1]])
-        return self.apiurl + params.replace(' ','+')
-    def url(self): return self.__str__()          
+        return self.apiurl + '&'.join(self._parts())
+
+    def url(self):
+        """
+        Like str, but enforces urlencoding
+        """
+        return self.apiurl + '&'.join(map(urllib.quoteplus, self._parts()))
+
     def __repr__(self):  return self.__str__()
-    
+
     def show(self, *args, **kwargs):
         """
         Shows the chart URL in a webbrowser
-        
+
         Other arguments passed to webbrowser.open
         """
         import webbrowser
         return webbrowser.open(self.__str__(), *args, **kwargs)
-    
+
     def save(self, fname=None):
         """
         Download the chart from the URL into a filename as a PNG
-        
+
         The filename defaults to the chart title (chtt) if any
         """
         if not fname:
-            fname = self.getname()               
+            fname = self.getname()
         assert(fname != None), 'You must specify a filename to save to'
         if not fname.endswith('.png'):
             fname += '.png'
         try:
-            urllib.urlretrieve(self.__str__(), fname)           
+            urllib.urlretrieve(self.__str__(), fname)
         except IOError, e:
-            raise IOError, 'Problem saving chart to file: %s'%e   
-        return fname                     
+            raise IOError, 'Problem saving chart to file: %s'%e
+        return fname
 
-    def img(self, **kwargs): 
+    def img(self, **kwargs):
         """
-        Returns an HTML <img> tag of the chart
-        
+        Returns an XHTML <img/> tag of the chart
+
         kwargs can be other img tag attributes, which are strictly enforced
+        now returns the html safe img string with `&amp;` instead of `&`
         """
-        attrs = ''
+        self.render()
+        safe = 'src="%s%s" '%(self.apiurl,'&amp;'.join(map(urllib.quoteplus, self._parts())))
         for item in kwargs.items():
             if not item[0] in IMGATTRS:
                 raise AttributeError, 'Invalid img tag attribute: %s'%item[0]
-            attrs += '%s="%s" '%item
-        return '<img src="%s" %s>'%(self.__str__(),attrs)
+            safe += '%s="%s" '%item
+        return '<img %s/>'%safe
 
     def urlopen(self):
         """
         Wrapper for urllib.urlopen(GChart.__str__)
         """
-        return urllib.urlopen(self.__str__())
+        return urllib.urlopen(self.url())
 
     def image(self):
         """
         Returns a PngImageFile instance of the chart
-        
+
         You must have PIL installed for this to work
         """
         try:
@@ -339,31 +346,31 @@ class GChart(UserDict):
         except ImportError:
             raise ImportError, 'You must install PIL to fetch image objects'
         try:
-            from cStringIO import StringIO             
+            from cStringIO import StringIO
         except:
-            from StringIO import StringIO                                    
-        return Image.open(StringIO(self.urlopen().read()))     
+            from StringIO import StringIO
+        return Image.open(StringIO(self.urlopen().read()))
 
     def write(self, fp):
         """
         Writes out PNG image data in chunks to file pointer fp
-        
+
         fp must support w or wb
         """
         urlfp = self.urlopen().fp
         while 1:
             try:
                 fp.write(urlfp.next())
-            except StopIteration: 
+            except StopIteration:
                 return
-                
+
     def checksum(self):
         """
         Returns the SHA1 hexdigest of the chart PNG image content
         """
         from sha import new
-        return new(self.urlopen().read()).hexdigest()                        
-        
+        return new(self.urlopen().read()).hexdigest()
+
 # Now a whole mess of convenience classes
 # *for those of us who dont speak API*
 class Meter(GChart):
@@ -376,13 +383,13 @@ class Meter(GChart):
 class QRCode(GChart):
     def __init__(self, content='', **kwargs):
         kwargs['choe'] = 'UTF-8'
-        kwargs['chl'] = urllib.quote(content)         
-        GChart.__init__(self, 'qr', None, **kwargs)    
-        
+        kwargs['chl'] = urllib.quote(content)
+        GChart.__init__(self, 'qr', None, **kwargs)
+
 class Line(GChart):
     def __init__(self, dataset, **kwargs):
         GChart.__init__(self, 'lc', dataset, **kwargs)
-        
+
 class LineXY(GChart):
     def __init__(self, dataset, **kwargs):
         GChart.__init__(self, 'lxy', dataset, **kwargs)
@@ -390,15 +397,15 @@ class LineXY(GChart):
 class HorizontalBarStack(GChart):
     def __init__(self, dataset, **kwargs):
         GChart.__init__(self, 'bhs', dataset, **kwargs)
-        
+
 class VerticalBarStack(GChart):
     def __init__(self, dataset, **kwargs):
         GChart.__init__(self, 'bvs', dataset, **kwargs)
-        
+
 class HorizontalBarGroup(GChart):
     def __init__(self, dataset, **kwargs):
         GChart.__init__(self, 'bhg', dataset, **kwargs)
-        
+
 class VerticalBarGroup(GChart):
     def __init__(self, dataset, **kwargs):
         GChart.__init__(self, 'bvg', dataset, **kwargs)
@@ -406,7 +413,7 @@ class VerticalBarGroup(GChart):
 class Pie(GChart):
     def __init__(self, dataset, **kwargs):
         GChart.__init__(self, 'p', dataset, **kwargs)
-        
+
 class Pie3D(GChart):
     def __init__(self, dataset, **kwargs):
         GChart.__init__(self, 'p3', dataset, **kwargs)
@@ -414,7 +421,7 @@ class Pie3D(GChart):
 class Venn(GChart):
     def __init__(self, dataset, **kwargs):
         GChart.__init__(self, 'v', dataset, **kwargs)
-        
+
 class Scatter(GChart):
     def __init__(self, dataset, **kwargs):
         GChart.__init__(self, 's', dataset, **kwargs)
@@ -430,7 +437,7 @@ class Radar(GChart):
 class Map(GChart):
     def __init__(self, dataset, **kwargs):
         GChart.__init__(self, 't', dataset, **kwargs)
-        
+
 if __name__=='__main__':
     from tests import test
-    test()    
+    test()
