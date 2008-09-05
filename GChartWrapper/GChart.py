@@ -320,7 +320,7 @@ class GChart(UserDict):
         kwargs can be other img tag attributes, which are strictly enforced
         uses strict escaping on the url, necessary for proper XHTML
         """       
-        safe = 'src="%s" ' % self.url().replace('&','&amp').replace('<', '&lt;')\
+        safe = 'src="%s" ' % self.url().replace('&','&amp;').replace('<', '&lt;')\
             .replace('>', '&gt;').replace('"', '&quot;').replace( "'", '&#39;')
         for item in kwargs.items():
             if not item[0] in IMGATTRS:
