@@ -97,7 +97,7 @@ class GChart(UserDict):
     Kwargs will be put into chart API params if valid"""
     def __init__(self, ctype=None, dataset=[], **kwargs):
         self.lines,self.fills,self.markers,self.scales = [],[],[],[]
-        self.bar_heights,self._geo,self._ld = '','',''
+        self._geo,self._ld = '',''
         self._dataset = dataset
         self.axes = Axes()
         UserDict.__init__(self)
@@ -129,8 +129,8 @@ class GChart(UserDict):
         assert(args[0].lower() in 'lmqh'), 'Unknown EC level %s'%level
         self.data['chld'] = '%s|%s'%args
 
-    def bar_height(self, *heights):
-        self.bar_heights = ','.join(map(str,heights))
+    def bar_width_spacing(self, *args):
+        self.data['chbh'] = ','.join(map(str,args))
 
     def encoding(self, encoding):
         self._encoding = encoding
@@ -212,8 +212,6 @@ class GChart(UserDict):
         if self._scale:
             assert(self.data['chd'].startswith('t:')), 'You must use text encoding with chds'
             self.data['chds'] = ','.join(self._scale)
-        if self.bar_heights:
-            self.data['chbh'] = self.bar_heights
         if self._geo and self._ld:
             self.data['chtm'] = self._geo
             self.data['chld'] = self._ld

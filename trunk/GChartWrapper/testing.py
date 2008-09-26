@@ -360,7 +360,7 @@ class TestClass:
         G = HorizontalBarStack('hello', encoding='simple')
         G.color('4d89f9')
         G.size(200,125)
-        G.bar_height(10)
+        G.bar_width_spacing(10)
         return G
 
    
