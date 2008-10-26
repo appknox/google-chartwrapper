@@ -205,7 +205,7 @@ class GChart(UserDict):
             self.check_size(*map(int,size))
         assert('cht' in self.data), 'No chart type defined, use type method'
         self.data['cht'] = self.check_type(self.data['cht'])
-        if self._dataset:
+        if 'any' in dir(self._dataset) and self._dataset.any():
             self.data['chd'] = encoder.encode(self._dataset)
         elif not 'choe' in self.data:
             assert('chd' in self.data), 'You must have a dataset, or use chd'

@@ -18,4 +18,5 @@ show it directly in a webbrowser, or save the chart PNG to disk.
 
 See the doc folder for epydoc API information in HTML format
 See GChartWrapper folder for GChart module source code
-See chartproject for an example django project to get you started
+See GChartWrapper\charts for the Django charts app with templatetags
+    Just put GChartWrapper.charts in your INSTALLED_APPS and then follow the template examples
