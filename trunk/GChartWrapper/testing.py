@@ -31,7 +31,7 @@ class TestClass:
         'guide_intro': 'f356f143e95842e498b3df6f461a22dbe4d8dd2e',
         'guide_line_lc': '8d9a940c9721af037275cc4aa75ed1e823e7d80a',
         'guide_map': '902aba8398fac9d8701fdaee1bb16e4231445ee0',
-        'guide_meter': '8ff5c8c788d7aece26623da767a89fd02d5efe7a',
+        'guide_meter': '402e55a0d7889506f178bddbe223d5ce286c736a',
         'guide_radar': '2b31c0e13524621a8167317d388f1d47df14f891',
         'guide_sparkline': 'e62154b7a0df61d2904f4054375e82abaf9a995b',
         'hvz': 'da5ad186adae230f772df90cbcfcb7aaac9d5080',
@@ -45,7 +45,8 @@ class TestClass:
         'qr_code': 'bc5788f3dea82f76e75ec603f5d451369497689f',
         'simple': '82073d9618e0c17c49f26178d725fae457bc10bc',
         'title': '61fc52176934281eb5560fff2452ab7dd0e0e638',
-        'venn': 'c6ecda237b1697ac3dc1257d5b88763a940110b5'
+        'venn': 'c6ecda237b1697ac3dc1257d5b88763a940110b5',
+        'numpy': '00e5ea7b70c29b80ac5c7aca8319262579b17181',
     }
 
     def simple(self):
@@ -392,4 +393,15 @@ class TestClass:
         G.size(225,125)
         return G
 
-
+    def numpy(self):
+        # Test to see whether numpy arrays work correctly
+        # Must have numpy installed to do this test correctly
+        data = [10,20,30,40,50,60,70,80,90]
+        try:
+            from numpy import array
+            data = array(data)
+        except ImportError:
+            print 'Warning: numpy must be installed to do this test correctly'        
+        G = Radar(data, encoding='text')
+        G.size(200,200)    
+        return G

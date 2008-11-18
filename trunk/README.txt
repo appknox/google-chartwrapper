@@ -1,5 +1,5 @@
 ################################################################################
-#  GChartWrapper - v0.5
+#  GChartWrapper - v0.6
 #  Copyright (C) 2008  Justin Quick <justquick@gmail.com>
 #
 #  This program is free software; you can redistribute it and/or modify
@@ -16,7 +16,120 @@ The wrapper can render the URL of the Google chart based on your parameters.
 With the chart you can render an HTML img tag to insert into webpages on the fly, 
 show it directly in a webbrowser, or save the chart PNG to disk.
 
-See the doc folder for epydoc API information in HTML format
-See GChartWrapper folder for GChart module source code
-See GChartWrapper\charts for the Django charts app with templatetags
-    Just put GChartWrapper.charts in your INSTALLED_APPS and then follow the template examples
+Doc TOC:
+    1.1 General
+        1.2 Constructing
+        1.3 Rendering and Viewing
+    2.1 Django extension
+        2.2 Static data
+        2.3 Dynamic data
+    3.1 API documentation
+
+1.1 General 
+
+Customizable charts can be generated using the Google Chart API available
+at http://code.google.com/apis/chart/. The GChart Wrapper allows Pythonic access
+to the parameters of constructing the charts and displaying the URLs generated.
+
+1.2 Constructing 
+
+class GChart(UserDict)
+    """Main chart class
+    
+    chart type must be valid for cht parameter
+    dataset can be any python iterable
+    kwargs will be put into chart params if valid"""
+    def __init__(self, ctype=None, dataset=[], **kwargs):
+
+The chart takes any iterable python data type (now including numpy arrays)
+and does the encoding for you
+
+    # Datasets 
+    >>> dataset = (1, 2, 3)
+    # Also 2 dimensional
+    >>> dataset = [[3,4], [5,6], [7,8]]
+
+Initialize the chart with a valid type (see API reference) and dataset
+
+    # 3D Piechart
+    >>> GChart('p3', dataset)
+    <GChart  p3 (1, 2, 3)>
+
+    # Encoding (simple/text/extended)
+    >>> G = GChart('p3', dataset, encoding='text')
+
+    # maxValue (for encoding values)
+    >>> G = GChart('p3', dataset, maxValue=100)
+
+    # Size
+    >>> G = GChart('p3', dataset, size=(300,150))
+
+    # OR directly pass in API parameters
+    >>> G = GChart('p3', dataset, chtt='My Cool Chart', chl='A|B|C')
+
+
+1.3 Rendering and Viewing 
+
+The wrapper has many useful ways to take the URL of your chart and output it 
+into different formats like...
+
+    # As the chart URL itself using __str__
+    >>> str(G)
+    'http://chart.apis.google.com/chart?...'
+
+
+    # As an HTML <img> tag, kw arguments can be valid tag attributes
+    >>> G.img(height=500,id="chart")
+    '<img alt="" title="" src="http://chart.apis.google.com/chart?..." id="chart" height="500" >'
+
+
+    # Save chart to a file as PNG image, returns filename
+    >>> G.save('my-cool-chart')
+    'my-cool-chart.png'
+
+    # Now fetch the PngImageFile using the PIL module for manipulation
+    >>> G.image()
+    <PngImagePlugin.PngImageFile instance at 0xb795ee4c>
+
+    # Now that you have the image instance, the world is your oyster
+    # Try saving image as JPEG,GIF,etc.
+    >>> G.image().save('my-cool-chart.jpg','JPEG')
+
+    # Show URL directly in default web browser
+    >>> G.show()
+
+
+
+=== Django Extension ===
+
+Newer versions of the wrapper contain templatetags for generating charts in
+Django templates. This allows for dynamic insertion of data for viewing on any
+web application. Install the module first using `python setup.py install` then 
+place 'GChartWrapper.charts' in your INSTALLED_APPS and then try out some 
+template examples...
+
+# Load the charts templatetags first and foremost
+{% load charts %}
+
+# Then try out some static data in your templates
+{% chart Line GurMrabsClgubaolGvzCrgrefOrnhgvshyvforggregunahtyl  %}
+    {% title 'The Zen of Python' 00cc00 36 %}
+    {% color 00cc00 %}
+{% endchart %} 
+
+The module supports dynamic insertion of any variable within the context like so
+
+# View code
+def example(request):
+    return render_to_response('example.html',{'dataset':range(50)})
+    
+# example.html template code    
+{% chart Line dataset  %}
+    {% color 00cc00 %}
+{% endchart %} 
+
+
+3.1 API Documentation 
+
+The Epydoc API information is generated in HTML format and available in the 
+google-chartwrapper-docs distribution, or available in SVN at /trunk/docs/

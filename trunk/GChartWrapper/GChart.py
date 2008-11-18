@@ -1,5 +1,5 @@
 ################################################################################
-#  GChartWrapper - v0.5
+#  GChartWrapper - v0.6
 #  Copyright (C) 2008  Justin Quick <justquick@gmail.com>
 #
 #  This program is free software; you can redistribute it and/or modify
@@ -48,6 +48,7 @@ from UserDict import UserDict
 import urllib
 from constants import *
 from encoding import Encoder
+from sha import new as new_sha
 
 class Axes(UserDict):
     """
@@ -61,6 +62,7 @@ class Axes(UserDict):
         self.ranges = []
         self.styles = []
         UserDict.__init__(self)
+        
     def render(self):
         if self.labels:
             self.data['chxl'] = '|'.join(self.labels)
@@ -71,20 +73,25 @@ class Axes(UserDict):
         if self.ranges:
             self.data['chxr'] = '|'.join(self.ranges)
         return self.data
+        
     def label(self, *args):
         label = '|'.join(map(str,args))
         id = len(self.labels)
         self.labels.append( str('%d:|%s'%(id,label)).replace('None','') )
+        
     def position(self, *args):
         position = ','.join(map(str,args))
         id = len(self.positions)
         self.positions.append( str('%d,%s'%(id,position)).replace('None','') )
+        
     def range(self, *args):
         self.ranges.append('%d,%s,%s'%(len(self.ranges), args[0], args[1]))
+        
     def type(self, atype):
         if not ',' in atype:
             atype = ','.join(atype)
         self.data['chxt'] = atype
+        
     def style(self, *args):
         id = str(len(self.styles))
         self.styles.append(','.join([id]+map(str,args)))
@@ -205,7 +212,7 @@ class GChart(UserDict):
             self.check_size(*map(int,size))
         assert('cht' in self.data), 'No chart type defined, use type method'
         self.data['cht'] = self.check_type(self.data['cht'])
-        if 'any' in dir(self._dataset) and self._dataset.any():
+        if ('any' in dir(self._dataset) and self._dataset.any()) or self._dataset:
             self.data['chd'] = encoder.encode(self._dataset)
         elif not 'choe' in self.data:
             assert('chd' in self.data), 'You must have a dataset, or use chd'
@@ -283,7 +290,7 @@ class GChart(UserDict):
         """
         Uses str, AND enforces replacing spaces w/ pluses
         """        
-        return str(self)
+        return self.__str__()
 
     def show(self, *args, **kwargs):
         """
@@ -330,7 +337,7 @@ class GChart(UserDict):
         """
         Grabs readable PNG file pointer
         """
-        return urllib.urlopen(str(self))
+        return urllib.urlopen(self.__str__())
 
     def image(self):
         """
@@ -367,8 +374,7 @@ class GChart(UserDict):
 
         good for unittesting...
         """
-        from sha import new
-        return new(self.urlopen().read()).hexdigest()
+        return new_sha(self.urlopen().read()).hexdigest()
 
 # Now a whole mess of convenience classes
 # *for those of us who dont speak API*
