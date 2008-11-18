@@ -100,22 +100,24 @@ into different formats like...
 
 
 
-=== Django Extension ===
+2.1 Django Extension 
 
 Newer versions of the wrapper contain templatetags for generating charts in
 Django templates. This allows for dynamic insertion of data for viewing on any
 web application. Install the module first using `python setup.py install` then 
-place 'GChartWrapper.charts' in your INSTALLED_APPS and then try out some 
-template examples...
+place 'GChartWrapper.charts' in your INSTALLED_APPS and then you are ready to go.
+Just include the '{% load charts %}' tag in your templates before making charts.
 
-# Load the charts templatetags first and foremost
-{% load charts %}
+2.2 Static data
 
-# Then try out some static data in your templates
+Then try out some static data in your templates
+
 {% chart Line GurMrabsClgubaolGvzCrgrefOrnhgvshyvforggregunahtyl  %}
     {% title 'The Zen of Python' 00cc00 36 %}
     {% color 00cc00 %}
 {% endchart %} 
+
+2.3 Dynamic data
 
 The module supports dynamic insertion of any variable within the context like so
 
@@ -127,7 +129,6 @@ def example(request):
 {% chart Line dataset  %}
     {% color 00cc00 %}
 {% endchart %} 
-
 
 3.1 API Documentation 
 
