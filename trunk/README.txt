@@ -23,7 +23,8 @@ Doc TOC:
     2.1 Django extension
         2.2 Static data
         2.3 Dynamic data
-    3.1 API documentation
+    3.1 Test framework
+    4.1 API documentation
 
 1.1 General 
 
@@ -130,7 +131,27 @@ def example(request):
     {% color 00cc00 %}
 {% endchart %} 
 
-3.1 API Documentation 
+3.1 Test framework
+
+The module also comes with a test framework with sample charts available in
+GChartWrapper/testing.py. The tests are executed through GChartWrapper/tests.py
+
+Usage
+
+    $ python tests.py [<mode>]
+
+Where mode is one of the following:
+
+    unit - Runs unit test cases for all charts to see if checksums match
+    save - Saves images of all charts in 'tests' folder
+    wiki - Creates GoogleCode compatable wiki markup of test src and img
+    img - Prints html img tags for all charts
+    url - Prints urls of all charts
+    show - Opens all charts in tabs in a web browser
+    tags - Prints Django template src of all charts
+
+
+4.1 API Documentation 
 
 The Epydoc API information is generated in HTML format and available in the 
 google-chartwrapper-docs distribution, or available in SVN at /trunk/docs/
