@@ -21,9 +21,9 @@ Unit test platform
         tags - Prints Django template src of all charts
 """
 from testing import TestClass
-import os,sys
+import os
+import sys
 from inspect import getsource
-import sha
 
 def test():
     arg = sys.argv[-1].lower()
@@ -39,11 +39,13 @@ def test():
             getattr(Test,test)().save(os.path.join(os.getcwd(),'tests',test))
 
     elif arg == 'unit':
-        for test,checksum in Test.all.items():
-            print 'Testing %s ... '%test,
-            G = getattr(Test,test)()            
-            assert G.checksum() == checksum, 'Checksum mismatch for %s: %s'%(test,G)
-            print 'OK'
+        import unittest
+        class ChartsTest(unittest.TestCase):
+            def testcharts(self):
+                for test,checksum in Test.all.items():
+                    self.assertEqual(getattr(Test,test)().checksum(), checksum)
+        suite = unittest.TestLoader().loadTestsFromTestCase(ChartsTest)
+        unittest.TextTestRunner(verbosity=2).run(suite)
 
     elif arg == 'wiki':
         print '#labels Featured,Phase-Implementation,Phase-Deploy'
