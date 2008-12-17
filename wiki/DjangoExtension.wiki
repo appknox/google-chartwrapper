@@ -3,8 +3,15 @@
 
 ===Installation===
 
-*Follow the included `chartproject` Django project folder for example install*
+Add the following app to your Django INSTALLED_APPS in your settings.py file like so:
 
+{{{
+...
+INSTALLED_APPS = ('GChartWrapper.charts',...)
+...
+}}}
+
+Then you can use the templatetag in any of your templates.
 
 ===Templatetage Usage===
 *The module contains a template tags extension that functions like this*
@@ -20,26 +27,6 @@
 
 http://chart.apis.google.com/chart?chd=s:GurMrabsClgubaolGvzCrgrefOrnhgvshyvforggregunahtyl&chco=00cc00&chts=00cc00,36&chs=300x150&cht=lc&chtt=The+Zen+of+Python&.png
 
+===More Examples===
 
-*Just run the chartproject and go to the root url `/` to see usage. The tags are in `chartproject.charts.templatetags.charts`*
-
-=== Charts in Views ==
-
-Returns an HttpResponse of the given chart image content with the correct mimetype
-
-{{{
-from GChartWrapper import Meter
-from django.http import HttpResponse
-
-def view_chart(request):
-    G = Meter(70)
-    G.label('Hello')
-    G.size(225,125)
-    response = HttpResponse(mimetype="image/png")
-    G.image().save(response, "PNG")
-    return response
-
-}}}
-
-===Chart editing and storing===
-*Newest versions of the module come with an AJAX (jquery) chart editor which renders datasets and template tag instructions into IMG tag output. They run on models so storing,manipulating and referencing them is a breeze. Here is a [http://gchartwrapper.googlegroups.com/web/django.chart.editor.jpg Screenshot] of the editor at work. Startup the chartproject and go to `/edit/` * 
+The templating folder in the distribution contains a `testproj` subfolder which is a standard Django project to test out the functionality of the templatetags. If you execute `python manage.py runserver` then go to http://localhost:8000/ it will render several charts from the ChartExamples. The template can be found [http://code.google.com/p/google-chartwrapper/source/browse/trunk/GChartWrapper/charts/templates/example.html here]
