@@ -55,18 +55,18 @@
   </tr>
 </table>
 <!-- ==================== MODULE DESCRIPTION ==================== -->
-<h1 class="epydoc">Module GChart'</h1><span class="codelink"><a href="GChartWrapper.GChart%27-pysrc.html">source&nbsp;code</a></span><br /><br />
+<h1 class="epydoc">Module GChart'</h1><p class="nomargin-top"><span class="codelink"><a href="GChartWrapper.GChart%27-pysrc.html">source&nbsp;code</a></span></p>
 <p>GChartWrapper - Google Chart API Wrapper</p>
   <p>The wrapper can render the URL of the Google chart based on your 
   parameters. With the chart you can render an HTML img tag to insert into 
   webpages on the fly, show it directly in a webbrowser, or save the chart 
   PNG to disk. New versions can generate PIL PngImage instances.</p>
-  Example
+  <p>Example</p>
 <pre class="py-doctest">
 <span class="py-prompt">&gt;&gt;&gt; </span>G = GChart(<span class="py-string">'lc'</span>,[<span class="py-string">'simpleisbetterthancomplexcomplexisbetterthancomplicated'</span>])
 <span class="py-prompt">&gt;&gt;&gt; </span>G.title(<span class="py-string">'The Zen of Python'</span>,<span class="py-string">'00cc00'</span>,36)
 <span class="py-prompt">&gt;&gt;&gt; </span>G.color(<span class="py-string">'00cc00'</span>)
-<span class="py-prompt">&gt;&gt;&gt; </span>str(G)
+<span class="py-prompt">&gt;&gt;&gt; </span>G
 <span class="py-output">'''http://chart.apis.google.com/chart?</span>
 <span class="py-output">    chd=s:simpleisbetterthancomplexcomplexisbetterthancomplicated</span>
 <span class="py-output">    &amp;chco=00cc00</span>
@@ -78,12 +78,13 @@
 <span class="py-output">&lt;PngImagePlugin.PngImageFile instance at 0xb79fe2ac&gt;</span>
 <span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>G.show() <span class="py-comment"># Webbrowser open</span>
 <span class="py-output">True</span>
-<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>G.save(<span class="py-string">'tmp.png'</span>) <span class="py-comment"># Save to disk</span></pre>
-  See tests.py for unit test and other examples<br /><br />
+<span class="py-output"></span><span class="py-prompt">&gt;&gt;&gt; </span>G.save(<span class="py-string">'tmp.png'</span>) <span class="py-comment"># Save to disk</span>
+<span class="py-output">'tmp.png'</span></pre>
+  <p>See tests.py for unit test and other examples</p>
 
 <hr />
 <div class="fields">      <p><strong>Version:</strong>
-        0.5
+        0.6
       </p>
 </div><!-- ==================== CLASSES ==================== -->
 <a name="section-Classes"></a>
@@ -103,139 +104,94 @@
   </td>
 </tr>
 <tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="GChartWrapper.GChart%27.Axes-class.html" class="summary-name">Axes</a><br />
+    <td class="summary" colspan="2">
+        <a href="GChartWrapper.GChart%27.Axes-class.html" class="summary-name" onclick="show_private();">Axes</a><br />
       Axes attribute dictionary storage
     </td>
   </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="GChartWrapper.encoding.Encoder-class.html" class="summary-name">Encoder</a><br />
-      Data encoder that handles simple,text, and extended 
-        encodings
-    </td>
-  </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.GChart-class.html" class="summary-name">GChart</a><br />
       Main chart class
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.HorizontalBarGroup-class.html" class="summary-name">HorizontalBarGroup</a>
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.HorizontalBarStack-class.html" class="summary-name">HorizontalBarStack</a>
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.Line-class.html" class="summary-name">Line</a>
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.LineXY-class.html" class="summary-name">LineXY</a>
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.Map-class.html" class="summary-name">Map</a>
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.Meter-class.html" class="summary-name">Meter</a>
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.Pie-class.html" class="summary-name">Pie</a>
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.Pie3D-class.html" class="summary-name">Pie3D</a>
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
+        <a href="GChartWrapper.GChart%27.PieC-class.html" class="summary-name">PieC</a>
+    </td>
+  </tr>
+<tr>
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.QRCode-class.html" class="summary-name">QRCode</a>
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.Radar-class.html" class="summary-name">Radar</a>
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.Scatter-class.html" class="summary-name">Scatter</a>
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.Sparkline-class.html" class="summary-name">Sparkline</a>
     </td>
   </tr>
-<tr class="private">
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="UserDict.UserDict-class.html" class="summary-name">UserDict</a>
-    </td>
-  </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.Venn-class.html" class="summary-name">Venn</a>
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.VerticalBarGroup-class.html" class="summary-name">VerticalBarGroup</a>
     </td>
   </tr>
 <tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
+    <td class="summary" colspan="2">
         <a href="GChartWrapper.GChart%27.VerticalBarStack-class.html" class="summary-name">VerticalBarStack</a>
     </td>
   </tr>
@@ -261,7 +217,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="GChartWrapper.GChart%27-module.html#APIPARAMS" class="summary-name">APIPARAMS</a> = <code title="{'chbh': 'horizontal-bar height',
+        <a href="GChartWrapper.GChart%27-module.html#APIPARAMS" class="summary-name" onclick="show_private();">APIPARAMS</a> = <code title="{'chbh': 'horizontal-bar height',
  'chco': 'color:  &lt;color1&gt;,..,&lt;colorn&gt; ',
  'chd': 'text-encoding',
  'chdl': 'legend:  &lt;first data set label&gt;|&lt;n data set label&gt;',
@@ -283,7 +239,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="GChartWrapper.GChart%27-module.html#GEO" class="summary-name">GEO</a> = <code title="('africa',
+        <a href="GChartWrapper.GChart%27-module.html#GEO" class="summary-name" onclick="show_private();">GEO</a> = <code title="('africa',
  'asia',
  'europe',
  'middle_east',
@@ -296,7 +252,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="GChartWrapper.GChart%27-module.html#IMGATTRS" class="summary-name">IMGATTRS</a> = <code title="('title',
+        <a href="GChartWrapper.GChart%27-module.html#IMGATTRS" class="summary-name" onclick="show_private();">IMGATTRS</a> = <code title="('title',
  'alt',
  'align',
  'border',
@@ -311,14 +267,22 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="GChartWrapper.GChart%27-module.html#MARKERS" class="summary-name">MARKERS</a> = <code title="('a', 'c', 'd', 'o', 's', 'v', 'V', 'h', 'x', 'r', 'R', 'b', 'B', 'D')"><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">a</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">c</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">d</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">o</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">s</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">v</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">V</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">h</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">x</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">r</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
+        <a href="GChartWrapper.GChart%27-module.html#MARKERS" class="summary-name" onclick="show_private();">MARKERS</a> = <code title="('a',
+ 'c',
+ 'd',
+ 'o',
+ 's',
+ 't',
+ 'v',
+ 'V',
+..."><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">a</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">c</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">d</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">o</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">s</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">t</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">v</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">V</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">h</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">x</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="GChartWrapper.GChart%27-module.html#TTAGSATTRS" class="summary-name">TTAGSATTRS</a> = <code title="('label',
+        <a href="GChartWrapper.GChart%27-module.html#TTAGSATTRS" class="summary-name" onclick="show_private();">TTAGSATTRS</a> = <code title="('label',
  'title',
  'color',
  'line',
@@ -333,15 +297,15 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="GChartWrapper.GChart%27-module.html#TYPES" class="summary-name">TYPES</a> = <code title="{'bhg': 'Vertical bar group',
- 'bhs': 'Vertical bar stack',
- 'bvg': 'Pie',
- 'bvs': 'Horizontal bar group',
- 'gom': 'Sparkline',
- 'lc': 'Line',
- 'ls': 'Line XY',
- 'lxy': 'Horizontal bar stack',
-..."><code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">bhg</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">Vertical bar group</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">bhs</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">Vertical bar sta</code><code class="variable-ellipsis">...</code></code>
+        <a href="GChartWrapper.GChart%27-module.html#TYPES" class="summary-name" onclick="show_private();">TYPES</a> = <code title="('bvs',
+ 'p3',
+ 'qr',
+ 'lc',
+ 'p',
+ 'bhg',
+ 'pc',
+ 's',
+..."><code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">bvs</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">p3</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">qr</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">lc</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">p</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">bhg</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">pc</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">s</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">r</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 </table>
@@ -451,7 +415,15 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">a</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">c</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">d</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">o</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">s</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">v</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">V</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">h</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">x</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">r</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">R</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">b</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">B</code><code class="variable-quote">'</code><code class="variable-op">, </code><code class="variable-quote">'</code><code class="variable-string">D</code><code class="variable-quote">'</code><code class="variable-group">)</code>
+<code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">a</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">c</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">d</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">o</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">s</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">t</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">v</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">V</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
   </dl>
@@ -495,14 +467,14 @@
   <dl class="fields">
     <dt>Value:</dt>
       <dd><table><tr><td><pre class="variable">
-<code class="variable-group">{</code><code class="variable-quote">'</code><code class="variable-string">bhg</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">Vertical bar group</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">bhs</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">Vertical bar stack</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">bvg</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">Pie</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">bvs</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">Horizontal bar group</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">gom</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">Sparkline</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">lc</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">Line</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">ls</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">Line XY</code><code class="variable-quote">'</code><code class="variable-op">,</code>
- <code class="variable-quote">'</code><code class="variable-string">lxy</code><code class="variable-quote">'</code><code class="variable-op">: </code><code class="variable-quote">'</code><code class="variable-string">Horizontal bar stack</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+<code class="variable-group">(</code><code class="variable-quote">'</code><code class="variable-string">bvs</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">p3</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">qr</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">lc</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">p</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">bhg</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">pc</code><code class="variable-quote">'</code><code class="variable-op">,</code>
+ <code class="variable-quote">'</code><code class="variable-string">s</code><code class="variable-quote">'</code><code class="variable-op">,</code>
 <code class="variable-ellipsis">...</code>
 </pre></td></tr></table>
 </dd>
@@ -536,10 +508,12 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0beta1 on Mon Jul 21 19:48:08 2008
+    Generated by Epydoc 3.0.1
+    on Wed Dec 17 13:07:45 2008
     </td>
     <td align="right" class="footer">
-      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
     </td>
   </tr>
 </table>
@@ -550,9 +524,8 @@
   // javascript is turned off then we want them to be
   // visible); but by default, we want to hide them.  So hide
   // them unless we have a cookie that says to show them.
-  checkCookie()
+  checkCookie();
   // -->
 </script>
-  
 </body>
 </html>
