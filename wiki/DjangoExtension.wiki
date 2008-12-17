@@ -1,5 +1,5 @@
+#summary Extending the wrapper to Django
 #labels Featured,Phase-Implementation
-#comment Extending the wrapper to Django
 
 ===Installation===
 
