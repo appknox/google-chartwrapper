@@ -1,3 +1,4 @@
+#summary Many examples of creating different kinds of charts
 #labels Featured,Phase-Implementation,Phase-Deploy
 == Chart examples adapted from the Google examples taken from the wrapper module unit tests ==
 ----
