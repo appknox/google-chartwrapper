@@ -1,13 +1,13 @@
 #summary How to use the wrapper with templating languages
 #labels Featured,Phase-Design,Phase-Implementation
 
-= Django =
+= [http://docs.djangoproject.com/en/dev/topics/templates/ Django] =
 
 See the DjangoExtension
 
-= Cheetah =
+= [http://www.cheetahtemplate.org/ Cheetah] =
 
-It is very easy to use with [http://www.cheetahtemplate.org/ Cheetah] since it uses native Python import statements. Here is an example from the ChartExamples
+It is very easy to use with Cheetah since it uses native Python import statements. Here is an example from the ChartExamples
 
 {{{
 #from GChartWrapper import Line
@@ -27,18 +27,18 @@ With the new wrapper you can now run this all on *one* line
 $Line($data).axes.type('xy').axes.label('Mar','Apr','May').axes.label(None,'50+Kb').color('ff0000').line(6,5,2).img()
 }}}
 
-= Mako =
+= [http://www.makotemplates.org/ Mako] =
 
 Under development.
 
-= Jinja =
+= [http://jinja.pocoo.org/2/ Jinja] =
 
 Coming soon.
 
-= Genshi =
+= [http://genshi.edgewall.org/ Genshi] =
 
 Coming soon.
 
-= Airspeed =
+= [http://dev.sanityinc.com/airspeed/ Airspeed] =
 
 Coming soon.
