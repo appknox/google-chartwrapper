@@ -64,3 +64,21 @@ class GChart(UserDict)
 {{{
 >>> G.show()
 }}}
+
+===Chaining===
+
+*One of the new features involves chaining the methods together. For example, you could write this*
+{{{
+>>> G = Pie3D(range(1,5))
+>>> G.label('A','B','C','D')
+>>> G.color('00dd00')
+>>> print G
+}}}
+
+*But you would probably much rather write this*
+
+{{{
+>>> print Pie3D(range(1,5)).label('A','B','C','D').color('00dd00')
+}}}
+
+*The wrapper returns a copy of itself at each link in the chain, so combining methods onto one line is really easy and saves time and space*
