@@ -16,6 +16,18 @@ The wrapper can render the URL of the Google chart based on your parameters.
 With the chart you can render an HTML img tag to insert into webpages on the fly, 
 show it directly in a webbrowser, or save the chart PNG to disk.
 
+NEWS:
+
+The wrapper now supports chaining
+	The old way:
+	>>> G = Pie3D(range(1,5))
+	>>> G.label('A','B','C','D')
+	>>> G.color('00dd00')
+	>>> print G
+	
+The new way with chaining
+	>>> print Pie3D(range(1,5)).label('A','B','C','D').color('00dd00')
+
 Doc TOC:
     1.1 General
         1.2 Constructing
@@ -23,8 +35,9 @@ Doc TOC:
     2.1 Django extension
         2.2 Static data
         2.3 Dynamic data
-    3.1 Test framework
-    4.1 API documentation
+	3.1 Other Templating Langs
+    4.1 Test framework
+    5.1 API documentation
 
 1.1 General 
 
@@ -108,6 +121,8 @@ Django templates. This allows for dynamic insertion of data for viewing on any
 web application. Install the module first using `python setup.py install` then 
 place 'GChartWrapper.charts' in your INSTALLED_APPS and then you are ready to go.
 Just include the '{% load charts %}' tag in your templates before making charts.
+In the templating folder there is a folder called testproj which is an example
+Django project to get you started.
 
 2.2 Static data
 
@@ -131,7 +146,17 @@ def example(request):
     {% color 00cc00 %}
 {% endchart %} 
 
-3.1 Test framework
+3.1 Other Templating Languages
+
+Other examples of using the chartwrapper in templating languages
+Currently under development
+
+	Cheetah
+	Mako
+	Genshi?
+	More to come...
+
+4.1 Test framework
 
 The module also comes with a test framework with sample charts available in
 GChartWrapper/testing.py. The tests are executed through GChartWrapper/tests.py
@@ -151,7 +176,7 @@ Where mode is one of the following:
     tags - Prints Django template src of all charts
 
 
-4.1 API Documentation 
+5.1 API Documentation 
 
 The Epydoc API information is generated in HTML format and available in the 
-google-chartwrapper-docs distribution, or available in SVN at /trunk/docs/
+docs folder under index.html

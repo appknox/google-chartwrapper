@@ -24,13 +24,20 @@ from testing import TestClass
 import os
 import sys
 from inspect import getsource
+import unittest
+
+Test = TestClass()
+
+class ChartsTest(unittest.TestCase):
+    def test_charts(self):
+        for test,checksum in Test.all.items():
+            calcsum = getattr(Test,test)().checksum()
+            self.assertEqual(calcsum, checksum, 'Bad checksum for %s'%test)
 
 def test():
     arg = sys.argv[-1].lower()
     if not arg in ('save','wiki','img','url','show','tags','unit'):
         arg = 'url'
-
-    Test = TestClass()
 
     if arg == 'save':
         if not os.path.isdir('tests'):
@@ -39,11 +46,6 @@ def test():
             getattr(Test,test)().save(os.path.join(os.getcwd(),'tests',test))
 
     elif arg == 'unit':
-        import unittest
-        class ChartsTest(unittest.TestCase):
-            def testcharts(self):
-                for test,checksum in Test.all.items():
-                    self.assertEqual(getattr(Test,test)().checksum(), checksum)
         suite = unittest.TestLoader().loadTestsFromTestCase(ChartsTest)
         unittest.TextTestRunner(verbosity=2).run(suite)
 

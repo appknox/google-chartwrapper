@@ -13,40 +13,41 @@ class TestClass:
     """
     # All is dict of (name : checksum) pairs
     all = {
-        'axes': '3fcb9723df82a188c047e447e2b199743b00aca2',
-        'axes_position': 'a797886c02e0e0ee1468c062df2ea1580ee2c551',
-        'bar': 'd595c429605b498d16119e1b085d4db7bd2d65a7',
-        'fill': '73116b9306c8fe8f4d9f8c1fa593ceccebac02d0',
-        'grid': '4a490e501ac87c5001facc9ae492960edbf9829b',
-        'guide_bhg': 'a1e0b86b7f1e974c13d8259119b00bced14bcfd1',
-        'guide_bhs': '23267067d1650020971adaa6ef39d3ed2b2f380b',
-        'guide_bvg': '1e22a2d40262d44cc72a86f7c6d154088c672a5b',
-        'guide_bvs': '405a05b4ea61615d8c41b5e6ecee389a446835e1',
-        'guide_bvs_scale': '0a8be59cbe59420a7c0953d83a85be0e2d3a9cd2',
-        'guide_chbh_clipped': 'e8560a4d0887091430e1ebcd833dfe9300f2a7f8',
-        'guide_chbh_size': '788f22cb06efe959da8668a3a444fe3a3271e4a2',
-        'guide_granularity_20': '80009ed49f5d1ca275eb63044c42ff69e3d1713d',
-        'guide_granularity_40': '43c4923a966374da72732c495548c21ab81570f5',
-        'guide_granularity_80': '7e706185fb5942e7034045bcdba8b400f0890c91',
-        'guide_intro': 'f356f143e95842e498b3df6f461a22dbe4d8dd2e',
-        'guide_line_lc': '8d9a940c9721af037275cc4aa75ed1e823e7d80a',
-        'guide_map': '902aba8398fac9d8701fdaee1bb16e4231445ee0',
-        'guide_meter': '402e55a0d7889506f178bddbe223d5ce286c736a',
-        'guide_radar': '2b31c0e13524621a8167317d388f1d47df14f891',
-        'guide_sparkline': 'e62154b7a0df61d2904f4054375e82abaf9a995b',
-        'hvz': 'da5ad186adae230f772df90cbcfcb7aaac9d5080',
-        'jacobian': 'c628637eaae14e9a053994871f3039a259d940b9',
-        'legend': '223979a48997c5000ea037e143b73fb1db2e66af',
-        'legend2': '3ddf9a4efadb4cddd4d6246c03e220b472350a6e',
-        'line': 'c8daca4899c882e690635a5343bd9fe7e4f56598',
-        'markers': 'a6a03714aeefca7191daf4d9f3f2085dcd4e5924',
-        'multiline': '8a2940a0e277907a722a86dd054f1bf6e25b787f',
-        'pie': '50731d183a8b377f10377fcc46b33e5f8ec3c9a2',
-        'qr_code': 'bc5788f3dea82f76e75ec603f5d451369497689f',
-        'simple': '82073d9618e0c17c49f26178d725fae457bc10bc',
-        'title': '61fc52176934281eb5560fff2452ab7dd0e0e638',
-        'venn': 'c6ecda237b1697ac3dc1257d5b88763a940110b5',
-        'numpy': '00e5ea7b70c29b80ac5c7aca8319262579b17181',
+        'simple':'a6de27c4891b513efe669892f7d5304edd276427',
+        'guide_granularity_20':'1422b8f665d8c206ae51e7d081e3efd5be8c64df',
+        'pie':'1c70efb85226bece67add6857821931612a516b4',
+        'guide_granularity_40':'b9a0e223679091a974261d0b0ff76a7f1a6f87bf',
+        'guide_radar':'9228577fa2ec7589ded890fa1ee6b2e66f21547d',
+        'hvz':'428121b69154fe7ca6bfc91871496c6a22ea05f0',
+        'guide_sparkline':'5df5ac8bb0da09437652edefeb54581144373a6a',
+        'guide_bhg':'1abfbaaf0149a45b70de594740cf1dcc8dec0ec9',
+        'venn':'63bd278cc8b8abbb2cae317747a6ea79c5a1b708',
+        'fill':'8d9b19051c1cdb7dc7ebf1255261b168df7cf61c',
+        'guide_line_lc':'b0a0446b4fba55b6b48c23cd1487817d17a7ac3d',
+        'title':'85827823968a1ffe961d6fbcf42f6b47513c7f50',
+        'axes':'df2a0f067b9f6456cad8dec0e26e09167d963c2d',
+        'qr_code':'f3dc533977a3befb2f33492ac3702503d18eb23a',
+        'markers':'fcdf8bf7d91f45f996372a9d024124c0a1b5c902',
+        'guide_granularity_80':'0a000350f0930cc317b679e7df94cf79da77890c',
+        'axes_position':'e83494ed42a730c521e9eeef13f6aa5b08216243',
+        'jacobian':'a0a605bc6e0245c3d7fe1fdf990cdd9fc141eb2e',
+        'multiline':'3435ff6c6ff71717d78eec40cdd555ebb9d5cf65',
+        'numpy':'066457dee12063d00ee66aaf505140cfa6b37116',
+        'guide_meter':'9da7847582350804ec74a7020a4f19e7e12c59e4',
+        'guide_chbh_clipped':'2fe51239ba12dfd1f999013135f8ea2dd15564f1',
+        'guide_intro':'7d63dfcc9f4737a89ae3a6a000774276699c67ae',
+        'guide_bvg':'bdb6f34c97c3c66e5f958a2d5dc1475106460db5',
+        'guide_bhs':'c13b6773dda91a53d206de5c79912026de94e221',
+        'guide_map':'fb42ac6ba7e7003c7e742b18942f6b45cf3e29f0',
+        'guide_bvs':'da3c89c7e9230694b1b78b81ace3322eec6550ba',
+        'grid':'1e32555125032795f1e56f6a97b3840d289edb27',
+        'bar':'b1438c5ef7579fb1c57004caed58d455ef2f3edf',
+        'line':'4ac346c115818b8c1367ec22c73d1c68173c32a3',
+        'guide_chbh_size':'1f9a99247fababae18542de7adf21bd15c7cf8f8',
+        'legend':'e6051b655c8e7af150c987cadf5a284b816c06fb',
+        'legend2':'ef9de98d1e12b07e401b554619a7c2c4271287c6',
+        'guide_bvs_scale':'473384e7062cf537ba4f9fea69b6d1c52a1855a4',
+        'concentric_pie':'d47836a02b6fcc6c5b78b568302c5fa1f9cb3777'
     }
 
     def simple(self):
@@ -55,7 +56,7 @@ class TestClass:
         G = GChart()
         # Set the chart type, either Google API type or regular name
         G.type('pie')
-        # Update the chart's dataset, can be two dimensional and contain string data
+        # Update the chart's dataset, can be two dimensional or contain string data
         G.dataset( 'helloworld' )
         # Set the size of the chart, default is 300x150
         G.size(250,100)
@@ -361,7 +362,7 @@ class TestClass:
         G = HorizontalBarStack('hello', encoding='simple')
         G.color('4d89f9')
         G.size(200,125)
-        G.bar_width_spacing(10)
+        G.bar(10)
         return G
 
    
@@ -404,4 +405,10 @@ class TestClass:
             print 'Warning: numpy must be installed to do this test correctly'        
         G = Radar(data, encoding='text')
         G.size(200,200)    
+        return G
+
+    def concentric_pie(self):
+        # Using concentric pie charts
+        G = PieC(['Helo','Wrld'], encoding='simple')
+        G.size(200,100)
         return G
