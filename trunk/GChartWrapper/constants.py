@@ -56,9 +56,9 @@ APIPARAMS = {
  'chld': '''level data: countries to be colored, EC level in QR codes ''',
 }
 
-MARKERS = ('a','c','d','o','s','t','v','V','h','x','r','R','b','B','D')
+MARKERS = ('a','c','d','o','s','t','v','V','h','x','r','R','b','B','D','F')
 
-TYPES = {'qr':'QR codes','bvs': 'Horizontal bar group', 'p3': 'Venn', 'lc': 'Line', 'bhg': 'Vertical bar group', 't': 'Meter', 'p': '3D Pie', 's': 'Radar', 'r': 'Map', 'bvg': 'Pie', 'lxy': 'Horizontal bar stack', 'v': 'Scatter', 'bhs': 'Vertical bar stack', 'gom': 'Sparkline', 'ls': 'Line XY'}
+TYPES = ('bvs', 'p3', 'qr', 'lc', 'p', 'bhg', 'pc', 's', 'r', 'bvg', 't', 'v', 'lxy', 'bhs', 'gom', 'ls')
 
 IMGATTRS = ('title','alt','align','border','height','width','ismap','longdesc',
 'usemap','id','class','style','lang','xml:lang','onclick','ondblclick','onmousedown',
@@ -67,6 +67,6 @@ IMGATTRS = ('title','alt','align','border','height','width','ismap','longdesc',
 GEO = ('africa','asia','europe','middle_east','south_america','usa','world')
 
 TTAGSATTRS = ('label','title','color','line','grid','bar','marker','fill','legend','axes',
-'encoding','scale','size','type','dataset','img','map','bar_height','legend_pos','output_encoding','level_data')
+'encoding','scale','size','type','dataset','img','map','bar_width_spacing','legend_pos','output_encoding','level_data')
 
 APIURL = 'http://chart.apis.google.com/chart?' 
