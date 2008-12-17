@@ -3,7 +3,22 @@
 
 = Django =
 
+See the DjangoExtension
+
 = Cheetah =
+
+It is very easy to use with [http://www.cheetahtemplate.org/ Cheetah] since it uses native Python import statements.
+
+{{{
+#from GChartWrapper import Line
+#set G = $Line($data)
+$G.axes.type('xy')
+$G.axes.label('Mar','Apr','May')
+$G.axes.label(None,'50+Kb')
+$G.color('ff0000')
+$G.line(6,5,2)
+$G.img()
+}}}
 
 = Mako =
 
