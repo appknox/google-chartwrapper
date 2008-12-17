@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary How to use the wrapper with templating languages
 #labels Featured,Phase-Design,Phase-Implementation
 
 = Django =
