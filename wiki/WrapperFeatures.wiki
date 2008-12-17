@@ -1,3 +1,4 @@
+#summary The basic usage of the wrapper
 #labels Featured,Phase-Implementation,Phase-Requirements
 ==[http://code.google.com/apis/chart/ GoogleCharts] and the GChart Wrapper==
 
