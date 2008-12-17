@@ -3,7 +3,18 @@
 
 == [http://docs.djangoproject.com/en/dev/topics/templates/ Django] ==
 
-See the DjangoExtension
+The wrapper comes with a Django templatetag for easy insertion of charts into your Django templates. Here is an example from the ChartExamples
+
+{{{
+{% chart  Line fohmnytenefohmnytene  encoding=simple  %}
+    {% size 200 100  %}
+    {% axes type xy  %}
+    {% axes label April May June  %}
+    {% axes label None  50+Kb  %}
+{% endchart %}
+}}}
+
+For more information see the DjangoExtension page.
 
 == [http://www.cheetahtemplate.org/ Cheetah] ==
 
