@@ -6,6 +6,7 @@
 The wrapper comes with a Django templatetag for easy insertion of charts into your Django templates. Here is an example from the ChartExamples
 
 {{{
+{% load charts %}
 {% chart  Line fohmnytenefohmnytene  encoding=simple  %}
     {% size 200 100  %}
     {% axes type xy  %}
