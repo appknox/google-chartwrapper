@@ -7,7 +7,7 @@ See the DjangoExtension
 
 = Cheetah =
 
-It is very easy to use with [http://www.cheetahtemplate.org/ Cheetah] since it uses native Python import statements.
+It is very easy to use with [http://www.cheetahtemplate.org/ Cheetah] since it uses native Python import statements. Here is an example from the ChartExamples
 
 {{{
 #from GChartWrapper import Line
@@ -18,6 +18,13 @@ $G.axes.label(None,'50+Kb')
 $G.color('ff0000')
 $G.line(6,5,2)
 $G.img()
+}}}
+
+With the new wrapper you can now run this all on *one* line
+
+{{{
+#from GChartWrapper import Line
+$Line($data).axes.type('xy').axes.label('Mar','Apr','May').axes.label(None,'50+Kb').color('ff0000').line(6,5,2).img()
 }}}
 
 = Mako =
