@@ -2,8 +2,7 @@
 #labels Featured,Phase-Implementation
 
 = PIL Interaction =
-
-New to version 0.5, support for the [http://www.pythonware.com/products/pil/ Python Imaging Library]. Now you can create a chart and fetch the PIL image instance of that chart to display however you please. The GChart.image method now returns a PngImageFile instance of the chart. You must install the [http://www.pythonware.com/products/pil/ Python Imaging Library] to use these features. The PIL has other image manipulation features like image blending and filtering which can be found in the [http://www.pythonware.com/library/pil/handbook/image.htm PIL Handbook]
+The wrapper now supports the [http://www.pythonware.com/products/pil/ Python Imaging Library]. Now you can create a chart and fetch the PIL image instance of that chart to display or manipulate however you please. The GChart.image method now returns a PngImageFile instance of the chart. You must install the [http://www.pythonware.com/products/pil/ Python Imaging Library] to use these features. The PIL has other image manipulation features like image blending and filtering which can be found in the [http://www.pythonware.com/library/pil/handbook/image.htm PIL Handbook]
 
 == API ==
 
@@ -12,10 +11,8 @@ The Python API extends the GChart main class, but can be used for any subtype.
 {{{
 
 # Create a simple Google-O-Meter with a label
->>> G = Meter(70)
->>> G.label('Hello')
->>> G.size(225,125)
->>> G
+>>> G = Meter(70).label('Hello').size(225,125)
+>>> str(G)
 'http://chart.apis.google.com/chart?chl=Hello&chs=225x125&cht=gom&chd=t:70.0'
 
 # Now fetch the PngImageFile
