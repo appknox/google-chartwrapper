@@ -47,7 +47,11 @@ class TestClass:
         'legend':'e6051b655c8e7af150c987cadf5a284b816c06fb',
         'legend2':'ef9de98d1e12b07e401b554619a7c2c4271287c6',
         'guide_bvs_scale':'473384e7062cf537ba4f9fea69b6d1c52a1855a4',
-        'concentric_pie':'d47836a02b6fcc6c5b78b568302c5fa1f9cb3777'
+        'concentric_pie':'d47836a02b6fcc6c5b78b568302c5fa1f9cb3777',
+        'min_max':'00f59d8fd09ff1d2298fc36d0edb76b8340d8624',
+        'margins':'0ef863979e888cf2d37eb2b7f6e4c7541632a31c',
+        'financial':'c8052d3e17bc2e5ac90503a8f94c134fc59d5368',
+        'bar_text':'0b511497dd2c52124cf7153700f266f66c625df6'
     }
 
     def simple(self):
@@ -412,3 +416,44 @@ class TestClass:
         G = PieC(['Helo','Wrld'], encoding='simple')
         G.size(200,100)
         return G
+        
+    def financial(self):
+        # Fancy markers for financial data
+        G = Line([[0,5,10,7,12,6],[35,25,45,47,24,46],[15,40,30,27,39,54],[70,55,63,59,80,60]], encoding='text')
+        G.marker('F','0000FF',0,'1:4',20)
+        G.size(200,125)
+        return G
+        
+    def bar_text(self):
+        # Using text markers in a bar chart
+        G = HorizontalBarGroup([[40,60],[50,30]], encoding='text')
+        G.size(200,125)
+        G.marker('tApril mobile hits','000000',0,0,13)
+        G.marker('tMay mobile hits','000000',0,1,13,-1)
+        G.marker('tApril desktop hits','000000',1,0,13)
+        G.marker('tMay desktop hits', '000000',1,1,13)
+        G.color('FF9900','FFCC33')
+        return G
+        
+    def margins(self):
+        G = Line(['Uf9a','a3fG'], encoding='simple')
+        G.size(250,100)
+        G.label(1,2,3,4)
+        G.fill('bg','s','e0e0e0')
+        G.color('000000','0000FF')
+        G.margin(20,20,20,30,80,20)
+        G.legend('Temp','Sales')
+        return G
+        
+    def min_max(self):
+        G = Line('mHMza', encoding='simple')
+        G.color('008000')
+        G.line(2.0,4.0,1.0)
+        G.size(200,140)
+        G.axes.type('x')
+        G.axes.label(None,'t',None,'F',None)
+        G.marker('tMin','0000FF',0,1,10)
+        G.marker('fMax','FF0000',0,3,15)
+        G.margin(0,0,30,0)
+        return G
+        

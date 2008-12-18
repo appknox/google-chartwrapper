@@ -57,13 +57,74 @@ class Axes(UserDict):
     Axes attribute dictionary storage
 
     Use this class via GChart(...).axes
+    Methods are taken one at a time, like so:
+    
+    >>> G.axes.type('xy')
+    >>> G.axes.label('Label1') # X Axis
+    >>> G.axes.label('Label2') # Y Axis
     """
     def __init__(self, parent):
         self.parent = parent
         self.labels,self.positions,self.ranges,self.styles = [],[],[],[]
         UserDict.__init__(self)
+
+    def type(self, atype):
+        """
+        Define the type of axes you wish to use
+        atype must be one of x,t,y,r
+        call the rest of the axes functions in the corresponding order that you declare the type
+        APIPARAM: chxt
+        """
+        for char in atype:
+            assert(char in 'xtyr'), 'Invalid axes type: %s'%char
+        if not ',' in atype:
+            atype = ','.join(atype)
+        self.data['chxt'] = atype
+        return self.parent
+     
+    def label(self, *args):
+        """
+        Label each axes one at a time
+        args are of the form <label 1>,...,<label n>
+        APIPARAM: chxl
+        """
+        label = '|'.join(map(str,args))
+        id = len(self.labels)
+        self.labels.append( str('%d:|%s'%(id,label)).replace('None','') )
+        return self.parent
         
+    def position(self, *args):
+        """
+        Set the label position of each axis, one at a time
+        args are of the form <label position 1>,...,<label position n>
+        APIPARAM: chxp
+        """
+        position = ','.join(map(str,args))
+        id = len(self.positions)
+        self.positions.append( str('%d,%s'%(id,position)).replace('None','') )
+        return self.parent
+        
+    def range(self, *args):
+        """
+        Set the range of each axis, one at a time
+        args are of the form <start of range>,<end of range>
+        APIPARAM: chxr
+        """
+        self.ranges.append('%d,%s,%s'%(len(self.ranges), args[0], args[1]))
+        return self.parent
+        
+    def style(self, *args):
+        """
+        Add style to your axis, one at a time
+        args are of the form <axis color>,<font size>,<alignment>,<drawing control>,<tick mark color>
+        APIPARAM: chxs
+        """
+        id = str(len(self.styles))
+        self.styles.append(','.join([id]+map(str,args)))
+        return self.parent
+
     def render(self):
+        """Render the axes data into the dict data"""
         if self.labels:
             self.data['chxl'] = '|'.join(self.labels)
         if self.styles:
@@ -72,34 +133,7 @@ class Axes(UserDict):
             self.data['chxp'] = '|'.join(self.positions)
         if self.ranges:
             self.data['chxr'] = '|'.join(self.ranges)
-        return self.data
-        
-    def label(self, *args):
-        label = '|'.join(map(str,args))
-        id = len(self.labels)
-        self.labels.append( str('%d:|%s'%(id,label)).replace('None','') )
-        return self.parent
-        
-    def position(self, *args):
-        position = ','.join(map(str,args))
-        id = len(self.positions)
-        self.positions.append( str('%d,%s'%(id,position)).replace('None','') )
-        return self.parent
-        
-    def range(self, *args):
-        self.ranges.append('%d,%s,%s'%(len(self.ranges), args[0], args[1]))
-        return self.parent
-        
-    def type(self, atype):
-        if not ',' in atype:
-            atype = ','.join(atype)
-        self.data['chxt'] = atype
-        return self.parent
-        
-    def style(self, *args):
-        id = str(len(self.styles))
-        self.styles.append(','.join([id]+map(str,args)))
-        return self.parent
+        return self.data    
         
 class GChart(UserDict):
     """Main chart class
@@ -128,10 +162,12 @@ class GChart(UserDict):
     ###################
     def map(self, geo, country_codes):
         """
-        Creates a map of the defined geography with the given country codes
-        Geography choices are %s
+        Creates a map of the defined geography with the given country/state codes
+        Geography choices are africa, asia, europe, middle_east, south_america, and world
+        ISO country codes can be found at http://code.google.com/apis/chart/isocodes.html
+        US state codes can be found at http://code.google.com/apis/chart/statecodes.html
         APIPARAMS: chtm & chld
-        """%str(GEO)
+        """
         assert(geo in GEO), 'Geograpic area %s not recognized'%geo
         self._geo = geo
         self._ld = country_codes
@@ -200,7 +236,7 @@ class GChart(UserDict):
         see the official developers doc for the complete spec
         APIPARAM: chm
         """
-        if not args[0].startswith('t'):
+        if len(args[0]) == 1:
             assert(args[0] in MARKERS), 'Invalid marker type: %s'%args[0]
         assert(len(args) <= 6), 'Incorrect arguments %s'%str(args)
         self.markers.append(','.join(map(str,args)) )
@@ -265,7 +301,7 @@ class GChart(UserDict):
         if self.data['cht'] == 'qr':
             self.data['chl'] = ''.join(map(urllib.quote,args))
         else:
-            self.data['chl'] = '|'.join(args)
+            self.data['chl'] = '|'.join(map(str,args))
         return self
         
     def legend(self, *args):
@@ -508,7 +544,6 @@ class Meter(GChart):
         kwargs['encoding'] = 'text'
         GChart.__init__(self, 'gom', dataset, **kwargs)
 
-# like these guys...
 class QRCode(GChart):
     def __init__(self, content='', **kwargs):
         kwargs['choe'] = 'UTF-8'
