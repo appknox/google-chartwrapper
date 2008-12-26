@@ -1,6 +1,6 @@
 #summary Many examples of creating different kinds of charts
 #labels Featured,Phase-Implementation,Phase-Deploy
-== Chart examples adapted from the Google examples taken from the wrapper module unit tests ==
+= Chart examples adapted from the Google examples =
 ----
 === Simple ===
 {{{
@@ -16,17 +16,106 @@ G.size(250,100)
 }}}
 http://chart.apis.google.com/chart?chd=e:helloworld&chs=250x100&cht=p&.png
 
-*The rest of the examples use the convenience classes for each kind of chart which are one of either `HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, Radar, QRCode, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, PieC, or VerticalBarStack`*
+*The rest of the examples use the convenience classes for each kind of chart which are one of either *
+
+*`HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, Radar, QRCode, Pie, Pie3D, PieC, Scatter, Venn, VerticalBarGroup, or VerticalBarStack`*
 ----
-=== Guide-Granularity-20 ===
+=== Financial ===
 {{{
-G = Line('fohmnytenefohmnytene', encoding='simple')
-G.size(200,100)
-G.axes.type('xy')
-G.axes.label('April','May','June')
-G.axes.label(None, '50+Kb')
+# Fancy markers for financial data
+G = Line([[0,5,10,7,12,6],[35,25,45,47,24,46],[15,40,30,27,39,54],[70,55,63,59,80,60]], encoding='text')
+G.marker('F','0000FF',0,'1:4',20)
+G.size(200,125)
 }}}
-http://chart.apis.google.com/chart?chxt=x,y&chd=s:fohmnytenefohmnytene&chs=200x100&cht=lc&chxl=0:|April|May|June|1:||50+Kb&.png
+http://chart.apis.google.com/chart?chd=t:0.0,5.0,10.0,7.0,12.0,6.0|35.0,25.0,45.0,47.0,24.0,46.0|15.0,40.0,30.0,27.0,39.0,54.0|70.0,55.0,63.0,59.0,80.0,60.0&chs=200x125&cht=lc&chm=F,0000FF,0,1:4,20&.png
+
+----
+=== Bar-Text ===
+{{{
+# Using text markers in a bar chart
+G = HorizontalBarGroup([[40,60],[50,30]], encoding='text')
+G.size(200,125)
+G.marker('tApril mobile hits','000000',0,0,13)
+G.marker('tMay mobile hits','000000',0,1,13,-1)
+G.marker('tApril desktop hits','000000',1,0,13)
+G.marker('tMay desktop hits', '000000',1,1,13)
+G.color('FF9900','FFCC33')
+}}}
+http://chart.apis.google.com/chart?chco=FF9900,FFCC33&chd=t:40.0,60.0|50.0,30.0&chs=200x125&cht=bhg&chm=tApril+mobile+hits,000000,0,0,13|tMay+mobile+hits,000000,0,1,13,-1|tApril+desktop+hits,000000,1,0,13|tMay+desktop+hits,000000,1,1,13&.png
+
+----
+=== Concentric-Pie ===
+{{{
+# Using concentric pie charts
+G = PieC(['Helo','Wrld'], encoding='simple')
+G.size(200,100)
+}}}
+http://chart.apis.google.com/chart?chd=s:Helo,Wrld&chs=200x100&cht=pc&.png
+
+----
+=== Margins ===
+{{{
+G = Line(['Uf9a','a3fG'], encoding='simple')
+G.size(250,100)
+G.label(1,2,3,4)
+G.fill('bg','s','e0e0e0')
+G.color('000000','0000FF')
+G.margin(20,20,20,30,80,20)
+G.legend('Temp','Sales')
+}}}
+http://chart.apis.google.com/chart?chd=s:Uf9a,a3fG&chf=bg,s,e0e0e0&chco=000000,0000FF&chl=1|2|3|4&chma=20,20,20,30|80,20&chs=250x100&cht=lc&chdl=Temp|Sales&.png
+
+----
+=== Min-Max ===
+{{{
+G = Line('mHMza', encoding='simple')
+G.color('008000')
+G.line(2.0,4.0,1.0)
+G.size(200,140)
+G.axes.type('x')
+G.axes.label(None,'t',None,'F',None)
+G.marker('tMin','0000FF',0,1,10)
+G.marker('fMax','FF0000',0,3,15)
+G.margin(0,0,30,0)
+}}}
+http://chart.apis.google.com/chart?chxt=x&chs=200x140&cht=lc&chd=s:mHMza&chxl=0:||t||F|&chls=2.0,4.0,1.0&chco=008000&chm=tMin,0000FF,0,1,10|fMax,FF0000,0,3,15&chma=0,0,30,0&.png
+
+----
+=== Qr-Code ===
+{{{
+# Output a QR code graph that allows 15% restore with 0 margin
+# *Defaults to UTF-8 encoding 
+G = QRCode('''To the human eye QR Codes look like hieroglyphics, 
+    but they can be read by any device that has 
+    the appropriate software installed.''')
+# or use output_encoding method
+G.output_encoding('UTF-8')
+# level_data(error_correction,margin_size)
+G.level_data('M',0)
+}}}
+http://chart.apis.google.com/chart?chl=To%20the%20human%20eye%20QR%20Codes%20look%20like%20hieroglyphics%2C%20%0A%20%20%20%20%20%20%20%20%20%20%20%20but%20they%20can%20be%20read%20by%20any%20device%20that%20has%20%0A%20%20%20%20%20%20%20%20%20%20%20%20the%20appropriate%20software%20installed.&chs=300x150&cht=qr&choe=UTF-8&chld=M|0&.png
+
+----
+=== Legend ===
+{{{
+# Add legend to the data set which follows collors
+G = Line( ['FOETHECat','leafgreen','IRON4YOUs'] )  
+G.color('ff0000','00ff00','0000ff')
+G.legend('Animals','Vegetables','Minerals')
+G.axes.type('y') 
+}}}
+http://chart.apis.google.com/chart?chxt=y&chd=e:FOETHECat,leafgreen,IRON4YOUs&chco=ff0000,00ff00,0000ff&chs=300x150&cht=lc&chdl=Animals|Vegetables|Minerals&.png
+
+----
+=== Bar ===
+{{{
+# 2 color horizontal bars 10 wide
+# with 5 spacing between bars in group and 10 between groups
+G = HorizontalBarGroup( ['hell','orld'] )
+G.color('cc0000', '00aa00') 
+G.bar(10,5,10)   
+}}}
+http://chart.apis.google.com/chart?chs=300x150&chd=e:hell,orld&chco=cc0000,00aa00&cht=bhg&chbh=10,5,10&.png
 
 ----
 === Pie ===
@@ -39,6 +128,17 @@ G.color('00dd00')
 http://chart.apis.google.com/chart?chl=A|B|C|D&chs=300x150&chco=00dd00&cht=p3&chd=t:1.0,2.0,3.0,4.0&.png
 
 ----
+=== Guide-Granularity-20 ===
+{{{
+G = Line('fohmnytenefohmnytene', encoding='simple')
+G.size(200,100)
+G.axes.type('xy')
+G.axes.label('April','May','June')
+G.axes.label(None, '50+Kb')
+}}}
+http://chart.apis.google.com/chart?chxt=x,y&chd=s:fohmnytenefohmnytene&chs=200x100&cht=lc&chxl=0:|April|May|June|1:||50+Kb&.png
+
+----
 === Guide-Granularity-40 ===
 {{{
 G = Line('frothsmzndyoteepngenfrothsmzndyoteepngen', encoding='simple')
@@ -48,6 +148,18 @@ G.axes.label('April','May','June')
 G.axes.label(None, '50+Kb')
 }}}
 http://chart.apis.google.com/chart?chxt=x,y&chd=s:frothsmzndyoteepngenfrothsmzndyoteepngen&chs=200x100&cht=lc&chxl=0:|April|May|June|1:||50+Kb&.png
+
+----
+=== Guide-Granularity-80 ===
+{{{
+G = Line('formostthisamazingdayfortheleapinggreenlformostthisamazingdayfortheleapinggreenl',
+    encoding='simple')
+G.size(200,100)
+G.axes.type('xy')
+G.axes.label('April','May','June')
+G.axes.label(None, '50+Kb')
+}}}
+http://chart.apis.google.com/chart?chxt=x,y&chd=s:formostthisamazingdayfortheleapinggreenlformostthisamazingdayfortheleapinggreenl&chs=200x100&cht=lc&chxl=0:|April|May|June|1:||50+Kb&.png
 
 ----
 === Guide-Radar ===
@@ -92,15 +204,6 @@ G.marker('B', 'E6F2FA',0,0,0)
 G.line(1,0,0)
 }}}
 http://chart.apis.google.com/chart?chd=t:27.0,25.0,25.0,25.0,25.0,27.0,100.0,31.0,25.0,36.0,25.0,25.0,39.0,25.0,31.0,25.0,25.0,25.0,26.0,26.0,25.0,25.0,28.0,25.0,25.0,100.0,28.0,27.0,31.0,25.0,27.0,27.0,29.0,25.0,27.0,26.0,26.0,25.0,26.0,26.0,35.0,33.0,34.0,25.0,26.0,25.0,36.0,25.0,26.0,37.0,33.0,33.0,37.0,37.0,39.0,25.0,25.0,25.0,25.0&chco=0077CC&chm=B,E6F2FA,0,0,0&chs=200x40&cht=ls&chls=1.0,0.0,0.0&.png
-
-----
-=== Guide-Bhg ===
-{{{
-G = HorizontalBarGroup(['el','or'], encoding='simple')
-G.color('4d89f9','c6d9fd')
-G.size(200,125)
-}}}
-http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9,c6d9fd&cht=bhg&chd=s:el,or&.png
 
 ----
 === Venn ===
@@ -163,21 +266,6 @@ G.axes.style('0000dd', 14)
 http://chart.apis.google.com/chart?chxt=x,y,r,x&chd=e:foobarbaz&chxs=0,0000dd,14&chco=76A4FB&chs=300x150&cht=lc&chxl=0:|Foo|Bar|Baz|1:||20K|60K|100K|2:|A|B|C|3:||20|40|60|80&.png
 
 ----
-=== Qr-Code ===
-{{{
-# Output a QR code graph that allows 15% restore with 0 margin
-# *Defaults to UTF-8 encoding 
-G = QRCode('''To the human eye QR Codes look like hieroglyphics, 
-    but they can be read by any device that has 
-    the appropriate software installed.''')
-# or use output_encoding method
-G.output_encoding('UTF-8')
-# level_data(error_correction,margin_size)
-G.level_data('M',0)
-}}}
-http://chart.apis.google.com/chart?chl=To%20the%20human%20eye%20QR%20Codes%20look%20like%20hieroglyphics%2C%20%0A%20%20%20%20%20%20%20%20%20%20%20%20but%20they%20can%20be%20read%20by%20any%20device%20that%20has%20%0A%20%20%20%20%20%20%20%20%20%20%20%20the%20appropriate%20software%20installed.&chs=300x150&cht=qr&choe=UTF-8&chld=M|0&.png
-
-----
 === Markers ===
 {{{
 # Mark up some of the data randomly
@@ -195,6 +283,20 @@ G.marker('R','A0BAE9',0,8,0.6)
 G.marker('r','E5ECF9',0,1,0.25)
 }}}
 http://chart.apis.google.com/chart?chd=e:helloWorldZZZZ098236561&chs=300x150&cht=lc&chm=c,ff0000,0,1,20|d,80C65A,0,6,15|o,FF9900,0,4.0,20.0|s,3399CC,0,5.0,10.0|v,BBCCED,0,6.0,1.0|V,3399CC,0,7.0,1.0|x,FFCC33,0,8.0,20.0|h,000000,0,0.3,0.5|a,000099,0,4,10|R,A0BAE9,0,8,0.6|r,E5ECF9,0,1,0.25&.png
+
+----
+=== Line ===
+{{{
+# Add red line 6 thick
+# with 5 line segments with 2 blank segments
+G = Line( ['hX1xPj'] )
+G.axes.type('xy')
+G.axes.label('Mar', 'Apr', 'May', 'June', 'July')
+G.axes.label(None, '50+Kb')        
+G.color('ff0000')
+G.line(6,5,2)
+}}}
+http://chart.apis.google.com/chart?chxt=x,y&chd=e:hX1xPj&chco=ff0000&chs=300x150&cht=lc&chxl=0:|Mar|Apr|May|June|July|1:||50+Kb&chls=6.0,5.0,2.0&.png
 
 ----
 === Multiline ===
@@ -265,18 +367,6 @@ G.legend('Sweet')
 http://chart.apis.google.com/chart?chd=e:ALAtBmC1EcGYIsLWOXRuVdZhd9ivn4tYzO5b..&chf=c,s,eeeeee&chco=cc0000&chs=300x200&cht=lc&chdl=Sweet&.png
 
 ----
-=== Guide-Granularity-80 ===
-{{{
-G = Line('formostthisamazingdayfortheleapinggreenlformostthisamazingdayfortheleapinggreenl',
-    encoding='simple')
-G.size(200,100)
-G.axes.type('xy')
-G.axes.label('April','May','June')
-G.axes.label(None, '50+Kb')
-}}}
-http://chart.apis.google.com/chart?chxt=x,y&chd=s:formostthisamazingdayfortheleapinggreenlformostthisamazingdayfortheleapinggreenl&chs=200x100&cht=lc&chxl=0:|April|May|June|1:||50+Kb&.png
-
-----
 === Numpy ===
 {{{
 # Test to see whether numpy arrays work correctly
@@ -303,15 +393,6 @@ G.size(225,125)
 http://chart.apis.google.com/chart?chl=Hello&chs=225x125&cht=gom&chd=t:70.0&.png
 
 ----
-=== Guide-Chbh-Clipped ===
-{{{
-G = HorizontalBarStack('hello', encoding='simple')
-G.color('4d89f9')
-G.size(200,125)
-}}}
-http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9&cht=bhs&chd=s:hello&.png
-
-----
 === Guide-Intro ===
 {{{
 G = Pie3D([60,40], encoding='text')
@@ -319,25 +400,6 @@ G.size(250,100)
 G.label('Hello', 'World')
 }}}
 http://chart.apis.google.com/chart?chl=Hello|World&chs=250x100&cht=p3&chd=t:60.0,40.0&.png
-
-----
-=== Guide-Bvg ===
-{{{
-G = VerticalBarGroup(['hello','world'], encoding='simple')
-G.color('4d89f9','c6d9fd')
-G.size(200,125)
-}}}
-http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9,c6d9fd&cht=bvg&chd=s:hello,world&.png
-
-----
-=== Guide-Bhs ===
-{{{
-# http://code.google.com/apis/chart/#bar_charts
-G = HorizontalBarStack('ello', encoding='simple')
-G.color('4d89f9')
-G.size(200,125)        
-}}}
-http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9&cht=bhs&chd=s:ello&.png
 
 ----
 === Guide-Map ===
@@ -350,15 +412,6 @@ G.size(440,220)
 G.map('usa', 'NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILAKTXCOMDMAALMOMNCAOKMIGAAZMTMSSCRIAR')
 }}}
 http://chart.apis.google.com/chart?chd=s:fSGBDQBQBBAGABCBDAKLCDGFCLBBEBBEPASDKJBDD9BHHEAACAC&chf=bg,s,eaf7fe&chco=f5f5f5,edf0d4,6c9642,365e24,13390a&chtm=usa&chld=NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILAKTXCOMDMAALMOMNCAOKMIGAAZMTMSSCRIAR&chs=440x220&cht=t&.png
-
-----
-=== Guide-Bvs ===
-{{{
-G = VerticalBarStack([ [10,50,60,80,40],[50,60,100,40,20] ], encoding='text')
-G.color('4d89f9', 'c6d9fd')
-G.size(200,125)
-}}}
-http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9,c6d9fd&cht=bvs&chd=t:10.0,50.0,60.0,80.0,40.0|50.0,60.0,100.0,40.0,20.0&.png
 
 ----
 === Grid ===
@@ -385,59 +438,23 @@ G.axes.type('y')
 http://chart.apis.google.com/chart?chxt=y&chd=e:abcde,FGHIJ,09876&chco=ff0000,00ff00,0000ff&chs=300x150&cht=lc&chdl=Animals|Vegetables|Minerals&chdlp=l&.png
 
 ----
-=== Line ===
+=== Guide-Bhs ===
 {{{
-# Add red line 6 thick
-# with 5 line segments with 2 blank segments
-G = Line( ['hX1xPj'] )
-G.axes.type('xy')
-G.axes.label('Mar', 'Apr', 'May', 'June', 'July')
-G.axes.label(None, '50+Kb')        
-G.color('ff0000')
-G.line(6,5,2)
-}}}
-http://chart.apis.google.com/chart?chxt=x,y&chd=e:hX1xPj&chco=ff0000&chs=300x150&cht=lc&chxl=0:|Mar|Apr|May|June|July|1:||50+Kb&chls=6.0,5.0,2.0&.png
-
-----
-=== Guide-Chbh-Size ===
-{{{
-G = HorizontalBarStack('hello', encoding='simple')
+# http://code.google.com/apis/chart/#bar_charts
+G = HorizontalBarStack('ello', encoding='simple')
 G.color('4d89f9')
+G.size(200,125)        
+}}}
+http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9&cht=bhs&chd=s:ello&.png
+
+----
+=== Guide-Bvs ===
+{{{
+G = VerticalBarStack([ [10,50,60,80,40],[50,60,100,40,20] ], encoding='text')
+G.color('4d89f9', 'c6d9fd')
 G.size(200,125)
-G.bar(10)
 }}}
-http://chart.apis.google.com/chart?chs=200x125&chd=s:hello&chco=4d89f9&cht=bhs&chbh=10&.png
-
-----
-=== Legend ===
-{{{
-# Add legend to the data set which follows collors
-G = Line( ['FOETHECat','leafgreen','IRON4YOUs'] )  
-G.color('ff0000','00ff00','0000ff')
-G.legend('Animals','Vegetables','Minerals')
-G.axes.type('y') 
-}}}
-http://chart.apis.google.com/chart?chxt=y&chd=e:FOETHECat,leafgreen,IRON4YOUs&chco=ff0000,00ff00,0000ff&chs=300x150&cht=lc&chdl=Animals|Vegetables|Minerals&.png
-
-----
-=== Bar ===
-{{{
-# 2 color horizontal bars 10 wide
-# with 5 spacing between bars in group and 10 between groups
-G = HorizontalBarGroup( ['hell','orld'] )
-G.color('cc0000', '00aa00') 
-G.bar(10,5,10)   
-}}}
-http://chart.apis.google.com/chart?chs=300x150&chd=e:hell,orld&chco=cc0000,00aa00&cht=bhg&chbh=10,5,10&.png
-
-----
-=== Concentric-Pie ===
-{{{
-# Using concentric pie charts
-G = PieC(['Helo','Wrld'], encoding='simple')
-G.size(200,100)
-}}}
-http://chart.apis.google.com/chart?chd=s:Helo,Wrld&chs=200x100&cht=pc&.png
+http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9,c6d9fd&cht=bvs&chd=t:10.0,50.0,60.0,80.0,40.0|50.0,60.0,100.0,40.0,20.0&.png
 
 ----
 === Guide-Bvs-Scale ===
@@ -448,3 +465,40 @@ G.size(200,125)
 G.scale(0,160)
 }}}
 http://chart.apis.google.com/chart?chs=200x125&chds=0,160&chco=4d89f9,c6d9fd&cht=bvs&chd=t:10.0,50.0,60.0,80.0,40.0|50.0,60.0,100.0,40.0,20.0&.png
+
+----
+=== Guide-Bvg ===
+{{{
+G = VerticalBarGroup(['hello','world'], encoding='simple')
+G.color('4d89f9','c6d9fd')
+G.size(200,125)
+}}}
+http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9,c6d9fd&cht=bvg&chd=s:hello,world&.png
+
+----
+=== Guide-Bhg ===
+{{{
+G = HorizontalBarGroup(['el','or'], encoding='simple')
+G.color('4d89f9','c6d9fd')
+G.size(200,125)
+}}}
+http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9,c6d9fd&cht=bhg&chd=s:el,or&.png
+
+----
+=== Guide-Chbh-Clipped ===
+{{{
+G = HorizontalBarStack('hello', encoding='simple')
+G.color('4d89f9')
+G.size(200,125)
+}}}
+http://chart.apis.google.com/chart?chs=200x125&chco=4d89f9&cht=bhs&chd=s:hello&.png
+
+----
+=== Guide-Chbh-Size ===
+{{{
+G = HorizontalBarStack('hello', encoding='simple')
+G.color('4d89f9')
+G.size(200,125)
+G.bar(10)
+}}}
+http://chart.apis.google.com/chart?chs=200x125&chd=s:hello&chco=4d89f9&cht=bhs&chbh=10&.png
