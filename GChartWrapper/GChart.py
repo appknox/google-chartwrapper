@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ################################################################################
 #  GChartWrapper - v0.6
 #  Copyright (C) 2008  Justin Quick <justquick@gmail.com>
@@ -41,7 +42,9 @@ See tests.py for unit test and other examples
 """
 __all__ = ['Sparkline', 'Map', 'HorizontalBarStack', 'VerticalBarStack', 'QRCode',
      'Line', 'GChart', 'HorizontalBarGroup', 'Scatter', 'Pie3D', 'Pie', 'Meter',
-     'Radar', 'VerticalBarGroup', 'LineXY', 'Venn', 'PieC']
+     'Radar', 'VerticalBarGroup', 'LineXY', 'Venn', 'PieC','IconPin','LetterPin',
+     'AdvLetterPin','AdvIconPin','TextPin','Text','Note','SBubbleIcon','LBubbleIcon',
+     'LBubbleIconTexts','LBubbleTexts']
 __version__ = 0.6
 
 import urllib
@@ -50,7 +53,20 @@ from encoding import Encoder
 from sha import new as new_sha
 from webbrowser import open as webopen
 from UserDict import UserDict
+from copy import copy
 delattr(UserDict, '__repr__')
+
+def lookup_color(color):
+    color = color.lower()
+    if color in COLOR_MAP:
+        return COLOR_MAP[color]
+    return color
+
+def color_args(args, *indexes):
+    args = list(args)
+    for i in indexes:
+        args[i] = lookup_color(args[i])
+    return args
 
 class Axes(UserDict):
     """
@@ -76,7 +92,7 @@ class Axes(UserDict):
         APIPARAM: chxt
         """
         for char in atype:
-            assert(char in 'xtyr'), 'Invalid axes type: %s'%char
+            assert char in 'xtyr', 'Invalid axes type: %s'%char
         if not ',' in atype:
             atype = ','.join(atype)
         self.data['chxt'] = atype
@@ -120,6 +136,7 @@ class Axes(UserDict):
         APIPARAM: chxs
         """
         id = str(len(self.styles))
+        args = color_args(args, 0)
         self.styles.append(','.join([id]+map(str,args)))
         return self.parent
 
@@ -153,7 +170,7 @@ class GChart(UserDict):
         self._scale = kwargs.pop('scale', None)
         self.apiurl = kwargs.pop('apiurl', APIURL)
         for k,v in kwargs.items():
-            assert(k in APIPARAMS), 'Invalid chart parameter: %s'%k
+            assert k in APIPARAMS, 'Invalid chart parameter: %s'%k
             self.data[k] = v
         self.axes = Axes(self)
         
@@ -168,7 +185,7 @@ class GChart(UserDict):
         US state codes can be found at http://code.google.com/apis/chart/statecodes.html
         APIPARAMS: chtm & chld
         """
-        assert(geo in GEO), 'Geograpic area %s not recognized'%geo
+        assert geo in GEO, 'Geograpic area %s not recognized'%geo
         self._geo = geo
         self._ld = country_codes
         return self
@@ -179,7 +196,7 @@ class GChart(UserDict):
         args are error_correction,margin_size
         APIPARAM: chld
         """
-        assert(args[0].lower() in 'lmqh'), 'Unknown EC level %s'%level
+        assert args[0].lower() in 'lmqh', 'Unknown EC level %s'%level
         self.data['chld'] = '%s|%s'%args
         return self
         
@@ -207,7 +224,7 @@ class GChart(UserDict):
         Must be one of 'Shift_JIS','UTF-8', or 'ISO-8859-1'
         APIPARAM: choe
         """
-        assert(encoding in ('Shift_JIS','UTF-8','ISO-8859-1')),\
+        assert encoding in ('Shift_JIS','UTF-8','ISO-8859-1'),\
             'Unknown encoding %s'%encoding
         self.data['choe'] = encoding
         return self
@@ -237,8 +254,9 @@ class GChart(UserDict):
         APIPARAM: chm
         """
         if len(args[0]) == 1:
-            assert(args[0] in MARKERS), 'Invalid marker type: %s'%args[0]
-        assert(len(args) <= 6), 'Incorrect arguments %s'%str(args)
+            assert args[0] in MARKERS, 'Invalid marker type: %s'%args[0]
+        assert len(args) <= 6, 'Incorrect arguments %s'%str(args)
+        args = color_args(args, 1)
         self.markers.append(','.join(map(str,args)) )
         return self
         
@@ -260,8 +278,12 @@ class GChart(UserDict):
         the rest of the args refer to the particular style, refer to the official doc
         APIPARAM: chf
         """
-        assert(args[0] in ('c','bg','a')), 'Fill type must be bg/c/a not %s'%args[0]
-        assert(args[1] in ('s','lg','ls')), 'Fill style must be s/lg/ls not %s'%args[1]
+        assert args[0] in ('c','bg','a'), 'Fill type must be bg/c/a not %s'%args[0]
+        assert args[1] in ('s','lg','ls'), 'Fill style must be s/lg/ls not %s'%args[1]
+        if len(args) == 3:
+            args = color_args(args, 2)
+        else:
+            args = color_args(args, 3,5)
         self.fills.append(','.join(map(str,args)))
         return self
         
@@ -281,6 +303,7 @@ class GChart(UserDict):
         args are of the form <color 1>,...<color n>
         APIPARAM: chco
         """
+        args = color_args(args, *range(len(args)))
         self.data['chco'] = ','.join(args)
         return self
         
@@ -299,7 +322,7 @@ class GChart(UserDict):
         APIPARAM: chl
         """
         if self.data['cht'] == 'qr':
-            self.data['chl'] = ''.join(map(urllib.quote,args))
+            self.data['chl'] = ''.join(map(str,args))
         else:
             self.data['chl'] = '|'.join(map(str,args))
         return self
@@ -319,7 +342,7 @@ class GChart(UserDict):
         pos must be one of b,t,r,l
         APIPARAM: chdlp
         """
-        assert(pos in 'btrl'), 'Unknown legend position: %s'%pos
+        assert pos in 'btrl', 'Unknown legend position: %s'%pos
         self.data['chdlp'] = str(pos)
         return self
         
@@ -331,6 +354,7 @@ class GChart(UserDict):
         """
         self.data['chtt'] = title
         if args:
+            args = color_args(args, 0)
             self.data['chts'] = ','.join(map(str,args))
         return self
 
@@ -360,7 +384,7 @@ class GChart(UserDict):
             self.data['chma'] = ','.join(map(str,args[:4]))+'|'+','.join(map(str,args[4:]))
         else:
             raise ValueError, 'Margin arguments must be either 4 or 6 items'
-            
+                
     def render(self):
         """
         Renders the chart context and axes into the dict data
@@ -371,16 +395,16 @@ class GChart(UserDict):
             self.data['chs'] = '300x150'
         else:
             size = self.data['chs'].split('x')
-            assert(len(size) == 2), 'Invalid size, must be in the format WxH'
+            assert len(size) == 2, 'Invalid size, must be in the format WxH'
             self.check_size(*map(int,size))
-        assert('cht' in self.data), 'No chart type defined, use type method'
+        assert 'cht' in self.data, 'No chart type defined, use type method'
         self.data['cht'] = self.check_type(self.data['cht'])
         if ('any' in dir(self._dataset) and self._dataset.any()) or self._dataset:
             self.data['chd'] = encoder.encode(self._dataset)
         elif not 'choe' in self.data:
-            assert('chd' in self.data), 'You must have a dataset, or use chd'
+            assert 'chd' in self.data, 'You must have a dataset, or use chd'
         if self._scale:
-            assert(self.data['chd'].startswith('t:')), 'You must use text encoding with chds'
+            assert self.data['chd'].startswith('t:'), 'You must use text encoding with chds'
             self.data['chds'] = ','.join(self._scale)
         if self._geo and self._ld:
             self.data['chtm'] = self._geo
@@ -399,9 +423,9 @@ class GChart(UserDict):
         """
         Make sure the chart size fits the standards
         """
-        assert(x <= 10**3), 'Width larger than 1,000'
-        assert(y <= 10**3), 'Height larger than 1,000'
-        assert(x*y <= 3*(10**5)), 'Resolution larger than 300,000'
+        assert x <= 10**3, 'Width larger than 1,000'
+        assert y <= 10**3, 'Height larger than 1,000'
+        assert x*y <= 3*(10**5), 'Resolution larger than 300,000'
         
     def check_type(self, type):
         """Check to see if the type is either in TYPES or fits type name
@@ -416,7 +440,7 @@ class GChart(UserDict):
         tdict['pie'] = 'p'
         tdict['venn'] = 'v'
         tdict['scater'] = 's'
-        assert(type in tdict), 'Invalid chart type: %s'%type
+        assert type in tdict, 'Invalid chart type: %s'%type
         return tdict[type]
 
     #####################
@@ -436,14 +460,14 @@ class GChart(UserDict):
         return Encoder(self._encoding).decode(self.data['chd'])
 
     def _parts(self):
-        return ('%s=%s'%i for i in self.data.items() if i[1])
+        return ('%s=%s'%(k,urllib.quote(v,'+.,:|/$')) for k,v in self.data.items() if v)
 
     def __str__(self):
         """
         Returns the rendered URL of the chart
         """
         self.render()        
-        return (self.apiurl + '&'.join(self._parts())).replace(' ','+')
+        return self.apiurl + '&'.join(self._parts()).replace(' ','+')
 
     def url(self):
         """
@@ -467,7 +491,7 @@ class GChart(UserDict):
         """
         if not fname:
             fname = self.getname()
-        assert(fname != None), 'You must specify a filename to save to'
+        assert fname != None, 'You must specify a filename to save to'
         if not fname.endswith('.png'):
             fname += '.png'
         try:
@@ -608,7 +632,132 @@ class Map(GChart):
 class PieC(GChart):
     def __init__(self, dataset, **kwargs):
         GChart.__init__(self, 'pc', dataset, **kwargs)
+
+########################################
+# Now for something completely different
+########################################
+class Text(GChart):
+    def render(self): pass
+    def __init__(self, *args):
+        GChart.__init__(self)
+        self.data['chst'] = 'd_text_outline'
+        args = map(str, color_args(args, 0, 3))
+        assert args[2] in 'lrh', 'Invalid text alignment'
+        assert args[4] in '_b', 'Invalid font style'
+        self.data['chld'] = '|'.join(args)\
+            .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
+
+class Pin(GChart):
+    type = None
+    def render(self): pass
+    def __init__(self, *args):
+        GChart.__init__(self)
+        assert self.type in PIN_TYPES, 'Invalid type'
+        self.data['chst'] = 'd_map_%s'%self.type
+        self.data['chld'] = '|'.join(map(str, self.clean(*args)))\
+            .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
+    def shadow(self):
+        image = copy(self)
+        chsts = self.data['chst'].split('_')
+        chsts[-1] = 'shadow'
+        image.data['chst'] = '_'.join(chsts)
+        image.data['chld'] = ''#self.data['chld'].split('|')[0]
+        return image
         
+class LetterPin(Pin):
+    type = 'pin_letter'
+    def clean(self, *args):
+        args = color_args(args, 1,2)
+        return args
+        
+class IconPin(Pin): 
+    type = 'pin_icon'
+    def clean(self, *args):
+        args = color_args(args, 1)
+        assert args[0] in PIN_ICONS, 'Invalid icon name'
+        return args
+        
+class AdvLetterPin(Pin):
+    type = 'xpin_letter'
+    def clean(self, *args):
+        args = color_args(args, 2,3,4)
+        assert args[0] in PIN_SHAPES, 'Invalid pin shape'
+        if not args[0].startswith('pin_'):
+            args[0] = 'pin_%s'%args[0]
+        return args
+        
+class AdvIconPin(Pin):
+    type = 'xpin_icon'
+    def clean(self, *args):
+        args = color_args(args, 2,3)
+        assert args[0] in PIN_SHAPES, 'Invalid pin shape'
+        if not args[0].startswith('pin_'):
+            args[0] = 'pin_%s'%args[0] 
+        assert args[1] in PIN_ICONS, 'Invalid icon name'
+        return args
+        
+class TextPin(Pin): 
+    type = 'spin'
+    def shadow(self): return None
+    def clean(self, *args):
+        return color_args(args, 2)
+
+class Note(GChart):
+    def render(self): pass
+    def __init__(self, *args):
+        GChart.__init__(self)
+        assert args[0] in NOTE_TYPES,'Invalid note type'
+        assert args[1] in NOTE_IMAGES,'Invalid note image'
+        if args[0].find('note')>-1:
+            self.data['chst'] =  'd_f%s'%args[0]
+            args = color_args(args, 3)
+        else:
+            self.data['chst'] = 'd_%s'%args[0]
+            assert args[2] in NOTE_WEATHERS,'Invalid weather'
+        args = args[1:]
+        self.data['chld'] = '|'.join(map(str,args))\
+            .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
+
+class Bubble(GChart):
+    type = None
+    def render(self): pass
+    def __init__(self, *args):
+        GChart.__init__(self)
+        assert self.type in BUBBLE_TYPES, 'Invalid type'
+        self.data['chst'] = 'd_bubble_%s'%self.type
+        self.data['chld'] = '|'.join(map(str, self.clean(*args)))\
+            .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
+    def shadow(self):
+        image = copy(self)
+        image.data['chst'] = '%s_shadow'%self.data['chst']
+        return image
+        
+class SBubbleIcon(Bubble):
+    type = 'icon_text_small'
+    def clean(self, *args):
+        args = color_args(args, 3,4)
+        assert args[0] in BUBBLE_SICONS,'Invalid icon type'
+        return args
+
+class LBubbleIcon(Bubble):
+    type = 'icon_text_small' 
+    def clean(self, *args):
+        args = color_args(args, 3,4)
+        assert args[0] in BUBBLE_LICONS,'Invalid icon type'
+        return args
+
+class LBubbleIconTexts(Bubble):
+    type = 'icon_texts_big'
+    def clean(self, *args):
+        args = color_args(args, 2,3)
+        assert args[0] in BUBBLE_LICONS,'Invalid icon type'
+        return args 
+        
+class LBubbleTexts(Bubble):
+    type = 'texts_big'
+    def clean(self, *args):
+        return color_args(args, 1,2)
+          
 if __name__=='__main__':
     from tests import test
     test()
