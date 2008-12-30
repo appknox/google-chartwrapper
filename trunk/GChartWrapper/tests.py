@@ -28,6 +28,18 @@ import unittest
 
 Test = TestClass()
 
+ordering = ('simple', 'financial', 'bar_text', 'concentric_pie', 'margins', 
+'min_max', 'text', 'letter_pin', 'icon_pin', 'adv_icon_pin', 'adv_letter_pin',
+'text_pin', 'sticky_note', 'thought_note', 'weather_note', 'small_bubble_icon',
+'large_bubble_icon', 'large_bubble_icon_texts', 'large_bubble_texts','qr_code', 
+'legend', 'bar', 'pie', 'guide_granularity_20',  
+'guide_granularity_40', 'guide_granularity_80', 'guide_radar', 'hvz', 
+'guide_sparkline',  'venn', 'fill', 'guide_line_lc', 'title', 'axes', 
+'markers',  'line', 'multiline', 'axes_position', 'jacobian',  'numpy', 
+'guide_meter', 'guide_intro',    'guide_map',  'grid', 'legend2','guide_bhs',
+'guide_bvs', 'guide_bvs_scale', 'guide_bvg', 'guide_bhg', 'guide_chbh_clipped', 'guide_chbh_size')
+
+
 class ChartsTest(unittest.TestCase):
     def test_charts(self):
         for test,checksum in Test.all.items():
@@ -50,20 +62,21 @@ def test():
         unittest.TextTestRunner(verbosity=2).run(suite)
 
     elif arg == 'wiki':
-        print '#labels Featured,Phase-Implementation,Phase-Deploy'
-        print '== Chart examples adapted from the Google examples taken from the wrapper module unit tests =='
-        for n,test in enumerate(Test.all):
+        print '= Chart examples adapted from the Google examples ='
+        for n,test in enumerate(ordering):
             testobj = getattr(Test,test)
             G = testobj()
             print '----'
             print '=== %s ==='%test.title().replace('_','-')
-            print '{{{'
+            print '{{{' #'{{{\n#!python'
             print '\n'.join(map(lambda x: x[8:], getsource(testobj).splitlines()[1:-1]))
             print '}}}'
-            print '%s&.png'%G
+            #print '{{{\n#!html'
+            print '%s&.png'%G #G.img()
+            #print '}}}'
             print
             if n == 0:
-                print "*The rest of the examples use the convenience classes for each kind of chart which are one of either `HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, Radar, QRCode, Pie, Pie3D, Scatter, Venn, VerticalBarGroup, or VerticalBarStack`*"
+                print "'''The rest of the examples use the convenience classes for each kind of chart which are one of either {{{HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, Radar, QRCode, Pie, Pie3D, PieC, Scatter, Venn, VerticalBarGroup, or VerticalBarStack}}}'''"
     elif arg == 'tags':
         print """{% load charts %} <table><tr>
         <th> Advanced </th><td>

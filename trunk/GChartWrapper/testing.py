@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 GChartWrapper - Google Chart API Wrapper
 
@@ -17,21 +18,21 @@ class TestClass:
         'guide_granularity_20':'1422b8f665d8c206ae51e7d081e3efd5be8c64df',
         'pie':'1c70efb85226bece67add6857821931612a516b4',
         'guide_granularity_40':'b9a0e223679091a974261d0b0ff76a7f1a6f87bf',
-        'guide_radar':'9228577fa2ec7589ded890fa1ee6b2e66f21547d',
+        'guide_radar':'3232689307ee877de97d33afb775305a1d9955b6',
         'hvz':'428121b69154fe7ca6bfc91871496c6a22ea05f0',
-        'guide_sparkline':'5df5ac8bb0da09437652edefeb54581144373a6a',
+        'guide_sparkline':'22398cd8e290ba82498d71e4670f44c8afc4d31f',
         'guide_bhg':'1abfbaaf0149a45b70de594740cf1dcc8dec0ec9',
         'venn':'63bd278cc8b8abbb2cae317747a6ea79c5a1b708',
-        'fill':'8d9b19051c1cdb7dc7ebf1255261b168df7cf61c',
+        'fill':'d48ed4917a79fefca53ac3fd109fe470b0b3bcb9',
         'guide_line_lc':'b0a0446b4fba55b6b48c23cd1487817d17a7ac3d',
         'title':'85827823968a1ffe961d6fbcf42f6b47513c7f50',
-        'axes':'df2a0f067b9f6456cad8dec0e26e09167d963c2d',
+        'axes':'1c24dc0218665a18320d8eb33a5f81f60dd91614',
         'qr_code':'f3dc533977a3befb2f33492ac3702503d18eb23a',
-        'markers':'fcdf8bf7d91f45f996372a9d024124c0a1b5c902',
+        'markers':'22afa45a6221c316ebb847b40595c0586632b23a',
         'guide_granularity_80':'0a000350f0930cc317b679e7df94cf79da77890c',
-        'axes_position':'e83494ed42a730c521e9eeef13f6aa5b08216243',
+        'axes_position':'92b8655c2e16ef388f95abf8ad163605f1f2a1d2',
         'jacobian':'a0a605bc6e0245c3d7fe1fdf990cdd9fc141eb2e',
-        'multiline':'3435ff6c6ff71717d78eec40cdd555ebb9d5cf65',
+        'multiline':'8c4ecb646cd40ccd763df727d078914659b7bebc',
         'numpy':'066457dee12063d00ee66aaf505140cfa6b37116',
         'guide_meter':'9da7847582350804ec74a7020a4f19e7e12c59e4',
         'guide_chbh_clipped':'2fe51239ba12dfd1f999013135f8ea2dd15564f1',
@@ -40,7 +41,7 @@ class TestClass:
         'guide_bhs':'c13b6773dda91a53d206de5c79912026de94e221',
         'guide_map':'fb42ac6ba7e7003c7e742b18942f6b45cf3e29f0',
         'guide_bvs':'da3c89c7e9230694b1b78b81ace3322eec6550ba',
-        'grid':'1e32555125032795f1e56f6a97b3840d289edb27',
+        'grid':'528bded06db202224dda42e42530bfd76c649a1d',
         'bar':'b1438c5ef7579fb1c57004caed58d455ef2f3edf',
         'line':'4ac346c115818b8c1367ec22c73d1c68173c32a3',
         'guide_chbh_size':'1f9a99247fababae18542de7adf21bd15c7cf8f8',
@@ -48,10 +49,23 @@ class TestClass:
         'legend2':'ef9de98d1e12b07e401b554619a7c2c4271287c6',
         'guide_bvs_scale':'473384e7062cf537ba4f9fea69b6d1c52a1855a4',
         'concentric_pie':'d47836a02b6fcc6c5b78b568302c5fa1f9cb3777',
-        'min_max':'00f59d8fd09ff1d2298fc36d0edb76b8340d8624',
-        'margins':'0ef863979e888cf2d37eb2b7f6e4c7541632a31c',
-        'financial':'c8052d3e17bc2e5ac90503a8f94c134fc59d5368',
-        'bar_text':'0b511497dd2c52124cf7153700f266f66c625df6'
+        'min_max':'879321cb524abb91b24f528276fa0c380c503bf3',
+        'margins':'58e5e287ca916f6cf50232ff3a4e643d3bff7276',
+        'financial':'59d8b5548eca7a7587f2362c022d701228f99a11',
+        'bar_text':'99cac384e1742a9235754fb1d5290a539a0f5962',
+        'text':'74838e7b743af07cb88cb54bbd0c8200d6f2bb21',
+        'letter_pin':'613e8f6aeaa2a2d79903a0daabf9525e7713adcf',
+        'icon_pin':'5be1841e81c136f16d4273a2b03ee4cc4c40adfc',
+        'adv_icon_pin':'3be6f1d46d32a0c9faccdacd9176e72a647dc598',
+        'adv_letter_pin':'9f74ffdddebbfd00c1c058e25a1d1a15f9ab9e9a',
+        'text_pin':'b8df4be52ff8ec1a11e07f6f2821f548f235cdd8',
+        'sticky_note':'6186850ddc39a2c84c885c1e5db55b32fb690e93',
+        'thought_note':'cca0f17a7cabdd92ed80cad2e0f1a12d2ef27987',
+        'weather_note':'0a6e3d9448abcf41acd5c04f9b7536c03625e0a8',
+        'small_bubble_icon':'474a085ed5f733554efebad29e2aacec8139541d',
+        'large_bubble_icon':'93cd245cbed44e636e11f15b54d3603ae5b1bc6f',
+        'large_bubble_icon_texts':'f1e27f937873a363d1e489ac32a6e6c0c7b06c8e',
+        'large_bubble_texts':'8595b68e8293db1810a4317325cbbd14eae0a824',
     }
 
     def simple(self):
@@ -456,4 +470,60 @@ class TestClass:
         G.marker('fMax','FF0000',0,3,15)
         G.margin(0,0,30,0)
         return G
+    
+    def text(self):
+        text = '''
+        1600 Ampitheatre Parkway
+        Mountain View, CA
+        (650)+253-0000
+        '''
+        G = Text('darkred',16,'h','red','b',text)
+        return G
         
+    def letter_pin(self):
+        G = LetterPin('A','red','black')
+        return G
+
+    def icon_pin(self):
+        G = IconPin('home','yellow')
+        return G
+
+    def adv_letter_pin(self):
+        G = AdvLetterPin('star','A','aqua','black','red')
+        return G
+
+    def adv_icon_pin(self):
+        G = AdvIconPin('star','home','aqua','red')
+        return G
+
+    def text_pin(self):
+        G = TextPin(1.2,30,'FFFF88',10,'_','Foo\nBar')
+        return G
+        
+    def sticky_note(self):
+        G = Note('note_title','pinned_c',1,'darkgreen','l',"Joe's\nToday 2-for-1 !\n555-1234")
+        return G
+
+    def thought_note(self):
+        G = Note('note','thought',1,'navy','h',"wouldn't it be\ngreat to eat\nat Joe's?")
+        return G
+
+    def weather_note(self):
+        G = Note('weather','taped_y','sunny','Barcelona','max 25°','min 15°')
+        return G
+        
+    def small_bubble_icon(self):
+        G = SBubbleIcon('petrol','bb','$3/gal','khaki','black')
+        return G
+
+    def large_bubble_icon(self):
+        G = LBubbleIcon('snack','bb','$2.99','ffbb00','black')
+        return G   
+
+    def large_bubble_icon_texts(self):
+        G = LBubbleIconTexts('petrol','bb','khaki','black','LoCost Fuel\n$3.05/gal unleaded\n$2.10/gal diesel')
+        return G
+
+    def large_bubble_texts(self):
+        G = LBubbleTexts('bb','teal','khaki',"Joe\'s Restaurant\n123 Long St\n92745 Mountain View")
+        return G
