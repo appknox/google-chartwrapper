@@ -54,7 +54,7 @@
  | *[http://code.google.com/p/google-chartwrapper/wiki/ChartExamples#Guide-Bvg Guide-Bvg]*
  | *[http://code.google.com/p/google-chartwrapper/wiki/ChartExamples#Guide-Bhg Guide-Bhg]*
  | *[http://code.google.com/p/google-chartwrapper/wiki/ChartExamples#Guide-Chbh-Clipped Guide-Chbh-Clipped]*
- | *[http://code.google.com/p/google-chartwrapper/wiki/ChartExamples#Guide-Chbh-Size Guide-Chbh-Size]* |
+ | *[http://code.google.com/p/google-chartwrapper/wiki/ChartExamples#Guide-Chbh-Size Guide-Chbh-Size]*|
 
 ----
 
