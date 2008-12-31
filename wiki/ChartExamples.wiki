@@ -3,8 +3,6 @@
 = Chart examples adapted from the Google examples =
 ----
 
-  *  [http://code.google.com/p/google-chartwrapper/wiki/ChartExamples#Financial Financial]
-
 === Simple ===
 {{{
 # Instantiate the GChart instance, this is all you will need for making charts
