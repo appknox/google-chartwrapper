@@ -1,7 +1,7 @@
 #summary New features of the wrapper
 #labels Featured,Phase-Design
 
-= Whats New =
+== Whats New ==
 The wrapper now supports chaining commands together. Here is an example of the old syntax
 {{{
 >>> G = Pie3D(range(1,5))
