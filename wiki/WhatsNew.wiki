@@ -1,0 +1,16 @@
+#summary New features of the wrapper
+#labels Featured,Phase-Design
+
+= Whats New =
+The wrapper now supports chaining commands together. Here is an example of the old syntax
+{{{
+>>> G = Pie3D(range(1,5))
+>>> G.label('A','B','C','D')
+>>> G.color('00dd00')
+>>> print G
+}}}
+Now you can combine the commands into one line
+{{{
+>>> print Pie3D(range(1,5)).label('A','B','C','D').color('00dd00')
+}}}
+This saves lots of time when using them in templates. You can now use the wrapper for multiple TemplatingLanguages
