@@ -1,14 +1,29 @@
 from mako.template import Template
 
 print Template("""
-<%namespace name="gchart" module="GChartWrapper.mako"/>
+<%namespace name="gcw" module="GChartWrapper.mako"/>
 
-${gchart.chart('p3',data)}
+${
+    gcw.chart('Line',data)\
+        .axes.type('xy')\
+        .axes.label('Mar','Apr','May')\
+        .axes.label(None,'50+Kb')\
+        .color('red')\
+        .line(6,5,2)\
+        .img()
+}
 
-""").render(data=range(5))
+""").render(data='fohmnytenefohmnytene')
 
+print Template("""
+<%namespace name="gcw" module="GChartWrapper.mako"/>
 
-"""
+${
+    gcw.chart()\
+        .type('pie')\
+        .dataset(data)\
+        .size(250,100)\
+        .img()
+}
 
-${hw.my_tag()}
-"""
+""").render(data='helloworld')

@@ -63,11 +63,14 @@ def test():
 
     elif arg == 'wiki':
         print '= Chart examples adapted from the Google examples ='
+        links = []
         for n,test in enumerate(ordering):
             testobj = getattr(Test,test)
             G = testobj()
+            title = test.title().replace('_','-')
             print '----'
-            print '=== %s ==='%test.title().replace('_','-')
+            links.append(title)
+            print '=== %s ==='%title
             print '{{{' #'{{{\n#!python'
             print '\n'.join(map(lambda x: x[8:], getsource(testobj).splitlines()[1:-1]))
             print '}}}'
@@ -76,7 +79,9 @@ def test():
             #print '}}}'
             print
             if n == 0:
-                print "'''The rest of the examples use the convenience classes for each kind of chart which are one of either {{{HorizontalBarGroup, HorizontalBarStack, Line, LineXY, Sparkline, Meter, Map, Radar, QRCode, Pie, Pie3D, PieC, Scatter, Venn, VerticalBarGroup, or VerticalBarStack}}}'''"
+                print "'''The rest of the examples use the convenience classes for each kind of chart'''"
+        for link in links:
+            print '  * [http://code.google.com/p/google-chartwrapper/wiki/ChartExamples#%s %s]'%(link,link)
     elif arg == 'tags':
         print """{% load charts %} <table><tr>
         <th> Advanced </th><td>
