@@ -41,7 +41,21 @@ $Line($data).axes.type('xy').axes.label('Mar','Apr','May').axes.label(None,'50+K
 
 == [http://www.makotemplates.org/ Mako] ==
 
-Under development.
+To make this work, a separate module had to be added which can be found at `GChartWrapper.mako`. Here is an example of usage.
+
+{{{
+<%namespace name="gcw" module="GChartWrapper.mako"/>
+
+${
+    gcw.chart('Line',data)\
+        .axes.type('xy')\
+        .axes.label('Mar','Apr','May')\
+        .axes.label(None,'50+Kb')\
+        .color('red')\
+        .line(6,5,2)\
+        .img()
+}
+}}}
 
 == [http://jinja.pocoo.org/2/ Jinja] ==
 
