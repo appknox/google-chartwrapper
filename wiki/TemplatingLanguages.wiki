@@ -57,6 +57,8 @@ ${
 }
 }}}
 
+The generic `chart` method in the module takes its first argument as the name of the chart class you wish to use (ie Line,Pie3D,Meter,etc.). The rest of the arguments and kw arguments are passed into that class
+
 == [http://jinja.pocoo.org/2/ Jinja] ==
 
 Coming soon.
