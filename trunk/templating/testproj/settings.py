@@ -1,5 +1,5 @@
 # Django settings for testproj project.
-
+import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -55,10 +55,10 @@ MIDDLEWARE_CLASSES = (
     "django.middleware.doc.XViewMiddleware",
 )
 
-ROOT_URLCONF = 'testproj.urls'
+ROOT_URLCONF = 'djangoproj.urls'
 
 TEMPLATE_DIRS = (
-    '/Users/jquick/Projects/google-chartwrapper/GChartWrapper/charts/templates'
+   os.path.join(os.dirname(__file__),'templates')
     # Put strings here, like "/home/html/django_templates".
     # Always use forward slashes, even on Windows.
 )
