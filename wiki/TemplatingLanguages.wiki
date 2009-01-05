@@ -61,7 +61,7 @@ The generic `chart` method in the module takes its first argument as the name of
 
 == [http://jinja.pocoo.org/2/ Jinja2] ==
 
-Coming soon.
+Under development.
 
 == [http://genshi.edgewall.org/ Genshi] ==
 
