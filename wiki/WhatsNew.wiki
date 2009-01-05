@@ -1,7 +1,24 @@
 #summary New features of the wrapper
 #labels Featured,Phase-Design
 
-== Whats New ==
+= Whats New =
+
+== v0.7 ==
+Full [http://www.python.org/dev/peps/pep-3000/ PY3K] compliance
+Color name lookup from the css names: http://www.w3schools.com/css/css_colornames.asp
+{{{
+>>> G = Pie3D(range(1,5))
+>>> G.color('green')
+}}}
+http://chart.apis.google.com/chart?chs=300x150&chco=008000&cht=p3&chd=t:1.0,2.0,3.0,4.0&.png
+
+New charts Note,Text,Pin,Bubble. See ChartExamples for usage
+
+Updated Django templatetags to allow context inclusion and new charts. See DjangoExtension for usage
+
+Added some more templating examples. See DjangoExtension and TemplatingLanguages for usage
+
+== v0.6 ==
 The wrapper now supports chaining commands together. Here is an example of the old syntax
 {{{
 >>> G = Pie3D(range(1,5))
