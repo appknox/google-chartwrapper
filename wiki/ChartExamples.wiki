@@ -135,6 +135,8 @@ http://chart.apis.google.com/chart?chxt=x&chs=200x140&cht=lc&chd=s:mHMza&chxl=0:
 ----
 === Text === 
 {{{ 
+# Make a text chart label w/ any text you like
+# Google automagically ignores white space and spaces text correctly
 text = '''
 1600 Ampitheatre Parkway
 Mountain View, CA
@@ -147,6 +149,7 @@ http://chart.apis.google.com/chart?chst=d_text_outline&chld=8B0000|16|h|FF0000|b
 ----
 === Letter-Pin === 
 {{{ 
+# Simple map pin w/ a letter/number
 G = Pin('pin_letter','A','red','black') 
 }}} 
 http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=A|FF0000|000000&.png 
@@ -154,6 +157,7 @@ http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=A|FF0000|000000&.p
 ----
 === Icon-Pin === 
 {{{ 
+# Map pin w/ a certain icon
 G = Pin('pin_icon','home','yellow') 
 }}} 
 http://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=home|FFFF00&.png 
@@ -161,6 +165,7 @@ http://chart.apis.google.com/chart?chst=d_map_pin_icon&chld=home|FFFF00&.png
 ----
 === Adv-Icon-Pin === 
 {{{ 
+# Map pin w/ cool icon
 G = Pin('xpin_icon','star','home','aqua','red') 
 }}} 
 http://chart.apis.google.com/chart?chst=d_map_xpin_icon&chld=pin_star|home|00FFFF|FF0000&.png 
@@ -175,6 +180,7 @@ http://chart.apis.google.com/chart?chst=d_map_xpin_letter&chld=pin_star|A|00FFFF
 ----
 === Text-Pin === 
 {{{ 
+# Straight up map pin w/ following text
 G = Pin('spin',1.2,30,'FFFF88',10,'_','Foo\nBar') 
 }}} 
 http://chart.apis.google.com/chart?chst=d_map_spin&chld=1.2|30|ffff88|10|_|Foo|Bar&.png 
@@ -182,6 +188,7 @@ http://chart.apis.google.com/chart?chst=d_map_spin&chld=1.2|30|ffff88|10|_|Foo|B
 ----
 === Sticky-Note === 
 {{{ 
+# Note w/ title and text 
 G = Note('note_title','pinned_c',1,'darkgreen','l',"Joe's\nToday 2-for-1 !\n555-1234") 
 }}} 
 http://chart.apis.google.com/chart?chst=d_fnote_title&chld=pinned_c|1|006400|l|Joe%27s|Today+2-for-1+%21|555-1234&.png 
@@ -189,6 +196,7 @@ http://chart.apis.google.com/chart?chst=d_fnote_title&chld=pinned_c|1|006400|l|J
 ----
 === Thought-Note === 
 {{{ 
+# Thought bubble note
 G = Note('note','thought',1,'navy','h',"wouldn't it be\ngreat to eat\nat Joe's?") 
 }}} 
 http://chart.apis.google.com/chart?chst=d_fnote&chld=thought|1|000080|h|wouldn%27t+it+be|great+to+eat|at+Joe%27s%3F&.png 
@@ -196,6 +204,7 @@ http://chart.apis.google.com/chart?chst=d_fnote&chld=thought|1|000080|h|wouldn%2
 ----
 === Weather-Note === 
 {{{ 
+# First example w/ true utf-8 encoding
 G = Note('weather','taped_y','sunny','Barcelona','max 25°','min 15°') 
 }}} 
 http://chart.apis.google.com/chart?chst=d_weather&chld=taped_y|sunny|Barcelona|max+25%C2%B0|min+15%C2%B0&.png 
@@ -203,6 +212,7 @@ http://chart.apis.google.com/chart?chst=d_weather&chld=taped_y|sunny|Barcelona|m
 ----
 === Small-Bubble-Icon === 
 {{{ 
+# Small bubble marker
 G = Bubble('icon_text_small','petrol','bb','$3/gal','khaki','black') 
 }}} 
 http://chart.apis.google.com/chart?chst=d_bubble_icon_text_small&chld=petrol|bb|$3/gal|F0E68C|000000&.png 
@@ -210,6 +220,7 @@ http://chart.apis.google.com/chart?chst=d_bubble_icon_text_small&chld=petrol|bb|
 ----
 === Large-Bubble-Icon === 
 {{{ 
+# Larger bubble marker
 G = Bubble('icon_text_big','snack','bb','$2.99','ffbb00','black') 
 }}} 
 http://chart.apis.google.com/chart?chst=d_bubble_icon_text_big&chld=snack|bb|$2.99|ffbb00|000000&.png 
@@ -217,6 +228,7 @@ http://chart.apis.google.com/chart?chst=d_bubble_icon_text_big&chld=snack|bb|$2.
 ----
 === Large-Bubble-Icon-Texts === 
 {{{ 
+# Large bubble marker w/ icon and multiline text
 G = Bubble('icon_texts_big','petrol','bb','khaki','black','LoCost Fuel\n$3.05/gal unleaded\n$2.10/gal diesel') 
 }}} 
 http://chart.apis.google.com/chart?chst=d_bubble_icon_texts_big&chld=petrol|bb|F0E68C|000000|LoCost+Fuel|$3.05/gal+unleaded|$2.10/gal+diesel&.png 
@@ -224,7 +236,7 @@ http://chart.apis.google.com/chart?chst=d_bubble_icon_texts_big&chld=petrol|bb|F
 ----
 === Large-Bubble-Texts === 
 {{{ 
- 
+# Large bubble marker with just text 
 }}} 
 http://chart.apis.google.com/chart?chst=d_bubble_texts_big&chld=bb|008080|F0E68C|Joe%27s+Restaurant|123+Long+St|92745+Mountain+View&.png 
 
@@ -280,7 +292,6 @@ http://chart.apis.google.com/chart?chl=A|B|C|D&chs=300x150&chco=00dd00&cht=p3&ch
 {{{ 
 G = Line('fohmnytenefohmnytene', encoding='simple')
 G.size(200,100)
-
 G.axes.type('xy')
 G.axes.label('April','May','June')
 G.axes.label(None, '50+Kb') 
