@@ -44,4 +44,4 @@ _*NEW*_ *You can also put the GChart instance into the template context and use 
 
 ===More Examples===
 
-The templating folder in the ExtrasDistribution contains a `djangoproj` subfolder which is a standard Django project to test out the functionality of the templatetags. If you execute `python manage.py runserver` then go to http://localhost:8000/ it will render several charts from the ChartExamples. The template can be found [http://code.google.com/p/google-chartwrapper/source/browse/trunk/GChartWrapper/charts/templates/example.html here]
+The templating folder in the ExtrasDistribution contains a `djangoproj` subfolder which is a standard Django project to test out the functionality of the templatetags. If you execute `python manage.py runserver` then go to http://localhost:8000/ it will render several charts from the ChartExamples. The template can be found [http://code.google.com/p/google-chartwrapper/source/browse/trunk/templating/djangoproj/templates/example.html here]
