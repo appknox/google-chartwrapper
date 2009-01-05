@@ -16,11 +16,11 @@ class TestClass:
     # All is dict of (name : checksum) pairs
     all = {
         'simple':'a6de27c4891b513efe669892f7d5304edd276427', 
-        'financial':'72c6cfb524af4ad7c8286e796c4501ab40910f7a', 
+        'financial':'ea187e300c593867b2f9c17824da34c5bd9a1bef', 
         'bar_text':'e9028a1ff3a1d42bc1a3dcf51780b0321d5d2c96', 
         'concentric_pie':'d47836a02b6fcc6c5b78b568302c5fa1f9cb3777', 
-        'margins':'5c10e93e398edb49d9d675b7ec764352d537f806', 
-        'min_max':'422b3dc4174d048d7105383d06cb7acd815d2d3e', 
+        'margins':'cfa4d80ae660fa4200d5f70c21ba9bff9d2e240b', 
+        'min_max':'62d19b35934e091f6d616d9515f8566e44eef474', 
         'text':'7f10b9de58840d2161aa5f32d4a12d86f772fe92', 
         'letter_pin':'196a01c0923628290c867a77438b22be4e811d41', 
         'icon_pin':'8ac735930b99165d343385fc41958d925a9db931', 
@@ -34,23 +34,23 @@ class TestClass:
         'large_bubble_icon_texts':'92e5b034421b097d87cc990179f16e65538c2d8a', 
         'large_bubble_texts':'a6687d18fc3264f5938b5c203a968e32e9f954ca', 
         'qr_code':'330016ec1f94d2ba2baf1914df427ad86db7dd0f', 
-        'legend':'f181827b3618dac12f564e2be63b4274990c5258', 
+        'legend':'ffd2fd1e34749569c39d22024ea97bd677e2ca13', 
         'bar':'09ff756b63075bb40e9c97a6fdb5f63f2bbfebf4', 
         'pie':'cc4eae489458948e81474533b422e007a08d92ef', 
         'guide_granularity_20':'d330e4275208e2c5f8affed3e391909f73415907', 
         'guide_granularity_40':'6b9142f87a777ae69484008a57737bbc53096a9d', 
         'guide_granularity_80':'6950bb2691e45ca2698e65c2f1e867c77e8bed37', 
-        'guide_radar':'44225362446694d17cb2950b65bf7fcc5aa6cfce', 
-        'hvz':'0df9d1d9c97d380e3daf1e81037ec25576f5edd8', 
+        'guide_radar':'13a21487482f1b341a36bb2d735f97d309b2a47f', 
+        'hvz':'5ae5be08294efdb63fa39b5b6c33a8d6423196d6', 
         'guide_sparkline':'e61609da9d1b38b8401249b434bc5150dab9bc77', 
         'venn':'63bd278cc8b8abbb2cae317747a6ea79c5a1b708', 
-        'fill':'938182d2a9c9c218de0259c88d583c4f2c2d70c9', 
+        'fill':'70add0b67f4f86c2c508a28c3bf5c6aab5775ee9', 
         'guide_line_lc':'b0a0446b4fba55b6b48c23cd1487817d17a7ac3d', 
         'title':'385fcf0b6eeba2aba55302a0f71ed420a2908446', 
         'axes':'e892afdd2cad44f50c9ca3213a2b3b43da9bf34c', 
-        'markers':'0bffa272991d6193e74b8844e44ebb5e07986ced', 
-        'line':'d0346bb5e3d7e3cc8851ff0c1b2ad2d18aff8f72', 
-        'multiline':'f087681acf24c9257c8985bb013b98ddd01975de', 
+        'markers':'966a8dbe40048a36b647d344c9a7f379ea136c80', 
+        'line':'4e2b17fd477830ae144d50e557c873a76f46deb1', 
+        'multiline':'e4281cbc408cf31d551fd3776a890d5b33c7b74d', 
         'axes_position':'3845671d4f57f7232d3837df6f1c73a7f8137059', 
         'jacobian':'4056ac217c6cda014a9dff55011a9a3a702caaf1', 
         'numpy':'066457dee12063d00ee66aaf505140cfa6b37116', 
@@ -58,16 +58,17 @@ class TestClass:
         'guide_intro':'bde2d538696e0d598c5359de40e7c92d8efecd16', 
         'guide_map':'5a9068f2689e783749e90b683df1142c89057f03', 
         'grid':'645388ffdbd2bd4f117daa265adfc90baa572f74', 
-        'legend2':'28af098f2faef3f7072b07833e85a8c9c75684e9', 
+        'legend2':'e785ef2737453840a0756798fb16160fdf3d28f5', 
         'guide_bhs':'1591e5ea4e8f8886613e73941a10a2c547750e0e', 
         'guide_bvs':'cb2f5344e816f1b1ae2214131f11547ec3f9549a', 
         'guide_bvs_scale':'0f47d77a1aa449b27c90e4b01e8c84a3b3d161d9', 
         'guide_bvg':'35d7126f7ccbf56c30254a1403b15affcb49db4f', 
         'guide_bhg':'ef88b9e73a7a08d16d39d0dd14de9486a8d52a1a', 
         'guide_chbh_clipped':'fe87216a7ce5cc496420de787b52b9eac1c056f9', 
-        'guide_chbh_size':'03e1fd7393c87c5c65d88469f557f60e5ca0378b',
+        'guide_chbh_size':'03e1fd7393c87c5c65d88469f557f60e5ca0378b', 
     }
     if PY_VER.startswith('3'):
+        # strangeness w/ unicode in py3k
         all['weather_note'] = 'a6e78f827cccdcc15979cd9787deb198e4dc33a6'
     else:
         all['weather_note'] = '7e7e87b94bdd3b8cb1fd208b2d565b58a1bc595e'
@@ -88,9 +89,9 @@ class TestClass:
         # Make a vertical bar group and scale it to the max
         G = VerticalBarGroup( [[31],[59],[4]], encoding='text' )
         G.scale(0,59)
-        G.color('00ff00','ff0000','0000ff')
+        G.color('lime','red','blue')
         G.legend('Goucher(31)','Truman(59)','Kansas(4)')
-        G.fill('c','lg',45,'cccccc',0,'000000',1)
+        G.fill('c','lg',45,'cccccc',0,'black',1)
         G.fill('bg','s','cccccc')        
         G.size(200,100)
         return G
@@ -121,7 +122,7 @@ class TestClass:
         G.axes.type('xy')
         G.axes.label('Mar', 'Apr', 'May', 'June', 'July')
         G.axes.label(None, '50+Kb')        
-        G.color('ff0000')
+        G.color('red')
         G.line(6,5,2)
         return G
 
@@ -173,14 +174,14 @@ class TestClass:
     def markers(self):
         # Mark up some of the data randomly
         G = Line( ['helloWorldZZZZ098236561'] )
-        G.marker('c','ff0000',0,1,20)
+        G.marker('c','red',0,1,20)
         G.marker('d','80C65A',0,6,15)    
         G.marker('o','FF9900',0,4.0,20.0)
         G.marker('s','3399CC',0,5.0,10.0)
         G.marker('v','BBCCED',0,6.0,1.0)
         G.marker('V','3399CC',0,7.0,1.0)
         G.marker('x','FFCC33',0,8.0,20.0)
-        G.marker('h','000000',0,0.30,0.5 )       
+        G.marker('h','black',0,0.30,0.5 )       
         G.marker('a','000099',0,4,10)
         G.marker('R','A0BAE9',0,8,0.6)    
         G.marker('r','E5ECF9',0,1,0.25)
@@ -201,19 +202,19 @@ class TestClass:
             'QSSVXXdkfZUMRTUQ','HJJMOOUbVPKDHKLH','AA'] )
         G.marker('b','76A4FB',0,1,0)
         G.marker('b','224499',1,2,0)
-        G.marker('b','FF0000',2,3,0)
+        G.marker('b','red',2,3,0)
         G.marker('B','80C65A',3,4,0)
         return G    
 
     def fill(self):
         # Fill the chart/background using chf, add axes to show bg 
         G = Line( ['pqokeYONOMEBAKPOQVTXZdecaZcglprqxuux393ztpoonkeggjp'] )
-        G.color('ff0000')
+        G.color('red')
         G.line(4,3,0)
         G.axes.type('xy') 
         G.axes.label(1,2,3,4,5)
         G.axes.label(None,50,100)
-        G.fill('c','lg',45,'ffffff',0,'76A4FB',0.75)
+        G.fill('c','lg',45,'white',0,'76A4FB',0.75)
         G.fill('bg','s','EFEFEF')
         return G    
 
@@ -221,7 +222,7 @@ class TestClass:
     def legend(self):
         # Add legend to the data set which follows collors
         G = Line( ['FOETHECat','leafgreen','IRON4YOUs'] )  
-        G.color('ff0000','00ff00','0000ff')
+        G.color('red','lime','blue')
         G.legend('Animals','Vegetables','Minerals')
         G.axes.type('y') 
         return G
@@ -229,7 +230,7 @@ class TestClass:
     def legend2(self):
         # Add a left aligned legend to the chart
         G = Line( ['abcde','FGHIJ','09876'] )  
-        G.color('ff0000','00ff00','0000ff')
+        G.color('red','lime','blue')
         G.legend('Animals','Vegetables','Minerals')
         G.legend_pos('l')
         G.axes.type('y') 
@@ -246,9 +247,9 @@ class TestClass:
             [5,33,50,55,7],
         ])
         G.scale(0,100)
-        G.color('3072F3','ff0000','00aaaa')
-        G.marker('s','FF0000',0,-1,5)
-        G.marker('s','0000ff',1,-1,5)
+        G.color('3072F3','red','00aaaa')
+        G.marker('s','red',0,-1,5)
+        G.marker('s','blue',1,-1,5)
         G.marker('s','00aa00',2,-1,5)   
         G.line(2,4,1)   
         return G
@@ -392,7 +393,7 @@ class TestClass:
         # Create a radar chart w/ multiple lines
         G = Radar([ [77,66,15,0,31,48,100,77],[20,36,100,2,0,100] ], encoding='text')  
         G.size(200,200)
-        G.color('FF0000','FF9900')
+        G.color('red','FF9900')
         G.line(2,4,0)
         G.line(2,4,0)        
         G.axes.type('x')
@@ -438,7 +439,7 @@ class TestClass:
     def financial(self):
         # Fancy markers for financial data
         G = Line([[0,5,10,7,12,6],[35,25,45,47,24,46],[15,40,30,27,39,54],[70,55,63,59,80,60]], encoding='text')
-        G.marker('F','0000FF',0,'1:4',20)
+        G.marker('F','blue',0,'1:4',20)
         G.size(200,125)
         return G
         
@@ -446,10 +447,10 @@ class TestClass:
         # Using text markers in a bar chart
         G = HorizontalBarGroup([[40,60],[50,30]], encoding='text')
         G.size(200,125)
-        G.marker('tApril mobile hits','000000',0,0,13)
-        G.marker('tMay mobile hits','000000',0,1,13,-1)
-        G.marker('tApril desktop hits','000000',1,0,13)
-        G.marker('tMay desktop hits', '000000',1,1,13)
+        G.marker('tApril mobile hits','black',0,0,13)
+        G.marker('tMay mobile hits','black',0,1,13,-1)
+        G.marker('tApril desktop hits','black',1,0,13)
+        G.marker('tMay desktop hits', 'black',1,1,13)
         G.color('FF9900','FFCC33')
         return G
         
@@ -458,7 +459,7 @@ class TestClass:
         G.size(250,100)
         G.label(1,2,3,4)
         G.fill('bg','s','e0e0e0')
-        G.color('000000','0000FF')
+        G.color('black','blue')
         G.margin(20,20,20,30,80,20)
         G.legend('Temp','Sales')
         return G
@@ -470,12 +471,14 @@ class TestClass:
         G.size(200,140)
         G.axes.type('x')
         G.axes.label(None,'t',None,'F',None)
-        G.marker('tMin','0000FF',0,1,10)
-        G.marker('fMax','FF0000',0,3,15)
+        G.marker('tMin','blue',0,1,10)
+        G.marker('fMax','red',0,3,15)
         G.margin(0,0,30,0)
         return G
     
     def text(self):
+        # Make a text chart label w/ any text you like
+        # Google automagically ignores white space and spaces text correctly
         text = '''
         1600 Ampitheatre Parkway
         Mountain View, CA
@@ -485,10 +488,12 @@ class TestClass:
         return G
         
     def letter_pin(self):
+        # Simple map pin w/ a letter/number
         G = Pin('pin_letter','A','red','black')
         return G
 
     def icon_pin(self):
+        # Map pin w/ a certain icon
         G = Pin('pin_icon','home','yellow')
         return G
 
@@ -497,37 +502,46 @@ class TestClass:
         return G
 
     def adv_icon_pin(self):
+        # Map pin w/ cool icon
         G = Pin('xpin_icon','star','home','aqua','red')
         return G
 
     def text_pin(self):
+        # Straight up map pin w/ following text
         G = Pin('spin',1.2,30,'FFFF88',10,'_','Foo\nBar')
         return G
         
     def sticky_note(self):
+        # Note w/ title and text 
         G = Note('note_title','pinned_c',1,'darkgreen','l',"Joe's\nToday 2-for-1 !\n555-1234")
         return G
 
     def thought_note(self):
+        # Thought bubble note
         G = Note('note','thought',1,'navy','h',"wouldn't it be\ngreat to eat\nat Joe's?")
         return G
 
     def weather_note(self):
+        # First example w/ true utf-8 encoding
         G = Note('weather','taped_y','sunny','Barcelona','max 25°','min 15°')
         return G
         
     def small_bubble_icon(self):
+        # Small bubble marker
         G = Bubble('icon_text_small','petrol','bb','$3/gal','khaki','black')
         return G
 
     def large_bubble_icon(self):
+        # Larger bubble marker
         G = Bubble('icon_text_big','snack','bb','$2.99','ffbb00','black')
         return G   
 
     def large_bubble_icon_texts(self):
+        # Large bubble marker w/ icon and multiline text
         G = Bubble('icon_texts_big','petrol','bb','khaki','black','LoCost Fuel\n$3.05/gal unleaded\n$2.10/gal diesel')
         return G
 
     def large_bubble_texts(self):
+        # Large bubble marker with just text
         G = Bubble('texts_big','bb','teal','khaki',"Joe\'s Restaurant\n123 Long St\n92745 Mountain View")
         return G
