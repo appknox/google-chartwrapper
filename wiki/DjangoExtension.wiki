@@ -27,6 +27,21 @@ Then you can use the templatetag in any of your templates.
 
 http://chart.apis.google.com/chart?chd=s:GurMrabsClgubaolGvzCrgrefOrnhgvshyvforggregunahtyl&chco=00cc00&chts=00cc00,36&chs=300x150&cht=lc&chtt=The+Zen+of+Python&.png
 
+_*NEW*_ *You can also put the GChart instance into the template context and use it like so*
+
+{{{
+{% load charts %}
+
+{% chart Line ... as my_nifty_line_chart  %}
+    ...
+{% endchart %} 
+
+{{ my_nifty_line_chart }} # URL
+{{ my_nifty_line_chart.img }} # XHTML <img/> tag
+}}}
+
+
+
 ===More Examples===
 
-The templating folder in the distribution contains a `testproj` subfolder which is a standard Django project to test out the functionality of the templatetags. If you execute `python manage.py runserver` then go to http://localhost:8000/ it will render several charts from the ChartExamples. The template can be found [http://code.google.com/p/google-chartwrapper/source/browse/trunk/GChartWrapper/charts/templates/example.html here]
+The templating folder in the ExtrasDistribution contains a `djangoproj` subfolder which is a standard Django project to test out the functionality of the templatetags. If you execute `python manage.py runserver` then go to http://localhost:8000/ it will render several charts from the ChartExamples. The template can be found [http://code.google.com/p/google-chartwrapper/source/browse/trunk/GChartWrapper/charts/templates/example.html here]
