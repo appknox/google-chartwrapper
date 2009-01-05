@@ -5,6 +5,7 @@
 
 == v0.7 ==
 Full [http://www.python.org/dev/peps/pep-3000/ PY3K] compliance
+
 Color name lookup from the css names: http://www.w3schools.com/css/css_colornames.asp
 {{{
 >>> G = Pie3D(range(1,5))
