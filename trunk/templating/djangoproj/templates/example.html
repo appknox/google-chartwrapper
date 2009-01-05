@@ -1,7 +1,57 @@
 {% load charts %}
-<table border=1>
+<style type="text/css">
+table.sample {
+	border-width: 1px 1px 1px 1px;
+	border-spacing: 2px;
+	border-style: dotted dotted dotted dotted;
+	border-color: gray gray gray gray;
+	border-collapse: collapse;
+	background-color: white;
+}
+table.sample th {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	border-style: dotted dotted dotted dotted;
+	border-color: green green green green;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.sample td {
+	border-width: 1px 1px 1px 1px;
+	padding: 1px 1px 1px 1px;
+	/*text-align: center;*/
+	border-style: dotted dotted dotted dotted;
+	border-color: green green green green;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+</style>
+
+
+
+<table class="sample">
+	
+<tr><th>Weather-Note</th><td>
+	{% note weather taped_y sunny Barcelona temps as img %}
+</td><td><pre>
+&#123;% note weather taped_y sunny Barcelona temps as img %&#125;
+</pre></td></tr>
+<tr><th>Large-Icon-Bubble</th><td>
+{% bubble icon_text_big snack bb $2.99 ffbb00 black as img %}
+</td><td><pre>
+&#123;% bubble icon_text_big snack bb $2.99 ffbb00 black as img %&#125;
+</pre></td></tr>
+<tr><th>Adv-Icon-Pin</th><td>
+{% pin xpin_icon star home aqua red as img %}
+</td><td><pre>
+&#123;% pin xpin_icon star home aqua red as img %&#125;
+</pre></td></tr>
+<tr><th>Text</th><td>
+{% text darkred 16 h red b '1600 Ampitheatre Parkway\nMountain View, CA\n(650)+253-0000' as img %}
+</td><td><pre>
+&#123;% text darkred 16 h red b '1600 Ampitheatre Parkway\nMountain View, CA\n(650)+253-0000' as img %&#125;
+</pre></td></tr>
+
 <tr><th>Simple</th><td>
-{% chart  GChart  %}
+{% chart  GChart %}
 {% type pie  %}
 {% dataset  helloworld   %}
 {% size 250 100  %}
@@ -78,10 +128,10 @@
 &#123;% endchart %&#125; </pre></td></tr>
 <tr><th>Title</th><td>
 {% chart  Line  GurMrabsClgubaolGvzCrgrefOrnhgvshyvforggregunahtyl   %}
-{% title TheZenofPython 00cc00 36  %}
+{% title 'The Zen of Python' 00cc00 36  %}
 {% color 00cc00  %}
 {% endchart %} </td><td><pre>&#123;% chart  Line  GurMrabsClgubaolGvzCrgrefOrnhgvshyvforggregunahtyl   %&#125;
-&#123;% title TheZenofPython 00cc00 36  %&#125;
+&#123;% title 'The Zen of Python' 00cc00 36  %&#125;
 &#123;% color 00cc00  %&#125;
 &#123;% endchart %&#125; </pre></td></tr>
 <tr><th>Axes</th><td>
@@ -106,7 +156,7 @@
 {% chart  QRCode qrstr %}
 {% output_encoding UTF-8  %}
 {% level_data M 0  %}
-{% endchart %} </td><td><pre>&#123;% chart  chart  QRCode qrstr %&#125;
+{% endchart %} </td><td><pre>&#123;% chart  QRCode qrstr %&#125;
 &#123;% output_encoding UTF-8  %&#125;
 &#123;% level_data M 0  %&#125;
 &#123;% endchart %&#125; </pre></td></tr>
@@ -243,11 +293,11 @@
 {% chart  HorizontalBarStack hello  encoding=simple  %}
 {% color 4d89f9  %}
 {% size 200 125  %}
-{% bar_width_spacing 10  %}
+{% bar 10  %}
 {% endchart %} </td><td><pre>&#123;% chart  HorizontalBarStack hello  encoding=simple  %&#125;
 &#123;% color 4d89f9  %&#125;
 &#123;% size 200 125  %&#125;
-&#123;% bar_width_spacing 10  %&#125;
+&#123;% bar 10  %&#125;
 &#123;% endchart %&#125; </pre></td></tr>
 <tr><th>Legend</th><td>
 {% chart  Line  FOETHECat leafgreen IRON4YOUs   %}

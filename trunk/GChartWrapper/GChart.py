@@ -42,19 +42,20 @@ See tests.py for unit test and other examples
 """
 __all__ = ['Sparkline', 'Map', 'HorizontalBarStack', 'VerticalBarStack', 'QRCode',
      'Line', 'GChart', 'HorizontalBarGroup', 'Scatter', 'Pie3D', 'Pie', 'Meter',
-     'Radar', 'VerticalBarGroup', 'LineXY', 'Venn', 'PieC','IconPin','LetterPin',
-     'AdvLetterPin','AdvIconPin','TextPin','Text','Note','SBubbleIcon','LBubbleIcon',
-     'LBubbleIconTexts','LBubbleTexts']
+     'Radar', 'VerticalBarGroup', 'LineXY', 'Venn', 'PieC','Pin','Text','Note','Bubble']
 __version__ = 0.6
-
-import urllib
-from constants import *
-from encoding import Encoder
-from sha import new as new_sha
+from GChartWrapper.constants import *
+from GChartWrapper.constants import _print
+from GChartWrapper.encoding import Encoder
 from webbrowser import open as webopen
-from UserDict import UserDict
 from copy import copy
-delattr(UserDict, '__repr__')
+
+try:
+    from sha import new as new_sha
+except ImportError:
+    from hashlib import sha1
+    def new_sha(astr):
+        return sha1(bytes(astr,'utf-8'))
 
 def lookup_color(color):
     color = color.lower()
@@ -68,7 +69,7 @@ def color_args(args, *indexes):
         args[i] = lookup_color(args[i])
     return args
 
-class Axes(UserDict):
+class Axes(dict):
     """
     Axes attribute dictionary storage
 
@@ -82,7 +83,8 @@ class Axes(UserDict):
     def __init__(self, parent):
         self.parent = parent
         self.labels,self.positions,self.ranges,self.styles = [],[],[],[]
-        UserDict.__init__(self)
+        self.data = {}
+        dict.__init__(self)
 
     def type(self, atype):
         """
@@ -137,7 +139,7 @@ class Axes(UserDict):
         """
         id = str(len(self.styles))
         args = color_args(args, 0)
-        self.styles.append(','.join([id]+map(str,args)))
+        self.styles.append(','.join([id]+list(map(str,args))))
         return self.parent
 
     def render(self):
@@ -152,7 +154,7 @@ class Axes(UserDict):
             self.data['chxr'] = '|'.join(self.ranges)
         return self.data    
         
-class GChart(UserDict):
+class GChart(dict):
     """Main chart class
 
     Chart type must be valid for cht parameter
@@ -162,7 +164,8 @@ class GChart(UserDict):
         self.lines,self.fills,self.markers,self.scales = [],[],[],[]
         self._geo,self._ld = '',''
         self._dataset = dataset
-        UserDict.__init__(self)
+        self.data = {}
+        dict.__init__(self)
         if ctype:
             self.check_type(ctype)
             self.data['cht'] = ctype
@@ -383,7 +386,7 @@ class GChart(UserDict):
         elif len(args) == 6:
             self.data['chma'] = ','.join(map(str,args[:4]))+'|'+','.join(map(str,args[4:]))
         else:
-            raise ValueError, 'Margin arguments must be either 4 or 6 items'
+            raise ValueError('Margin arguments must be either 4 or 6 items')
                 
     def render(self):
         """
@@ -423,9 +426,9 @@ class GChart(UserDict):
         """
         Make sure the chart size fits the standards
         """
-        assert x <= 10**3, 'Width larger than 1,000'
-        assert y <= 10**3, 'Height larger than 1,000'
-        assert x*y <= 3*(10**5), 'Resolution larger than 300,000'
+        assert x <= 1000, 'Width larger than 1,000'
+        assert y <= 1000, 'Height larger than 1,000'
+        assert x*y <= 300000, 'Resolution larger than 300,000'
         
     def check_type(self, type):
         """Check to see if the type is either in TYPES or fits type name
@@ -460,7 +463,7 @@ class GChart(UserDict):
         return Encoder(self._encoding).decode(self.data['chd'])
 
     def _parts(self):
-        return ('%s=%s'%(k,urllib.quote(v,'+.,:|/$')) for k,v in self.data.items() if v)
+        return ('%s=%s'%(k,QUOTE(v)) for k,v in self.data.items() if v)
 
     def __str__(self):
         """
@@ -495,9 +498,9 @@ class GChart(UserDict):
         if not fname.endswith('.png'):
             fname += '.png'
         try:
-            urllib.urlretrieve(str(self), fname)
-        except IOError, e:
-            raise IOError, 'Problem saving chart to file: %s'%e
+            urlretrieve(str(self), fname)
+        except:
+            raise IOError('Problem saving chart to file: %s'%fname)
         return fname
 
     def img(self, **kwargs):
@@ -511,7 +514,7 @@ class GChart(UserDict):
             .replace('>', '&gt;').replace('"', '&quot;').replace( "'", '&#39;')
         for item in kwargs.items():
             if not item[0] in IMGATTRS:
-                raise AttributeError, 'Invalid img tag attribute: %s'%item[0]
+                raise AttributeError('Invalid img tag attribute: %s'%item[0])
             safe += '%s="%s" '%item
         return '<img %s/>'%safe
 
@@ -519,7 +522,7 @@ class GChart(UserDict):
         """
         Grabs readable PNG file pointer
         """
-        return urllib.urlopen(self.__str__())
+        return urlopen(self.__str__())
 
     def image(self):
         """
@@ -530,7 +533,7 @@ class GChart(UserDict):
         try:
             import Image
         except ImportError:
-            raise ImportError, 'You must install PIL to fetch image objects'
+            raise ImportError('You must install PIL to fetch image objects')
         try:
             from cStringIO import StringIO
         except ImportError:
@@ -557,8 +560,8 @@ class GChart(UserDict):
         good for unittesting...
         """
         self.render()
-        self.data.items().sort(lambda x,y: cmp(x[0],y[0]))
-        return new_sha(str(self.data.items())).hexdigest()
+        items = [(k,self.data[k]) for k in sorted(self.data)]
+        return new_sha(str(items)).hexdigest()
 
 # Now a whole mess of convenience classes
 # *for those of us who dont speak API*
@@ -571,10 +574,10 @@ class Meter(GChart):
 class QRCode(GChart):
     def __init__(self, content='', **kwargs):
         kwargs['choe'] = 'UTF-8'
-        if type(content) in (type(''),type(u'')):
-            kwargs['chl'] = urllib.quote(content)
+        if type(content) in (type(''),):
+            kwargs['chl'] = QUOTE(content)
         else:
-            kwargs['chl'] = urllib.quote(content[0])
+            kwargs['chl'] = QUOTE(content[0])
         GChart.__init__(self, 'qr', None, **kwargs)
 
 class Line(GChart):
@@ -641,66 +644,44 @@ class Text(GChart):
     def __init__(self, *args):
         GChart.__init__(self)
         self.data['chst'] = 'd_text_outline'
-        args = map(str, color_args(args, 0, 3))
+        args = list(map(str, color_args(args, 0, 3)))
         assert args[2] in 'lrh', 'Invalid text alignment'
         assert args[4] in '_b', 'Invalid font style'
         self.data['chld'] = '|'.join(args)\
             .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
 
 class Pin(GChart):
-    type = None
     def render(self): pass
-    def __init__(self, *args):
+    def __init__(self, type, *args):
         GChart.__init__(self)
-        assert self.type in PIN_TYPES, 'Invalid type'
-        self.data['chst'] = 'd_map_%s'%self.type
-        self.data['chld'] = '|'.join(map(str, self.clean(*args)))\
+        assert type in PIN_TYPES, 'Invalid type'
+        if type == "pin_letter":
+            args = color_args(args, 1,2)
+        elif type == 'pin_icon':
+            args = color_args(args, 1)
+            assert args[0] in PIN_ICONS, 'Invalid icon name'
+        elif type == 'xpin_letter':
+            args = color_args(args, 2,3,4)
+            assert args[0] in PIN_SHAPES, 'Invalid pin shape'
+            if not args[0].startswith('pin_'):
+                args[0] = 'pin_%s'%args[0] 
+        elif type == 'xpin_icon':
+            args = color_args(args, 2,3)
+            assert args[0] in PIN_SHAPES, 'Invalid pin shape'
+            if not args[0].startswith('pin_'):
+                args[0] = 'pin_%s'%args[0] 
+            assert args[1] in PIN_ICONS, 'Invalid icon name'
+        elif type == 'spin':
+            args = color_args(args, 2)
+        self.data['chst'] = 'd_map_%s'%type
+        self.data['chld'] = '|'.join(map(str, args))\
             .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
     def shadow(self):
         image = copy(self)
         chsts = self.data['chst'].split('_')
         chsts[-1] = 'shadow'
         image.data['chst'] = '_'.join(chsts)
-        image.data['chld'] = ''#self.data['chld'].split('|')[0]
         return image
-        
-class LetterPin(Pin):
-    type = 'pin_letter'
-    def clean(self, *args):
-        args = color_args(args, 1,2)
-        return args
-        
-class IconPin(Pin): 
-    type = 'pin_icon'
-    def clean(self, *args):
-        args = color_args(args, 1)
-        assert args[0] in PIN_ICONS, 'Invalid icon name'
-        return args
-        
-class AdvLetterPin(Pin):
-    type = 'xpin_letter'
-    def clean(self, *args):
-        args = color_args(args, 2,3,4)
-        assert args[0] in PIN_SHAPES, 'Invalid pin shape'
-        if not args[0].startswith('pin_'):
-            args[0] = 'pin_%s'%args[0]
-        return args
-        
-class AdvIconPin(Pin):
-    type = 'xpin_icon'
-    def clean(self, *args):
-        args = color_args(args, 2,3)
-        assert args[0] in PIN_SHAPES, 'Invalid pin shape'
-        if not args[0].startswith('pin_'):
-            args[0] = 'pin_%s'%args[0] 
-        assert args[1] in PIN_ICONS, 'Invalid icon name'
-        return args
-        
-class TextPin(Pin): 
-    type = 'spin'
-    def shadow(self): return None
-    def clean(self, *args):
-        return color_args(args, 2)
 
 class Note(GChart):
     def render(self): pass
@@ -715,48 +696,29 @@ class Note(GChart):
             self.data['chst'] = 'd_%s'%args[0]
             assert args[2] in NOTE_WEATHERS,'Invalid weather'
         args = args[1:]
-        self.data['chld'] = '|'.join(map(str,args))\
+        self.data['chld'] = '|'.join(map(str, args))\
             .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
 
 class Bubble(GChart):
-    type = None
     def render(self): pass
-    def __init__(self, *args):
+    def __init__(self, type, *args):
         GChart.__init__(self)
-        assert self.type in BUBBLE_TYPES, 'Invalid type'
-        self.data['chst'] = 'd_bubble_%s'%self.type
-        self.data['chld'] = '|'.join(map(str, self.clean(*args)))\
+        assert type in BUBBLE_TYPES, 'Invalid type'
+        if type in ('icon_text_small','icon_text_big'):
+            args = color_args(args, 3,4)
+            assert args[0] in BUBBLE_SICONS,'Invalid icon type'
+        elif type == 'icon_texts_big':
+            args = color_args(args, 2,3)
+            assert args[0] in BUBBLE_LICONS,'Invalid icon type'
+        elif type == 'texts_big':
+            args = color_args(args, 1,2)
+        self.data['chst'] = 'd_bubble_%s'%type
+        self.data['chld'] = '|'.join(map(str, args))\
             .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
     def shadow(self):
         image = copy(self)
         image.data['chst'] = '%s_shadow'%self.data['chst']
         return image
-        
-class SBubbleIcon(Bubble):
-    type = 'icon_text_small'
-    def clean(self, *args):
-        args = color_args(args, 3,4)
-        assert args[0] in BUBBLE_SICONS,'Invalid icon type'
-        return args
-
-class LBubbleIcon(Bubble):
-    type = 'icon_text_small' 
-    def clean(self, *args):
-        args = color_args(args, 3,4)
-        assert args[0] in BUBBLE_LICONS,'Invalid icon type'
-        return args
-
-class LBubbleIconTexts(Bubble):
-    type = 'icon_texts_big'
-    def clean(self, *args):
-        args = color_args(args, 2,3)
-        assert args[0] in BUBBLE_LICONS,'Invalid icon type'
-        return args 
-        
-class LBubbleTexts(Bubble):
-    type = 'texts_big'
-    def clean(self, *args):
-        return color_args(args, 1,2)
           
 if __name__=='__main__':
     from tests import test

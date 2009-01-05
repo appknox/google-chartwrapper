@@ -20,7 +20,8 @@ Unit test platform
         show - Opens all charts in tabs in a web browser
         tags - Prints Django template src of all charts
 """
-from testing import TestClass
+from GChartWrapper.testing import TestClass
+from GChartWrapper.constants import _print
 import os
 import sys
 from inspect import getsource
@@ -37,7 +38,8 @@ ordering = ('simple', 'financial', 'bar_text', 'concentric_pie', 'margins',
 'guide_sparkline',  'venn', 'fill', 'guide_line_lc', 'title', 'axes', 
 'markers',  'line', 'multiline', 'axes_position', 'jacobian',  'numpy', 
 'guide_meter', 'guide_intro',    'guide_map',  'grid', 'legend2','guide_bhs',
-'guide_bvs', 'guide_bvs_scale', 'guide_bvg', 'guide_bhg', 'guide_chbh_clipped', 'guide_chbh_size')
+'guide_bvs', 'guide_bvs_scale', 'guide_bvg', 'guide_bhg', 'guide_chbh_clipped',
+'guide_chbh_size')
 
 
 class ChartsTest(unittest.TestCase):
@@ -62,28 +64,25 @@ def test():
         unittest.TextTestRunner(verbosity=2).run(suite)
 
     elif arg == 'wiki':
-        print '= Chart examples adapted from the Google examples ='
         links = []
         for n,test in enumerate(ordering):
             testobj = getattr(Test,test)
             G = testobj()
             title = test.title().replace('_','-')
-            print '----'
+            _print('----')
             links.append(title)
-            print '=== %s ==='%title
-            print '{{{' #'{{{\n#!python'
-            print '\n'.join(map(lambda x: x[8:], getsource(testobj).splitlines()[1:-1]))
-            print '}}}'
+            _print('=== %s ==='%title)
+            _print('{{{') #'{{{\n#!python'
+            _print( '\n'.join(map(lambda x: x[8:], getsource(testobj).splitlines()[1:-1])) )
+            _print('}}}')
             #print '{{{\n#!html'
-            print '%s&.png'%G #G.img()
+            _print('%s&.png'%G) #G.img()
             #print '}}}'
-            print
-            if n == 0:
-                print "'''The rest of the examples use the convenience classes for each kind of chart'''"
+            _print()
         for link in links:
-            print '  * [http://code.google.com/p/google-chartwrapper/wiki/ChartExamples#%s %s]'%(link,link)
+            _print('  * [http://code.google.com/p/google-chartwrapper/wiki/ChartExamples#%s %s]'%(link,link))
     elif arg == 'tags':
-        print """{% load charts %} <table><tr>
+        _print("""{% load charts %} <table><tr>
         <th> Advanced </th><td>
 {%  chart lc 4.0 93.0 42.0 48.8 70.0 99.0  encoding=text %}
     {% scale 4 100 %}
@@ -94,10 +93,10 @@ def test():
     {%  line 6 5 2   %}
         {% img alt=DataScaling height=400 id=img title=DataSaling %}
     {%  size 400 200   %}
-{% endchart %} </td></tr>"""
+{% endchart %} </td></tr>""")
         for test in Test.all:
 #            if test in ('multiline','axes_position','venn','guide_meter'): continue
-            print '<tr><th>%s</th><td>'%test.title().replace('_','-')
+            _print('<tr><th>%s</th><td>'%test.title().replace('_','-'))
             src = []
             for l in map(lambda x: x.strip(), getsource(getattr(Test,test)).splitlines()[1:-1]):
                 if l.startswith('#') or not l.strip():
@@ -117,17 +116,17 @@ def test():
                 src.append('{% '+l+' %}')
             src.append('{% endchart %}')
             src = '\n'.join(src)
-            print src,'</td><td><pre>',src.replace('{','&#123;').replace('}','&#125;'),'</pre></td></tr>'
-        print '</table>'
+            _print(src,'</td><td><pre>',src.replace('{','&#123;').replace('}','&#125;'),'</pre></td></tr>')
+        _print('</table>')
     elif arg == 'img':
         for test in Test.all:
-            print test,'\t',getattr(Test,test)().img()
-            print
+            _print(test,'\t',getattr(Test,test)().img())
+            _print()
 
     elif arg == 'url':
-        for test in Test.all:
-            print test,'\t',getattr(Test,test)()
-            print
+        for test in ordering:
+            _print(test,'\t',getattr(Test,test)())
+            _print()
 
     elif arg == 'show':
         for test in Test.all:

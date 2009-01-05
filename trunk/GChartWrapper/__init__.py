@@ -1,2 +1,2 @@
-from GChart import *
+from GChartWrapper.GChart import *
 # look there for more help...

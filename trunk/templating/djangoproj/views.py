@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render_to_response
 
 def example(request):
@@ -7,5 +8,6 @@ def example(request):
         'bhgdata':['el','or'],
         'qrstr':'''To the human eye QR Codes look like hieroglyphics, 
             but they can be read by any device that has 
-            the appropriate software installed.'''
+            the appropriate software installed.''',
+        'temps':'max 25°|min 15°'
         })

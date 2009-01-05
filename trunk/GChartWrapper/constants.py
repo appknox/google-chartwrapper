@@ -1,3 +1,20 @@
+import sys
+
+def _print(*args):
+    for arg in args:
+        sys.stdout.write('%s '%arg)
+    sys.stdout.write('\n')
+
+if sys.version.startswith('3.0'):
+    PY_VER = '3.x'
+    from urllib.parse import quote
+    from urllib.request import urlopen,urlretrieve
+else:
+    PY_VER = '2.x'
+    from urllib import quote,urlopen,urlretrieve
+    
+QUOTE = lambda x: quote(x,'+.,:|/$')
+
 APIPARAMS = ('chxt', 'chxp', 'chxs', 'chxr', 'chco', 'chtm', 'chld', 'chts', 'chtt', 'chxl', 'chd', 'chf', 'chg', 'chl', 'chm', 'chp', 'chs', 'cht', 'chls', 'chdlp', 'chds', 'chbh', 'chdl', 'choe', 'chst')
 
 MARKERS = ('a','c','d','o','s','t','v','V','h','x','r','R','b','B','D','F')

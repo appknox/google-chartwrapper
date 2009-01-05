@@ -36,7 +36,7 @@ class Encoder:
 
     def scalevalue(self, value):
         return value # one day...
-        if self.encoding != 'text' and self.scale and type(value) in (type(0), type(.0), type(0L)):
+        if self.encoding != 'text' and self.scale and type(value) in (type(0), type(.0)):
             if type(self.scale) == type(()):
                 lower,upper = self.scale
             else:
@@ -49,19 +49,19 @@ class Encoder:
 
         Datasets can be one or two dimensional
         Strings are ignored as ordinal encoding"""
-        if type(args[0]) in (type(''), type(unicode())):
+        if type(args[0]) in (type(''),):
             return self.encode([args[0]],**kwargs)
-        elif type(args[0]) in (type(0), type(0.0), type(0L)):
+        elif type(args[0]) in (type(0), type(.0)):
             return self.encode([[args[0]]],**kwargs)
         if len(args)>1:
             dataset = args
         else:
             dataset = args[0]
-        typemap = map(type,dataset)
+        typemap = list(map(type,dataset))
         code = self.encoding[0]
-        if type('') in typemap or type(unicode()) in typemap:
+        if type('') in typemap:
             data = ','.join(map(str,dataset))
-        elif type([]) in typemap:
+        elif type([]) in typemap or type(()) in typemap:
             data = self.char.join([self.encodedata(data) for data in dataset])
         elif len(dataset) == 1 and hasattr(dataset[0], '__iter__'):
             data = self.encodedata(dataset[0])
@@ -77,11 +77,13 @@ class Encoder:
         for value in data:
             if value in (None,'None'):
                 sub_data.append(self.none)
+            elif type(value) == type(''):
+                sub_data.append(value)
             elif value >= -1:
                 try:
                     sub_data.append(self.value(self.scalevalue(value)))
                 except ValueError:
-                    raise ValueError, 'cannot encode value: %s' % value
+                    raise ValueError('cannot encode value: %s' % value)
         return self.dchar.join(sub_data)
 
     def decode(self, astr):
@@ -115,7 +117,6 @@ def test():
         E = Encoder(q,s)
         data = [d]
         test = E.encode(data)
-        print test
         assert(E.decode(test) == data)
         assert(a == test)
 
