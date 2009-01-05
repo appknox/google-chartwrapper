@@ -58,7 +58,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'djangoproj.urls'
 
 TEMPLATE_DIRS = (
-   os.path.join(os.dirname(__file__),'templates')
+   os.path.join(os.path.dirname(__file__),'templates')
     # Put strings here, like "/home/html/django_templates".
     # Always use forward slashes, even on Windows.
 )

@@ -5,6 +5,7 @@ GChartWrapper - Google Chart API Wrapper
 Unit tests, see tests.py for actually running these
 """
 from GChartWrapper import *
+from GChartWrapper.constants import *
 
 class TestClass:
     """
@@ -14,60 +15,63 @@ class TestClass:
     """
     # All is dict of (name : checksum) pairs
     all = {
-        'simple':'a6de27c4891b513efe669892f7d5304edd276427',
-        'guide_granularity_20':'1422b8f665d8c206ae51e7d081e3efd5be8c64df',
-        'pie':'1c70efb85226bece67add6857821931612a516b4',
-        'guide_granularity_40':'b9a0e223679091a974261d0b0ff76a7f1a6f87bf',
-        'guide_radar':'3232689307ee877de97d33afb775305a1d9955b6',
-        'hvz':'428121b69154fe7ca6bfc91871496c6a22ea05f0',
-        'guide_sparkline':'22398cd8e290ba82498d71e4670f44c8afc4d31f',
-        'guide_bhg':'1abfbaaf0149a45b70de594740cf1dcc8dec0ec9',
-        'venn':'63bd278cc8b8abbb2cae317747a6ea79c5a1b708',
-        'fill':'d48ed4917a79fefca53ac3fd109fe470b0b3bcb9',
-        'guide_line_lc':'b0a0446b4fba55b6b48c23cd1487817d17a7ac3d',
-        'title':'85827823968a1ffe961d6fbcf42f6b47513c7f50',
-        'axes':'1c24dc0218665a18320d8eb33a5f81f60dd91614',
-        'qr_code':'f3dc533977a3befb2f33492ac3702503d18eb23a',
-        'markers':'22afa45a6221c316ebb847b40595c0586632b23a',
-        'guide_granularity_80':'0a000350f0930cc317b679e7df94cf79da77890c',
-        'axes_position':'92b8655c2e16ef388f95abf8ad163605f1f2a1d2',
-        'jacobian':'a0a605bc6e0245c3d7fe1fdf990cdd9fc141eb2e',
-        'multiline':'8c4ecb646cd40ccd763df727d078914659b7bebc',
-        'numpy':'066457dee12063d00ee66aaf505140cfa6b37116',
-        'guide_meter':'9da7847582350804ec74a7020a4f19e7e12c59e4',
-        'guide_chbh_clipped':'2fe51239ba12dfd1f999013135f8ea2dd15564f1',
-        'guide_intro':'7d63dfcc9f4737a89ae3a6a000774276699c67ae',
-        'guide_bvg':'bdb6f34c97c3c66e5f958a2d5dc1475106460db5',
-        'guide_bhs':'c13b6773dda91a53d206de5c79912026de94e221',
-        'guide_map':'fb42ac6ba7e7003c7e742b18942f6b45cf3e29f0',
-        'guide_bvs':'da3c89c7e9230694b1b78b81ace3322eec6550ba',
-        'grid':'528bded06db202224dda42e42530bfd76c649a1d',
-        'bar':'b1438c5ef7579fb1c57004caed58d455ef2f3edf',
-        'line':'4ac346c115818b8c1367ec22c73d1c68173c32a3',
-        'guide_chbh_size':'1f9a99247fababae18542de7adf21bd15c7cf8f8',
-        'legend':'e6051b655c8e7af150c987cadf5a284b816c06fb',
-        'legend2':'ef9de98d1e12b07e401b554619a7c2c4271287c6',
-        'guide_bvs_scale':'473384e7062cf537ba4f9fea69b6d1c52a1855a4',
-        'concentric_pie':'d47836a02b6fcc6c5b78b568302c5fa1f9cb3777',
-        'min_max':'879321cb524abb91b24f528276fa0c380c503bf3',
-        'margins':'58e5e287ca916f6cf50232ff3a4e643d3bff7276',
-        'financial':'59d8b5548eca7a7587f2362c022d701228f99a11',
-        'bar_text':'99cac384e1742a9235754fb1d5290a539a0f5962',
-        'text':'74838e7b743af07cb88cb54bbd0c8200d6f2bb21',
-        'letter_pin':'613e8f6aeaa2a2d79903a0daabf9525e7713adcf',
-        'icon_pin':'5be1841e81c136f16d4273a2b03ee4cc4c40adfc',
-        'adv_icon_pin':'3be6f1d46d32a0c9faccdacd9176e72a647dc598',
-        'adv_letter_pin':'9f74ffdddebbfd00c1c058e25a1d1a15f9ab9e9a',
-        'text_pin':'b8df4be52ff8ec1a11e07f6f2821f548f235cdd8',
-        'sticky_note':'6186850ddc39a2c84c885c1e5db55b32fb690e93',
-        'thought_note':'cca0f17a7cabdd92ed80cad2e0f1a12d2ef27987',
-        'weather_note':'0a6e3d9448abcf41acd5c04f9b7536c03625e0a8',
-        'small_bubble_icon':'474a085ed5f733554efebad29e2aacec8139541d',
-        'large_bubble_icon':'93cd245cbed44e636e11f15b54d3603ae5b1bc6f',
-        'large_bubble_icon_texts':'f1e27f937873a363d1e489ac32a6e6c0c7b06c8e',
-        'large_bubble_texts':'8595b68e8293db1810a4317325cbbd14eae0a824',
+        'simple':'a6de27c4891b513efe669892f7d5304edd276427', 
+        'financial':'72c6cfb524af4ad7c8286e796c4501ab40910f7a', 
+        'bar_text':'e9028a1ff3a1d42bc1a3dcf51780b0321d5d2c96', 
+        'concentric_pie':'d47836a02b6fcc6c5b78b568302c5fa1f9cb3777', 
+        'margins':'5c10e93e398edb49d9d675b7ec764352d537f806', 
+        'min_max':'422b3dc4174d048d7105383d06cb7acd815d2d3e', 
+        'text':'7f10b9de58840d2161aa5f32d4a12d86f772fe92', 
+        'letter_pin':'196a01c0923628290c867a77438b22be4e811d41', 
+        'icon_pin':'8ac735930b99165d343385fc41958d925a9db931', 
+        'adv_icon_pin':'f400bd7857e77cd1ec52f82564db301a18902174', 
+        'adv_letter_pin':'64cd43483e19828a63987cb2e6cffcf6eeeac5a5', 
+        'text_pin':'2b77242c21c673a4ddce1219ebe4befe9f0c5d03', 
+        'sticky_note':'90fe055d338ddfa38b17d6ad94efcfec475ed265', 
+        'thought_note':'2720d0512907598f6ed13320d431935dbcb26acd', 
+        'small_bubble_icon':'22fcf71930a0dc574cfb305bbec38278dc06cbae', 
+        'large_bubble_icon':'f456afa8c7098c57c38fb584c01ebf234b6f5e7c', 
+        'large_bubble_icon_texts':'92e5b034421b097d87cc990179f16e65538c2d8a', 
+        'large_bubble_texts':'a6687d18fc3264f5938b5c203a968e32e9f954ca', 
+        'qr_code':'330016ec1f94d2ba2baf1914df427ad86db7dd0f', 
+        'legend':'f181827b3618dac12f564e2be63b4274990c5258', 
+        'bar':'09ff756b63075bb40e9c97a6fdb5f63f2bbfebf4', 
+        'pie':'cc4eae489458948e81474533b422e007a08d92ef', 
+        'guide_granularity_20':'d330e4275208e2c5f8affed3e391909f73415907', 
+        'guide_granularity_40':'6b9142f87a777ae69484008a57737bbc53096a9d', 
+        'guide_granularity_80':'6950bb2691e45ca2698e65c2f1e867c77e8bed37', 
+        'guide_radar':'44225362446694d17cb2950b65bf7fcc5aa6cfce', 
+        'hvz':'0df9d1d9c97d380e3daf1e81037ec25576f5edd8', 
+        'guide_sparkline':'e61609da9d1b38b8401249b434bc5150dab9bc77', 
+        'venn':'63bd278cc8b8abbb2cae317747a6ea79c5a1b708', 
+        'fill':'938182d2a9c9c218de0259c88d583c4f2c2d70c9', 
+        'guide_line_lc':'b0a0446b4fba55b6b48c23cd1487817d17a7ac3d', 
+        'title':'385fcf0b6eeba2aba55302a0f71ed420a2908446', 
+        'axes':'e892afdd2cad44f50c9ca3213a2b3b43da9bf34c', 
+        'markers':'0bffa272991d6193e74b8844e44ebb5e07986ced', 
+        'line':'d0346bb5e3d7e3cc8851ff0c1b2ad2d18aff8f72', 
+        'multiline':'f087681acf24c9257c8985bb013b98ddd01975de', 
+        'axes_position':'3845671d4f57f7232d3837df6f1c73a7f8137059', 
+        'jacobian':'4056ac217c6cda014a9dff55011a9a3a702caaf1', 
+        'numpy':'066457dee12063d00ee66aaf505140cfa6b37116', 
+        'guide_meter':'12657d113593b4a3465ab6d79286b0d849601204', 
+        'guide_intro':'bde2d538696e0d598c5359de40e7c92d8efecd16', 
+        'guide_map':'5a9068f2689e783749e90b683df1142c89057f03', 
+        'grid':'645388ffdbd2bd4f117daa265adfc90baa572f74', 
+        'legend2':'28af098f2faef3f7072b07833e85a8c9c75684e9', 
+        'guide_bhs':'1591e5ea4e8f8886613e73941a10a2c547750e0e', 
+        'guide_bvs':'cb2f5344e816f1b1ae2214131f11547ec3f9549a', 
+        'guide_bvs_scale':'0f47d77a1aa449b27c90e4b01e8c84a3b3d161d9', 
+        'guide_bvg':'35d7126f7ccbf56c30254a1403b15affcb49db4f', 
+        'guide_bhg':'ef88b9e73a7a08d16d39d0dd14de9486a8d52a1a', 
+        'guide_chbh_clipped':'fe87216a7ce5cc496420de787b52b9eac1c056f9', 
+        'guide_chbh_size':'03e1fd7393c87c5c65d88469f557f60e5ca0378b',
     }
-
+    if PY_VER.startswith('3'):
+        all['weather_note'] = 'a6e78f827cccdcc15979cd9787deb198e4dc33a6'
+    else:
+        all['weather_note'] = '7e7e87b94bdd3b8cb1fd208b2d565b58a1bc595e'
+        
     def simple(self):
         # Instantiate the GChart instance, this is all you will need for making charts
         # GChart(type=None, dataset=None), see the doc for more
@@ -420,7 +424,7 @@ class TestClass:
             from numpy import array
             data = array(data)
         except ImportError:
-            print 'Warning: numpy must be installed to do this test correctly'        
+            print('Warning: numpy must be installed to do this test correctly')
         G = Radar(data, encoding='text')
         G.size(200,200)    
         return G
@@ -481,23 +485,23 @@ class TestClass:
         return G
         
     def letter_pin(self):
-        G = LetterPin('A','red','black')
+        G = Pin('pin_letter','A','red','black')
         return G
 
     def icon_pin(self):
-        G = IconPin('home','yellow')
+        G = Pin('pin_icon','home','yellow')
         return G
 
     def adv_letter_pin(self):
-        G = AdvLetterPin('star','A','aqua','black','red')
+        G = Pin('xpin_letter','star','A','aqua','black','red')
         return G
 
     def adv_icon_pin(self):
-        G = AdvIconPin('star','home','aqua','red')
+        G = Pin('xpin_icon','star','home','aqua','red')
         return G
 
     def text_pin(self):
-        G = TextPin(1.2,30,'FFFF88',10,'_','Foo\nBar')
+        G = Pin('spin',1.2,30,'FFFF88',10,'_','Foo\nBar')
         return G
         
     def sticky_note(self):
@@ -513,17 +517,17 @@ class TestClass:
         return G
         
     def small_bubble_icon(self):
-        G = SBubbleIcon('petrol','bb','$3/gal','khaki','black')
+        G = Bubble('icon_text_small','petrol','bb','$3/gal','khaki','black')
         return G
 
     def large_bubble_icon(self):
-        G = LBubbleIcon('snack','bb','$2.99','ffbb00','black')
+        G = Bubble('icon_text_big','snack','bb','$2.99','ffbb00','black')
         return G   
 
     def large_bubble_icon_texts(self):
-        G = LBubbleIconTexts('petrol','bb','khaki','black','LoCost Fuel\n$3.05/gal unleaded\n$2.10/gal diesel')
+        G = Bubble('icon_texts_big','petrol','bb','khaki','black','LoCost Fuel\n$3.05/gal unleaded\n$2.10/gal diesel')
         return G
 
     def large_bubble_texts(self):
-        G = LBubbleTexts('bb','teal','khaki',"Joe\'s Restaurant\n123 Long St\n92745 Mountain View")
+        G = Bubble('texts_big','bb','teal','khaki',"Joe\'s Restaurant\n123 Long St\n92745 Mountain View")
         return G
