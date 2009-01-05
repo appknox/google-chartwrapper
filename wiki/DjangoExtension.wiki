@@ -40,7 +40,18 @@ _*NEW*_ *You can also put the GChart instance into the template context and use 
 {{ my_nifty_line_chart.img }} # XHTML <img/> tag
 }}}
 
+*Even more importantly, with some of the new chart types*
 
+{{{
+{% load charts %}
+
+{% pin pin_letter A red black as pin_a %}
+
+{{ pin_a.img }} # Regular image
+{{ pin_a.shadow.img }} # Shadow image
+}}}
+http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=A|FF0000|000000&.png
+http://chart.apis.google.com/chart?chst=d_map_pin_shadow&chld=A|FF0000|000000&.png
 
 ===More Examples===
 
