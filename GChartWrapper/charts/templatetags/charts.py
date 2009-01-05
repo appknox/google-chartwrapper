@@ -1,3 +1,34 @@
+"""
+Contains the Django templatetags for chart and note types
+Now takes an as argument
+If the as argument is 'img', it will return a XHTML <img/>
+If the as argument is 'url', it will simply return the url of the chart
+If the as argument is anything else, the chart will be loaded into the context
+and named what the as argument is
+
+    {% chart ... [as url|img|varname] %}
+    ...
+    {% endchart %}
+
+    Example:
+        {% chart Pie3D 1 2 3 4 5 as pie %}
+            {% label A B C D %}
+            {% color green %}
+        {% endchart %}
+    
+        {% pie %} # The chart obj itself
+        {% pie.image %} # The PIL instance
+        {% pie.checksum %} # An SHA1 checksum
+
+The FancyNode powers the tag for Note,Pin,Text and Bubble charts
+The <type> argument is one of the chart types in lower case
+
+    {% <type> ... [as url|img|varname]%}
+    
+    Example:
+        {% bubble icon_text_big snack bb $2.99 ffbb00 black as img %}
+    """
+
 from django.template import Library,Node
 from django.template import resolve_variable
 import GChartWrapper
@@ -85,27 +116,6 @@ class ChartNode(Node):
             return chart.img(**imgkwargs)
 
 def make_chart(parser, token):
-    """
-    {% chart ... [as url|img|varname] %}
-    ...
-    {% endchart %}
-    
-    Creates a GChart instance of your choosing
-    If the as argument is 'img', it will return a XHTML <img/>
-    If the as argument is 'url', it will simply return the url of the chart
-    If the as argument is anything else, the chart will be loaded into the context
-    and named what the as argument is
-    
-    Example:
-        {% chart Pie3D 1 2 3 4 5 as pie %}
-            {% label A B C D %}
-            {% color green %}
-        {% endchart %}
-    
-        {% pie %} # The chart obj itself
-        {% pie.image %} # The PIL instance
-        {% pie.checksum %} # An SHA1 checksum
-    """
     nodelist = parser.parse(('endchart',))
     parser.delete_first_token()
     tokens = token.contents.split()
@@ -114,19 +124,6 @@ register.tag('chart', make_chart)
 
 
 class FancyNode(GenericNode):
-    """
-    {% note ... [as url|img|varname]%}
-    
-    FancyNodes are used only for the Note,Pin,Text and Bubble charts
-    These tags are one-liners
-    If the as argument is 'img', it will return a XHTML <img/>
-    If the as argument is 'url', it will simply return the url of the chart
-    If the as argument is anything else, the chart will be loaded into the context
-    and named what the as argument is
-    
-    Example:
-        {% bubble icon_text_big snack bb $2.99 ffbb00 black as img %}
-    """
     cls = None
     def post_render(self,context):
         mode = None

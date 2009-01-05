@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ################################################################################
-#  GChartWrapper - v0.6
+#  GChartWrapper - v0.7
 #  Copyright (C) 2008  Justin Quick <justquick@gmail.com>
 #
 #  This program is free software; you can redistribute it and/or modify
@@ -43,7 +43,7 @@ See tests.py for unit test and other examples
 __all__ = ['Sparkline', 'Map', 'HorizontalBarStack', 'VerticalBarStack', 'QRCode',
      'Line', 'GChart', 'HorizontalBarGroup', 'Scatter', 'Pie3D', 'Pie', 'Meter',
      'Radar', 'VerticalBarGroup', 'LineXY', 'Venn', 'PieC','Pin','Text','Note','Bubble']
-__version__ = 0.6
+__version__ = 0.7
 from GChartWrapper.constants import *
 from GChartWrapper.constants import _print
 from GChartWrapper.encoding import Encoder
@@ -69,7 +69,34 @@ def color_args(args, *indexes):
         args[i] = lookup_color(args[i])
     return args
 
-class Axes(dict):
+class Dict(object):
+    """
+    Abstract class for all dictionary operations
+    """
+    def __init__(self, *args, **kwargs):
+        self.data = dict(*args, **kwargs)
+    def __repr__(self): return '<GChartWrapper.%s>'%self.__class__.__name__
+    def __cmp__(self, dict): return cmp(self.data, dict)
+    def __len__(self): return len(self.data)
+    def __getitem__(self, key):
+        if key in self.data:
+            return self.data[key]
+        raise KeyError(key)
+    def __setitem__(self, key, item): self.data[key] = item
+    def __delitem__(self, key): del self.data[key]
+    def __contains__(self, key): return key in self.data
+    def __iter__(self):
+        for key in self.keys(): yield key
+    def keys(self): return self.data.keys()
+    def items(self): return self.data.items()
+    def values(self): return self.data.values()
+    def has_key(self, key): return self.data.has_key(key)
+    def update(self, **kwargs):
+        if kwargs: self.data.update(kwargs)
+    def pop(self, key, *args): return self.data.pop(key, *args)
+    def popitem(self): return self.data.popitem()
+
+class Axes(Dict):
     """
     Axes attribute dictionary storage
 
@@ -84,7 +111,7 @@ class Axes(dict):
         self.parent = parent
         self.labels,self.positions,self.ranges,self.styles = [],[],[],[]
         self.data = {}
-        dict.__init__(self)
+        Dict.__init__(self)
 
     def type(self, atype):
         """
@@ -154,7 +181,7 @@ class Axes(dict):
             self.data['chxr'] = '|'.join(self.ranges)
         return self.data    
         
-class GChart(dict):
+class GChart(Dict):
     """Main chart class
 
     Chart type must be valid for cht parameter
@@ -165,7 +192,7 @@ class GChart(dict):
         self._geo,self._ld = '',''
         self._dataset = dataset
         self.data = {}
-        dict.__init__(self)
+        Dict.__init__(self)
         if ctype:
             self.check_type(ctype)
             self.data['cht'] = ctype
