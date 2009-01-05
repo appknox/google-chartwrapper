@@ -1,25 +1,4 @@
 #!/usr/bin/env python
-"""
-GChartWrapper - Google Chart API Wrapper
-
-Unit test platform
-
-    Run this application from the command line for various testing modes.
-
-    Usage
-
-        $ python tests.py [<mode>]
-
-    Where mode is one of the following:
-
-        unit - Runs unit test cases for all charts to see if checksums match
-        save - Saves images of all charts in 'tests' folder
-        wiki - Creates GoogleCode compatable wiki markup of test src and img
-        img - Prints html img tags for all charts
-        url - Prints urls of all charts
-        show - Opens all charts in tabs in a web browser
-        tags - Prints Django template src of all charts
-"""
 from GChartWrapper.testing import TestClass
 from GChartWrapper.constants import _print
 import os

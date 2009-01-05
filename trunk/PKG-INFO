@@ -1,0 +1,45 @@
+Metadata-Version: 1.1
+Name: GChartWrapper
+Version: 0.7
+Author: Justin Quick
+Author-email: justquick at gmail com
+Home-page: http://code.google.com/p/google-chartwrapper/
+Download-url: http://google-chartwrapper.googlecode.com/files/GChartWrapper-0.7.tar.gz
+Summary: Python Google Chart Wrapper
+License: UNKNOWN
+Description: Python wrapper for the Google Chart API.
+        The wrapper can render the URL of the Google chart, based on your parameters,
+        or it can render an HTML img tag to insert into webpages on the fly.
+        Made for dynamic python websites (Django,Zope,CGI,etc.) that need on the fly
+        chart generation without any extra modules. Can also grab the PIL Image
+        instance of the chart for manipulation
+Platform: Windows,Linux,Solaris,Mac OS-X,Unix
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.3
+Classifier: Programming Language :: Python :: 2.4
+Classifier: Programming Language :: Python :: 2.5
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.0
+Classifier: Programming Language :: Python :: 3.1
+Classifier: Topic :: Artistic Software
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content :: CGI Tools/Libraries
+Classifier: Topic :: Multimedia
+Classifier: Topic :: Multimedia :: Graphics
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Utilities

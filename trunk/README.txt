@@ -1,5 +1,5 @@
 ################################################################################
-#  GChartWrapper - v0.6
+#  GChartWrapper - v0.7
 #  Copyright (C) 2008  Justin Quick <justquick@gmail.com>
 #
 #  This program is free software; you can redistribute it and/or modify
@@ -16,17 +16,26 @@ The wrapper can render the URL of the Google chart based on your parameters.
 With the chart you can render an HTML img tag to insert into webpages on the fly, 
 show it directly in a webbrowser, or save the chart PNG to disk.
 
-NEWS:
+Changelog:
+-- 0.7 --
+Full py3k compliance
+Color name lookup from the css names: http://www.w3schools.com/css/css_colornames.asp
+	>>> G = Pie3D(range(1,5))
+	>>> G.color('green')
+New charts Note,Text,Pin,Bubble
+Updated Django templatetags to allow context inclusion and new charts
+Added some more templating examples
 
+-- 0.6 --
 The wrapper now supports chaining
 	The old way:
 	>>> G = Pie3D(range(1,5))
 	>>> G.label('A','B','C','D')
 	>>> G.color('00dd00')
 	>>> print G
-	
 The new way with chaining
 	>>> print Pie3D(range(1,5)).label('A','B','C','D').color('00dd00')
+New chart PieC for concentric pie charts
 
 Doc TOC:
     1.1 General
@@ -47,12 +56,12 @@ to the parameters of constructing the charts and displaying the URLs generated.
 
 1.2 Constructing 
 
-class GChart(UserDict)
+class GChart(Dict):
     """Main chart class
-    
-    chart type must be valid for cht parameter
-    dataset can be any python iterable
-    kwargs will be put into chart params if valid"""
+
+    Chart type must be valid for cht parameter
+    Dataset can be any python iterable and be multi dimensional
+    Kwargs will be put into chart API params if valid"""
     def __init__(self, ctype=None, dataset=[], **kwargs):
 
 The chart takes any iterable python data type (now including numpy arrays)
@@ -121,7 +130,7 @@ Django templates. This allows for dynamic insertion of data for viewing on any
 web application. Install the module first using `python setup.py install` then 
 place 'GChartWrapper.charts' in your INSTALLED_APPS and then you are ready to go.
 Just include the '{% load charts %}' tag in your templates before making charts.
-In the templating folder there is a folder called testproj which is an example
+In the templating folder there is a folder called djangoproj which is an example
 Django project to get you started.
 
 2.2 Static data
@@ -132,6 +141,8 @@ Then try out some static data in your templates
     {% title 'The Zen of Python' 00cc00 36 %}
     {% color 00cc00 %}
 {% endchart %} 
+Or try a bubble
+{% bubble icon_text_big snack bb $2.99 ffbb00 black as img %}
 
 2.3 Dynamic data
 
@@ -146,14 +157,18 @@ def example(request):
     {% color 00cc00 %}
 {% endchart %} 
 
+Look to example.html in the djangoproj for more detailed examples
+
 3.1 Other Templating Languages
 
 Other examples of using the chartwrapper in templating languages
 Currently under development
 
-	Cheetah
-	Mako
+	Cheetah - done
+	Mako - done
+	Jinja2
 	Genshi?
+	Airspeed?
 	More to come...
 
 4.1 Test framework
@@ -171,7 +186,7 @@ Where mode is one of the following:
     save - Saves images of all charts in 'tests' folder
     wiki - Creates GoogleCode compatable wiki markup of test src and img
     img - Prints html img tags for all charts
-    url - Prints urls of all charts
+    url - Prints urls of all charts [default]
     show - Opens all charts in tabs in a web browser
     tags - Prints Django template src of all charts
 
