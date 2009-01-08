@@ -558,7 +558,10 @@ class GChart(Dict):
         You must have PIL installed for this to work
         """
         try:
-            import Image
+            try:
+                import Image
+            except ImportError:
+                from PIL import Image
         except ImportError:
             raise ImportError('You must install PIL to fetch image objects')
         try:
