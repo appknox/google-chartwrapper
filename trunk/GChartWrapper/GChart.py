@@ -414,7 +414,8 @@ class GChart(Dict):
             self.data['chma'] = ','.join(map(str,args[:4]))+'|'+','.join(map(str,args[4:]))
         else:
             raise ValueError('Margin arguments must be either 4 or 6 items')
-                
+        return self
+    
     def render(self):
         """
         Renders the chart context and axes into the dict data
