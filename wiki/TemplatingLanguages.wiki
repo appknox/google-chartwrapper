@@ -41,10 +41,10 @@ $Line($data).axes.type('xy').axes.label('Mar','Apr','May').axes.label(None,'50+K
 
 == [http://www.makotemplates.org/ Mako] ==
 
-To make this work, a separate module had to be added which can be found at `GChartWrapper.mako`. Here is an example of usage.
+To make this work, a separate method had to be added which is a more generic way to construct the charts. Here is an example of usage in mako:
 
 {{{
-<%namespace name="gcw" module="GChartWrapper.mako"/>
+<%namespace name="gcw" module="GChartWrapper"/>
 
 ${
     gcw.chart('Line',data)\
