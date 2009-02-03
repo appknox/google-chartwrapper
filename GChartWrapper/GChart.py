@@ -45,7 +45,6 @@ __all__ = ['Sparkline', 'Map', 'HorizontalBarStack', 'VerticalBarStack', 'QRCode
      'Radar', 'VerticalBarGroup', 'LineXY', 'Venn', 'PieC','Pin','Text','Note','Bubble']
 __version__ = 0.7
 from GChartWrapper.constants import *
-from GChartWrapper.constants import _print
 from GChartWrapper.encoding import Encoder
 from webbrowser import open as webopen
 from copy import copy
@@ -74,7 +73,10 @@ class Dict(object):
     Abstract class for all dictionary operations
     """
     def __init__(self, *args, **kwargs):
-        self.data = dict(*args, **kwargs)
+        if args:
+            self.data = dict(*args)
+        else:
+            self.data = dict(**kwargs)
     def __repr__(self): return '<GChartWrapper.%s>'%self.__class__.__name__
     def __cmp__(self, dict): return cmp(self.data, dict)
     def __len__(self): return len(self.data)
@@ -240,12 +242,12 @@ class GChart(Dict):
         self.data['chbh'] = ','.join(map(str,args))
         return self
         
-    def encoding(self, encoding):
+    def encoding(self, arg):
         """
         Specifies the encoding to be used for the Encoder
         Must be one of 'simple','text', or 'extended'
         """
-        self._encoding = encoding
+        self._encoding = arg
         return self
         
     def output_encoding(self, encoding):

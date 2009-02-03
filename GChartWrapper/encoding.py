@@ -3,7 +3,7 @@ class Encoder:
 
     Based on javascript encoding algorithm and pygooglecharts"""
     def __init__(self, encoding=None, scale=None):
-        if not encoding:
+        if encoding is None:
             encoding = 'text'
         assert(encoding in ('simple','text','extended')),\
             'Unknown encoding: %s'%encoding
@@ -77,13 +77,13 @@ class Encoder:
         for value in data:
             if value in (None,'None'):
                 sub_data.append(self.none)
-            elif type(value) == type(''):
+            elif isinstance(value, basestring):
                 sub_data.append(value)
             elif value >= -1:
                 try:
                     sub_data.append(self.value(self.scalevalue(value)))
-                except ValueError:
-                    raise ValueError('cannot encode value: %s' % value)
+                except ValueError, e:
+                    raise ValueError('cannot encode value: %s' % e)
         return self.dchar.join(sub_data)
 
     def decode(self, astr):
