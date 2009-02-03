@@ -52,11 +52,13 @@ table.sample td {
 
 <tr><th>Simple</th><td>
 {% chart  GChart %}
+{% encoding extended %}
 {% type pie  %}
 {% dataset  helloworld   %}
 {% size 250 100  %}
 {% endchart %} </td><td><pre>&#123;% chart  GChart   %&#125;
 &#123;% type pie  %&#125;
+&#123;% encoding extended  %&#125;
 &#123;% dataset  helloworld   %&#125;
 &#123;% size 250 100  %&#125;
 &#123;% endchart %&#125; </pre></td></tr>
