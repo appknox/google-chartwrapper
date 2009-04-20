@@ -21,7 +21,7 @@ def QUOTE(x):
         
 #QUOTE = lambda x:
 
-APIPARAMS = ('chxt', 'chxp', 'chxs', 'chxr', 'chco', 'chtm', 'chld', 'chts', 'chtt', 'chxl', 'chd', 'chf', 'chg', 'chl', 'chm', 'chp', 'chs', 'cht', 'chls', 'chdlp', 'chds', 'chbh', 'chdl', 'choe', 'chst')
+APIPARAMS = ('chxtc', 'chxt', 'chxp', 'chxs', 'chxr', 'chco', 'chtm', 'chld', 'chts', 'chtt', 'chxl', 'chd', 'chf', 'chg', 'chl', 'chm', 'chp', 'chs', 'cht', 'chls', 'chdlp', 'chds', 'chbh', 'chdl', 'choe', 'chst')
 
 MARKERS = ('a','c','d','o','s','t','v','V','h','x','r','R','b','B','D','F')
 
