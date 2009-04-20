@@ -78,8 +78,8 @@ def reverse(qs):
     if qs.startswith('http'):
         qs = qs[qs.index('?')+1:]
     #G = GChart()
-    #for k,v in parse_qsl(qs):
-    #    G[k] = v
+    for k,v in parse_qsl(qs):
+        print k,v
     return GChart(**dict(parse_qsl(qs)))
 
 class Axes(dict):
@@ -102,6 +102,18 @@ class Axes(dict):
         self.labels,self.positions,self.ranges,self.styles = [],[],[],[]
         dict.__init__(self)
 
+    def tick(self, *widths):
+        """
+        Add tick marks in order of axes by width
+        APIPARAM: chxtc
+        """
+        tc = []
+        for i,width in enumerate(widths):
+            if width:
+                assert int(width) <= 25, 'Width cannot be more than 25'
+                tc.append('%s,%d'%(i,width))
+        self['chxtc'] = '|'.join(tc)
+        
     def type(self, atype):
         """
         Define the type of axes you wish to use
@@ -744,4 +756,3 @@ class Bubble(GChart):
         return image
         
 
-print reverse('http://chart.apis.google.com/chart?cht=lc&chd=s:cEAELFJHHHKUju9uuXUc&chco=76A4FB&chls=2.0&chs=220x125&chxt=x,y,r,x&chxr=1,0,4&chxl=3:|Jan|Feb|Mar|2:|min|average|max&chxs=2,0000dd,13,-1,t,FF0000&chxp=2,10,35,95&chxtc=1,10|2,-180')
