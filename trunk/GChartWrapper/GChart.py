@@ -23,17 +23,15 @@ Example
     >>> G = GChart('lc',['simpleisbetterthancomplexcomplexisbetterthancomplicated'])
     >>> G.title('The Zen of Python','00cc00',36)
     >>> G.color('00cc00')
-    >>> G
-    '''http://chart.apis.google.com/chart?
-        chd=s:simpleisbetterthancomplexcomplexisbetterthancomplicated
-        &chco=00cc00
-        &chts=00cc00,36
+    >>> str(G)
+    'http://chart.apis.google.com/chart?
+        chd=e:simpleisbetterthancomplexcomplexisbetterthancomplicated
         &chs=300x150
         &cht=lc
-        &chtt=The+Zen+of+Python'''
+        &chtt=The+Zen+of+Python'    
     >>> G.image() # PIL instance
-    <PngImagePlugin.PngImageFile instance at 0xb79fe2ac>
-    >>> G.show() # Webbrowser open
+    <PngImagePlugin.PngImageFile instance at ...>
+    >>> 1#G.show() # Webbrowser open
     True
     >>> G.save('tmp.png') # Save to disk
     'tmp.png'
@@ -57,63 +55,43 @@ except ImportError:
         return sha1(bytes(astr,'utf-8'))
 
 def lookup_color(color):
+    """
+    Returns the hex color for any valid css color name
+    
+    >>> lookup_color('aliceblue')
+    'F0F8FF'
+    """
     color = color.lower()
     if color in COLOR_MAP:
         return COLOR_MAP[color]
     return color
 
 def color_args(args, *indexes):
-    args = list(args)
-    for i in indexes:
-        args[i] = lookup_color(args[i])
-    return args
-
-class Dict(object):
-    """
-    Abstract class for all dictionary operations
-    """
-    def __init__(self, *args, **kwargs):
-        if args:
-            self.data = dict(*args)
+    for i,arg in enumerate(args):
+        if i in indexes:
+            yield lookup_color(arg)
         else:
-            self.data = dict(**kwargs)
-    def __repr__(self): return '<GChartWrapper.%s>'%self.__class__.__name__
-    def __cmp__(self, dict): return cmp(self.data, dict)
-    def __len__(self): return len(self.data)
-    def __getitem__(self, key):
-        if key in self.data:
-            return self.data[key]
-        raise KeyError(key)
-    def __setitem__(self, key, item): self.data[key] = item
-    def __delitem__(self, key): del self.data[key]
-    def __contains__(self, key): return key in self.data
-    def __iter__(self):
-        for key in self.keys(): yield key
-    def keys(self): return self.data.keys()
-    def items(self): return self.data.items()
-    def values(self): return self.data.values()
-    def has_key(self, key): return self.data.has_key(key)
-    def update(self, **kwargs):
-        if kwargs: self.data.update(kwargs)
-    def pop(self, key, *args): return self.data.pop(key, *args)
-    def popitem(self): return self.data.popitem()
+            yield arg
 
-class Axes(Dict):
+class Axes(dict):
     """
     Axes attribute dictionary storage
 
     Use this class via GChart(...).axes
     Methods are taken one at a time, like so:
     
+    >>> G = GChart()
     >>> G.axes.type('xy')
+    {}
     >>> G.axes.label('Label1') # X Axis
+    {}
     >>> G.axes.label('Label2') # Y Axis
+    {}
     """
     def __init__(self, parent):
         self.parent = parent
         self.labels,self.positions,self.ranges,self.styles = [],[],[],[]
-        self.data = {}
-        Dict.__init__(self)
+        dict.__init__(self)
 
     def type(self, atype):
         """
@@ -126,7 +104,7 @@ class Axes(Dict):
             assert char in 'xtyr', 'Invalid axes type: %s'%char
         if not ',' in atype:
             atype = ','.join(atype)
-        self.data['chxt'] = atype
+        self['chxt'] = atype
         return self.parent
      
     def label(self, *args):
@@ -174,16 +152,16 @@ class Axes(Dict):
     def render(self):
         """Render the axes data into the dict data"""
         if self.labels:
-            self.data['chxl'] = '|'.join(self.labels)
+            self['chxl'] = '|'.join(self.labels)
         if self.styles:
-            self.data['chxs'] = '|'.join(self.styles)
+            self['chxs'] = '|'.join(self.styles)
         if self.positions:
-            self.data['chxp'] = '|'.join(self.positions)
+            self['chxp'] = '|'.join(self.positions)
         if self.ranges:
-            self.data['chxr'] = '|'.join(self.ranges)
-        return self.data    
+            self['chxr'] = '|'.join(self.ranges)
+        return self    
         
-class GChart(Dict):
+class GChart(dict):
     """Main chart class
 
     Chart type must be valid for cht parameter
@@ -193,17 +171,16 @@ class GChart(Dict):
         self.lines,self.fills,self.markers,self.scales = [],[],[],[]
         self._geo,self._ld = '',''
         self._dataset = dataset
-        self.data = {}
-        Dict.__init__(self)
+        dict.__init__(self)
         if ctype:
             self.check_type(ctype)
-            self.data['cht'] = ctype
+            self['cht'] = ctype
         self._encoding = kwargs.pop('encoding', None)
         self._scale = kwargs.pop('scale', None)
         self.apiurl = kwargs.pop('apiurl', APIURL)
         for k,v in kwargs.items():
             assert k in APIPARAMS, 'Invalid chart parameter: %s'%k
-            self.data[k] = v
+            self[k] = v
         self.axes = Axes(self)
         
     ###################
@@ -229,7 +206,7 @@ class GChart(Dict):
         APIPARAM: chld
         """
         assert args[0].lower() in 'lmqh', 'Unknown EC level %s'%level
-        self.data['chld'] = '%s|%s'%args
+        self['chld'] = '%s|%s'%args
         return self
         
     def bar(self, *args):
@@ -239,7 +216,7 @@ class GChart(Dict):
         bar width can be relative or absolute, see the official doc
         APIPARAM: chbh
         """
-        self.data['chbh'] = ','.join(map(str,args))
+        self['chbh'] = ','.join(map(str,args))
         return self
         
     def encoding(self, arg):
@@ -258,7 +235,7 @@ class GChart(Dict):
         """
         assert encoding in ('Shift_JIS','UTF-8','ISO-8859-1'),\
             'Unknown encoding %s'%encoding
-        self.data['choe'] = encoding
+        self['choe'] = encoding
         return self
         
     def scale(self, *args):
@@ -326,7 +303,7 @@ class GChart(Dict):
         APIPARAM: chg
         """
         grids =  map(str,map(float,args))
-        self.data['chg'] = ','.join(grids).replace('None','')
+        self['chg'] = ','.join(grids).replace('None','')
         return self
         
     def color(self, *args):
@@ -336,7 +313,7 @@ class GChart(Dict):
         APIPARAM: chco
         """
         args = color_args(args, *range(len(args)))
-        self.data['chco'] = ','.join(args)
+        self['chco'] = ','.join(args)
         return self
         
     def type(self, type):
@@ -344,7 +321,7 @@ class GChart(Dict):
         Set the chart type, either Google API type or regular name
         APIPARAM: cht
         """
-        self.data['cht'] = self.check_type(str(type))
+        self['cht'] = self.check_type(str(type))
         return self
         
     def label(self, *args):
@@ -353,10 +330,13 @@ class GChart(Dict):
         call each time for each dataset
         APIPARAM: chl
         """
-        if self.data['cht'] == 'qr':
-            self.data['chl'] = ''.join(map(str,args))
+        if self['cht'] == 'qr':
+            self['chl'] = ''.join(map(str,args))
+            self['chl'] = ''.join(map(QUOTE,args))
         else:
-            self.data['chl'] = '|'.join(map(str,args))
+            map(unicode,args)
+            self['chl'] = '|'.join(map(QUOTE,map(unicode,args)))
+           # self['chl'] = '|'.join(args)
         return self
         
     def legend(self, *args):
@@ -365,7 +345,8 @@ class GChart(Dict):
         call each time for each dataset
         APIPARAM: chdl
         """
-        self.data['chdl'] = '|'.join(args)
+        self['chdl'] = '|'.join(args)
+        self['chdl'] = u'|'.join(args)
         return self
         
     def legend_pos(self, pos):
@@ -375,7 +356,7 @@ class GChart(Dict):
         APIPARAM: chdlp
         """
         assert pos in 'btrl', 'Unknown legend position: %s'%pos
-        self.data['chdlp'] = str(pos)
+        self['chdlp'] = str(pos)
         return self
         
     def title(self, title, *args):
@@ -384,10 +365,10 @@ class GChart(Dict):
         args are optional style params of the form <color>,<font size>
         APIPARAMS: chtt,chts
         """
-        self.data['chtt'] = title
+        self['chtt'] = title
         if args:
             args = color_args(args, 0)
-            self.data['chts'] = ','.join(map(str,args))
+            self['chts'] = ','.join(map(str,args))
         return self
 
     def size(self,*args):
@@ -400,7 +381,7 @@ class GChart(Dict):
         else:
             x,y = map(int,args[0])
         self.check_size(x,y)
-        self.data['chs'] = '%dx%d'%(x,y)
+        self['chs'] = '%dx%d'%(x,y)
         return self
 
     def margin(self, *args):
@@ -411,9 +392,9 @@ class GChart(Dict):
         APIPARAM: chma
         """
         if len(args) == 4:
-            self.data['chma'] = ','.join(map(str,args))
+            self['chma'] = ','.join(map(str,args))
         elif len(args) == 6:
-            self.data['chma'] = ','.join(map(str,args[:4]))+'|'+','.join(map(str,args[4:]))
+            self['chma'] = ','.join(map(str,args[:4]))+'|'+','.join(map(str,args[4:]))
         else:
             raise ValueError('Margin arguments must be either 4 or 6 items')
         return self
@@ -422,32 +403,32 @@ class GChart(Dict):
         """
         Renders the chart context and axes into the dict data
         """
-        self.data.update(self.axes.render())
+        self.update(self.axes.render())
         encoder = Encoder(self._encoding)
-        if not 'chs' in self.data:
-            self.data['chs'] = '300x150'
+        if not 'chs' in self:
+            self['chs'] = '300x150'
         else:
-            size = self.data['chs'].split('x')
+            size = self['chs'].split('x')
             assert len(size) == 2, 'Invalid size, must be in the format WxH'
             self.check_size(*map(int,size))
-        assert 'cht' in self.data, 'No chart type defined, use type method'
-        self.data['cht'] = self.check_type(self.data['cht'])
+        assert 'cht' in self, 'No chart type defined, use type method'
+        self['cht'] = self.check_type(self['cht'])
         if ('any' in dir(self._dataset) and self._dataset.any()) or self._dataset:
-            self.data['chd'] = encoder.encode(self._dataset)
-        elif not 'choe' in self.data:
-            assert 'chd' in self.data, 'You must have a dataset, or use chd'
+            self['chd'] = encoder.encode(self._dataset)
+        elif not 'choe' in self:
+            assert 'chd' in self, 'You must have a dataset, or use chd'
         if self._scale:
-            assert self.data['chd'].startswith('t:'), 'You must use text encoding with chds'
-            self.data['chds'] = ','.join(self._scale)
+            assert self['chd'].startswith('t:'), 'You must use text encoding with chds'
+            self['chds'] = ','.join(self._scale)
         if self._geo and self._ld:
-            self.data['chtm'] = self._geo
-            self.data['chld'] = self._ld
+            self['chtm'] = self._geo
+            self['chld'] = self._ld
         if self.lines:
-            self.data['chls'] = '|'.join(self.lines)
+            self['chls'] = '|'.join(self.lines)
         if self.markers:
-            self.data['chm'] = '|'.join(self.markers)
+            self['chm'] = '|'.join(self.markers)
         if self.fills:
-            self.data['chf'] = '|'.join(self.fills)
+            self['chf'] = '|'.join(self.fills)
 
     ###################
     # Checks
@@ -483,17 +464,17 @@ class GChart(Dict):
         """
         Gets the name of the chart, if it exists
         """
-        return self.data.get('chtt','')
+        return self.get('chtt','')
 
     def getdata(self):
         """
         Returns the decoded dataset from chd param
         """
         #XXX: Why again? not even sure decode works well
-        return Encoder(self._encoding).decode(self.data['chd'])
+        return Encoder(self._encoding).decode(self['chd'])
 
     def _parts(self):
-        return ('%s=%s'%(k,QUOTE(v)) for k,v in self.data.items() if v)
+        return ('%s=%s'%(k,QUOTE(v)) for k,v in self.items() if v)
 
     def __str__(self):
         """
@@ -504,9 +485,9 @@ class GChart(Dict):
 
     def url(self):
         """
-        Uses str, AND enforces replacing spaces w/ pluses
+        Uses str
         """        
-        return self.__str__()
+        return str(self)
 
     def show(self, *args, **kwargs):
         """
@@ -527,10 +508,10 @@ class GChart(Dict):
         assert fname != None, 'You must specify a filename to save to'
         if not fname.endswith('.png'):
             fname += '.png'
-        try:
-            urlretrieve(str(self), fname)
-        except:
-            raise IOError('Problem saving chart to file: %s'%fname)
+        #try:
+        urlretrieve(str(self), fname)
+     #   except:
+      #      raise IOError('Problem saving chart to file: %s'%fname)
         return fname
 
     def img(self, **kwargs):
@@ -552,7 +533,7 @@ class GChart(Dict):
         """
         Grabs readable PNG file pointer
         """
-        return urlopen(self.__str__())
+        return urlopen(str(self))
 
     def image(self):
         """
@@ -593,7 +574,7 @@ class GChart(Dict):
         good for unittesting...
         """
         self.render()
-        items = [(k,self.data[k]) for k in sorted(self.data)]
+        items = [(k,self[k]) for k in sorted(self)]
         return new_sha(str(items)).hexdigest()
 
 # Now a whole mess of convenience classes
@@ -607,7 +588,7 @@ class Meter(GChart):
 class QRCode(GChart):
     def __init__(self, content='', **kwargs):
         kwargs['choe'] = 'UTF-8'
-        if type(content) in (type(''),):
+        if isinstance(content,str):
             kwargs['chl'] = QUOTE(content)
         else:
             kwargs['chl'] = QUOTE(content[0])
@@ -676,42 +657,42 @@ class Text(GChart):
     def render(self): pass
     def __init__(self, *args):
         GChart.__init__(self)
-        self.data['chst'] = 'd_text_outline'
+        self['chst'] = 'd_text_outline'
         args = list(map(str, color_args(args, 0, 3)))
         assert args[2] in 'lrh', 'Invalid text alignment'
         assert args[4] in '_b', 'Invalid font style'
-        self.data['chld'] = '|'.join(args)\
+        self['chld'] = '|'.join(args)\
             .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
 
 class Pin(GChart):
     def render(self): pass
-    def __init__(self, type, *args):
+    def __init__(self, ptype, *args):
         GChart.__init__(self)
-        assert type in PIN_TYPES, 'Invalid type'
-        if type == "pin_letter":
+        assert ptype in PIN_TYPES, 'Invalid type'
+        if ptype == "pin_letter":
             args = color_args(args, 1,2)
-        elif type == 'pin_icon':
-            args = color_args(args, 1)
+        elif ptype == 'pin_icon':
+            args = list(color_args(args, 1))
             assert args[0] in PIN_ICONS, 'Invalid icon name'
-        elif type == 'xpin_letter':
-            args = color_args(args, 2,3,4)
+        elif ptype == 'xpin_letter':
+            args = list(color_args(args, 2,3,4))
             assert args[0] in PIN_SHAPES, 'Invalid pin shape'
             if not args[0].startswith('pin_'):
                 args[0] = 'pin_%s'%args[0] 
-        elif type == 'xpin_icon':
-            args = color_args(args, 2,3)
+        elif ptype == 'xpin_icon':
+            args = list(color_args(args, 2,3))
             assert args[0] in PIN_SHAPES, 'Invalid pin shape'
             if not args[0].startswith('pin_'):
                 args[0] = 'pin_%s'%args[0] 
             assert args[1] in PIN_ICONS, 'Invalid icon name'
-        elif type == 'spin':
+        elif ptype == 'spin':
             args = color_args(args, 2)
-        self.data['chst'] = 'd_map_%s'%type
-        self.data['chld'] = '|'.join(map(str, args))\
+        self['chst'] = 'd_map_%s'%ptype
+        self['chld'] = '|'.join(map(str, args))\
             .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
     def shadow(self):
         image = copy(self)
-        chsts = self.data['chst'].split('_')
+        chsts = self['chst'].split('_')
         chsts[-1] = 'shadow'
         image.data['chst'] = '_'.join(chsts)
         return image
@@ -723,36 +704,34 @@ class Note(GChart):
         assert args[0] in NOTE_TYPES,'Invalid note type'
         assert args[1] in NOTE_IMAGES,'Invalid note image'
         if args[0].find('note')>-1:
-            self.data['chst'] =  'd_f%s'%args[0]
-            args = color_args(args, 3)
+            self['chst'] =  'd_f%s'%args[0]
+            args = list(color_args(args, 3))
         else:
-            self.data['chst'] = 'd_%s'%args[0]
+            self['chst'] = 'd_%s'%args[0]
             assert args[2] in NOTE_WEATHERS,'Invalid weather'
         args = args[1:]
-        self.data['chld'] = '|'.join(map(str, args))\
+        self['chld'] = '|'.join(map(str, args))\
             .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
 
 class Bubble(GChart):
     def render(self): pass
-    def __init__(self, type, *args):
+    def __init__(self, btype, *args):
         GChart.__init__(self)
-        assert type in BUBBLE_TYPES, 'Invalid type'
-        if type in ('icon_text_small','icon_text_big'):
-            args = color_args(args, 3,4)
+        assert btype in BUBBLE_TYPES, 'Invalid type'
+        if btype in ('icon_text_small','icon_text_big'):
+            args = list(color_args(args, 3,4))
             assert args[0] in BUBBLE_SICONS,'Invalid icon type'
-        elif type == 'icon_texts_big':
-            args = color_args(args, 2,3)
+        elif btype == 'icon_texts_big':
+            args = list(color_args(args, 2,3))
             assert args[0] in BUBBLE_LICONS,'Invalid icon type'
-        elif type == 'texts_big':
+        elif btype == 'texts_big':
             args = color_args(args, 1,2)
-        self.data['chst'] = 'd_bubble_%s'%type
-        self.data['chld'] = '|'.join(map(str, args))\
+        self['chst'] = 'd_bubble_%s'%btype
+        self['chld'] = '|'.join(map(str, args))\
             .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
     def shadow(self):
         image = copy(self)
-        image.data['chst'] = '%s_shadow'%self.data['chst']
+        image.data['chst'] = '%s_shadow'%self['chst']
         return image
-          
-if __name__=='__main__':
-    from tests import test
-    test()
+        
+

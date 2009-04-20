@@ -107,10 +107,13 @@ def test():
             _print(test,'\t',getattr(Test,test)())
             _print()
 
+
+
     elif arg == 'show':
         for test in Test.all:
             getattr(Test,test)().show()
 
 if __name__=='__main__':
     test()
+
 

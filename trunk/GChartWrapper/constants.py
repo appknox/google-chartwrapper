@@ -7,19 +7,25 @@ def _print(*args):
 
 if sys.version.startswith('3.0'):
     PY_VER = '3.x'
-    from urllib.parse import quote
+    from urllib.parse import quote_plus
     from urllib.request import urlopen,urlretrieve
 else:
     PY_VER = '2.x'
-    from urllib import quote,urlopen,urlretrieve
+    from urllib import quote_plus,urlopen,urlretrieve
     
-QUOTE = lambda x: quote(x,'+.,:|/$')
+def QUOTE(x):
+    try:
+        return  quote_plus(x.encode('utf-8'),'+.,:|/$')
+    except:
+        return  quote_plus(x,'+.,:|/$')
+        
+#QUOTE = lambda x:
 
 APIPARAMS = ('chxt', 'chxp', 'chxs', 'chxr', 'chco', 'chtm', 'chld', 'chts', 'chtt', 'chxl', 'chd', 'chf', 'chg', 'chl', 'chm', 'chp', 'chs', 'cht', 'chls', 'chdlp', 'chds', 'chbh', 'chdl', 'choe', 'chst')
 
 MARKERS = ('a','c','d','o','s','t','v','V','h','x','r','R','b','B','D','F')
 
-TYPES = ('bvs', 'p3', 'qr', 'lc', 'p', 'bhg', 'pc', 's', 'r', 'bvg', 't', 'v', 'lxy', 'bhs', 'gom', 'ls')
+TYPES = ('bvs', 'p3', 'qr', 'lc', 'p', 'bhg', 'pc', 's', 'r', 'rs', 'bvg', 't', 'v', 'lxy', 'bhs', 'gom', 'ls')
 
 IMGATTRS = ('title','alt','align','border','height','width','ismap','longdesc',
 'usemap','id','class','style','lang','xml:lang','onclick','ondblclick','onmousedown',

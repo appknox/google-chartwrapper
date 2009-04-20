@@ -65,7 +65,8 @@ class TestClass:
         'guide_bvg':'35d7126f7ccbf56c30254a1403b15affcb49db4f', 
         'guide_bhg':'ef88b9e73a7a08d16d39d0dd14de9486a8d52a1a', 
         'guide_chbh_clipped':'fe87216a7ce5cc496420de787b52b9eac1c056f9', 
-        'guide_chbh_size':'03e1fd7393c87c5c65d88469f557f60e5ca0378b', 
+        'guide_chbh_size':'03e1fd7393c87c5c65d88469f557f60e5ca0378b',
+        'czech_and_unicode':'',
     }
     if PY_VER.startswith('3'):
         # strangeness w/ unicode in py3k
@@ -544,4 +545,11 @@ class TestClass:
     def large_bubble_texts(self):
         # Large bubble marker with just text
         G = Bubble('texts_big','bb','teal','khaki',"Joe\'s Restaurant\n123 Long St\n92745 Mountain View")
+        return G
+    
+    def czech_and_unicode(self):
+        # Submitted by anedvedicky
+        G = VerticalBarGroup( [[10], [20], [30]], encoding = 'text')
+        G.label(u'Ž',u'ě',u'ů')
+        G.legend(u'Žčář')
         return G
