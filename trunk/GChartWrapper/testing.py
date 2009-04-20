@@ -67,6 +67,8 @@ class TestClass:
         'guide_chbh_clipped':'fe87216a7ce5cc496420de787b52b9eac1c056f9', 
         'guide_chbh_size':'03e1fd7393c87c5c65d88469f557f60e5ca0378b',
         'czech_and_unicode':'',
+        'tick_marks':'',
+        'currency_bar':''
     }
     if PY_VER.startswith('3'):
         # strangeness w/ unicode in py3k
@@ -552,4 +554,22 @@ class TestClass:
         G = VerticalBarGroup( [[10], [20], [30]], encoding = 'text')
         G.label(u'Ž',u'ě',u'ů')
         G.legend(u'Žčář')
+        return G
+
+    def tick_marks(self):
+        G = Line('cEAELFJHHHKUju9uuXUc')
+        G.color('76A4FB')
+        G.line(2)
+        G.axes.type('xyrx')
+        G.axes.label(*range(0,120,20))
+        G.axes.label('min','avg','max')
+        G.axes.label(None)
+        G.axes.label('Jan','Feb','Mar')
+        return G
+    
+    def currency_bar(self):
+        G = VerticalBarStack([43.56,35.62,48.34,57.50,67.30,60.91])
+        G.color('blue')
+        G.bar(17,15)
+        G.marker('N*cEUR1*','black',0,-1,11)
         return G
