@@ -46,6 +46,7 @@ from GChartWrapper.constants import *
 from GChartWrapper.encoding import Encoder
 from webbrowser import open as webopen
 from copy import copy
+from cgi import parse_qsl
 
 try:
     from sha import new as new_sha
@@ -72,6 +73,14 @@ def color_args(args, *indexes):
             yield lookup_color(arg)
         else:
             yield arg
+
+def reverse(qs):
+    if qs.startswith('http'):
+        qs = qs[qs.index('?')+1:]
+    #G = GChart()
+    #for k,v in parse_qsl(qs):
+    #    G[k] = v
+    return GChart(**dict(parse_qsl(qs)))
 
 class Axes(dict):
     """
@@ -508,10 +517,10 @@ class GChart(dict):
         assert fname != None, 'You must specify a filename to save to'
         if not fname.endswith('.png'):
             fname += '.png'
-        #try:
-        urlretrieve(str(self), fname)
-     #   except:
-      #      raise IOError('Problem saving chart to file: %s'%fname)
+        try:
+            urlretrieve(str(self), fname)
+        except:
+            raise IOError('Problem saving chart to file: %s'%fname)
         return fname
 
     def img(self, **kwargs):
@@ -735,3 +744,4 @@ class Bubble(GChart):
         return image
         
 
+print reverse('http://chart.apis.google.com/chart?cht=lc&chd=s:cEAELFJHHHKUju9uuXUc&chco=76A4FB&chls=2.0&chs=220x125&chxt=x,y,r,x&chxr=1,0,4&chxl=3:|Jan|Feb|Mar|2:|min|average|max&chxs=2,0000dd,13,-1,t,FF0000&chxp=2,10,35,95&chxtc=1,10|2,-180')
