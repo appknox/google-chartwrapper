@@ -500,7 +500,7 @@ class GChart(dict):
         return Encoder(self._encoding).decode(self['chd'])
 
     def _parts(self):
-        return ('%s=%s'%(k,quote(smart_str(v))) for k,v in self.items() if v)
+        return ('%s=%s'%(k,smart_str(v)) for k,v in self.items() if v)
 
     def __str__(self):
         return self.url
@@ -534,14 +534,14 @@ class GChart(dict):
         assert fname != None, 'You must specify a filename to save to'
         if not fname.endswith('.png'):
             fname += '.png'
-        try:
-            urlretrieve(self.url, fname)
-        except Exception:
-            raise IOError('Problem saving %s to file'%fname)
+        #try:
+        urlretrieve(self.url, fname)
+        #except Exception:
+        #    raise IOError('Problem saving %s to file'%fname)
         return fname
 
     def img(self, **kwargs):
-        """
+        """ 
         Returns an XHTML <img/> tag of the chart
 
         kwargs can be other img tag attributes, which are strictly enforced
@@ -615,9 +615,9 @@ class QRCode(GChart):
     def __init__(self, content='', **kwargs):
         kwargs['choe'] = 'UTF-8'
         if isinstance(content, str):
-            kwargs['chl'] = quote(smart_str(content))
+            kwargs['chl'] = quote(content).replace('%0A','\n')
         else:
-            kwargs['chl'] = quote(smart_str(content[0]))
+            kwargs['chl'] = quote(content[0]).replace('%0A','\n')
         GChart.__init__(self, 'qr', None, **kwargs)
 
 class Line(GChart):
