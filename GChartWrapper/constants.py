@@ -24,7 +24,7 @@ def smart_str(s):
     try:
         return unicode(s).encode('utf-8') # Py2K
     except:
-        return str(s).encode('utf-8') # Py3K
+        return s#.encode('utf-8') # Py3K
 
 APIPARAMS = ('chxtc', 'chxt', 'chxp', 'chxs', 'chxr', 'chco', 'chtm', 'chld', 'chts', 'chtt', 'chxl', 'chd', 'chf', 'chg', 'chl', 'chm', 'chp', 'chs', 'cht', 'chls', 'chdlp', 'chds', 'chbh', 'chdl', 'choe', 'chst')
 

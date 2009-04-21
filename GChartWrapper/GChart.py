@@ -534,10 +534,10 @@ class GChart(dict):
         assert fname != None, 'You must specify a filename to save to'
         if not fname.endswith('.png'):
             fname += '.png'
-        #try:
-        urlretrieve(self.url, fname)
-        #except Exception:
-        #    raise IOError('Problem saving %s to file'%fname)
+        try:
+            urlretrieve(self.url, fname)
+        except Exception:
+            raise IOError('Problem saving %s to file'%fname)
         return fname
 
     def img(self, **kwargs):
