@@ -18,7 +18,7 @@ ordering = ('simple', 'financial', 'bar_text', 'concentric_pie', 'margins',
 'markers',  'line', 'multiline', 'axes_position', 'jacobian',  'numpy', 
 'guide_meter', 'guide_intro',    'guide_map',  'grid', 'legend2','guide_bhs',
 'guide_bvs', 'guide_bvs_scale', 'guide_bvg', 'guide_bhg', 'guide_chbh_clipped',
-'guide_chbh_size')
+'guide_chbh_size','currency_bar','czech_and_unicode','tick_marks')
 
 
 class ChartsTest(unittest.TestCase):

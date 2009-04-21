@@ -15,14 +15,15 @@ else:
     
 def quote(s):
     try:
-        return  quote_plus(s.encode('utf-8'))#,'+.,:|/?&$=')
+        return  quote_plus(s.encode('utf-8'),'+.,:|/?&$=')
     except:
-        return  quote_plus(s)#,'+.,:|/?&$=')
+        return  quote_plus(s,'+.,:|/?&$=')
 
 def smart_str(s):
+    s = quote(s)
     try:
         return unicode(s).encode('utf-8') # Py2K
-    except NameError: 
+    except:
         return str(s).encode('utf-8') # Py3K
 
 APIPARAMS = ('chxtc', 'chxt', 'chxp', 'chxs', 'chxr', 'chco', 'chtm', 'chld', 'chts', 'chtt', 'chxl', 'chd', 'chf', 'chg', 'chl', 'chm', 'chp', 'chs', 'cht', 'chls', 'chdlp', 'chds', 'chbh', 'chdl', 'choe', 'chst')

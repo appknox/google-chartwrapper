@@ -33,7 +33,7 @@ class TestClass:
         'large_bubble_icon':'f456afa8c7098c57c38fb584c01ebf234b6f5e7c', 
         'large_bubble_icon_texts':'92e5b034421b097d87cc990179f16e65538c2d8a', 
         'large_bubble_texts':'a6687d18fc3264f5938b5c203a968e32e9f954ca', 
-        'qr_code':'330016ec1f94d2ba2baf1914df427ad86db7dd0f', 
+        'qr_code':'f0f6cea482cc874beb06b9ca2a689d08bda2285b', 
         'legend':'ffd2fd1e34749569c39d22024ea97bd677e2ca13', 
         'bar':'09ff756b63075bb40e9c97a6fdb5f63f2bbfebf4', 
         'pie':'cc4eae489458948e81474533b422e007a08d92ef', 
@@ -66,9 +66,9 @@ class TestClass:
         'guide_bhg':'ef88b9e73a7a08d16d39d0dd14de9486a8d52a1a', 
         'guide_chbh_clipped':'fe87216a7ce5cc496420de787b52b9eac1c056f9', 
         'guide_chbh_size':'03e1fd7393c87c5c65d88469f557f60e5ca0378b',
-        'czech_and_unicode':'',
-        'tick_marks':'',
-        'currency_bar':''
+        'currency_bar':'ab7245c0c005ee99ee198fd6baab45e68fd6e188', 
+        'czech_and_unicode':'3bb3ae7cd462a8fc2724ee52b6ca5bc5f39e908d',
+        'tick_marks':'d33a9c7555d75dfadc6446bf5686bf988ccc592b', # NOT RIGHT!
     }
     if PY_VER.startswith('3'):
         # strangeness w/ unicode in py3k
@@ -123,8 +123,8 @@ class TestClass:
         # with 5 line segments with 2 blank segments
         G = Line( ['hX1xPj'] )
         G.axes.type('xy')
-        G.axes.label(1, 'Mar', 'Apr', 'May', 'June', 'July')
-        G.axes.label(2, None, '50+Kb')        
+        G.axes.label(0, 'Mar', 'Apr', 'May', 'June', 'July')
+        G.axes.label(1, None, '50+Kb')        
         G.color('red')
         G.line(6,5,2)
         return G
@@ -158,11 +158,11 @@ class TestClass:
         G = Line( ['foobarbaz'] )
         G.color('76A4FB') 
         G.axes.type('xyrx')
-        G.axes.label(1,'Foo', 'Bar', 'Baz')
-        G.axes.label(2,None, '20K', '60K', '100K')  
-        G.axes.label(3,'A', 'B', 'C')  
-        G.axes.label(4,None,'20','40','60','80')      
-        G.axes.style(4,'0000dd', 14)
+        G.axes.label(0,'Foo', 'Bar', 'Baz')
+        G.axes.style(0, '0000dd', 14)
+        G.axes.label(1, None, '20K', '60K', '100K')  
+        G.axes.label(2, 'A', 'B', 'C')  
+        G.axes.label(3, None,'20','40','60','80')      
         return G  
 
     def grid(self):
@@ -215,8 +215,8 @@ class TestClass:
         G.color('red')
         G.line(4,3,0)
         G.axes.type('xy') 
-        G.axes.label(1,1,2,3,4,5)
-        G.axes.label(2,None,50,100)
+        G.axes.label(0, 1,2,3,4,5)
+        G.axes.label(1, None,50,100)
         G.fill('c','lg',45,'white',0,'76A4FB',0.75)
         G.fill('bg','s','EFEFEF')
         return G    
@@ -282,12 +282,12 @@ class TestClass:
         G.marker('o', '0077CC',0,-1,5)
         G.marker('r', 'E6F2FA',0,(min_value/max_value),1.0) # 0 to 1.0
         G.axes.type("xyr")    
-        G.axes.label(1, *axis[1])
-        G.axes.position(1, *axis[0])
-        G.axes.label(2, '%d'%min_value, '%d'%max_value)    
-        G.axes.position(2, int(100*min_value/max_value),100) # 0 to 100
-        G.axes.label(3, '%d'%last_value)
-        G.axes.position(3, int(100*last_value/max_value)) # 0 to 100
+        G.axes.label(0, *axis[1])
+        G.axes.position(0, *axis[0])
+        G.axes.label(1, '%d'%min_value, '%d'%max_value)    
+        G.axes.position(1, int(100*min_value/max_value),100) # 0 to 100
+        G.axes.label(2, '%d'%last_value)
+        G.axes.position(2, int(100*last_value/max_value)) # 0 to 100
         return G        
 
     # Examples from the Google Chart API Developer's Guide
@@ -303,16 +303,16 @@ class TestClass:
         G = Line('fohmnytenefohmnytene', encoding='simple')
         G.size(200,100)
         G.axes.type('xy')
-        G.axes.label(1, 'April','May','June')
-        G.axes.label(2, None, '50+Kb')
+        G.axes.label(0, 'April','May','June')
+        G.axes.label(1, None, '50+Kb')
         return G        
 
     def guide_granularity_40(self):
         G = Line('frothsmzndyoteepngenfrothsmzndyoteepngen', encoding='simple')
         G.size(200,100)
         G.axes.type('xy')
-        G.axes.label(1, 'April','May','June')
-        G.axes.label(2, None, '50+Kb')
+        G.axes.label(0, 'April','May','June')
+        G.axes.label(1, None, '50+Kb')
         return G
 
     def guide_granularity_80(self):
@@ -320,8 +320,8 @@ class TestClass:
             encoding='simple')
         G.size(200,100)
         G.axes.type('xy')
-        G.axes.label(1, 'April','May','June')
-        G.axes.label(2, None, '50+Kb')
+        G.axes.label(0, 'April','May','June')
+        G.axes.label(1, None, '50+Kb')
         return G
     
     
@@ -400,8 +400,8 @@ class TestClass:
         G.line(2,4,0)
         G.line(2,4,0)        
         G.axes.type('x')
-        G.axes.label(1, 0,45,90,135,180,225,270,315)
-        G.axes.range(1, 0,360)
+        G.axes.label(0, 0,45,90,135,180,225,270,315)
+        G.axes.range(0, 0,360)
         return G
  
     def guide_map(self):
@@ -473,7 +473,7 @@ class TestClass:
         G.line(2.0,4.0,1.0)
         G.size(200,140)
         G.axes.type('x')
-        G.axes.label(1, None,'t',None,'F',None)
+        G.axes.label(0, None,'t',None,'F',None)
         G.marker('tMin','blue',0,1,10)
         G.marker('fMax','red',0,3,15)
         G.margin(0,0,30,0)
@@ -564,8 +564,8 @@ class TestClass:
         G.axes.type('xyrx')
         G.axes.label(2, 'min','avg','max')
         G.axes.label(3, 'Jan','Feb','Mar')
-        G.axes.tick(1,10)
-        G.axes.tick(2,-180)
+        G.axes.tick(0,10)
+        G.axes.tick(1,-180)
         return G
     
     def currency_bar(self):
