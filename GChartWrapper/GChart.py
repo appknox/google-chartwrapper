@@ -68,6 +68,15 @@ def lookup_color(color):
     return color
 
 def color_args(args, *indexes):
+    """
+    Color a list of arguments on particular indexes
+    
+    >>> c = color_args([None,'blue'], 1)
+    >>> c.next()
+    None
+    >>> c.next()
+    '0000FF'
+    """
     for i,arg in enumerate(args):
         if i in indexes:
             yield lookup_color(arg)
@@ -75,11 +84,15 @@ def color_args(args, *indexes):
             yield arg
 
 def reverse(qs):
+    """
+    Reverse a chart URL or dict into a GChart instance
+    
+    >>> reverse('http://chart.apis.google.com/chart?...').urlopen()
+    """
+    if isinstance(qs, dict):
+        return GChart(**qs)
     if qs.startswith('http'):
         qs = qs[qs.index('?')+1:]
-    #G = GChart()
-    for k,v in parse_qsl(qs):
-        print k,v
     return GChart(**dict(parse_qsl(qs)))
 
 class Axes(dict):
@@ -92,33 +105,29 @@ class Axes(dict):
     >>> G = GChart()
     >>> G.axes.type('xy')
     {}
-    >>> G.axes.label('Label1') # X Axis
+    >>> G.axes.label(1,'Label1') # X Axis
     {}
-    >>> G.axes.label('Label2') # Y Axis
+    >>> G.axes.label(2,'Label2') # Y Axis
     {}
     """
     def __init__(self, parent):
         self.parent = parent
-        self.labels,self.positions,self.ranges,self.styles = [],[],[],[]
+        self.labels,self.positions,self.ranges,self.styles,self.ticks = [],[],[],[],[]
         dict.__init__(self)
 
-    def tick(self, *widths):
+    def tick(self, index, length):
         """
         Add tick marks in order of axes by width
-        APIPARAM: chxtc
+        APIPARAM: chxtc     <axis index>,<length of tick mark>
         """
-        tc = []
-        for i,width in enumerate(widths):
-            if width:
-                assert int(width) <= 25, 'Width cannot be more than 25'
-                tc.append('%s,%d'%(i,width))
-        self['chxtc'] = '|'.join(tc)
-        
+        assert int(length) <= 25, 'Width cannot be more than 25'
+        self.ticks.append('%s,%d'%(index,length))
+        return self.parent
+    
     def type(self, atype):
         """
         Define the type of axes you wish to use
         atype must be one of x,t,y,r
-        call the rest of the axes functions in the corresponding order that you declare the type
         APIPARAM: chxt
         """
         for char in atype:
@@ -128,46 +137,43 @@ class Axes(dict):
         self['chxt'] = atype
         return self.parent
      
-    def label(self, *args):
+    def label(self, index, *args):
         """
         Label each axes one at a time
         args are of the form <label 1>,...,<label n>
         APIPARAM: chxl
         """
         label = '|'.join(map(str,args))
-        id = len(self.labels)
-        self.labels.append( str('%d:|%s'%(id,label)).replace('None','') )
+        self.labels.append( str('%d:|%s'%(index,label)).replace('None','') )
         return self.parent
         
-    def position(self, *args):
+    def position(self, index, *args):
         """
         Set the label position of each axis, one at a time
         args are of the form <label position 1>,...,<label position n>
         APIPARAM: chxp
         """
         position = ','.join(map(str,args))
-        id = len(self.positions)
-        self.positions.append( str('%d,%s'%(id,position)).replace('None','') )
+        self.positions.append( str('%d,%s'%(index,position)).replace('None','') )
         return self.parent
         
-    def range(self, *args):
+    def range(self, index, *args):
         """
         Set the range of each axis, one at a time
         args are of the form <start of range>,<end of range>
         APIPARAM: chxr
         """
-        self.ranges.append('%d,%s,%s'%(len(self.ranges), args[0], args[1]))
+        self.ranges.append('%d,%s,%s'%(index, args[0], args[1]))
         return self.parent
         
-    def style(self, *args):
+    def style(self, index, *args):
         """
         Add style to your axis, one at a time
         args are of the form <axis color>,<font size>,<alignment>,<drawing control>,<tick mark color>
         APIPARAM: chxs
         """
-        id = str(len(self.styles))
         args = color_args(args, 0)
-        self.styles.append(','.join([id]+list(map(str,args))))
+        self.styles.append(','.join([str(index)]+map(str,args)))
         return self.parent
 
     def render(self):
@@ -180,6 +186,8 @@ class Axes(dict):
             self['chxp'] = '|'.join(self.positions)
         if self.ranges:
             self['chxr'] = '|'.join(self.ranges)
+        if self.ticks:
+            self['chxtc'] = '|'.join(self.ticks)
         return self    
         
 class GChart(dict):
@@ -353,11 +361,8 @@ class GChart(dict):
         """
         if self['cht'] == 'qr':
             self['chl'] = ''.join(map(str,args))
-            self['chl'] = ''.join(map(QUOTE,args))
         else:
-            map(unicode,args)
-            self['chl'] = '|'.join(map(QUOTE,map(unicode,args)))
-           # self['chl'] = '|'.join(args)
+            self['chl'] = '|'.join(map(str,args))
         return self
         
     def legend(self, *args):
@@ -367,7 +372,7 @@ class GChart(dict):
         APIPARAM: chdl
         """
         self['chdl'] = '|'.join(args)
-        self['chdl'] = u'|'.join(args)
+        self['chdl'] = '|'.join(args)
         return self
         
     def legend_pos(self, pos):
@@ -495,20 +500,20 @@ class GChart(dict):
         return Encoder(self._encoding).decode(self['chd'])
 
     def _parts(self):
-        return ('%s=%s'%(k,QUOTE(v)) for k,v in self.items() if v)
+        return ('%s=%s'%(k,quote(smart_str(v))) for k,v in self.items() if v)
 
     def __str__(self):
+        return self.url
+        
+    
+    @property
+    def url(self):
         """
         Returns the rendered URL of the chart
         """
         self.render()        
         return self.apiurl + '&'.join(self._parts()).replace(' ','+')
 
-    def url(self):
-        """
-        Uses str
-        """        
-        return str(self)
 
     def show(self, *args, **kwargs):
         """
@@ -530,9 +535,9 @@ class GChart(dict):
         if not fname.endswith('.png'):
             fname += '.png'
         try:
-            urlretrieve(str(self), fname)
-        except:
-            raise IOError('Problem saving chart to file: %s'%fname)
+            urlretrieve(self.url, fname)
+        except Exception:
+            raise IOError('Problem saving %s to file'%fname)
         return fname
 
     def img(self, **kwargs):
@@ -542,7 +547,7 @@ class GChart(dict):
         kwargs can be other img tag attributes, which are strictly enforced
         uses strict escaping on the url, necessary for proper XHTML
         """       
-        safe = 'src="%s" ' % self.url().replace('&','&amp;').replace('<', '&lt;')\
+        safe = 'src="%s" ' % self.url.replace('&','&amp;').replace('<', '&lt;')\
             .replace('>', '&gt;').replace('"', '&quot;').replace( "'", '&#39;')
         for item in kwargs.items():
             if not item[0] in IMGATTRS:
@@ -609,10 +614,10 @@ class Meter(GChart):
 class QRCode(GChart):
     def __init__(self, content='', **kwargs):
         kwargs['choe'] = 'UTF-8'
-        if isinstance(content,str):
-            kwargs['chl'] = QUOTE(content)
+        if isinstance(content, str):
+            kwargs['chl'] = quote(smart_str(content))
         else:
-            kwargs['chl'] = QUOTE(content[0])
+            kwargs['chl'] = quote(smart_str(content[0]))
         GChart.__init__(self, 'qr', None, **kwargs)
 
 class Line(GChart):

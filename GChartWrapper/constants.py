@@ -13,13 +13,17 @@ else:
     PY_VER = '2.x'
     from urllib import quote_plus,urlopen,urlretrieve
     
-def QUOTE(x):
+def quote(s):
     try:
-        return  quote_plus(x.encode('utf-8'),'+.,:|/$')
+        return  quote_plus(s.encode('utf-8'))#,'+.,:|/?&$=')
     except:
-        return  quote_plus(x,'+.,:|/$')
-        
-#QUOTE = lambda x:
+        return  quote_plus(s)#,'+.,:|/?&$=')
+
+def smart_str(s):
+    try:
+        return unicode(s).encode('utf-8') # Py2K
+    except NameError: 
+        return str(s).encode('utf-8') # Py3K
 
 APIPARAMS = ('chxtc', 'chxt', 'chxp', 'chxs', 'chxr', 'chco', 'chtm', 'chld', 'chts', 'chtt', 'chxl', 'chd', 'chf', 'chg', 'chl', 'chm', 'chp', 'chs', 'cht', 'chls', 'chdlp', 'chds', 'chbh', 'chdl', 'choe', 'chst')
 
