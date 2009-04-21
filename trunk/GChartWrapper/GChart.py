@@ -173,7 +173,7 @@ class Axes(dict):
         APIPARAM: chxs
         """
         args = color_args(args, 0)
-        self.styles.append(','.join([str(index)]+map(str,args)))
+        self.styles.append(','.join([str(index)]+list(map(str,args))))
         return self.parent
 
     def render(self):
