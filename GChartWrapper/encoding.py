@@ -32,7 +32,8 @@ class Encoder:
     """Data encoder that handles simple,text, and extended encodings
 
     Based on javascript encoding algorithm and pygooglecharts"""
-    def __init__(self, encoding=None, scale=None):
+    def __init__(self, encoding=None, scale=None, series=''):
+        self.series = series or ''
         if encoding is None:
             encoding = 'text'
         assert(encoding in ('simple','text','extended')),\
@@ -77,7 +78,7 @@ class Encoder:
             data = self.encodedata(dataset)
         if not '.' in data and code == 't':
             code = 'e'
-        return code +':'+ data
+        return '%s%s:%s'%(code,self.series,data)
 
     def encodedata(self, data):
         sub_data = []
@@ -91,7 +92,7 @@ class Encoder:
                 try:
                     sub_data.append(self.codeset['value'](self.scalevalue(value)))
                 except:
-                    raise ValueError('cannot encode value: %s' % e)
+                    raise ValueError('cannot encode value: %s'%value)
         return self.codeset['dchar'].join(sub_data)
 
     def decode(self, astr):

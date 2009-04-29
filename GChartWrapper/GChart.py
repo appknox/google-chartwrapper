@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ################################################################################
-#  GChartWrapper - v0.7
-#  Copyright (C) 2008  Justin Quick <justquick@gmail.com>
+#  GChartWrapper - v0.8
+#  Copyright (C) 2009  Justin Quick <justquick@gmail.com>
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License version 3 as published
@@ -39,14 +39,14 @@ Example
 See tests.py for unit test and other examples
 """
 __all__ = ['Sparkline', 'Map', 'HorizontalBarStack', 'VerticalBarStack', 'QRCode',
-     'Line', 'GChart', 'HorizontalBarGroup', 'Scatter', 'Pie3D', 'Pie', 'Meter',
-     'Radar', 'VerticalBarGroup', 'LineXY', 'Venn', 'PieC','Pin','Text','Note','Bubble']
-__version__ = 0.7
+'Line', 'GChart', 'HorizontalBarGroup', 'Scatter', 'Pie3D', 'Pie', 'Meter',
+'Radar', 'RadarSpline', 'VerticalBarGroup', 'LineXY', 'Venn', 'PieC','Pin',
+'Text','Note','Bubble']
+__version__ = 0.8
 from GChartWrapper.constants import *
 from GChartWrapper.encoding import Encoder
 from webbrowser import open as webopen
 from copy import copy
-from cgi import parse_qsl
 
 try:
     from sha import new as new_sha
@@ -62,6 +62,7 @@ def lookup_color(color):
     >>> lookup_color('aliceblue')
     'F0F8FF'
     """
+    if color is None: return
     color = color.lower()
     if color in COLOR_MAP:
         return COLOR_MAP[color]
@@ -83,17 +84,6 @@ def color_args(args, *indexes):
         else:
             yield arg
 
-def reverse(qs):
-    """
-    Reverse a chart URL or dict into a GChart instance
-    
-    >>> reverse('http://chart.apis.google.com/chart?...').urlopen()
-    """
-    if isinstance(qs, dict):
-        return GChart(**qs)
-    if qs.startswith('http'):
-        qs = qs[qs.index('?')+1:]
-    return GChart(**dict(parse_qsl(qs)))
 
 class Axes(dict):
     """
@@ -112,7 +102,7 @@ class Axes(dict):
     """
     def __init__(self, parent):
         self.parent = parent
-        self.labels,self.positions,self.ranges,self.styles,self.ticks = [],[],[],[],[]
+        self.data = {'ticks':[],'labels':[],'positions':[],'ranges':[],'styles':[]}
         dict.__init__(self)
 
     def tick(self, index, length):
@@ -121,7 +111,7 @@ class Axes(dict):
         APIPARAM: chxtc     <axis index>,<length of tick mark>
         """
         assert int(length) <= 25, 'Width cannot be more than 25'
-        self.ticks.append('%s,%d'%(index,length))
+        self.data['ticks'].append('%s,%d'%(index,length))
         return self.parent
     
     def type(self, atype):
@@ -136,15 +126,17 @@ class Axes(dict):
             atype = ','.join(atype)
         self['chxt'] = atype
         return self.parent
-     
+    __call__ = type
+    
     def label(self, index, *args):
         """
         Label each axes one at a time
         args are of the form <label 1>,...,<label n>
         APIPARAM: chxl
         """
-        label = '|'.join(map(str,args))
-        self.labels.append( str('%d:|%s'%(index,label)).replace('None','') )
+        self.data['labels'].append(
+            str('%d:|%s'%(index, '|'.join(map(str,args)) )).replace('None','')
+        )
         return self.parent
         
     def position(self, index, *args):
@@ -153,17 +145,18 @@ class Axes(dict):
         args are of the form <label position 1>,...,<label position n>
         APIPARAM: chxp
         """
-        position = ','.join(map(str,args))
-        self.positions.append( str('%d,%s'%(index,position)).replace('None','') )
+        self.data['positions'].append(
+            str('%d,%s'%(index, ','.join(map(str,args)) )).replace('None','')
+        )
         return self.parent
         
     def range(self, index, *args):
         """
         Set the range of each axis, one at a time
-        args are of the form <start of range>,<end of range>
+        args are of the form <start of range>,<end of range>,<interval>
         APIPARAM: chxr
         """
-        self.ranges.append('%d,%s,%s'%(index, args[0], args[1]))
+        self.data['ranges'].append('%d,%s'%(index, ','.join(map(smart_str, args))))
         return self.parent
         
     def style(self, index, *args):
@@ -173,21 +166,18 @@ class Axes(dict):
         APIPARAM: chxs
         """
         args = color_args(args, 0)
-        self.styles.append(','.join([str(index)]+list(map(str,args))))
+        self.data['styles'].append(
+            ','.join([str(index)]+list(map(str,args)))
+        )
         return self.parent
 
     def render(self):
         """Render the axes data into the dict data"""
-        if self.labels:
-            self['chxl'] = '|'.join(self.labels)
-        if self.styles:
-            self['chxs'] = '|'.join(self.styles)
-        if self.positions:
-            self['chxp'] = '|'.join(self.positions)
-        if self.ranges:
-            self['chxr'] = '|'.join(self.ranges)
-        if self.ticks:
-            self['chxtc'] = '|'.join(self.ticks)
+        for opt,values in self.data.items():
+            if opt == 'ticks':
+                self['chxtc'] = '|'.join(values)
+            else:
+                self['chx%s'%opt[0]] = '|'.join(values)
         return self    
         
 class GChart(dict):
@@ -197,6 +187,7 @@ class GChart(dict):
     Dataset can be any python iterable and be multi dimensional
     Kwargs will be put into chart API params if valid"""
     def __init__(self, ctype=None, dataset=[], **kwargs):
+        self._series = kwargs.pop('series',None)
         self.lines,self.fills,self.markers,self.scales = [],[],[],[]
         self._geo,self._ld = '',''
         self._dataset = dataset
@@ -211,6 +202,20 @@ class GChart(dict):
             assert k in APIPARAMS, 'Invalid chart parameter: %s'%k
             self[k] = v
         self.axes = Axes(self)
+    
+    @classmethod
+    def fromurl(cls, qs):
+        """
+        Reverse a chart URL or dict into a GChart instance
+        
+        >>> G = GChart.fromurl('http://chart.apis.google.com/chart?...')
+        >>> G
+        <GChartWrapper.GChart instance at...>
+        >>> G.image().save('chart.jpg','JPEG')
+        """
+        if isinstance(qs, dict):
+            return cls(**qs)
+        return cls(**dict(parse_qsl(qs[qs.index('?')+1:])))
         
     ###################
     # Callables
@@ -270,18 +275,19 @@ class GChart(dict):
     def scale(self, *args):
         """
         Scales the data down to the given size
-        args must be in the form of <min>,<max>
+        args must be in the form of <data set 1 minimum value>,<data set 1 maximum value>,<data set n minimum value>,<data set n maximum value>
         will only work with text encoding
         APIPARAM: chds
         """
-        self._scale =  ['%s,%s'%args]
+        self._scale =  [','.join(map(smart_str, args))]
         return self
         
-    def dataset(self, data):
+    def dataset(self, data, series=''):
         """
         Update the chart's dataset, can be two dimensional or contain string data
         """
         self._dataset = data
+        self._series = series
         return self
         
     def marker(self, *args):
@@ -328,7 +334,13 @@ class GChart(dict):
     def grid(self, *args):
         """
         Apply a grid to your chart
-        args are of the form <x axis step size>,<y axis step size>,<length of line segment>,<length of blank segment>
+        args are of the form
+            <x axis step size>,
+            <y axis step size>,
+            <length of line segment>,
+            <length of blank segment>
+            <x offset>,
+            <y offset>
         APIPARAM: chg
         """
         grids =  map(str,map(float,args))
@@ -372,16 +384,14 @@ class GChart(dict):
         APIPARAM: chdl
         """
         self['chdl'] = '|'.join(args)
-        self['chdl'] = '|'.join(args)
         return self
         
     def legend_pos(self, pos):
         """
         Define a position for your legend to occupy
-        pos must be one of b,t,r,l
         APIPARAM: chdlp
         """
-        assert pos in 'btrl', 'Unknown legend position: %s'%pos
+        assert pos in LEGEND_POSITIONS, 'Unknown legend position: %s'%pos
         self['chdlp'] = str(pos)
         return self
         
@@ -425,12 +435,22 @@ class GChart(dict):
             raise ValueError('Margin arguments must be either 4 or 6 items')
         return self
     
+    def orientation(self, angle):
+        """
+        Set the chart's orientation for pie charts
+        angle is <angle in radians>
+        APIPARAM: chp
+        """
+        self['chp'] = '%f'%angle
+        return self
+    position = orientation
+    
     def render(self):
         """
         Renders the chart context and axes into the dict data
         """
         self.update(self.axes.render())
-        encoder = Encoder(self._encoding)
+        encoder = Encoder(self._encoding, None, self._series)
         if not 'chs' in self:
             self['chs'] = '300x150'
         else:
@@ -444,7 +464,7 @@ class GChart(dict):
         elif not 'choe' in self:
             assert 'chd' in self, 'You must have a dataset, or use chd'
         if self._scale:
-            assert self['chd'].startswith('t:'), 'You must use text encoding with chds'
+            assert self['chd'].startswith('t'), 'You must use text encoding with chds'
             self['chds'] = ','.join(self._scale)
         if self._geo and self._ld:
             self['chtm'] = self._geo
@@ -480,6 +500,8 @@ class GChart(dict):
         tdict['pie'] = 'p'
         tdict['venn'] = 'v'
         tdict['scater'] = 's'
+        tdict['radar'] = 'r'
+        tdict['meter'] = 'gom'
         assert type in tdict, 'Invalid chart type: %s'%type
         return tdict[type]
 
@@ -504,7 +526,9 @@ class GChart(dict):
 
     def __str__(self):
         return self.url
-        
+    
+    def __repr__(self):
+        return '<GChartWrapper.%s %s>'%(self.__class__.__name__,self)
     
     @property
     def url(self):
@@ -559,7 +583,13 @@ class GChart(dict):
         """
         Grabs readable PNG file pointer
         """
-        return urlopen(str(self))
+        req = Request(str(self))
+        try:
+            return urlopen(req)
+        except HTTPError:
+            _print('The server couldn\'t fulfill the request.')
+        except URLError:
+            _print('We failed to reach a server.')
 
     def image(self):
         """
@@ -595,13 +625,12 @@ class GChart(dict):
 
     def checksum(self):
         """
-        Returns the SHA1 hexdigest of the chart URL param parts
+        Returns the unique SHA1 hexdigest of the chart URL param parts
 
         good for unittesting...
         """
         self.render()
-        items = [(k,self[k]) for k in sorted(self)]
-        return new_sha(str(items)).hexdigest()
+        return new_sha(''.join(sorted(self._parts()))).hexdigest()
 
 # Now a whole mess of convenience classes
 # *for those of us who dont speak API*
@@ -667,6 +696,10 @@ class Sparkline(GChart):
 class Radar(GChart):
     def __init__(self, dataset, **kwargs):
         GChart.__init__(self, 'r', dataset, **kwargs)
+
+class RadarSpline(GChart):
+    def __init__(self, dataset, **kwargs):
+        GChart.__init__(self, 'rs', dataset, **kwargs)
 
 class Map(GChart):
     def __init__(self, dataset, **kwargs):

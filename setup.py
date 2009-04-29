@@ -38,7 +38,7 @@ CLASSIFIERS = (
 
 setup(
     name='GChartWrapper',
-    version='0.7',
+    version='0.8',
     description='Python Google Chart Wrapper',
     long_description="""Python wrapper for the Google Chart API. 
 The wrapper can render the URL of the Google chart, based on your parameters, 
@@ -49,7 +49,7 @@ instance of the chart for manipulation""",
     author="Justin Quick",
     author_email='justquick@gmail.com',
     url='http://code.google.com/p/google-chartwrapper/',
-    download_url='http://google-chartwrapper.googlecode.com/files/GChartWrapper-0.7.tar.gz',
+    download_url='http://google-chartwrapper.googlecode.com/files/GChartWrapper-0.8.tar.gz',
     platforms = ["Windows", "Linux", "Solaris", "Mac OS-X", "Unix"],
     classifiers=CLASSIFIERS,
       package_dir={'GChartWrapper': 'GChartWrapper'},
