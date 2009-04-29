@@ -7,12 +7,14 @@ def _print(*args):
 
 if sys.version.startswith('3.0'):
     PY_VER = '3.x'
-    from urllib.parse import quote_plus
+    from urllib.parse import quote_plus,parse_qsl
     from urllib.request import urlopen,urlretrieve
 else:
     PY_VER = '2.x'
-    from urllib import quote_plus,urlopen,urlretrieve
-    
+    from urllib import quote_plus,urlretrieve
+    from urllib2 import urlopen, Request, URLError, HTTPError
+    from cgi import parse_qsl
+
 def quote(s):
     try:
         return  quote_plus(s.encode('utf-8'),'+.,:|/?&$=')
@@ -20,17 +22,22 @@ def quote(s):
         return  quote_plus(s,'+.,:|/?&$=')
 
 def smart_str(s):
-    s = quote(s)
     try:
-        return unicode(s).encode('utf-8') # Py2K
+        s = quote(s)
     except:
-        return s#.encode('utf-8') # Py3K
+        pass
+    if PY_VER == '2.x':
+        return unicode(s).encode('utf-8') # Py2K
+    return str(s)#.encode('utf-8') # Py3K
 
-APIPARAMS = ('chxtc', 'chxt', 'chxp', 'chxs', 'chxr', 'chco', 'chtm', 'chld', 'chts', 'chtt', 'chxl', 'chd', 'chf', 'chg', 'chl', 'chm', 'chp', 'chs', 'cht', 'chls', 'chdlp', 'chds', 'chbh', 'chdl', 'choe', 'chst')
+APIPARAMS = ('chxtc', 'chxt', 'chxp', 'chxs', 'chxr', 'chco', 'chtm', 'chld',
+    'chts', 'chtt', 'chxl', 'chd', 'chf', 'chg', 'chl', 'chm', 'chp', 'chs',
+    'cht', 'chls', 'chdlp', 'chds', 'chbh', 'chdl', 'choe', 'chst')
 
-MARKERS = ('a','c','d','o','s','t','v','V','h','x','r','R','b','B','D','F')
+MARKERS = 'acdostvVhxrRbBDF'
 
-TYPES = ('bvs', 'p3', 'qr', 'lc', 'p', 'bhg', 'pc', 's', 'r', 'rs', 'bvg', 't', 'v', 'lxy', 'bhs', 'gom', 'ls')
+TYPES = ('bvs', 'p3', 'qr', 'lc', 'p', 'bhg', 'pc', 's', 'r', 'rs', 'bvg', 't',
+    'v', 'lxy', 'bhs', 'gom', 'ls')
 
 IMGATTRS = ('title','alt','align','border','height','width','ismap','longdesc',
 'usemap','id','class','style','lang','xml:lang','onclick','ondblclick','onmousedown',
@@ -39,7 +46,8 @@ IMGATTRS = ('title','alt','align','border','height','width','ismap','longdesc',
 GEO = ('africa','asia','europe','middle_east','south_america','usa','world')
 
 TTAGSATTRS = ('label','title','color','line','grid','bar','marker','fill','legend','axes',
-'encoding','scale','size','type','dataset','img','map','bar_width_spacing','legend_pos','output_encoding','level_data')
+'encoding','scale','size','type','dataset','img','map','bar_width_spacing',
+'legend_pos','output_encoding','level_data')
 
 APIURL = 'http://chart.apis.google.com/chart?' 
 
@@ -186,11 +194,28 @@ COLOR_MAP = {
     'yellowgreen': '9ACD32'
 }
 PIN_TYPES = ('pin_letter','pin_icon','xpin_letter','xpin_icon','spin')
-PIN_ICONS = ('home', 'home', 'WC', 'WCfemale', 'WCmale', 'accomm', 'airport', 'baby', 'bar', 'bicycle', 'bus', 'cafe', 'camping', 'car', 'caution', 'cinema', 'computer', 'corporate', 'dollar', 'euro', 'fire', 'flag', 'floral', 'helicopter', 'home', 'info', 'landslide', 'legal', 'location', 'locomotive', 'medical', 'mobile', 'motorcycle', 'music', 'parking', 'pet', 'petrol', 'phone', 'picnic', 'postal', 'pound', 'repair', 'restaurant', 'sail', 'school', 'scissors', 'ship', 'shoppingbag', 'shoppingcart', 'ski', 'snack', 'snow', 'sport', 'swim', 'taxi', 'train', 'truck', 'wheelchair', 'yen')
+PIN_ICONS = ('home', 'home', 'WC', 'WCfemale', 'WCmale', 'accomm', 'airport',
+    'baby', 'bar', 'bicycle', 'bus', 'cafe', 'camping', 'car', 'caution', 'cinema',
+    'computer', 'corporate', 'dollar', 'euro', 'fire', 'flag', 'floral', 'helicopter',
+    'home', 'info', 'landslide', 'legal', 'location', 'locomotive', 'medical',
+    'mobile', 'motorcycle', 'music', 'parking', 'pet', 'petrol', 'phone', 'picnic',
+    'postal', 'pound', 'repair', 'restaurant', 'sail', 'school', 'scissors', 'ship',
+    'shoppingbag', 'shoppingcart', 'ski', 'snack', 'snow', 'sport', 'swim', 'taxi',
+    'train', 'truck', 'wheelchair', 'yen')
 PIN_SHAPES = ('pin','star','sleft','sright')
 NOTE_TYPES = ('note_title','note','weather')
 NOTE_IMAGES = ('arrow_d', 'balloon', 'pinned_c', 'sticky_y', 'taped_y', 'thought')
-NOTE_WEATHERS = ('clear-night-moon', 'cloudy-heavy', 'cloudy-sunny', 'cloudy', 'rain', 'rainy-sunny', 'snow', 'snowflake', 'snowy-sunny', 'sunny-cloudy', 'sunny', 'thermometer-cold', 'thermometer-hot', 'thunder', 'windy')
+NOTE_WEATHERS = ('clear-night-moon', 'cloudy-heavy', 'cloudy-sunny', 'cloudy',
+    'rain', 'rainy-sunny', 'snow', 'snowflake', 'snowy-sunny', 'sunny-cloudy',
+    'sunny', 'thermometer-cold', 'thermometer-hot', 'thunder', 'windy')
 BUBBLE_TYPES = ('icon_text_small','icon_text_big','icon_texts_big','texts_big')
-BUBBLE_SICONS = ('WC', 'WCfemale', 'WCmale', 'accomm', 'airport', 'baby', 'bar', 'bicycle', 'bus', 'cafe', 'camping', 'car', 'caution', 'cinema', 'computer', 'corporate', 'dollar', 'euro', 'fire', 'flag', 'floral', 'helicopter', 'home', 'info', 'landslide', 'legal', 'location', 'locomotive', 'medical', 'mobile', 'motorcycle', 'music', 'parking', 'pet', 'petrol', 'phone', 'picnic', 'postal', 'pound', 'repair', 'restaurant', 'sail', 'school', 'scissors', 'ship', 'shoppingbag', 'shoppingcart', 'ski', 'snack', 'snow', 'sport', 'swim', 'taxi', 'train', 'truck', 'wheelchair', 'yen')
+BUBBLE_SICONS = ('WC', 'WCfemale', 'WCmale', 'accomm', 'airport', 'baby', 'bar',
+    'bicycle', 'bus', 'cafe', 'camping', 'car', 'caution', 'cinema', 'computer',
+    'corporate', 'dollar', 'euro', 'fire', 'flag', 'floral', 'helicopter', 'home',
+    'info', 'landslide', 'legal', 'location', 'locomotive', 'medical', 'mobile',
+    'motorcycle', 'music', 'parking', 'pet', 'petrol', 'phone', 'picnic', 'postal',
+    'pound', 'repair', 'restaurant', 'sail', 'school', 'scissors', 'ship', 'shoppingbag',
+    'shoppingcart', 'ski', 'snack', 'snow', 'sport', 'swim', 'taxi', 'train',
+    'truck', 'wheelchair', 'yen')
 BUBBLE_LICONS = ('beer', 'bike', 'car', 'house', 'petrol', 'ski', 'snack')
+LEGEND_POSITIONS = ('b','t','r','l','bv','tv')

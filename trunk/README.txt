@@ -1,6 +1,6 @@
 ################################################################################
-#  GChartWrapper - v0.7
-#  Copyright (C) 2008  Justin Quick <justquick@gmail.com>
+#  GChartWrapper - v0.8
+#  Copyright (C) 2009  Justin Quick <justquick@gmail.com>
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License version 3 as published 
@@ -17,6 +17,15 @@ With the chart you can render an HTML img tag to insert into webpages on the fly
 show it directly in a webbrowser, or save the chart PNG to disk.
 
 Changelog:
+-- 0.8 --
+Reverse functionality
+	>>> G = GChart.fromurl('http://chart.apis.google.com/chart?ch...')
+	
+Chaining fixes
+Restuctured Axes functions
+Centralized and added unittests
+Enhanced unicode support
+
 -- 0.7 --
 Full py3k compliance
 Color name lookup from the css names: http://www.w3schools.com/css/css_colornames.asp
