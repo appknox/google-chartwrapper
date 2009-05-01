@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>GChartWrapper</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Package&nbsp;GChartWrapper
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="GChartWrapper-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="GChartWrapper-module.html">Package GChartWrapper</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package GChartWrapper=GChartWrapper-module.html"><a title="GChartWrapper" class="py-name" href="#" onclick="return doclink('link-0', 'GChartWrapper', 'link-0');">GChartWrapper</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Class GChartWrapper.GChart=GChartWrapper.GChart-class.html"><a title="GChartWrapper.GChart" class="py-name" href="#" onclick="return doclink('link-1', 'GChart', 'link-1');">GChart</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-name">__all__</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">'Sparkline'</tt><tt class="py-op">,</tt> <tt class="py-string">'Map'</tt><tt class="py-op">,</tt> <tt class="py-string">'HorizontalBarStack'</tt><tt class="py-op">,</tt> <tt class="py-string">'VerticalBarStack'</tt><tt class="py-op">,</tt> <tt class="py-string">'QRCode'</tt><tt class="py-op">,</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-string">'Line'</tt><tt class="py-op">,</tt> <tt class="py-string">'GChart'</tt><tt class="py-op">,</tt> <tt class="py-string">'HorizontalBarGroup'</tt><tt class="py-op">,</tt> <tt class="py-string">'Scatter'</tt><tt class="py-op">,</tt> <tt class="py-string">'Pie3D'</tt><tt class="py-op">,</tt> <tt class="py-string">'Pie'</tt><tt class="py-op">,</tt> <tt class="py-string">'Meter'</tt><tt class="py-op">,</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-string">'Radar'</tt><tt class="py-op">,</tt> <tt class="py-string">'RadarSpline'</tt><tt class="py-op">,</tt> <tt class="py-string">'VerticalBarGroup'</tt><tt class="py-op">,</tt> <tt class="py-string">'LineXY'</tt><tt class="py-op">,</tt> <tt class="py-string">'Venn'</tt><tt class="py-op">,</tt> <tt class="py-string">'PieC'</tt><tt class="py-op">,</tt><tt class="py-string">'Pin'</tt><tt class="py-op">,</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-string">'Text'</tt><tt class="py-op">,</tt><tt class="py-string">'Note'</tt><tt class="py-op">,</tt><tt class="py-string">'Bubble'</tt><tt class="py-op">]</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-name">__version__</tt> <tt class="py-op">=</tt> <tt class="py-string">'0.8'</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-name">__author__</tt> <tt class="py-op">=</tt> <tt class="py-string">'Justin Quick &lt;justquick@gmail.com&gt;'</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"> </tt>
+<a name="chart"></a><div id="chart-def"><a name="L10"></a><tt class="py-lineno">10</tt> <a class="py-toggle" href="#" id="chart-toggle" onclick="return toggle('chart');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="GChartWrapper-module.html#chart">chart</a><tt class="py-op">(</tt><tt class="py-param">context</tt><tt class="py-op">,</tt> <tt class="py-param">chart</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">,</tt> <tt class="py-op">*</tt><tt class="py-param">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-param">kwargs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="chart-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="chart-expanded"><a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line">    <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name"><a title="GChartWrapper" class="py-name" href="#" onclick="return doclink('link-2', 'GChartWrapper', 'link-0');">GChartWrapper</a></tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-3" class="py-name" targets="Function GChartWrapper.chart()=GChartWrapper-module.html#chart,Function GChartWrapper.mako.chart()=GChartWrapper.mako-module.html#chart"><a title="GChartWrapper.chart
+GChartWrapper.mako.chart" class="py-name" href="#" onclick="return doclink('link-3', 'chart', 'link-3');">chart</a></tt> <tt class="py-keyword">and</tt> <tt id="link-4" class="py-name"><a title="GChartWrapper.chart
+GChartWrapper.mako.chart" class="py-name" href="#" onclick="return doclink('link-4', 'chart', 'link-3');">chart</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">dir</tt><tt class="py-op">(</tt><tt id="link-5" class="py-name"><a title="GChartWrapper" class="py-name" href="#" onclick="return doclink('link-5', 'GChartWrapper', 'link-0');">GChartWrapper</a></tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">getattr</tt><tt class="py-op">(</tt><tt id="link-6" class="py-name"><a title="GChartWrapper" class="py-name" href="#" onclick="return doclink('link-6', 'GChartWrapper', 'link-0');">GChartWrapper</a></tt><tt class="py-op">,</tt> <tt id="link-7" class="py-name"><a title="GChartWrapper.chart
+GChartWrapper.mako.chart" class="py-name" href="#" onclick="return doclink('link-7', 'chart', 'link-3');">chart</a></tt><tt class="py-op">)</tt><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-name">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-name">kwargs</tt><tt class="py-op">)</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt id="link-8" class="py-name"><a title="GChartWrapper" class="py-name" href="#" onclick="return doclink('link-8', 'GChartWrapper', 'link-0');">GChartWrapper</a></tt><tt class="py-op">.</tt><tt id="link-9" class="py-name"><a title="GChartWrapper.GChart" class="py-name" href="#" onclick="return doclink('link-9', 'GChart', 'link-1');">GChart</a></tt><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-name">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-name">kwargs</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th bgcolor="#70b0f0" class="navbar-select"
+          >&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    on Fri May  1 13:44:15 2009
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>
