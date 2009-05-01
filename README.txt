@@ -16,15 +16,18 @@ The wrapper can render the URL of the Google chart based on your parameters.
 With the chart you can render an HTML img tag to insert into webpages on the fly, 
 show it directly in a webbrowser, or save the chart PNG to disk.
 
+################################################################################
+
 Changelog:
 -- 0.8 --
 Reverse functionality
 	>>> G = GChart.fromurl('http://chart.apis.google.com/chart?ch...')
-	
+	<GChartWrapper.GChart instance at...>
 Chaining fixes
 Restuctured Axes functions
 Centralized and added unittests
 Enhanced unicode support
+Demos pages w/ source code
 
 -- 0.7 --
 Full py3k compliance
@@ -45,6 +48,9 @@ The wrapper now supports chaining
 The new way with chaining
 	>>> print Pie3D(range(1,5)).label('A','B','C','D').color('00dd00')
 New chart PieC for concentric pie charts
+
+################################################################################
+
 
 Doc TOC:
     1.1 General
@@ -175,7 +181,7 @@ Currently under development
 
 	Cheetah - done
 	Mako - done
-	Jinja2
+	Jinja2 - working, gonna b rough
 	Genshi?
 	Airspeed?
 	More to come...
@@ -193,12 +199,8 @@ Where mode is one of the following:
 
     unit - Runs unit test cases for all charts to see if checksums match
     save - Saves images of all charts in 'tests' folder
-    wiki - Creates GoogleCode compatable wiki markup of test src and img
-    img - Prints html img tags for all charts
+    demo - Creates html demo pages (needs pygments)
     url - Prints urls of all charts [default]
-    show - Opens all charts in tabs in a web browser
-    tags - Prints Django template src of all charts
-
 
 5.1 API Documentation 
 
