@@ -1,24 +1,25 @@
 """
-Contains the Django templatetags for chart and note types
+Django templatetags for chart and note types
 Now takes an as argument
 If the as argument is 'img', it will return a XHTML <img/>
 If the as argument is 'url', it will simply return the url of the chart
 If the as argument is anything else, the chart will be loaded into the context
 and named what the as argument is
 
-    {% chart ... [as url|img|varname] %}
-    ...
+{% chart ... [as url|img|varname] %}
+...
+{% endchart %}
+
+Example:
+
+    {% chart Pie3D 1 2 3 4 5 as pie %}
+        {% label A B C D %}
+        {% color green %}
     {% endchart %}
 
-    Example:
-        {% chart Pie3D 1 2 3 4 5 as pie %}
-            {% label A B C D %}
-            {% color green %}
-        {% endchart %}
-    
-        {% pie %} # The chart obj itself
-        {% pie.image %} # The PIL instance
-        {% pie.checksum %} # An SHA1 checksum
+    {% pie %} # The chart obj itself
+    {% pie.image %} # The PIL instance
+    {% pie.checksum %} # An SHA1 checksum
 
 The FancyNode powers the tag for Note,Pin,Text and Bubble charts
 The <type> argument is one of the chart types in lower case
@@ -49,12 +50,11 @@ class GenericNode(Node):
         return self.post_render(context)
     def post_render(self, context): return self.args
     
-
 def attribute(parser, token):
     return GenericNode(token.split_contents())
+
 for tag in GChartWrapper.constants.TTAGSATTRS:
     register.tag(tag, attribute)
-
 
 class ChartNode(Node):
     def __init__(self, tokens, nodelist):
@@ -120,8 +120,8 @@ def make_chart(parser, token):
     parser.delete_first_token()
     tokens = token.contents.split()
     return ChartNode(tokens,nodelist)
+    
 register.tag('chart', make_chart)
-
 
 class FancyNode(GenericNode):
     cls = None
@@ -132,8 +132,7 @@ class FancyNode(GenericNode):
             mode = self.args[-1]
             self.args = self.args[:-2]
         for n,arg in enumerate(self.args):
-            self.args[n] = arg.replace('\\r\\n','\r\n')\
-                .replace('\\n','\n').replace('\\r','\r')
+            self.args[n] = arg.replace('\\n','\n').replace('\\r','\r')
         G = self.cls(*self.args)
         if mode:
             if mode == 'img':  

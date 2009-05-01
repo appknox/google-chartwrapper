@@ -45,7 +45,7 @@ The wrapper can render the URL of the Google chart, based on your parameters,
 or it can render an HTML img tag to insert into webpages on the fly. 
 Made for dynamic python websites (Django,Zope,CGI,etc.) that need on the fly 
 chart generation without any extra modules. Can also grab the PIL Image 
-instance of the chart for manipulation""",
+instance of the chart for manipulation. Works for Python 2 and 3""",
     author="Justin Quick",
     author_email='justquick@gmail.com',
     url='http://code.google.com/p/google-chartwrapper/',
@@ -54,5 +54,4 @@ instance of the chart for manipulation""",
     classifiers=CLASSIFIERS,
       package_dir={'GChartWrapper': 'GChartWrapper'},
       packages=['GChartWrapper', 'GChartWrapper.charts', 'GChartWrapper.charts.templatetags'],
-    #  package_data={'GChartWrapper': data_files},
 )

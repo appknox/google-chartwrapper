@@ -26,7 +26,7 @@
 			<script type="text/javascript"src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 		</div>
 		<div class="container">
-			<div class="titleblock" style="background-image:url(/media/globe1.png);">
+			<div class="titleblock" style="background-image:url(http://chartography.net/media/globe1.png);">
 				<h1>
 					Chartography.net
 				</h1>
@@ -116,14 +116,13 @@
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
     <img src="http://chart.apis.google.com/chart?chxt=y&amp;chd=e:abcde,FGHIJ,09876&amp;chco=FF0000,00FF00,0000FF&amp;chs=300x150&amp;cht=lc&amp;chdl=Animals|Vegetables|Minerals&amp;chdlp=l" />
-    <pre><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">legend2</span><span class="p">():</span>
-        <span class="c"># Add a left aligned legend to the chart</span>
-        <span class="n">G</span> <span class="o">=</span> <span class="n">Line</span><span class="p">(</span> <span class="p">[</span><span class="s">&#39;abcde&#39;</span><span class="p">,</span><span class="s">&#39;FGHIJ&#39;</span><span class="p">,</span><span class="s">&#39;09876&#39;</span><span class="p">]</span> <span class="p">)</span>  
-        <span class="n">G</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="s">&#39;red&#39;</span><span class="p">,</span><span class="s">&#39;lime&#39;</span><span class="p">,</span><span class="s">&#39;blue&#39;</span><span class="p">)</span>
-        <span class="n">G</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="s">&#39;Animals&#39;</span><span class="p">,</span><span class="s">&#39;Vegetables&#39;</span><span class="p">,</span><span class="s">&#39;Minerals&#39;</span><span class="p">)</span>
-        <span class="n">G</span><span class="o">.</span><span class="n">legend_pos</span><span class="p">(</span><span class="s">&#39;l&#39;</span><span class="p">)</span>
-        <span class="n">G</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">)</span> 
-        <span class="k">return</span> <span class="n">G</span>
+    <pre><div class="highlight"><pre><span class="kn">from</span> <span class="nn">GChartWrapper</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c"># Add a left aligned legend to the chart</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">Line</span><span class="p">(</span> <span class="p">[</span><span class="s">&#39;abcde&#39;</span><span class="p">,</span><span class="s">&#39;FGHIJ&#39;</span><span class="p">,</span><span class="s">&#39;09876&#39;</span><span class="p">]</span> <span class="p">)</span>  
+<span class="n">G</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="s">&#39;red&#39;</span><span class="p">,</span><span class="s">&#39;lime&#39;</span><span class="p">,</span><span class="s">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">G</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="s">&#39;Animals&#39;</span><span class="p">,</span><span class="s">&#39;Vegetables&#39;</span><span class="p">,</span><span class="s">&#39;Minerals&#39;</span><span class="p">)</span>
+<span class="n">G</span><span class="o">.</span><span class="n">legend_pos</span><span class="p">(</span><span class="s">&#39;l&#39;</span><span class="p">)</span>
+<span class="n">G</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">)</span> 
 </pre></div>
 </pre>
 			</div>

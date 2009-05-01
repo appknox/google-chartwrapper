@@ -1,7 +1,7 @@
 from mako.template import Template
 
 print Template("""
-<%namespace name="gcw" module="GChartWrapper.mako"/>
+<%namespace name="gcw" module="GChartWrapper"/>
 
 ${
     gcw.chart('Line',data)\
@@ -16,7 +16,7 @@ ${
 """).render(data='fohmnytenefohmnytene')
 
 print Template("""
-<%namespace name="gcw" module="GChartWrapper.mako"/>
+<%namespace name="gcw" module="GChartWrapper"/>
 
 ${
     gcw.chart()\

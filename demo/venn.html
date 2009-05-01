@@ -26,7 +26,7 @@
 			<script type="text/javascript"src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 		</div>
 		<div class="container">
-			<div class="titleblock" style="background-image:url(/media/globe1.png);">
+			<div class="titleblock" style="background-image:url(http://chartography.net/media/globe1.png);">
 				<h1>
 					Chartography.net
 				</h1>
@@ -116,11 +116,10 @@
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
     <img src="http://chart.apis.google.com/chart?chds=0,100&amp;chd=t:100.0,80.0,60.0,30.0,30.0,30.0,10.0&amp;chs=300x150&amp;cht=v" />
-    <pre><div class="highlight"><pre>    <span class="k">def</span> <span class="nf">venn</span><span class="p">():</span>
-        <span class="c"># Extended venn diagram based on int list, scale the data to the max value</span>
-        <span class="n">G</span> <span class="o">=</span> <span class="n">Venn</span><span class="p">(</span> <span class="p">[</span><span class="mf">100</span><span class="p">,</span><span class="mf">80</span><span class="p">,</span><span class="mf">60</span><span class="p">,</span><span class="mf">30</span><span class="p">,</span><span class="mf">30</span><span class="p">,</span><span class="mf">30</span><span class="p">,</span><span class="mf">10</span><span class="p">],</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&#39;text&#39;</span><span class="p">)</span>
-        <span class="n">G</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="mf">100</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">G</span>
+    <pre><div class="highlight"><pre><span class="kn">from</span> <span class="nn">GChartWrapper</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c"># Extended venn diagram based on int list, scale the data to the max value</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">Venn</span><span class="p">(</span> <span class="p">[</span><span class="mf">100</span><span class="p">,</span><span class="mf">80</span><span class="p">,</span><span class="mf">60</span><span class="p">,</span><span class="mf">30</span><span class="p">,</span><span class="mf">30</span><span class="p">,</span><span class="mf">30</span><span class="p">,</span><span class="mf">10</span><span class="p">],</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&#39;text&#39;</span><span class="p">)</span>
+<span class="n">G</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span><span class="mf">100</span><span class="p">)</span>
 </pre></div>
 </pre>
 			</div>
