@@ -3,6 +3,32 @@
 
 = Whats New =
 
+== v0.8 == 
+
+Reverse functionality
+{{{
+>>> G = GChart.fromurl('http://chart.apis.google.com/chart?ch...')
+<GChartWrapper.GChart instance at...>
+}}}
+
+Restuctured Axes functions. You must declare indexes, axes is callable
+{{{
+# Old Way
+>>> G.axes.type('xy')
+>>> G.axes.label('Mar','Apr','May')
+>>> G.axes.label(None,'50+Kb')
+
+# New Way
+>>> G.axes('xy')
+>>> G.axes.label(0, 'Mar','Apr','May')
+>>> G.axes.label(1, None,'50+Kb')
+}}}
+
+Centralized and added unittests
+Enhanced unicode support
+Demos pages w/ source code available at [http://www.chartography.net/media/google-chartwrapper-demo/ chartograpy.net]
+Chaining fixes
+
 == v0.7 ==
 Full [http://www.python.org/dev/peps/pep-3000/ PY3K] compliance
 
