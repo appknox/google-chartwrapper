@@ -1,5 +1,5 @@
+#summary A listing of public websites that use the chart wrapper
 #labels Featured
-#A listing of public websites that use the chart wrapper
 
 = Who is using the wrapper? =
 
