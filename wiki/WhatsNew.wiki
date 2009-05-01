@@ -24,9 +24,9 @@ Restuctured Axes functions. You must declare indexes, axes is callable
 >>> G.axes.label(1, None,'50+Kb')
 }}}
 
-Centralized and added unittests
-Enhanced unicode support
-Demos pages w/ source code available at [http://www.chartography.net/media/google-chartwrapper-demo/ chartograpy.net]
+Centralized and added unittests. 
+Enhanced unicode support. 
+Demos pages w/ source code available at [http://www.chartography.net/media/google-chartwrapper-demo/ chartograpy.net]. 
 Chaining fixes
 
 == v0.7 ==
