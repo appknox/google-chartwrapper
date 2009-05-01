@@ -25,8 +25,11 @@ Restuctured Axes functions. You must declare indexes, axes is callable
 }}}
 
 Centralized and added unittests. 
+
 Enhanced unicode support. 
+
 Demos pages w/ source code available at [http://www.chartography.net/media/google-chartwrapper-demo/ chartograpy.net]. 
+
 Chaining fixes
 
 == v0.7 ==
