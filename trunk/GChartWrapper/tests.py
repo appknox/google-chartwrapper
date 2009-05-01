@@ -7,7 +7,7 @@ class TestChartTypes(unittest.TestCase):
     """
     Extensive unit tests, more are welcome
     
-    All methods must be commented and return a GChart instance as the last line.
+    All methods should be commented and must return a GChart instance as the last line.
     """
     # All is dict of (name : checksum) pairs
     all = {
@@ -730,7 +730,7 @@ class TestChartTypes(unittest.TestCase):
     
     def test_fromstring(self):
         url='http://chart.apis.google.com/chart?cht=p3&chd=t:60,40&chs=250x100&chl=Hello|World'
-        self.assertEqual(len(GChart.fromurl(url).checksum()),40)
+        self.assertEqual(GChart.fromurl(url).checksum(),'4e53c7add42ce61a933ce106a9854222c54c9147')
 
 
 def get_chart(chart):
@@ -740,6 +740,10 @@ def saveall():
     for chart in TestChartTypes.all:
         chartobj = get_chart(chart)
         chartobj.save('tests/%s'%chart)
+        
+###########################
+# PLEASE STOP READING HERE. It gets ugly
+###########################
     
 head = """  
     <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -769,7 +773,7 @@ head = """
 			<script type="text/javascript"src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 		</div>
 		<div class="container">
-			<div class="titleblock" style="background-image:url(/media/globe1.png);">
+			<div class="titleblock" style="background-image:url(http://chartography.net/media/globe1.png);">
 				<h1>
 					Chartography.net
 				</h1>
@@ -830,6 +834,7 @@ def demo():
         lines = getsource(obj).splitlines()
         lines[0] = lines[0].replace('(self)','()').replace('def test_','def ')
         del lines[-2]
+        lines = ['from GChartWrapper import *'] + [x[8:] for x in lines[1:-1]]
         w = 225
         if chart.find('pin')>-1: w = 50
         o = obj()
@@ -839,7 +844,8 @@ def demo():
         fo.write(head)
         fo.write(html % {
             'css': HtmlFormatter(encoding='utf-8').get_style_defs('.highlight'),
-            'code':highlight('\n'.join(lines), PythonLexer(encoding='chardet'), HtmlFormatter(encoding='utf-8')),
+            'code':highlight('\n'.join(lines), PythonLexer(encoding='chardet'),
+                            HtmlFormatter(encoding='utf-8')),
             'img':o.img(),
             'name':chart
         })

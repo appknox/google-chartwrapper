@@ -38,11 +38,6 @@ Example
 
 See tests.py for unit test and other examples
 """
-__all__ = ['Sparkline', 'Map', 'HorizontalBarStack', 'VerticalBarStack', 'QRCode',
-'Line', 'GChart', 'HorizontalBarGroup', 'Scatter', 'Pie3D', 'Pie', 'Meter',
-'Radar', 'RadarSpline', 'VerticalBarGroup', 'LineXY', 'Venn', 'PieC','Pin',
-'Text','Note','Bubble']
-__version__ = 0.8
 from GChartWrapper.constants import *
 from GChartWrapper.encoding import Encoder
 from webbrowser import open as webopen
@@ -52,8 +47,7 @@ try:
     from sha import new as new_sha
 except ImportError:
     from hashlib import sha1
-    def new_sha(astr):
-        return sha1(bytes(astr,'utf-8'))
+    new_sha = lambda s: sha1(bytes(s,'utf-8'))
 
 def lookup_color(color):
     """
@@ -102,7 +96,8 @@ class Axes(dict):
     """
     def __init__(self, parent):
         self.parent = parent
-        self.data = {'ticks':[],'labels':[],'positions':[],'ranges':[],'styles':[]}
+        self.data = {'ticks':[],'labels':[],'positions':[],
+            'ranges':[],'styles':[]}
         dict.__init__(self)
 
     def tick(self, index, length):
@@ -135,7 +130,7 @@ class Axes(dict):
         APIPARAM: chxl
         """
         self.data['labels'].append(
-            str('%d:|%s'%(index, '|'.join(map(str,args)) )).replace('None','')
+            str('%s:|%s'%(index, '|'.join(map(str,args)) )).replace('None','')
         )
         return self.parent
         
@@ -146,7 +141,7 @@ class Axes(dict):
         APIPARAM: chxp
         """
         self.data['positions'].append(
-            str('%d,%s'%(index, ','.join(map(str,args)) )).replace('None','')
+            str('%s,%s'%(index, ','.join(map(str,args)) )).replace('None','')
         )
         return self.parent
         
@@ -156,13 +151,19 @@ class Axes(dict):
         args are of the form <start of range>,<end of range>,<interval>
         APIPARAM: chxr
         """
-        self.data['ranges'].append('%d,%s'%(index, ','.join(map(smart_str, args))))
+        self.data['ranges'].append('%s,%s'%(index,
+                                    ','.join(map(smart_str, args))))
         return self.parent
         
     def style(self, index, *args):
         """
         Add style to your axis, one at a time
-        args are of the form <axis color>,<font size>,<alignment>,<drawing control>,<tick mark color>
+        args are of the form::
+            <axis color>,
+            <font size>,
+            <alignment>,
+            <drawing control>,
+            <tick mark color>
         APIPARAM: chxs
         """
         args = color_args(args, 0)
@@ -275,8 +276,12 @@ class GChart(dict):
     def scale(self, *args):
         """
         Scales the data down to the given size
-        args must be in the form of <data set 1 minimum value>,<data set 1 maximum value>,<data set n minimum value>,<data set n maximum value>
-        will only work with text encoding
+        args must be of the form::
+            <data set 1 minimum value>,
+            <data set 1 maximum value>,
+            <data set n minimum value>,
+            <data set n maximum value>
+        will only work with text encoding!
         APIPARAM: chds
         """
         self._scale =  [','.join(map(smart_str, args))]
@@ -293,7 +298,13 @@ class GChart(dict):
     def marker(self, *args):
         """
         Defines markers one at a time for your graph
-        args are of the form <marker type>,<color>,<data set index>,<data point>,<size>,<priority>
+        args are of the form::
+            <marker type>,
+            <color>,
+            <data set index>,
+            <data point>,
+            <size>,
+            <priority>
         see the official developers doc for the complete spec
         APIPARAM: chm
         """
@@ -307,7 +318,10 @@ class GChart(dict):
     def line(self, *args):
         """
         Called one at a time for each dataset
-        args are of the form <data set n line thickness>,<length of line segment>,<length of blank segment>
+        args are of the form::
+            <data set n line thickness>,
+            <length of line segment>,
+            <length of blank segment>
         APIPARAM: chls
         """
         self.lines.append(','.join(['%.1f'%x for x in map(float,args)]))
@@ -319,11 +333,12 @@ class GChart(dict):
         args are of the form <fill type>,<fill style>,...
         fill type must be one of c,bg,a
         fill style must be one of s,lg,ls
-        the rest of the args refer to the particular style, refer to the official doc
+        the rest of the args refer to the particular style
         APIPARAM: chf
         """
-        assert args[0] in ('c','bg','a'), 'Fill type must be bg/c/a not %s'%args[0]
-        assert args[1] in ('s','lg','ls'), 'Fill style must be s/lg/ls not %s'%args[1]
+        a,b = args[:2]
+        assert a in ('c','bg','a'), 'Fill type must be bg/c/a not %s'%a
+        assert b in ('s','lg','ls'), 'Fill style must be s/lg/ls not %s'%b
         if len(args) == 3:
             args = color_args(args, 2)
         else:
@@ -334,7 +349,7 @@ class GChart(dict):
     def grid(self, *args):
         """
         Apply a grid to your chart
-        args are of the form
+        args are of the form::
             <x axis step size>,
             <y axis step size>,
             <length of line segment>,
@@ -423,14 +438,20 @@ class GChart(dict):
     def margin(self, *args):
         """
         Set the margins of your chart
-        args are of the form <left margin>,<right margin>,<top margin>,<bottom margin>[,<legend width>,<legend height>]
+        args are of the form::
+            <left margin>,
+            <right margin>,
+            <top margin>,
+            <bottom margin>
+            [,<legend width>,<legend height>]
         the legend args are optional
         APIPARAM: chma
         """
         if len(args) == 4:
             self['chma'] = ','.join(map(str,args))
         elif len(args) == 6:
-            self['chma'] = ','.join(map(str,args[:4]))+'|'+','.join(map(str,args[4:]))
+            self['chma'] = ','.join(
+                map(str,args[:4]))+'|'+','.join(map(str,args[4:]))
         else:
             raise ValueError('Margin arguments must be either 4 or 6 items')
         return self
@@ -464,7 +485,8 @@ class GChart(dict):
         elif not 'choe' in self:
             assert 'chd' in self, 'You must have a dataset, or use chd'
         if self._scale:
-            assert self['chd'].startswith('t'), 'You must use text encoding with chds'
+            assert self['chd'].startswith('t'),\
+                'You must use text encoding with chds'
             self['chds'] = ','.join(self._scale)
         if self._geo and self._ld:
             self['chtm'] = self._geo
@@ -495,13 +517,15 @@ class GChart(dict):
         if type in TYPES:
             return type
         tdict = dict(zip(TYPES,TYPES))
-        tdict['line'] = 'lc'
-        tdict['bar'] = 'bvs'
-        tdict['pie'] = 'p'
-        tdict['venn'] = 'v'
-        tdict['scater'] = 's'
-        tdict['radar'] = 'r'
-        tdict['meter'] = 'gom'
+        tdict.update({
+            'line': 'lc',
+            'bar': 'bvs',
+            'pie': 'p',
+            'venn': 'v',
+            'scater': 's',
+            'radar': 'r',
+            'meter': 'gom',
+        })
         assert type in tdict, 'Invalid chart type: %s'%type
         return tdict[type]
 
@@ -634,12 +658,6 @@ class GChart(dict):
 
 # Now a whole mess of convenience classes
 # *for those of us who dont speak API*
-class Meter(GChart):
-    def __init__(self, dataset, **kwargs):
-        # we can do this to other charts with preferred settings
-        kwargs['encoding'] = 'text'
-        GChart.__init__(self, 'gom', dataset, **kwargs)
-
 class QRCode(GChart):
     def __init__(self, content='', **kwargs):
         kwargs['choe'] = 'UTF-8'
@@ -648,66 +666,29 @@ class QRCode(GChart):
         else:
             kwargs['chl'] = quote(content[0]).replace('%0A','\n')
         GChart.__init__(self, 'qr', None, **kwargs)
-
-class Line(GChart):
+        
+class _AbstractGChart(GChart):
+    o,t = {},None
     def __init__(self, dataset, **kwargs):
-        GChart.__init__(self, 'lc', dataset, **kwargs)
+        kwargs.update(self.o)
+        GChart.__init__(self, self.t, dataset, **kwargs)
 
-class LineXY(GChart):
-    def __init__(self, dataset, **kwargs):
-        GChart.__init__(self, 'lxy', dataset, **kwargs)
-
-class HorizontalBarStack(GChart):
-    def __init__(self, dataset, **kwargs):
-        GChart.__init__(self, 'bhs', dataset, **kwargs)
-
-class VerticalBarStack(GChart):
-    def __init__(self, dataset, **kwargs):
-        GChart.__init__(self, 'bvs', dataset, **kwargs)
-
-class HorizontalBarGroup(GChart):
-    def __init__(self, dataset, **kwargs):
-        GChart.__init__(self, 'bhg', dataset, **kwargs)
-
-class VerticalBarGroup(GChart):
-    def __init__(self, dataset, **kwargs):
-        GChart.__init__(self, 'bvg', dataset, **kwargs)
-
-class Pie(GChart):
-    def __init__(self, dataset, **kwargs):
-        GChart.__init__(self, 'p', dataset, **kwargs)
-
-class Pie3D(GChart):
-    def __init__(self, dataset, **kwargs):
-        GChart.__init__(self, 'p3', dataset, **kwargs)
-
-class Venn(GChart):
-    def __init__(self, dataset, **kwargs):
-        GChart.__init__(self, 'v', dataset, **kwargs)
-
-class Scatter(GChart):
-    def __init__(self, dataset, **kwargs):
-        GChart.__init__(self, 's', dataset, **kwargs)
-
-class Sparkline(GChart):
-    def __init__(self, dataset, **kwargs):
-        GChart.__init__(self, 'ls', dataset, **kwargs)
-
-class Radar(GChart):
-    def __init__(self, dataset, **kwargs):
-        GChart.__init__(self, 'r', dataset, **kwargs)
-
-class RadarSpline(GChart):
-    def __init__(self, dataset, **kwargs):
-        GChart.__init__(self, 'rs', dataset, **kwargs)
-
-class Map(GChart):
-    def __init__(self, dataset, **kwargs):
-        GChart.__init__(self, 't', dataset, **kwargs)
-
-class PieC(GChart):
-    def __init__(self, dataset, **kwargs):
-        GChart.__init__(self, 'pc', dataset, **kwargs)
+class Meter(_AbstractGChart):   o,t = {'encoding':'text'},'gom'
+class Line(_AbstractGChart):     t = 'lc' 
+class LineXY(_AbstractGChart):     t = 'lxy' 
+class HorizontalBarStack(_AbstractGChart):     t = 'bhs' 
+class VerticalBarStack(_AbstractGChart):     t = 'bvs' 
+class HorizontalBarGroup(_AbstractGChart):     t = 'bhg' 
+class VerticalBarGroup(_AbstractGChart):     t = 'bvg' 
+class Pie(_AbstractGChart):     t = 'p' 
+class Pie3D(_AbstractGChart):     t = 'p3' 
+class Venn(_AbstractGChart):     t = 'v' 
+class Scatter(_AbstractGChart):     t = 's' 
+class Sparkline(_AbstractGChart):     t = 'ls' 
+class Radar(_AbstractGChart):     t = 'r' 
+class RadarSpline(_AbstractGChart):     t = 'rs' 
+class Map(_AbstractGChart):     t = 't' 
+class PieC(_AbstractGChart):     t = 'pc' 
 
 ########################################
 # Now for something completely different
@@ -720,8 +701,8 @@ class Text(GChart):
         args = list(map(str, color_args(args, 0, 3)))
         assert args[2] in 'lrh', 'Invalid text alignment'
         assert args[4] in '_b', 'Invalid font style'
-        self['chld'] = '|'.join(args)\
-            .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
+        self['chld'] = '|'.join(args).replace('\r\n','|')\
+            .replace('\r','|').replace('\n','|').replace(' ','+')
 
 class Pin(GChart):
     def render(self): pass
@@ -747,8 +728,8 @@ class Pin(GChart):
         elif ptype == 'spin':
             args = color_args(args, 2)
         self['chst'] = 'd_map_%s'%ptype
-        self['chld'] = '|'.join(map(str, args))\
-            .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
+        self['chld'] = '|'.join(map(str, args)).replace('\r\n','|')\
+            .replace('\r','|').replace('\n','|').replace(' ','+')
     def shadow(self):
         image = copy(self)
         chsts = self['chst'].split('_')
@@ -769,8 +750,8 @@ class Note(GChart):
             self['chst'] = 'd_%s'%args[0]
             assert args[2] in NOTE_WEATHERS,'Invalid weather'
         args = args[1:]
-        self['chld'] = '|'.join(map(str, args))\
-            .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
+        self['chld'] = '|'.join(map(str, args)).replace('\r\n','|')\
+            .replace('\r','|').replace('\n','|').replace(' ','+')
 
 class Bubble(GChart):
     def render(self): pass
@@ -786,11 +767,9 @@ class Bubble(GChart):
         elif btype == 'texts_big':
             args = color_args(args, 1,2)
         self['chst'] = 'd_bubble_%s'%btype
-        self['chld'] = '|'.join(map(str, args))\
-            .replace('\r\n','|').replace('\r','|').replace('\n','|').replace(' ','+')
+        self['chld'] = '|'.join(map(str, args)).replace('\r\n','|')\
+            .replace('\r','|').replace('\n','|').replace(' ','+')
     def shadow(self):
         image = copy(self)
         image.data['chst'] = '%s_shadow'%self['chst']
         return image
-        
-
