@@ -9,7 +9,7 @@ This project has become very widespread and I have started collecting a list of 
 
   * [http://www.chartography.net/ My site of chart demos and more]
   * [http://www.freshports.org/graphics/py-gchartwrapper/ Free BSD]
-  * [http://trac-hacks.org/wiki/GoogleChartPlugin Trac Hacks]
+  * [http://trac-hacks.org/wiki/GoogleChartPlugin Trac Hacks: Google Chart API plugin ¶]
 
 == Honorable Mentions ==
   * [http://www.jakhlasovali.cz/ Czech Parliament voting results]
