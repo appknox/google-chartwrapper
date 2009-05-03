@@ -6,6 +6,7 @@ def example(request):
         'venndata': [100,80,60,30,30,30,10],
         'piedata':[60,40],
         'bhgdata':['el','or'],
+        '20q': ['Animals','Vegetables','Minerals'],
         'qrstr':'''To the human eye QR Codes look like hieroglyphics, 
             but they can be read by any device that has 
             the appropriate software installed.''',
