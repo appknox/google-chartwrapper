@@ -104,7 +104,10 @@ class ChartNode(Node):
                 if rend[0] == 'axes':
                     getattr(getattr(chart, rend[0]), rend[1])(*rend[2:])
                 else:
-                    getattr(chart, rend[0])(*rend[1:])
+                    if isinstance(rend[1], list) or isinstance(rend[1], tuple):
+                        getattr(chart, rend[0])(*rend[1])
+                    else:
+                        getattr(chart, rend[0])(*rend[1:])
         if self.mode:
             if self.mode == 'img':  
                 return chart.img(**imgkwargs)
