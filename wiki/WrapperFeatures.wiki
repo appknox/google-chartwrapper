@@ -53,6 +53,11 @@ class GChart(UserDict)
 '<img alt="" title="" src="http://chart.apis.google.com/chart?..." id="chart" height="500" >'
 }}}
 
+*Grab a GChart object from an existing Google chart url*
+{{{
+>>> G = GChart.fromurl('http://chart.apis.google.com/chart?ch...')
+<GChart instance at...>
+}}}
 ===Viewing===
 *Save chart to file as PNG image, returns filename*
 {{{
