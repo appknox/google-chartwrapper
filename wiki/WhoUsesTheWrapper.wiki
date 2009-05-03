@@ -5,14 +5,13 @@
 
 This project has become very widespread and I have started collecting a list of public facing sites that use the wrapper in some way:
 
-== Gold Star ==
+== Top Sites ==
 
   * [http://www.chartography.net/ My site of chart demos and more]
   * [http://www.freshports.org/graphics/py-gchartwrapper/ Free BSD]
   * [http://trac-hacks.org/wiki/GoogleChartPlugin Trac Hacks: Google Chart API plugin]
   * [http://jehiah.cz/oh-eight/ Jehiah 08: A personal annual report]
 
-== Honorable Mentions ==
   * [http://www.jakhlasovali.cz/ Czech Parliament voting results]
   * [http://www.interlegis.gov.br/ Legislative projects for the Brazilian Government]
   * [http://github.com/aisipos/djangolobbyist/tree/master Django Powered website to visualize Senate Office of Public Records data about Lobbying]
