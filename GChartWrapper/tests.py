@@ -737,6 +737,9 @@ def get_chart(chart):
     return getattr(TestChartTypes('test_%s'%chart), 'test_%s'%chart)()
 
 def saveall():
+    import os
+    if not os.path.isdir('tests'):
+        os.mkdir('tests')
     for chart in TestChartTypes.all:
         chartobj = get_chart(chart)
         chartobj.save('tests/%s'%chart)
