@@ -15,7 +15,7 @@ This project has become very widespread and I have started collecting a list of 
   * [http://www.jakhlasovali.cz/ Czech Parliament voting results]
   * [http://www.interlegis.gov.br/ Legislative projects for the Brazilian Government]
   * [http://github.com/aisipos/djangolobbyist/tree/master Django Powered website to visualize Senate Office of Public Records data about Lobbying]
-  * [http://www.cubicweb.org/ Semantic Web Framework]
+  * [http://www.cubicweb.org/ Cubicweb: Semantic Web Framework]
 
 
 Please comment below to add your site
