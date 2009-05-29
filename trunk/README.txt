@@ -2,12 +2,7 @@
 #  GChartWrapper - v0.8
 #  Copyright (C) 2009  Justin Quick <justquick@gmail.com>
 #
-#  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License version 3 as published 
-#  by the Free Software Foundation.
-#
-#  Thanks to anyone who does anything for this project. 
-#  If you have even the smallest revision, please email me at above address.
+#  This program is free software. See attached LICENSE.txt for more info
 ################################################################################
 
 GChartWrapper - Google Chart API Wrapper
