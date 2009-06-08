@@ -3,7 +3,7 @@
 
 = Who is using the wrapper? =
 
-This project has become very widespread and I have started collecting a list of public facing sites that use the wrapper in some way:
+This project has become very widespread and I have started collecting a list of projects and public facing sites that use the wrapper:
 
 == Top Sites ==
 
