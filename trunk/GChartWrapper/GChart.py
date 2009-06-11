@@ -43,12 +43,6 @@ from GChartWrapper.encoding import Encoder
 from webbrowser import open as webopen
 from copy import copy
 
-try:
-    from sha import new as new_sha
-except ImportError:
-    from hashlib import sha1
-    new_sha = lambda s: sha1(bytes(s,'utf-8'))
-
 def lookup_color(color):
     """
     Returns the hex color for any valid css color name

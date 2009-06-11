@@ -9,11 +9,17 @@ if sys.version.startswith('3.0'):
     PY_VER = '3.x'
     from urllib.parse import quote_plus,parse_qsl
     from urllib.request import urlopen,urlretrieve
+    from hashlib import sha1
+    new_sha = lambda s: sha1(bytes(s,'utf-8'))
 else:
     PY_VER = '2.x'
     from urllib import quote_plus,urlretrieve
     from urllib2 import urlopen, Request, URLError, HTTPError
     from cgi import parse_qsl
+    try: # >= 2.5
+        from hashlib import sha1 as new_sha
+    except ImportError: # < 2.5
+        from sha import new as new_sha
 
 def quote(s):
     try:
