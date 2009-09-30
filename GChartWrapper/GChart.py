@@ -40,7 +40,6 @@ See tests.py for unit test and other examples
 """
 from GChartWrapper.constants import *
 from GChartWrapper.encoding import Encoder
-from webbrowser import open as webopen
 from copy import copy
 
 def lookup_color(color):
@@ -135,7 +134,7 @@ class Axes(dict):
         APIPARAM: chxp
         """
         self.data['positions'].append(
-            str('%s,%s'%(index, ','.join(map(str,args)) )).replace('None','')
+            str('%s,%s'%(index, ','.join(map(str,args)))).replace('None','')
         )
         return self.parent
         
@@ -188,14 +187,13 @@ class GChart(dict):
         self._dataset = dataset
         dict.__init__(self)
         if ctype:
-            self.check_type(ctype)
-            self['cht'] = ctype
+            self['cht'] = self.check_type(ctype)
         self._encoding = kwargs.pop('encoding', None)
         self._scale = kwargs.pop('scale', None)
-        self.apiurl = kwargs.pop('apiurl', APIURL)
-        for k,v in kwargs.items():
-            assert k in APIPARAMS, 'Invalid chart parameter: %s'%k
-            self[k] = v
+        self._apiurl = kwargs.pop('apiurl', APIURL)
+        for k in kwargs:
+            assert k in APIPARAMS, 'Invalid chart parameter: %s' % k
+        self.update(kwargs)
         self.axes = Axes(self)
     
     @classmethod
@@ -309,6 +307,24 @@ class GChart(dict):
         self.markers.append(','.join(map(str,args)) )
         return self
         
+    def margin(self, left, right, top, bottom, lwidth=0, lheight=0):
+        """
+        Set margins for chart area
+        args are of the form::
+            <left margin>,
+            <right margin>,
+            <top margin>,
+            <bottom margin>|
+            <legend width>,
+            <legend height>
+        
+        APIPARAM: chma
+        """
+        self['chma'] = '%d,%d,%d,%d'  % (left, right, top, bottom)
+        if lwidth or lheight:
+            self['chma'] += '|%d,%d' % (lwidth, lheight)
+        return self
+    
     def line(self, *args):
         """
         Called one at a time for each dataset
@@ -428,31 +444,10 @@ class GChart(dict):
         self.check_size(x,y)
         self['chs'] = '%dx%d'%(x,y)
         return self
-
-    def margin(self, *args):
-        """
-        Set the margins of your chart
-        args are of the form::
-            <left margin>,
-            <right margin>,
-            <top margin>,
-            <bottom margin>
-            [,<legend width>,<legend height>]
-        the legend args are optional
-        APIPARAM: chma
-        """
-        if len(args) == 4:
-            self['chma'] = ','.join(map(str,args))
-        elif len(args) == 6:
-            self['chma'] = ','.join(
-                map(str,args[:4]))+'|'+','.join(map(str,args[4:]))
-        else:
-            raise ValueError('Margin arguments must be either 4 or 6 items')
-        return self
-    
+   
     def orientation(self, angle):
         """
-        Set the chart's orientation for pie charts
+        Set the chart dataset orientation
         angle is <angle in radians>
         APIPARAM: chp
         """
@@ -554,7 +549,7 @@ class GChart(dict):
         Returns the rendered URL of the chart
         """
         self.render()        
-        return self.apiurl + '&'.join(self._parts()).replace(' ','+')
+        return self._apiurl + '&'.join(self._parts()).replace(' ','+')
 
 
     def show(self, *args, **kwargs):
@@ -563,6 +558,7 @@ class GChart(dict):
 
         Other arguments passed to webbrowser.open
         """
+        from webbrowser import open as webopen
         return webopen(str(self), *args, **kwargs)
 
     def save(self, fname=None):
@@ -666,6 +662,7 @@ class _AbstractGChart(GChart):
     def __init__(self, dataset, **kwargs):
         kwargs.update(self.o)
         GChart.__init__(self, self.t, dataset, **kwargs)
+
 
 class Meter(_AbstractGChart):   o,t = {'encoding':'text'},'gom'
 class Line(_AbstractGChart):     t = 'lc' 

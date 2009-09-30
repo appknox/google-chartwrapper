@@ -4,7 +4,7 @@ __all__ = ['Sparkline', 'Map', 'HorizontalBarStack', 'VerticalBarStack', 'QRCode
 'Line', 'GChart', 'HorizontalBarGroup', 'Scatter', 'Pie3D', 'Pie', 'Meter',
 'Radar', 'RadarSpline', 'VerticalBarGroup', 'LineXY', 'Venn', 'PieC','Pin',
 'Text','Note','Bubble']
-__version__ = '0.8'
+__version__ = '0.9'
 __author__ = 'Justin Quick <justquick@gmail.com>'
 
 def chart(context, chart=None, *args, **kwargs):
