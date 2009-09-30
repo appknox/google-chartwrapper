@@ -1,5 +1,7 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from GChartWrapper import *
+from GChartWrapper.encoding import Encoder
 from GChartWrapper.constants import PY_VER,_print
 import unittest
 
@@ -75,15 +77,17 @@ class TestChartTypes(unittest.TestCase):
         'omitted_colors':'bc72f51d748767fc1692b6a227d5184415e9e2f5',
         'scatter':'36f99c6a7e93af8d164af220ae626c10002f808e',
         'fancy_radar':'049d0fe4a213204e8e31f07658c7a665ea866698',
-        'legend_position':'5f2d550e98ae1a85312b4d7e33761d30ca89acfd'
+        'legend_position':'5f2d550e98ae1a85312b4d7e33761d30ca89acfd',
+        'circle_diamonds':'0e02091bfe03d6cf31704c87de01dea6c47e3717',
     }
 
     def __init__(self, *a, **kw):
         super(TestChartTypes, self).__init__(*a, **kw)
 
-    def _test_a_chart(self, rep, test):
+    def _test_a_chart(self, rep, chart):
         chart_name = rep.split('test_')[1][:-1]
-        self.assertEqual(self.all[chart_name], test, '%s: %s != %s'%(chart_name,self.all[chart_name],test))
+        self.assertEqual(self.all[chart_name], chart.checksum(),
+                        '%s: %s != %s'%(chart_name,self.all[chart_name],chart.checksum()))
 
     def test_scatter(self):
         G = Scatter([[12,87,75,41,23,96,68,71,34,9],[98,60,27,34,56,79,58,74,18,76],[84,23,69,81,47,94,60,93,64,54]])
@@ -91,7 +95,7 @@ class TestChartTypes(unittest.TestCase):
         G.axes.label(0, 0,20,30,40,50,60,70,80,90,10)
         G.axes.label(1, 0,25,50,75,100)
         G.size(300,200)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
     
     def test_fancy_radar(self):
@@ -111,21 +115,21 @@ class TestChartTypes(unittest.TestCase):
         G.marker('V','00FF0080',0,1.0,5.0)
         G.marker('V','008000',0,5.5,5.0)
         G.marker('v','00A000',0,6.5,4)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
     
     def test_omitted_colors(self):
         G = Line([[20,10,15,25,17,30],[0,5,10,7,12,6],[35,25,45,47,24,46],[15,40,30,27,39,54],[70,55,63,59,80,60]],encoding='text',series=1)
         G.scale(0,100,-50,100)
         G.marker('F','',1,'1:4',20)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G        
     
     def test_bar_zero(self):
         G = VerticalBarGroup([20,35,50,10,95],encoding='text')
         G.color('cc0000')
         G.position(.5)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_interval(self):
@@ -134,14 +138,14 @@ class TestChartTypes(unittest.TestCase):
         G.line(2)
         G.axes('x')
         G.axes.range(0,10,50,5)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
     
     def test_packman(self):
         G = Pie([80,20])
         G.orientation(0.628)
         G.color('yellow','white')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
     
     def test_simple(self):
@@ -154,7 +158,7 @@ class TestChartTypes(unittest.TestCase):
         G.dataset( 'helloworld' )
         # Set the size of the chart, default is 300x150
         G.size(250,100)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
     
     def test_hvz(self):
@@ -166,7 +170,7 @@ class TestChartTypes(unittest.TestCase):
         G.fill('c','lg',45,'cccccc',0,'black',1)
         G.fill('bg','s','cccccc')        
         G.size(200,100)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_qr_code(self):
@@ -179,7 +183,7 @@ class TestChartTypes(unittest.TestCase):
         G.output_encoding('UTF-8')
         # level_data(error_correction,margin_size)
         G.level_data('M',0)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
         
     def test_title(self):
@@ -187,7 +191,7 @@ class TestChartTypes(unittest.TestCase):
         G = Line( ['GurMrabsClgubaolGvzCrgrefOrnhgvshyvforggregunahtyl'] )
         G.title('The Zen of Python','00cc00',36)
         G.color('00cc00')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
         
     def test_line(self):
@@ -199,7 +203,7 @@ class TestChartTypes(unittest.TestCase):
         G.axes.label(1, None, '50+Kb')        
         G.color('red')
         G.line(6,5,2)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_bar(self):
@@ -208,7 +212,7 @@ class TestChartTypes(unittest.TestCase):
         G = HorizontalBarGroup( ['hell','orld'] )
         G.color('cc0000', '00aa00') 
         G.bar(10,5,10)   
-        self._test_a_chart(repr(self), G.checksum()) 
+        self._test_a_chart(repr(self), G) 
         return G
     
     def test_pie(self):
@@ -216,14 +220,14 @@ class TestChartTypes(unittest.TestCase):
         G = Pie3D( [1,2,3,4] )
         G.label('A','B','C','D')
         G.color('00dd00') 
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_venn(self):
         # Extended venn diagram based on int list, scale the data to the max value
         G = Venn( [100,80,60,30,30,30,10], encoding='text')
         G.scale(0,100)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
  
     def test_axes(self):
@@ -238,7 +242,7 @@ class TestChartTypes(unittest.TestCase):
         G.axes.label(1, None, '20K', '60K', '100K')  
         G.axes.label(2, 'A', 'B', 'C')  
         G.axes.label(3, None,'20','40','60','80')      
-        self._test_a_chart(repr(self), G.checksum())  
+        self._test_a_chart(repr(self), G)  
         return G
 
     def test_grid(self):
@@ -248,7 +252,7 @@ class TestChartTypes(unittest.TestCase):
         G.color('76A4FB')   
         G.line(3,6,3)
         G.grid(20.0,25.0,1,0)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
     
     def test_markers(self):
@@ -265,7 +269,7 @@ class TestChartTypes(unittest.TestCase):
         G.marker('a','000099',0,4,10)
         G.marker('R','A0BAE9',0,8,0.6)    
         G.marker('r','E5ECF9',0,1,0.25)
-        self._test_a_chart(repr(self), G.checksum())     
+        self._test_a_chart(repr(self), G)     
         return G
         
     def test_jacobian(self):     
@@ -275,7 +279,7 @@ class TestChartTypes(unittest.TestCase):
         G.color('cc0000')
         G.fill('c','s','eeeeee')
         G.legend('Sweet')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
     
     def test_markerfill(self):
@@ -286,7 +290,7 @@ class TestChartTypes(unittest.TestCase):
         G.marker('b','224499',1,2,0)
         G.marker('b','red',2,3,0)
         G.marker('B','80C65A',3,4,0)
-        self._test_a_chart(repr(self), G.checksum())    
+        self._test_a_chart(repr(self), G)    
         return G
 
     def test_fill(self):
@@ -299,7 +303,7 @@ class TestChartTypes(unittest.TestCase):
         G.axes.label(1, None,50,100)
         G.fill('c','lg',45,'white',0,'76A4FB',0.75)
         G.fill('bg','s','EFEFEF')
-        self._test_a_chart(repr(self), G.checksum())    
+        self._test_a_chart(repr(self), G)    
         return G
 
 
@@ -309,7 +313,7 @@ class TestChartTypes(unittest.TestCase):
         G.color('red','lime','blue')
         G.legend('Animals','Vegetables','Minerals')
         G.axes('y') 
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_legend2(self):
@@ -319,16 +323,16 @@ class TestChartTypes(unittest.TestCase):
         G.legend('Animals','Vegetables','Minerals')
         G.legend_pos('l')
         G.axes('y') 
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_legend_position(self):
-        #http://chart.apis.google.com/chart?cht=v&chs=200x100&chd=t:100,20,20,20,20,0,0&chdl=First|Second|Third&chco=ff0000,00ff00,0000ff&chdlp=t
+        # Place the legend in the top position
         G = Venn([100,20,20,20,20,0,0])
         G.legend('First','Second','Third')
         G.legend_pos('t')
         G.color('red','lime','blue')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
     
     def test_multiline(self):
@@ -347,7 +351,7 @@ class TestChartTypes(unittest.TestCase):
         G.marker('s','blue',1,-1,5)
         G.marker('s','00aa00',2,-1,5)   
         G.line(2,4,1)   
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_axes_position(self):
@@ -380,7 +384,7 @@ class TestChartTypes(unittest.TestCase):
         G.axes.position(1, int(100*min_value/max_value),100) # 0 to 100
         G.axes.label(2, '%d'%last_value)
         G.axes.position(2, int(100*last_value/max_value)) # 0 to 100
-        self._test_a_chart(repr(self), G.checksum())        
+        self._test_a_chart(repr(self), G)        
         return G
 
     # Examples from the Google Chart API Developer's Guide
@@ -390,7 +394,7 @@ class TestChartTypes(unittest.TestCase):
         G = Pie3D([60,40], encoding='text')
         G.size(250,100)
         G.label('Hello', 'World')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_guide_granularity_20(self):
@@ -399,7 +403,7 @@ class TestChartTypes(unittest.TestCase):
         G.axes('xy')
         G.axes.label(0, 'April','May','June')
         G.axes.label(1, None, '50+Kb')
-        self._test_a_chart(repr(self), G.checksum())        
+        self._test_a_chart(repr(self), G)        
         return G
 
     def test_guide_granularity_40(self):
@@ -408,7 +412,7 @@ class TestChartTypes(unittest.TestCase):
         G.axes('xy')
         G.axes.label(0, 'April','May','June')
         G.axes.label(1, None, '50+Kb')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_guide_granularity_80(self):
@@ -418,7 +422,7 @@ class TestChartTypes(unittest.TestCase):
         G.axes('xy')
         G.axes.label(0, 'April','May','June')
         G.axes.label(1, None, '50+Kb')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
     
     def test_guide_granularity_150(self):
@@ -428,7 +432,7 @@ class TestChartTypes(unittest.TestCase):
         G.axes('xy')
         G.axes.label(0, 'April','May','June')
         G.axes.label(1, None, '50+Kb')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
     
     def test_guide_granularity_300(self):
@@ -438,14 +442,14 @@ class TestChartTypes(unittest.TestCase):
         G.axes('xy')
         G.axes.label(0, 'April','May','June')
         G.axes.label(1, None, '50+Kb')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
     
     def test_guide_line_lc(self):
         # http://code.google.com/apis/chart/#line_charts
         G = Line('fooZaroo', encoding='simple')
         G.size(200,100)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
         
@@ -460,7 +464,7 @@ class TestChartTypes(unittest.TestCase):
         G.size(200,40)
         G.marker('B', 'E6F2FA',0,0,0)
         G.line(1,0,0)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     
@@ -469,14 +473,14 @@ class TestChartTypes(unittest.TestCase):
         G = HorizontalBarStack('ello', encoding='simple')
         G.color('4d89f9')
         G.size(200,125)        
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_guide_bvs(self):
         G = VerticalBarStack([ [10,50,60,80,40],[50,60,100,40,20] ], encoding='text')
         G.color('4d89f9', 'c6d9fd')
         G.size(200,125)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_guide_bvs_scale(self):
@@ -484,28 +488,28 @@ class TestChartTypes(unittest.TestCase):
         G.color('4d89f9', 'c6d9fd')
         G.size(200,125)
         G.scale(0,160)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
         
     def test_guide_bhg(self):
         G = HorizontalBarGroup(['el','or'], encoding='simple')
         G.color('4d89f9','c6d9fd')
         G.size(200,125)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_guide_bvg(self):
         G = VerticalBarGroup(['hello','world'], encoding='simple')
         G.color('4d89f9','c6d9fd')
         G.size(200,125)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_guide_chbh_clipped(self):
         G = HorizontalBarStack('hello', encoding='simple')
         G.color('4d89f9')
         G.size(200,125)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_guide_chbh_size(self):
@@ -513,7 +517,7 @@ class TestChartTypes(unittest.TestCase):
         G.color('4d89f9')
         G.size(200,125)
         G.bar(10)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
    
     def test_guide_radar(self):
@@ -526,7 +530,7 @@ class TestChartTypes(unittest.TestCase):
         G.axes('x')
         G.axes.label(0, 0,45,90,135,180,225,270,315)
         G.axes.range(0, 0,360)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
  
     def test_guide_map(self):
@@ -536,7 +540,7 @@ class TestChartTypes(unittest.TestCase):
         G.fill('bg','s','eaf7fe')
         G.size(440,220)
         G.map('usa', 'NYPATNWVNVNJNHVAHIVTNMNCNDNELASDDCDEFLWAKSWIORKYMEOHIAIDCTWYUTINILAKTXCOMDMAALMOMNCAOKMIGAAZMTMSSCRIAR')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_guide_meter(self):
@@ -544,7 +548,7 @@ class TestChartTypes(unittest.TestCase):
         G = Meter(70)
         G.label('Hello')
         G.size(225,125)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_numpy(self):
@@ -558,14 +562,14 @@ class TestChartTypes(unittest.TestCase):
             _print('Warning: numpy must be installed to do this test correctly')
         G = Radar(data, encoding='text')
         G.size(200,200)    
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_concentric_pie(self):
         # Using concentric pie charts
         G = PieC(['Helo','Wrld'], encoding='simple')
         G.size(200,100)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
         
     def test_financial(self):
@@ -573,7 +577,7 @@ class TestChartTypes(unittest.TestCase):
         G = Line([[0,5,10,7,12,6],[35,25,45,47,24,46],[15,40,30,27,39,54],[70,55,63,59,80,60]], encoding='text')
         G.marker('F','blue',0,'1:4',20)
         G.size(200,125)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
         
     def test_bar_text(self):
@@ -585,7 +589,7 @@ class TestChartTypes(unittest.TestCase):
         G.marker('tApril desktop hits','black',1,0,13)
         G.marker('tMay desktop hits', 'black',1,1,13)
         G.color('FF9900','FFCC33')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
         
     def test_margins(self):
@@ -596,7 +600,7 @@ class TestChartTypes(unittest.TestCase):
         G.color('black','blue')
         G.margin(20,20,20,30,80,20)
         G.legend('Temp','Sales')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
         
     def test_min_max(self):
@@ -609,7 +613,7 @@ class TestChartTypes(unittest.TestCase):
         G.marker('tMin','blue',0,1,10)
         G.marker('fMax','red',0,3,15)
         G.margin(0,0,30,0)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
     
     def test_text(self):
@@ -621,78 +625,78 @@ class TestChartTypes(unittest.TestCase):
         (650)+253-0000
         '''
         G = Text('darkred',16,'h','red','b',text)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
         
     def test_letter_pin(self):
         # Simple map pin w/ a letter/number
         G = Pin('pin_letter','A','red','black')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_icon_pin(self):
         # Map pin w/ a certain icon
         G = Pin('pin_icon','home','yellow')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_adv_letter_pin(self):
         G = Pin('xpin_letter','star','A','aqua','black','red')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_adv_icon_pin(self):
         # Map pin w/ cool icon
         G = Pin('xpin_icon','star','home','aqua','red')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_text_pin(self):
         # Straight up map pin w/ following text
         G = Pin('spin',1.2,30,'FFFF88',10,'_','Foo\nBar')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
         
     def test_sticky_note(self):
         # Note w/ title and text 
         G = Note('note_title','pinned_c',1,'darkgreen','l',"Joe's\nToday 2-for-1 !\n555-1234")
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_thought_note(self):
         # Thought bubble note
         G = Note('note','thought',1,'navy','h',"wouldn't it be\ngreat to eat\nat Joe's?")
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_weather_note(self):
         # First example w/ true utf-8 encoding
         G = Note('weather','taped_y','sunny','Barcelona','max 25°','min 15°')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
         
     def test_small_bubble_icon(self):
         # Small bubble marker
         G = Bubble('icon_text_small','petrol','bb','$3/gal','khaki','black')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_large_bubble_icon(self):
         # Larger bubble marker
         G = Bubble('icon_text_big','snack','bb','$2.99','ffbb00','black')
-        self._test_a_chart(repr(self), G.checksum())   
+        self._test_a_chart(repr(self), G)   
         return G
 
     def test_large_bubble_icon_texts(self):
         # Large bubble marker w/ icon and multiline text
         G = Bubble('icon_texts_big','petrol','bb','khaki','black','LoCost Fuel\n$3.05/gal unleaded\n$2.10/gal diesel')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_large_bubble_texts(self):
         # Large bubble marker with just text
         G = Bubble('texts_big','bb','teal','khaki',"Joe\'s Restaurant\n123 Long St\n92745 Mountain View")
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
     
     def test_czech_and_unicode(self):
@@ -701,7 +705,7 @@ class TestChartTypes(unittest.TestCase):
         G.color('green','lime','red')
         G.label('šýŽěůčář...')
         G.legend('šýŽěůčář...','∫µ≤','´®†¥¨ˆøπ¬˚≤µ˜')
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
 
     def test_tick_marks(self):
@@ -717,7 +721,7 @@ class TestChartTypes(unittest.TestCase):
         G.axes.position(2, 10,35,95)
         G.axes.tick(1,10)
         G.axes.tick(2,-180)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
         return G
     
     def test_currency_bar(self):
@@ -725,13 +729,33 @@ class TestChartTypes(unittest.TestCase):
         G.color('blue')
         G.bar(17,15)
         G.marker('N*cEUR1*','black',0,-1,11)
-        self._test_a_chart(repr(self), G.checksum())
+        self._test_a_chart(repr(self), G)
+        return G
+    
+    def test_circle_diamonds(self):
+        G = Line(['Hello','world'])
+        G.marker('o','ff9900',0,-1,15.0)
+        G.marker('d','ff0000',1,-1,10.0)
+        self._test_a_chart(repr(self), G)
         return G
     
     def test_fromstring(self):
         url='http://chart.apis.google.com/chart?cht=p3&chd=t:60,40&chs=250x100&chl=Hello|World'
         self.assertEqual(GChart.fromurl(url).checksum(),'4e53c7add42ce61a933ce106a9854222c54c9147')
 
+    def _test_encoding(self, encoding, expected, data, scale):
+        codec = Encoder(encoding, scale)
+        self.assertEqual(codec.encode(data), expected)
+        self.assertEqual(codec.decode(codec.encode(data)), [data])
+        
+    def test_simple_encode(self):
+        self._test_encoding('simple', 's:Ab9', [0,27,61], 61)
+        
+    def test_text_encode(self):
+        self._test_encoding('text', 't:0.0,10.0,100.0,-1.0,-1.0', [0,10,100,-1,-1], (0,100))
+   
+    def test_extended_encode(self):
+        self._test_encoding('extended', 'e:AH-HAA..', [7,3975,0,4095], 4095)
 
 def get_chart(chart):
     return getattr(TestChartTypes('test_%s'%chart), 'test_%s'%chart)()
@@ -743,134 +767,12 @@ def saveall():
     for chart in TestChartTypes.all:
         chartobj = get_chart(chart)
         chartobj.save('tests/%s'%chart)
-        
-###########################
-# PLEASE STOP READING HERE. It gets ugly
-###########################
-    
-head = """  
-    <?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title>
-			Welcome - Chartography.net
-		</title>
-		<link rel="stylesheet" type="text/css" href="http://chartography.net/media/css/style.css" /> <link rel="shortcut icon" href="http://chartography.net/media/favicon.ico" type="image/x-icon" />
-		<meta name="keywords" content="chartography, open source, chart, pastebin, blog, weather" />
-		<meta name="description" content="Chartography.net: It's a blog! It's a pastebin! It's a chart editor?" />
-		<script type="text/javascript" src="http://chartography.net/media/jquery-1.2.1.js"></script>
-	</head>
-	<body >
-		<div style="position: absolute; float:left; width: 14%;" align="right">
-			<br>
-			<br>
-			<br>
-			<script type="text/javascript"><!--
-	google_ad_client = "pub-6864487851298261";
-	/* ChartographySkyscraper */
-	google_ad_slot = "7196398796";
-	google_ad_width = 120;
-	google_ad_height = 600;
-	//-->
-	</script>
-			<script type="text/javascript"src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-		</div>
-		<div class="container">
-			<div class="titleblock" style="background-image:url(http://chartography.net/media/globe1.png);">
-				<h1>
-					Chartography.net
-				</h1>
-			</div>
-			<div>
-				<ul class="navbar">
-					<li><a href="http://chartography.net/" class="nav">Home</a></li>
-					<li><a href="http://chartography.net/charts/" class="nav">Sandbox</a></li>
-					<li><a href="http://chartography.net/charts/all/" class="nav">Charts</a></li>
-					<li><a href="http://chartography.net/pastebin/" class="nav">Paste Bin</a></li>
-					<li><a href="http://chartography.net/weather/" class="nav">Weather</a></li>
-				</ul>
-			</div>
-			<div>
-				<div style="position; absolute; float: left;" align="left">
-					&nbsp;&nbsp;&nbsp;&nbsp;
-				</div>
-				<div style="position; absolute; float: right;" align="right">
-					<script type="text/javascript">var addthis_pub = "justquick";</script>
-					<a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s7.addthis.com/static/btn/lg-share-en.gif" width="125" height="16" border="0" alt="" /></a>
-					<script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
-				</div>
-			</div>
-			<div class="content">"""
-    
-foot = """
-			</div>
-		</div>
-		<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-		<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-2806385-6");
-pageTracker._trackPageview();
-} catch(err) {}</script>
-	</body>
-</html>"""
 
-   
-def demo(): 
-    from inspect import getsource
-
-    html = """
-    <style>
-    %(css)s
-    </style>
-    %(img)s
-    <pre>%(code)s</pre>"""
-    lnks = []
-    from pygments import highlight
-    from pygments.lexers import PythonLexer
-    from pygments.formatters import HtmlFormatter
-    
-    for chart in TestChartTypes.all:
-        obj = getattr(TestChartTypes('test_%s'%chart),'test_%s'%chart)
-        lines = getsource(obj).splitlines()
-        lines[0] = lines[0].replace('(self)','()').replace('def test_','def ')
-        del lines[-2]
-        lines = ['from GChartWrapper import *'] + [x[8:] for x in lines[1:-1]]
-        w = 225
-        if chart.find('pin')>-1: w = 50
-        o = obj()
-        lnks.append('<a href="%s" class="thickbox">%s</a>' %
-                    ('%s.html'%chart,o.img(border=0,width=w)) )
-        fo=open('demo/%s.html'%chart,'w')
-        fo.write(head)
-        fo.write(html % {
-            'css': HtmlFormatter(encoding='utf-8').get_style_defs('.highlight'),
-            'code':highlight('\n'.join(lines), PythonLexer(encoding='chardet'),
-                            HtmlFormatter(encoding='utf-8')),
-            'img':o.img(),
-            'name':chart
-        })
-        fo.write(foot)
-        fo.close()
-    fo = open('demo/index.html','w')
-    fo.write(head+'<table>')
-    for i,x in enumerate(lnks):
-        if i == 0:
-            fo.write('<tr>')
-        if i % 3 == 0:
-            fo.write('</tr><tr>')
-        fo.write('<td width="25%%">%s</td>'%x)
-    fo.write(foot)
-    fo.close()
-    
 if __name__ == '__main__':
     import sys
     calls = {
         'unit': lambda: unittest.main(),
         'save': lambda: saveall(),
-        'demo': demo,
     }
     arg = sys.argv[-1]
     sys.argv = sys.argv[:-1]
