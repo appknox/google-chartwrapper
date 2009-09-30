@@ -1,5 +1,5 @@
 ################################################################################
-#  GChartWrapper - v0.8
+#  GChartWrapper - v0.9
 #  Copyright (C) 2009  Justin Quick <justquick@gmail.com>
 #
 #  This program is free software. See attached LICENSE.txt for more info
@@ -14,6 +14,10 @@ show it directly in a webbrowser, or save the chart PNG to disk.
 ################################################################################
 
 Changelog:
+-- 0.9 --
+Switched to New BSD License
+
+
 -- 0.8 --
 Reverse functionality
 	>>> G = GChart.fromurl('http://chart.apis.google.com/chart?ch...')
