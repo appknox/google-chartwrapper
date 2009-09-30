@@ -2,29 +2,29 @@ coding = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 ecoding = coding + '-.'
 codeset =  {
     'simple': {
-           'coding': coding,
-           'max_value':  61,
-           'char': ',',
-           'dchar': '',
-           'none': '_',
-           'value': lambda x: coding[x]
+        'coding': coding,
+        'max_value':  61,
+        'char': ',',
+        'dchar': '',
+        'none': '_',
+        'value': lambda x: coding[x]
     },
     'text': {
-           'coding': '',
-           'max_value':  100,
-           'none': '-1',
-           'char': '|',
-           'dchar': ',',
-           'value': lambda x: '%.1f'%float(x)
+        'coding': '',
+        'max_value':  100,
+        'none': '-1',
+        'char': '|',
+        'dchar': ',',
+        'value': lambda x: '%.1f' % float(x)
     },
     'extended': {
-           'coding':  ecoding,
-           'max_value':  4095,
-           'none':  '__',
-           'dchar': '',
-           'char': ',',
-           'value': lambda x: '%s%s'% \
-                (ecoding[int(float(x)/64)], ecoding[int(x%64)])
+        'coding':  ecoding,
+        'max_value':  4095,
+        'none':  '__',
+        'dchar': '',
+        'char': ',',
+        'value': lambda x: '%s%s' % \
+             (ecoding[int(float(x) / 64)], ecoding[int(x % 64)])
     }
 }
 
@@ -50,7 +50,8 @@ class Encoder:
                 lower,upper = self.scale
             else:
                 lower,upper = 0,float(self.scale)
-            value = int(round(float(value - lower) * self.codeset['max_value'] / upper))
+            value = int(round(float(value - lower) * \
+                            self.codeset['max_value'] / upper))
         return min(value, self.codeset['max_value'])
 
     def encode(self,  *args, **kwargs):
@@ -71,11 +72,14 @@ class Encoder:
         if type('') in typemap:
             data = ','.join(map(str,dataset))
         elif type([]) in typemap or type(()) in typemap:
-            data = self.codeset['char'].join([self.encodedata(data) for data in dataset])
+            data = self.codeset['char'].join(map(self.encodedata, dataset))
         elif len(dataset) == 1 and hasattr(dataset[0], '__iter__'):
             data = self.encodedata(dataset[0])
         else:
-            data = self.encodedata(dataset)
+            try:
+                data = self.encodedata(dataset)
+            except ValueError:
+                data = self.encodedata(','.join(map(unicode,dataset)))
         if not '.' in data and code == 't':
             code = 'e'
         return '%s%s:%s'%(code,self.series,data)
@@ -101,7 +105,7 @@ class Encoder:
         for data in astr[2:].split(self.codeset['char']):
             sub_data = []
             if e == 't':
-                sub_data.extend([float(value) for value in data.split(',')])
+                sub_data.extend(map(float, data.split(',')))
             elif e == 'e':
                 flag = 0
                 index = self.codeset['coding'].index
@@ -112,26 +116,7 @@ class Encoder:
                         sub_data.append((64 * this) + next)
                     else: flag = 0
             elif e == 's':
-                sub_data.extend([self.codeset['coding'].index(value) for value in data])
+                sub_data.extend(map(self.codeset['coding'].index, data))
             dec_data.append(sub_data)
         return dec_data
 
-
-if __name__=='__main__':
-    import unittest
-    class TestEncoding(unittest.TestCase):
-        def setUp(self):
-            self.tests = [
-                ('simple','s:Ab9',[0,27,61],61),
-                ('text','t:0.0,10.0,100.0,-1.0,-1.0',[0,10,100,-1,-1],(0,100)),
-                ('extended','e:AH-HAA..',[7,3975,0,4095],4095)
-                ]
-    
-        def testencode(self):
-            for encoding,data,dataobj,scale in self.tests:
-                coder = Encoder(encoding,scale)
-                test = coder.encode([dataobj])
-                #self.assertEqual(coder.decode(test), dataobj)
-                self.assertEqual(data, test)
-                #self.assertEquals()
-    unittest.main()
