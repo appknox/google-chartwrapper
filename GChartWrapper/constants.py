@@ -5,10 +5,10 @@ def _print(*args):
         sys.stdout.write('%s '%arg)
     sys.stdout.write('\n')
 
-if sys.version.startswith('3.0'):
+if sys.version.startswith('3'):
     PY_VER = '3.x'
     from urllib.parse import quote_plus,parse_qsl
-    from urllib.request import urlopen,urlretrieve
+    from urllib.request import Request, urlopen, urlretrieve
     from hashlib import sha1
     new_sha = lambda s: sha1(bytes(s,'utf-8'))
 else:
@@ -38,7 +38,7 @@ def smart_str(s):
 
 APIPARAMS = ('chxtc', 'chxt', 'chxp', 'chxs', 'chxr', 'chco', 'chtm', 'chld',
     'chts', 'chtt', 'chxl', 'chd', 'chf', 'chg', 'chl', 'chm', 'chp', 'chs',
-    'cht', 'chls', 'chdlp', 'chds', 'chbh', 'chdl', 'choe', 'chst')
+    'cht', 'chls', 'chdlp', 'chds', 'chbh', 'chdl', 'choe', 'chst', 'chma')
 
 MARKERS = 'acdostvVhxrRbBDF'
 
