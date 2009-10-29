@@ -16,8 +16,9 @@ class TestChartTypes(unittest.TestCase):
         'currency_bar':'8ec06bda7223eb500e7f0357efd6e717543d9abb', 
         'financial':'0c3dee619eb6c43d8b5405f537438467a7d736e5', 
         'text_pin':'42558403a2a9d66e9b54deea094114029c86d529', 
+        'text_withspaces_pin':'84ab40101b56759dc073d864c4d0ebddd546d2be',
         'simple':'1fb72aac2758d164bca43a40472ae185091291b1', 
-        'text':'4e1f2755c9f6160d959ed91829543e0687b55a0e', 
+        'text':'c566fbb9155483cafd628a6174e248fc4ead1b46', 
         'guide_granularity_20':'1dfcb2ba4444e3c09be3b55221cc04e5a5c0bf32', 
         'pie':'3fe7636938cda678be044848799a2c87ecad6099', 
         'small_bubble_icon':'65d1df5f7bda98cfaea2a96dfe8dcca1058c444c', 
@@ -30,7 +31,7 @@ class TestChartTypes(unittest.TestCase):
         'venn':'cf327d123a3a2fdf04620a966903fc20f096f82c', 
         'fill':'1766f4b8b774d41985a4a3b2ab3f9791dedab2a3', 
         'guide_line_lc':'11ec3b84d8de22e8bf6a32cbca3b62374aa68a46', 
-        'large_bubble_icon_texts':'20c705a0e3038594749b8b9cdf8f09e470e76b17', 
+        'large_bubble_icon_texts':'20c705a0e3038594749b8b9cdf8f09e470e76b17',
         'large_bubble_texts':'ff1474c87defa687727a4ee42dca9c641a46668c', 
         'guide_granularity_300':'0d5a40563ad832312bd357564a9da9787e38d6ef', 
         'large_bubble_icon':'f09ebedf3cc5c461604539afdcff9dac09817d71', 
@@ -119,7 +120,8 @@ class TestChartTypes(unittest.TestCase):
         return G
     
     def test_omitted_colors(self):
-        G = Line([[20,10,15,25,17,30],[0,5,10,7,12,6],[35,25,45,47,24,46],[15,40,30,27,39,54],[70,55,63,59,80,60]],encoding='text',series=1)
+        G = Line([[20,10,15,25,17,30],[0,5,10,7,12,6],[35,25,45,47,24,46],
+            [15,40,30,27,39,54],[70,55,63,59,80,60]],encoding='text',series=1)
         G.scale(0,100,-50,100)
         G.marker('F','',1,'1:4',20)
         self._test_a_chart(repr(self), G)
@@ -200,7 +202,7 @@ class TestChartTypes(unittest.TestCase):
         G = Line( ['hX1xPj'] )
         G.axes('xy')
         G.axes.label(0, 'Mar', 'Apr', 'May', 'June', 'July')
-        G.axes.label(1, None, '50+Kb')        
+        G.axes.label(1, None, '50 Kb')        
         G.color('red')
         G.line(6,5,2)
         self._test_a_chart(repr(self), G)
@@ -402,7 +404,7 @@ class TestChartTypes(unittest.TestCase):
         G.size(200,100)
         G.axes('xy')
         G.axes.label(0, 'April','May','June')
-        G.axes.label(1, None, '50+Kb')
+        G.axes.label(1, None, '50 Kb')
         self._test_a_chart(repr(self), G)        
         return G
 
@@ -411,7 +413,7 @@ class TestChartTypes(unittest.TestCase):
         G.size(200,100)
         G.axes('xy')
         G.axes.label(0, 'April','May','June')
-        G.axes.label(1, None, '50+Kb')
+        G.axes.label(1, None, '50 Kb')
         self._test_a_chart(repr(self), G)
         return G
 
@@ -421,7 +423,7 @@ class TestChartTypes(unittest.TestCase):
         G.size(200,100)
         G.axes('xy')
         G.axes.label(0, 'April','May','June')
-        G.axes.label(1, None, '50+Kb')
+        G.axes.label(1, None, '50 Kb')
         self._test_a_chart(repr(self), G)
         return G
     
@@ -431,7 +433,7 @@ class TestChartTypes(unittest.TestCase):
         G.size(200,100)
         G.axes('xy')
         G.axes.label(0, 'April','May','June')
-        G.axes.label(1, None, '50+Kb')
+        G.axes.label(1, None, '50 Kb')
         self._test_a_chart(repr(self), G)
         return G
     
@@ -441,7 +443,7 @@ class TestChartTypes(unittest.TestCase):
         G.size(200,100)
         G.axes('xy')
         G.axes.label(0, 'April','May','June')
-        G.axes.label(1, None, '50+Kb')
+        G.axes.label(1, None, '50 Kb')
         self._test_a_chart(repr(self), G)
         return G
     
@@ -615,7 +617,7 @@ class TestChartTypes(unittest.TestCase):
         G.margin(0,0,30,0)
         self._test_a_chart(repr(self), G)
         return G
-    
+
     def test_text(self):
         # Make a text chart label w/ any text you like
         # Google automagically ignores white space and spaces text correctly
@@ -627,7 +629,7 @@ class TestChartTypes(unittest.TestCase):
         G = Text('darkred',16,'h','red','b',text)
         self._test_a_chart(repr(self), G)
         return G
-        
+
     def test_letter_pin(self):
         # Simple map pin w/ a letter/number
         G = Pin('pin_letter','A','red','black')
@@ -654,6 +656,12 @@ class TestChartTypes(unittest.TestCase):
     def test_text_pin(self):
         # Straight up map pin w/ following text
         G = Pin('spin',1.2,30,'FFFF88',10,'_','Foo\nBar')
+        self._test_a_chart(repr(self), G)
+        return G
+
+    def test_text_withspaces_pin(self):
+        # Straight up map pin w/ following text
+        G = Pin('spin',1.2,30,'FFFF88',10,'_','Foo Bar\nBar')
         self._test_a_chart(repr(self), G)
         return G
         

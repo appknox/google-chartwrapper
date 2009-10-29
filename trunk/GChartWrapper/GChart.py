@@ -652,9 +652,9 @@ class QRCode(GChart):
     def __init__(self, content='', **kwargs):
         kwargs['choe'] = 'UTF-8'
         if isinstance(content, str):
-            kwargs['chl'] = quote(content).replace('%0A','\n')
+            kwargs['chl'] = content
         else:
-            kwargs['chl'] = quote(content[0]).replace('%0A','\n')
+            kwargs['chl'] = content[0]
         GChart.__init__(self, 'qr', None, **kwargs)
         
 class _AbstractGChart(GChart):
@@ -693,7 +693,7 @@ class Text(GChart):
         assert args[2] in 'lrh', 'Invalid text alignment'
         assert args[4] in '_b', 'Invalid font style'
         self['chld'] = '|'.join(args).replace('\r\n','|')\
-            .replace('\r','|').replace('\n','|').replace(' ','+')
+            .replace('\r','|').replace('\n','|')
 
 class Pin(GChart):
     def render(self): pass
@@ -720,7 +720,7 @@ class Pin(GChart):
             args = color_args(args, 2)
         self['chst'] = 'd_map_%s'%ptype
         self['chld'] = '|'.join(map(str, args)).replace('\r\n','|')\
-            .replace('\r','|').replace('\n','|').replace(' ','+')
+            .replace('\r','|').replace('\n','|')
     def shadow(self):
         image = copy(self)
         chsts = self['chst'].split('_')
@@ -742,7 +742,7 @@ class Note(GChart):
             assert args[2] in NOTE_WEATHERS,'Invalid weather'
         args = args[1:]
         self['chld'] = '|'.join(map(str, args)).replace('\r\n','|')\
-            .replace('\r','|').replace('\n','|').replace(' ','+')
+            .replace('\r','|').replace('\n','|')
 
 class Bubble(GChart):
     def render(self): pass
@@ -759,7 +759,7 @@ class Bubble(GChart):
             args = color_args(args, 1,2)
         self['chst'] = 'd_bubble_%s'%btype
         self['chld'] = '|'.join(map(str, args)).replace('\r\n','|')\
-            .replace('\r','|').replace('\n','|').replace(' ','+')
+            .replace('\r','|').replace('\n','|')
     def shadow(self):
         image = copy(self)
         image.data['chst'] = '%s_shadow'%self['chst']
