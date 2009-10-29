@@ -72,7 +72,7 @@ class TestChartTypes(unittest.TestCase):
         'guide_bvs_scale':'a327b4be8fa55deccba5b4baab7680c75f621064', 
         'weather_note':'9a7988231bc235bda5ab21e19288fba5b554adf7', 
         'markerfill':'95664c2d4aeae5bcb94b1b003b361e2035d44e64',
-        'packman':'2cd25d4a258abb9d62d144668e3cb54f71b01af1',
+        'pacman':'2cd25d4a258abb9d62d144668e3cb54f71b01af1',
         'interval':'5e60f45fb27f32aefe048d9eb22f17a7d117c162',
         'bar_zero':'94219f27b54883078db0ef744292a40e46de2da7',
         'omitted_colors':'bc72f51d748767fc1692b6a227d5184415e9e2f5',
@@ -80,6 +80,7 @@ class TestChartTypes(unittest.TestCase):
         'fancy_radar':'049d0fe4a213204e8e31f07658c7a665ea866698',
         'legend_position':'5f2d550e98ae1a85312b4d7e33761d30ca89acfd',
         'circle_diamonds':'0e02091bfe03d6cf31704c87de01dea6c47e3717',
+        'pie_whitespace_plus':'693452b3173b5b801934ff047267e51abff313c4',
     }
 
     def __init__(self, *a, **kw):
@@ -143,7 +144,7 @@ class TestChartTypes(unittest.TestCase):
         self._test_a_chart(repr(self), G)
         return G
     
-    def test_packman(self):
+    def test_pacman(self):
         G = Pie([80,20])
         G.orientation(0.628)
         G.color('yellow','white')
@@ -744,6 +745,16 @@ class TestChartTypes(unittest.TestCase):
         G = Line(['Hello','world'])
         G.marker('o','ff9900',0,-1,15.0)
         G.marker('d','ff0000',1,-1,10.0)
+        self._test_a_chart(repr(self), G)
+        return G
+
+
+    def test_pie_whitespace_plus(self):
+        # Simple pie chart based on list
+        G = Pie3D( [1,2,3,4] )
+        G.label('A','B','C','D')
+        G.legend('12 to 15','16 to 20','21 to 29','30+')
+        G.color('00dd00')
         self._test_a_chart(repr(self), G)
         return G
     
