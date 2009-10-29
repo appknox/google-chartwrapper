@@ -23,9 +23,9 @@ else:
 
 def quote(s):
     try:
-        return  quote_plus(s.encode('utf-8'),'+.,:|/?&$=')
+        return  quote_plus(s.encode('utf-8'),'.,:|/?&$=')
     except:
-        return  quote_plus(s,'+.,:|/?&$=')
+        return  quote_plus(s,'.,:|/?&$=')
 
 def smart_str(s):
     try:
