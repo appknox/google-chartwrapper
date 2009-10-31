@@ -87,6 +87,9 @@ class Axes(dict):
     >>> G.axes.label(2,'Label2') # Y Axis
     {}
     """
+    def __repr__(self):
+        return '<GChart.Axes %s>' % dict(self.items())
+        
     def __init__(self, parent):
         self.parent = parent
         self.data = {'ticks':[],'labels':[],'positions':[],
@@ -535,13 +538,13 @@ class GChart(dict):
         return Encoder(self._encoding).decode(self['chd'])
 
     def _parts(self):
-        return ('%s=%s'%(k,smart_str(v)) for k,v in self.items() if v)
+        return ('%s=%s'%(k,smart_str(v)) for k,v in sorted(self.items()) if v)
 
     def __str__(self):
         return self.url
     
     def __repr__(self):
-        return '<GChartWrapper.%s %s>'%(self.__class__.__name__,self)
+        return '<GChart.%s %s>'%(self.__class__.__name__, dict(self.items()))
     
     @property
     def url(self):
