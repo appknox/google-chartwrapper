@@ -31,24 +31,40 @@ The <type> argument is one of the chart types in lower case
     """
 
 from django.template import Library,Node
-from django.template import resolve_variable
+from django.template import Variable, VariableDoesNotExist
 import GChartWrapper
+
+# version independent testing for numeric types
+try:
+    # python2.6 and later
+    from numbers import Number as NumberType
+    isNumberType = lambda x: isinstance(x, NumberType)
+except ImportError, e:
+    # deprecated function
+    from operator import isNumberType
 
 register = Library()
 
 class GenericNode(Node):
     def __init__(self, args):
-        self.args = map(unicode,args)
+        # Warning: Take care not to modify self.args during rendering. Otherwise
+        # subsequent renditions (e.g. in chart in a loop) will be incorrect.
+        self.args = map(Variable,map(unicode,args))
     def render(self,context):
+        # Holds the resolved arguments so that self.args remains unchanged.
+        self.resolved_args = []
         for n,arg in enumerate(self.args):
-            if arg in context:
-                self.args[n] = resolve_variable(arg, context)
-            elif arg[0] == '"' and arg[-1] == '"':
-                self.args[n] = arg[1:-1]
-            elif arg[0] == "'" and arg[-1] == "'":
-                self.args[n] = arg[1:-1]
+            try:
+                self.resolved_args.insert(n, arg.resolve(context))
+                # If the resolution yields a numeric, use the unicode string instead.
+                if isNumberType(self.resolved_args[n]): self.resolved_args[n] = arg.var
+            except VariableDoesNotExist, e:
+                # Unquoted unicode string.
+                self.resolved_args.insert(n, arg.var)
+            except Exception, e:
+                assert False, (repr(e), n)
         return self.post_render(context)
-    def post_render(self, context): return self.args
+    def post_render(self, context): return self.resolved_args
     
 def attribute(parser, token):
     return GenericNode(token.split_contents())
@@ -62,7 +78,9 @@ class ChartNode(Node):
         self.tokens = []
         self.mode = None
         if tokens and len(tokens)>1:
-            self.type = tokens[1]   
+            # chart type is resolved while rendering
+            self.type = Variable(tokens[1])
+
             if tokens[-2] == 'as':
                 self.mode = tokens[-1]
                 self.tokens = tokens[2:-2]
@@ -74,7 +92,7 @@ class ChartNode(Node):
         kwargs = {}
         for t in self.tokens:
             try:
-                args.append(resolve_variable(t,context))
+                args.append(Variable(t).resolve(context))
             except:        
                 try:
                     args.append(float(t))
@@ -86,14 +104,21 @@ class ChartNode(Node):
                     else:
                         args.append(arg)   
         if len(args) == 1 and type(args[0]) in map(type,[[],()]):
-            args = args[0]   
-        if self.type in dir(GChartWrapper):
-            chart = getattr(GChartWrapper,self.type)(args,**kwargs)
-        elif self.type in GChartWrapper.constants.TYPES:
-            chart = GChartWrapper.GChart(self.type,args,**kwargs)
+            args = args[0]
+
+        try:
+            self.resolved_type = self.type.resolve(context)
+        except VariableDoesNotExist, e:
+            # Chart type provided as unquoted unicode string.
+            self.resolved_type = self.type.var
+
+        if self.resolved_type in dir(GChartWrapper):
+            chart = getattr(GChartWrapper,self.resolved_type)(args,**kwargs)
+        elif self.resolved_type in GChartWrapper.constants.TYPES:
+            chart = GChartWrapper.GChart(self.resolved_type,args,**kwargs)
         else:
-            raise TypeError('Chart type %s not recognized'%self.type)
-        imgkwargs = {}
+            raise TypeError('Chart type %s not recognized'%self.resolved_type)
+
         for n in self.nodelist:
             rend = n.render(context)           
             if type(rend) == type([]):
@@ -108,6 +133,7 @@ class ChartNode(Node):
                         getattr(chart, rend[0])(*rend[1])
                     else:
                         getattr(chart, rend[0])(*rend[1:])
+        imgkwargs = {}
         if self.mode:
             if self.mode == 'img':  
                 return chart.img(**imgkwargs)
@@ -130,13 +156,13 @@ class FancyNode(GenericNode):
     cls = None
     def post_render(self,context):
         mode = None
-        self.args = self.args[1:]
-        if self.args[-2] == 'as':
-            mode = self.args[-1]
-            self.args = self.args[:-2]
-        for n,arg in enumerate(self.args):
-            self.args[n] = arg.replace('\\n','\n').replace('\\r','\r')
-        G = self.cls(*self.args)
+        self.resolved_args = self.resolved_args[1:]
+        if self.resolved_args[-2] == 'as':
+            mode = self.resolved_args[-1]
+            self.resolved_args = self.resolved_args[:-2]
+        for n,arg in enumerate(self.resolved_args):
+            self.resolved_args[n] = arg.replace('\\n','\n').replace('\\r','\r')
+        G = self.cls(*self.resolved_args)
         if mode:
             if mode == 'img':  
                 return G.img()
