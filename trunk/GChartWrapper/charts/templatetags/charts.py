@@ -49,7 +49,7 @@ class GenericNode(Node):
     def __init__(self, args):
         # Warning: Take care not to modify self.args during rendering. Otherwise
         # subsequent renditions (e.g. in chart in a loop) will be incorrect.
-        self.args = map(Variable,map(unicode,args))
+        self.args = map(Variable, map(unicode,args))
     def render(self,context):
         # Holds the resolved arguments so that self.args remains unchanged.
         self.resolved_args = []
@@ -59,7 +59,7 @@ class GenericNode(Node):
                 # If the resolution yields a numeric, use the unicode string instead.
                 if isNumberType(self.resolved_args[n]): self.resolved_args[n] = arg.var
             except VariableDoesNotExist, e:
-                # Unquoted unicode string.
+                # Unquoted string.
                 self.resolved_args.insert(n, arg.var)
             except Exception, e:
                 assert False, (repr(e), n)
@@ -82,34 +82,33 @@ class ChartNode(Node):
             self.type = Variable(tokens[1])
 
             if tokens[-2] == 'as':
-                self.mode = tokens[-1]
-                self.tokens = tokens[2:-2]
+                self.mode = Variable(tokens[-1])
+                self.tokens = map(Variable, tokens[2:-2])
             else:
-                self.tokens = tokens[2:]
+                self.tokens = map(Variable, tokens[2:])
         self.nodelist = nodelist
     def render(self, context): 
         args = []
         kwargs = {}
         for t in self.tokens:
             try:
-                args.append(Variable(t).resolve(context))
-            except:        
-                try:
-                    args.append(float(t))
-                except:
-                    arg = str(t)
-                    if arg.find('=')>-1:
-                        k,v = arg.split('=')[:2]
-                        kwargs[k] = v
-                    else:
-                        args.append(arg)   
+                args.append(t.resolve(context))
+            except VariableDoesNotExist, e:
+                # unquoted string token - convert to plain string
+                # (arguments are expected to be plain strings, not unicode)
+                arg = str(t.var)
+                if arg.find('=')>-1:
+                    k,v = arg.split('=')[:2]
+                    kwargs[k] = v
+                else:
+                    args.append(arg)   
         if len(args) == 1 and type(args[0]) in map(type,[[],()]):
             args = args[0]
 
         try:
             self.resolved_type = self.type.resolve(context)
         except VariableDoesNotExist, e:
-            # Chart type provided as unquoted unicode string.
+            # chart type provided as unquoted string.
             self.resolved_type = self.type.var
 
         if self.resolved_type in dir(GChartWrapper):
@@ -135,12 +134,13 @@ class ChartNode(Node):
                         getattr(chart, rend[0])(*rend[1:])
         imgkwargs = {}
         if self.mode:
-            if self.mode == 'img':  
+            self.resolved_mode = self.mode.resolve(context)
+            if self.resolved_mode == 'img':  
                 return chart.img(**imgkwargs)
-            elif self.mode == 'url':  
+            elif self.resolved_mode == 'url':  
                 return str(chart)
             else:  
-                context[self.mode] = chart
+                context[self.resolved_mode] = chart
         else:
             return chart.img(**imgkwargs)
 
