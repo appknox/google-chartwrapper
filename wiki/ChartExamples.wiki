@@ -1,3 +1,2 @@
 #summary Many examples of creating different kinds of charts
 #labels Featured,Phase-Implementation,Phase-Deploy
-===This page has been reassembled as demos on [http://www.chartography.net/media/google-chartwrapper-demo/ chartography.net]===
