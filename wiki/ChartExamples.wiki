@@ -1,2 +1,0 @@
-#summary Many examples of creating different kinds of charts
-#labels Featured,Phase-Implementation,Phase-Deploy
