@@ -53,10 +53,10 @@ class GenericNode(Node):
                 self.resolved_args.insert(n, arg.resolve(context))
                 # If the resolution yields a numeric, use the unicode string instead.
                 if isNumberType(self.resolved_args[n]): self.resolved_args[n] = arg.var
-            except VariableDoesNotExist, e:
+            except VariableDoesNotExist:
                 # Unquoted string.
                 self.resolved_args.insert(n, arg.var)
-            except Exception, e:
+            except Exception as e:
                 assert False, (repr(e), n)
         return self.post_render(context)
     def post_render(self, context): return self.resolved_args
