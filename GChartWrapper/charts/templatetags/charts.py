@@ -88,7 +88,7 @@ class ChartNode(Node):
         for t in self.tokens:
             try:
                 args.append(t.resolve(context))
-            except VariableDoesNotExist, e:
+            except VariableDoesNotExist:
                 # unquoted string token - convert to plain string
                 # (arguments are expected to be plain strings, not unicode)
                 arg = str(t.var)
@@ -102,7 +102,7 @@ class ChartNode(Node):
 
         try:
             self.resolved_type = self.type.resolve(context)
-        except VariableDoesNotExist, e:
+        except VariableDoesNotExist:
             # chart type provided as unquoted string.
             self.resolved_type = self.type.var
 
