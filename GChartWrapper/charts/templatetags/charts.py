@@ -34,14 +34,9 @@ from django.template import Library,Node
 from django.template import Variable, VariableDoesNotExist
 import GChartWrapper
 
-# version independent testing for numeric types
-try:
-    # python2.6 and later
-    from numbers import Number as NumberType
-    isNumberType = lambda x: isinstance(x, NumberType)
-except ImportError, e:
-    # deprecated function
-    from operator import isNumberType
+# python2.6 and later
+from numbers import Number as NumberType
+isNumberType = lambda x: isinstance(x, NumberType)
 
 register = Library()
 
@@ -58,10 +53,10 @@ class GenericNode(Node):
                 self.resolved_args.insert(n, arg.resolve(context))
                 # If the resolution yields a numeric, use the unicode string instead.
                 if isNumberType(self.resolved_args[n]): self.resolved_args[n] = arg.var
-            except VariableDoesNotExist, e:
+            except VariableDoesNotExist:
                 # Unquoted string.
                 self.resolved_args.insert(n, arg.var)
-            except Exception, e:
+            except Exception as e:
                 assert False, (repr(e), n)
         return self.post_render(context)
     def post_render(self, context): return self.resolved_args
@@ -93,7 +88,7 @@ class ChartNode(Node):
         for t in self.tokens:
             try:
                 args.append(t.resolve(context))
-            except VariableDoesNotExist, e:
+            except VariableDoesNotExist:
                 # unquoted string token - convert to plain string
                 # (arguments are expected to be plain strings, not unicode)
                 arg = str(t.var)
@@ -107,7 +102,7 @@ class ChartNode(Node):
 
         try:
             self.resolved_type = self.type.resolve(context)
-        except VariableDoesNotExist, e:
+        except VariableDoesNotExist:
             # chart type provided as unquoted string.
             self.resolved_type = self.type.var
 
